@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "temp-site",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8090", "--directory", "/var/folders/57/j5nbmpjd20vbcm982x780l4m0000gn/T/tmp.6AlLv9mc7s"],
+      "port": 8090
+    }
+  ]
+}
