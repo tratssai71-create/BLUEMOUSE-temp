@@ -1,0 +1,839 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#FFFEFB" />
+  <title>お問い合わせ | BLUE MOUSE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@300;400;500&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./layout.css?v=45" />
+  <style>
+    /* ===== ページ全体 ===== */
+    .bm-main {
+      font-family: "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
+      padding: 0 !important;
+    }
+
+    /* ===== ヒーロー（child.html と同じ position:fixed 構造） ===== */
+    .ct-hero {
+      position: fixed;
+      top: 0;
+      left: 25vw;
+      width: 50vw;
+      height: 100vh;
+      height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0 52px;
+      background: #FFFEFB;
+      z-index: 1;
+      overflow: hidden;
+    }
+    .ct-hero::after {
+      content: '';
+      position: absolute; bottom: 0; right: 0;
+      width: 38%; height: 2px;
+      background: linear-gradient(to left, #6aadcc, transparent);
+    }
+    /* ヒーロー内レイアウト（child.html タイトルと同じ横並び） */
+    .ct-hero__inner {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 28px;
+      will-change: transform, opacity;
+    }
+    /* layout.css の h1 極太ゴシックを確実に上書き */
+    h1.ct-title {
+      font-family: "Zen Kaku Gothic New", "Noto Sans JP", sans-serif !important;
+      font-size: clamp(2.2rem, 3.8vw, 4.6rem);
+      font-weight: 300 !important;
+      color: #1d1d1f;
+      margin: 0;
+      letter-spacing: .10em;
+      line-height: 1.25;
+      flex-shrink: 0;
+    }
+    .ct-title__en {
+      font-family: "Inter", sans-serif;
+      font-size: clamp(.62rem, .85vw, .80rem);
+      font-weight: 300;
+      letter-spacing: .60em;
+      color: rgba(51,37,26,.32);
+      line-height: 1;
+      margin: 0;
+      padding: 4px 0;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: clamp(1.1rem, 2.0vw, 2.4rem);
+    }
+    /* スクロールヒント */
+    .ct-scroll-hint {
+      position: absolute;
+      bottom: 44px; left: 52px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-family: "Inter", sans-serif;
+      font-size: 10px;
+      letter-spacing: .44em;
+      text-transform: uppercase;
+      color: rgba(51,37,26,.28);
+      will-change: opacity;
+    }
+    .ct-scroll-hint__line {
+      display: block;
+      width: 1px; height: 32px;
+      background: rgba(51,37,26,.22);
+      transform-origin: top;
+      animation: ctLine 2s ease-in-out infinite;
+    }
+    @keyframes ctLine {
+      0%,100% { transform: scaleY(1);   opacity: 1; }
+      50%      { transform: scaleY(.35); opacity: .3; }
+    }
+
+    /* ===== コンテンツ（child.html 方式：fixed + opacity フェードイン） ===== */
+    .ct-content {
+      position: fixed;
+      top: 0;
+      left: 25vw;
+      width: 50vw;
+      height: 100vh;
+      height: 100svh;
+      z-index: 2;
+      background: #FFFEFB;
+      overflow-y: auto;
+      overflow-x: hidden;
+      opacity: 0;
+      padding: 52px 52px 80px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* ===== 事業所カード ===== */
+    .ct-facilities {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+    .ct-facility {
+      border-radius: 2px;
+      overflow: hidden;
+      border: 1.5px solid rgba(51,37,26,.08);
+      background: #FFFEFB;
+      cursor: pointer;
+      transition: box-shadow .25s, transform .25s, border-color .25s;
+    }
+    .ct-facility:hover {
+      box-shadow: 0 8px 28px rgba(51,37,26,.08);
+      transform: translateY(-2px);
+    }
+    .ct-facility.is-selected {
+      border-color: #6aadcc;
+      box-shadow: 0 0 0 2px rgba(106,173,204,.22);
+    }
+    .ct-facility__img {
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      position: relative;
+    }
+    .ct-facility__img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+      display: block;
+    }
+    .ct-facility__badge {
+      position: absolute;
+      top: 10px; left: 10px;
+      background: rgba(0,0,0,.46);
+      color: rgba(255,254,251,.88);
+      font-size: 10px;
+      font-weight: 400;
+      padding: 3px 10px;
+      border-radius: 2px;
+      font-family: "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
+      letter-spacing: .06em;
+    }
+    .ct-facility__body {
+      padding: 16px 18px 18px;
+    }
+    .ct-facility__name {
+      font-family: "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: #1d1d1f;
+      margin: 0 0 6px;
+      letter-spacing: .04em;
+    }
+    .ct-facility__type {
+      font-family: "Inter", sans-serif;
+      font-size: 10px;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: rgba(51,37,26,.38);
+      margin-bottom: 10px;
+    }
+    .ct-facility__addr {
+      font-size: 12px;
+      color: rgba(51,37,26,.55);
+      line-height: 1.8;
+    }
+    .ct-facility__access {
+      font-size: 11px;
+      color: rgba(51,37,26,.38);
+      margin-top: 5px;
+    }
+    .ct-facility__open {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 10px;
+      background: rgba(184,110,0,.08);
+      color: #b86e00;
+      padding: 3px 10px;
+      border-radius: 2px;
+      font-weight: 400;
+      letter-spacing: .04em;
+    }
+    .ct-select-hint {
+      font-family: "Inter", sans-serif;
+      font-size: 10px;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: rgba(51,37,26,.35);
+      margin-bottom: 14px;
+    }
+
+    /* ===== セクション ===== */
+    .ct-section {
+      padding: 40px 0;
+      border-top: 1px solid rgba(51,37,26,.08);
+    }
+    .ct-section-title {
+      font-family: "Inter", sans-serif;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: .45em;
+      text-transform: uppercase;
+      color: rgba(51,37,26,.38);
+      margin: 0 0 28px;
+    }
+
+    /* ===== フォームオーバーライド ===== */
+    .bm-form {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 0;
+    }
+    .bm-form__label {
+      font-family: "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: .06em;
+      color: rgba(51,37,26,.62);
+    }
+    .bm-form__input,
+    .bm-form__select,
+    .bm-form__textarea {
+      border: 1.5px solid rgba(51,37,26,.14);
+      border-radius: 2px;
+      background: #FFFEFB;
+      font-family: "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
+      font-size: 15px;
+      color: #1d1d1f;
+    }
+    .bm-form__input:focus,
+    .bm-form__select:focus,
+    .bm-form__textarea:focus {
+      border-color: #6aadcc;
+      background: #fff;
+    }
+    .bm-form__submit { text-align: left; }
+    .bm-btn--primary {
+      background: #33251a;
+      background-size: unset;
+      background-position: unset;
+      color: rgba(255,254,251,.9);
+      border: none;
+      border-radius: 999px;
+      padding: 16px 52px;
+      font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: .07em;
+      box-shadow: none;
+    }
+    .bm-btn--primary:hover {
+      background: #33251a;
+      background-position: unset;
+      opacity: .82;
+      box-shadow: none;
+      transform: translateY(-3px);
+    }
+
+    /* ===== アクセス ===== */
+    .ct-access-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .ct-access-card {
+      border: 1.5px solid rgba(51,37,26,.08);
+      border-radius: 2px;
+      overflow: hidden;
+      background: #FFFEFB;
+    }
+    .ct-access-card__img {
+      height: 220px;
+      overflow: hidden;
+    }
+    .ct-access-card__img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+    }
+    .ct-access-card__body {
+      padding: 18px 20px 20px;
+    }
+    .ct-access-card__name {
+      font-family: "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: .06em;
+      color: #1d1d1f;
+      margin: 0 0 12px;
+    }
+    .ct-access-card__row {
+      display: flex;
+      gap: 10px;
+      font-family: "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
+      font-size: 12px;
+      color: rgba(51,37,26,.58);
+      line-height: 1.75;
+      margin-bottom: 5px;
+    }
+    .ct-access-card__row span:first-child {
+      color: rgba(51,37,26,.35);
+      flex-shrink: 0;
+      width: 3em;
+    }
+    .ct-map {
+      margin-top: 14px;
+      border-radius: 2px;
+      overflow: hidden;
+      height: 160px;
+    }
+    .ct-map iframe {
+      width: 100%; height: 100%;
+      border: 0; display: block;
+    }
+    .ct-map-btn {
+      display: inline-block;
+      margin-top: 10px;
+      font-family: "Inter", sans-serif;
+      font-size: 10px;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: #6aadcc;
+      text-decoration: none;
+      font-weight: 400;
+    }
+    .ct-map-btn:hover { opacity: .7; }
+
+    /* ===== 入場アニメーション ===== */
+    .ct-anim {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity .9s cubic-bezier(.22,1,.36,1),
+                  transform .9s cubic-bezier(.22,1,.36,1);
+    }
+    .ct-anim.is-visible { opacity: 1; transform: none; }
+    /* ヒーローは右からスライドイン（child.htmlのtitleと同じ） */
+    .ct-hero .ct-anim { transform: translateX(40px); }
+    .ct-hero .ct-anim.is-visible { opacity: 1; transform: none; }
+
+    @media (max-width: 780px) {
+      .ct-hero    { left: 0 !important; width: 100vw !important; padding: 0 22px; }
+      .ct-content { left: 0 !important; width: 100vw !important; padding: 40px 22px 60px; }
+      .ct-hero__inner { gap: 14px; }
+      .ct-title { font-size: clamp(1.9rem, 7vw, 2.6rem); }
+      .ct-title__en { gap: clamp(.9rem, 3.5vw, 1.6rem); font-size: clamp(.6rem, 2.2vw, .76rem); }
+      .ct-scroll-hint { left: 22px; }
+      .ct-access-grid { grid-template-columns: 1fr; }
+      .bm-form__submit { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+<div class="bm-layout">
+
+  <!-- ===== 左サイドバー ===== -->
+  <aside class="bm-left">
+    <a class="bm-logo" href="./index.html">
+      <img src="./logo.png" alt="BLUE MOUSE" />
+    </a>
+        <nav class="bm-nav">
+      <a href="./index.html"       class="bm-nav__item" data-page="index">Front</a>
+      <a href="./philosophy.html"  class="bm-nav__item" data-page="philosophy">BLUE MOUSEの想い</a>
+      <div class="bm-nav__group">
+        <div class="bm-nav__group-header">
+          <a href="./child.html" class="bm-nav__group-link">児童発達支援事業</a>
+          <button type="button" class="bm-nav__toggle" data-group="child" data-target="nav-child">
+            <span class="bm-nav__arrow">▶</span>
+          </button>
+        </div>
+        <ul class="bm-nav__sub" id="nav-child">
+          <li><a href="./child.html#overview" class="bm-nav__subitem" data-group="child" data-hash="#overview">事業内容</a></li>
+          <li><a href="./child.html#pricing"  class="bm-nav__subitem" data-group="child" data-hash="#pricing">料金表</a></li>
+        </ul>
+      </div>
+      <div class="bm-nav__group">
+        <div class="bm-nav__group-header">
+          <a href="./afterschool.html" class="bm-nav__group-link">放課後等デイサービス</a>
+          <button type="button" class="bm-nav__toggle" data-group="afterschool" data-target="nav-after">
+            <span class="bm-nav__arrow">▶</span>
+          </button>
+        </div>
+        <ul class="bm-nav__sub" id="nav-after">
+          <li><a href="./afterschool.html#program"  class="bm-nav__subitem" data-group="afterschool" data-hash="#program">事業内容</a></li>
+          <li><a href="./afterschool.html#pricing"  class="bm-nav__subitem" data-group="afterschool" data-hash="#pricing">料金表</a></li>
+        </ul>
+      </div>
+      <a href="./recruit.html"     class="bm-nav__item" data-page="recruit">採用情報</a>
+      <a href="./contact.html"     class="bm-nav__item is-active" data-page="contact">お問い合わせ</a>
+    </nav>
+    <a class="bm-drawer-sns" href="https://www.instagram.com/blue_mouse_okayama/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg></a>
+  </aside>
+
+  <!-- ===== メインコンテンツ ===== -->
+  <main class="bm-main">
+
+    <!-- ヒーロー全画面タイトル -->
+    <div class="ct-hero" id="ct-hero">
+      <div class="ct-hero__inner" id="ct-hero-inner">
+        <h1 class="ct-title ct-anim">お問い合わせ・<br>見学予約</h1>
+        <p class="ct-title__en ct-anim">
+          <span>Contact</span>
+          <span>Inquiry</span>
+          <span>Reservation</span>
+        </p>
+      </div>
+      <div class="ct-scroll-hint" id="ct-scroll-hint">
+        <span class="ct-scroll-hint__line"></span>scroll
+      </div>
+    </div>
+
+    <!-- コンテンツ（ヒーローの上に重なってスライドアップ） -->
+    <div class="ct-content" id="ct-content">
+
+    <!-- フォーム -->
+    <div class="ct-section ct-anim">
+      <h2 class="ct-section-title">お問い合わせフォーム</h2>
+      <form class="bm-form" id="contact-form" novalidate>
+        <div class="bm-form__row">
+          <div class="bm-form__field">
+            <label class="bm-form__label" for="f-name">お名前<span class="bm-form__req">*</span></label>
+            <input class="bm-form__input" id="f-name" name="name" type="text" placeholder="山田 太郎" autocomplete="name" />
+            <span class="bm-form__error" id="err-name">お名前を入力してください。</span>
+          </div>
+          <div class="bm-form__field">
+            <label class="bm-form__label" for="f-age">お子さまの年齢<span class="bm-form__req">*</span></label>
+            <select class="bm-form__select" id="f-age" name="child_age">
+              <option value="">選択してください</option>
+              <option>2〜5歳（未就学）</option>
+              <option>6〜9歳（小学1〜3年）</option>
+              <option>10〜12歳（小学4〜6年）</option>
+              <option>13〜15歳（中学生）</option>
+              <option>16〜18歳（高校生）</option>
+            </select>
+            <span class="bm-form__error" id="err-age">年齢を選択してください。</span>
+          </div>
+          <div class="bm-form__field">
+            <label class="bm-form__label" for="f-email">メールアドレス<span class="bm-form__req">*</span></label>
+            <input class="bm-form__input" id="f-email" name="email" type="email" placeholder="example@mail.com" autocomplete="email" />
+            <span class="bm-form__error" id="err-email">有効なメールアドレスを入力してください。</span>
+          </div>
+          <div class="bm-form__field">
+            <label class="bm-form__label" for="f-tel">電話番号</label>
+            <input class="bm-form__input" id="f-tel" name="phone" type="tel" placeholder="000-0000-0000" autocomplete="tel" />
+          </div>
+          <div class="bm-form__field bm-form__field--full">
+            <label class="bm-form__label" for="facility-select">ご希望の事業所<span class="bm-form__req">*</span></label>
+            <select class="bm-form__select" id="facility-select" name="facility">
+              <option value="">選択してください</option>
+              <option value="BLUE MOUSE（放課後等デイサービス）">BLUE MOUSE（放課後等デイサービス）</option>
+              <option value="LITTLE BLUE MOUSE（児童発達支援事業）">LITTLE BLUE MOUSE（児童発達支援事業）</option>
+              <option value="どちらでも">どちらでも</option>
+            </select>
+            <span class="bm-form__error" id="err-facility">事業所を選択してください。</span>
+          </div>
+          <div class="bm-form__field bm-form__field--full">
+            <label class="bm-form__label" for="f-type">お問い合わせ種別<span class="bm-form__req">*</span></label>
+            <select class="bm-form__select" id="f-type" name="inquiry_type">
+              <option value="">選択してください</option>
+              <option>施設見学のご希望</option>
+              <option>事業内容について</option>
+              <option>料金・手続きについて</option>
+              <option>受給者証の取得について</option>
+              <option>その他</option>
+            </select>
+            <span class="bm-form__error" id="err-type">お問い合わせ種別を選択してください。</span>
+          </div>
+          <div class="bm-form__field bm-form__field--full">
+            <label class="bm-form__label" for="f-message">ご質問・ご要望</label>
+            <textarea class="bm-form__textarea" id="f-message" name="message" placeholder="見学希望日・ご質問などをご記入ください"></textarea>
+          </div>
+        </div>
+        <div class="bm-form__submit">
+          <button class="bm-btn bm-btn--primary" id="submit-btn" type="submit" style="font-size:14px; padding:12px 36px;">送信する</button>
+          <p style="margin-top:14px; font-size:12px; color:rgba(51,37,26,.38); font-family:'Zen Kaku Gothic New','Noto Sans JP',sans-serif; line-height:1.9;">送信いただいた情報はお問い合わせへの返信目的にのみ使用します。<br><a href="./privacy.html" style="color:#6aadcc; text-decoration:none;" target="_blank">プライバシーポリシー</a>をご確認の上、送信してください。</p>
+        </div>
+      </form>
+    </div>
+
+    <!-- アクセス -->
+    <div class="ct-section">
+      <h2 class="ct-section-title ct-anim">施設へのアクセス</h2>
+      <div class="ct-access-grid">
+
+        <!-- BLUE MOUSE -->
+        <div class="ct-access-card ct-anim">
+          <div class="ct-access-card__img">
+            <img src="./1.webp" alt="BLUE MOUSE" />
+          </div>
+          <div class="ct-access-card__body">
+            <h3 class="ct-access-card__name">BLUE MOUSE</h3>
+            <div class="ct-access-card__row"><span>住所</span><span>岡山県岡山市中区徳吉町二丁目11番地25</span></div>
+            <div class="ct-access-card__row"><span>最寄</span><span>東山電停から徒歩1分</span></div>
+            <div class="ct-access-card__row"><span>営業</span><span>月〜土 放課後〜18:00<br>長期休暇中 10:00〜18:00</span></div>
+            <div class="ct-map">
+              <iframe src="https://maps.google.com/maps?q=岡山県岡山市中区徳吉町二丁目11番地25&output=embed"
+                allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <a class="ct-map-btn" href="https://maps.google.com/?q=岡山県岡山市中区徳吉町二丁目11番地25" target="_blank" rel="noopener">場所を見る</a>
+          </div>
+        </div>
+
+        <!-- LITTLE BLUE MOUSE -->
+        <div class="ct-access-card ct-anim">
+          <div class="ct-access-card__img">
+            <img src="./5.webp" alt="LITTLE BLUE MOUSE" />
+          </div>
+          <div class="ct-access-card__body">
+            <h3 class="ct-access-card__name">LITTLE BLUE MOUSE</h3>
+            <div class="ct-access-card__row"><span>住所</span><span>岡山県岡山市北区辰巳２６−１０２</span></div>
+            <div class="ct-access-card__row"><span>最寄</span><span>北長瀬駅から徒歩約18分</span></div>
+            <div class="ct-access-card__row"><span>営業</span><span>平日 9:30〜18:30<br>土曜 9:00〜18:00</span></div>
+            <div class="ct-map">
+              <iframe src="https://maps.google.com/maps?q=岡山県岡山市北区辰巳26-102&output=embed"
+                allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <a class="ct-map-btn" href="https://maps.google.com/?q=岡山県岡山市北区辰巳26-102" target="_blank" rel="noopener">場所を見る</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    </div><!-- /ct-content -->
+
+    <!-- sections が fixed のため高さゼロ → スクロール量確保用スペーサー（child.html と同じ） -->
+    <div id="ct-spacer"></div>
+
+  </main>
+
+  <!-- ===== 右サイドバー ===== -->
+  <aside class="bm-right">
+    <p class="side-heading">CONTACT</p>
+    <div class="side-cards">
+      <div class="side-card">
+        <span class="side-card__badge">BLUE MOUSE</span>
+        <p class="side-card__title">放課後等デイサービス</p>
+        <p class="side-card__sub">岡山市中区 徳吉町</p>
+      </div>
+      <div class="side-card">
+        <span class="side-card__badge">LITTLE BLUE MOUSE</span>
+        <p class="side-card__title">児童発達支援事業</p>
+        <p class="side-card__sub">岡山市北区 辰巳</p>
+        <p class="side-card__sub" style="color:#b86e00; font-size:10px;">2025年12月オープン予定</p>
+      </div>
+      <div class="side-card">
+        <span class="side-card__badge">電話</span>
+        <p class="side-card__title">086-273-3880</p>
+      </div>
+    </div>
+    <a href="#" class="side-cta" onclick="document.getElementById('ct-content').scrollIntoView({behavior:'smooth'}); return false;">
+      フォームへ進む
+      <span class="side-cta__icon">›</span>
+    </a>
+    <p class="bm-copy" style="text-align:center; margin-top:14px;">© BLUE MOUSE All Rights Reserved.</p>
+  </aside>
+
+</div>
+<script src="./layout.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  /* ================================================================
+     child.html と完全に同じアーキテクチャ
+     ・ct-hero    : position:fixed  z-index:1（タイトル）
+     ・ct-content : position:fixed  z-index:2（フォーム・アクセス）
+     ・ct-spacer  : スクロール量確保用スペーサー（2vh）
+     ・draw()     : スクロール位置に応じて opacity を操作
+     ・goToSection(): easeInOut 1000ms でスナップ移動
+  ================================================================ */
+
+  var heroEl     = document.getElementById('ct-hero');
+  var heroInner  = document.getElementById('ct-hero-inner');
+  var contentEl  = document.getElementById('ct-content');
+  var scrollHint = document.getElementById('ct-scroll-hint');
+  var spacer     = document.getElementById('ct-spacer');
+
+  var vh           = window.innerHeight;
+  var ticking      = false;
+  var contentSeen  = false; /* コンテンツ入場アニメ実行済みフラグ */
+  var scrollLocked = false;
+  var touchStartY  = 0;
+
+  /* スクロール量確保（hero 1 + content 1 = 2vh 分） */
+  function setup () {
+    vh = window.innerHeight;
+    spacer.style.height = (2 * vh) + 'px';
+  }
+
+  /* ---- メイン描画（child.html の draw と同じロジック） ---- */
+  function draw () {
+    ticking = false;
+    var st   = window.pageYOffset;
+    vh       = window.innerHeight;
+
+    /* --- タイトル文字フェードアウト（child.html base===0 と完全同一式） ---
+       開始: 5%vh  完了: 90%vh  スパン: 85%
+       opacity 1→0, translateX 0→-16px                                     */
+    var titlePr = Math.min(1, Math.max(0, (st - vh * 0.05) / (vh * 0.85)));
+    if (heroInner) {
+      if (titlePr > 0) {
+        heroInner.style.transition = 'none';
+        heroInner.style.opacity    = String(Math.max(0, 1 - titlePr));
+        heroInner.style.transform  = 'translateX(' + Math.round(-titlePr * 16) + 'px)';
+      } else {
+        heroInner.style.transition = '';
+        heroInner.style.opacity    = '';
+        heroInner.style.transform  = '';
+      }
+    }
+    if (scrollHint) {
+      scrollHint.style.opacity = String(Math.max(0, 1 - titlePr * 3));
+    }
+
+    /* --- コンテンツフェードイン（child.html base===0 の次セクション opacity と同一式） ---
+       55% まで完全非表示 → 55%〜100% で 0→1 にフェードイン                */
+    var secSpan = vh; /* 1セクション = 1vh */
+    var hPr     = st < secSpan * 0.55
+      ? 1
+      : Math.max(0, 1 - (st - secSpan * 0.55) / (secSpan * 0.45));
+    contentEl.style.opacity = String(1 - hPr);
+
+    /* コンテンツが初めて見え始めたら入場アニメ起動 */
+    if (!contentSeen && hPr < 1) {
+      contentSeen = true;
+      animateContentIn();
+    }
+  }
+
+  /* コンテンツ内要素を右→左スライドで入場（child.html animateIn と同じ） */
+  function animateContentIn () {
+    var anims = Array.from(contentEl.querySelectorAll('.ct-anim'));
+    anims.forEach(function (el, i) {
+      setTimeout(function () { el.classList.add('is-visible'); }, 60 + i * 80);
+    });
+  }
+
+  function onScroll () {
+    if (!ticking) { requestAnimationFrame(draw); ticking = true; }
+  }
+
+  /* ---- goToSection（child.html と完全に同じ 1000ms easeInOut） ---- */
+  function goToSection (idx) {
+    if (idx < 0 || idx > 1 || scrollLocked) return;
+    scrollLocked = true;
+    var startY  = window.pageYOffset;
+    var targetY = idx * window.innerHeight;
+    if (startY === targetY) { scrollLocked = false; return; }
+    var startT = null;
+    var dur    = 1000;
+
+    function ease (t) { return t < .5 ? 2*t*t : -1+(4-2*t)*t; }
+    function step (ts) {
+      if (!startT) startT = ts;
+      var p = Math.min((ts - startT) / dur, 1);
+      window.scrollTo(0, startY + (targetY - startY) * ease(p));
+      if (p < 1) { requestAnimationFrame(step); }
+      else        { scrollLocked = false; }
+    }
+    requestAnimationFrame(step);
+  }
+
+  function currentSection () {
+    return window.pageYOffset >= window.innerHeight * 0.5 ? 1 : 0;
+  }
+
+  /* ---- ホイール（child.html と同様に常時インターセプト） ---- */
+  window.addEventListener('wheel', function (e) {
+    e.preventDefault();
+    if (scrollLocked) return;
+    var sec = currentSection();
+    if (sec === 0) {
+      if (e.deltaY > 0) goToSection(1);
+    } else {
+      /* コンテンツが先頭かつ上スクロール → ヒーローへ戻る */
+      if (e.deltaY < 0 && contentEl.scrollTop <= 0) {
+        contentSeen = false; /* 再入場アニメのためリセット */
+        goToSection(0);
+      } else {
+        contentEl.scrollTop += e.deltaY;
+      }
+    }
+  }, { passive: false });
+
+  /* ---- タッチスワイプ ---- */
+  window.addEventListener('touchstart', function (e) {
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+  window.addEventListener('touchmove', function (e) {
+    /* ヒーローゾーンではネイティブスクロールを完全に止める */
+    if (currentSection() === 0) e.preventDefault();
+  }, { passive: false });
+  window.addEventListener('touchend', function (e) {
+    if (scrollLocked) return;
+    var dy  = touchStartY - e.changedTouches[0].clientY;
+    if (Math.abs(dy) < 5) return;
+    var sec = currentSection();
+    if (sec === 0) {
+      if (dy > 0) goToSection(1);
+    } else {
+      if (dy < 0 && contentEl.scrollTop <= 0) {
+        contentSeen = false;
+        goToSection(0);
+      }
+    }
+  }, { passive: true });
+
+  /* ---- キーボード ---- */
+  window.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowDown' || e.key === ' ') {
+      e.preventDefault();
+      if (!scrollLocked) goToSection(currentSection() + 1);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (!scrollLocked && currentSection() === 1 && contentEl.scrollTop <= 0) {
+        contentSeen = false;
+        goToSection(0);
+      }
+    }
+  });
+
+  /* ================================================================
+     初期化
+  ================================================================ */
+  setup();
+  draw();
+
+  /* ヒーロー入場アニメ（child.html と同じ 250ms 遅延 + 110ms stagger） */
+  setTimeout(function () {
+    Array.from(document.querySelectorAll('.ct-hero .ct-anim')).forEach(function (el, i) {
+      setTimeout(function () { el.classList.add('is-visible'); }, 60 + i * 110);
+    });
+  }, 250);
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', function () { setup(); draw(); });
+
+  /* ================================================================
+     フォームバリデーション & 送信
+  ================================================================ */
+  function showError (el, errId) {
+    el.classList.add('is-error');
+    var e = document.getElementById(errId);
+    if (e) e.classList.add('is-show');
+  }
+  function clearError (el, errId) {
+    el.classList.remove('is-error');
+    var e = document.getElementById(errId);
+    if (e) e.classList.remove('is-show');
+  }
+
+  [['f-name','err-name'],['f-age','err-age'],['f-email','err-email'],
+   ['facility-select','err-facility'],['f-type','err-type']].forEach(function (pair) {
+    var el = document.getElementById(pair[0]);
+    if (!el) return;
+    ['input','change'].forEach(function (ev) {
+      el.addEventListener(ev, function () { clearError(el, pair[1]); });
+    });
+  });
+
+  document.getElementById('contact-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var nameEl     = document.getElementById('f-name');
+    var ageEl      = document.getElementById('f-age');
+    var emailEl    = document.getElementById('f-email');
+    var facilityEl = document.getElementById('facility-select');
+    var typeEl     = document.getElementById('f-type');
+    var valid = true;
+
+    if (!nameEl.value.trim())                               { showError(nameEl,     'err-name');     valid = false; } else clearError(nameEl,     'err-name');
+    if (!ageEl.value)                                       { showError(ageEl,      'err-age');      valid = false; } else clearError(ageEl,      'err-age');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value)) { showError(emailEl,    'err-email');    valid = false; } else clearError(emailEl,    'err-email');
+    if (!facilityEl.value)                                  { showError(facilityEl, 'err-facility'); valid = false; } else clearError(facilityEl, 'err-facility');
+    if (!typeEl.value)                                      { showError(typeEl,     'err-type');     valid = false; } else clearError(typeEl,     'err-type');
+
+    if (!valid) {
+      var first = contentEl.querySelector('.bm-form__input.is-error, .bm-form__select.is-error');
+      if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    var btn = document.getElementById('submit-btn');
+    btn.disabled    = true;
+    btn.textContent = '送信中…';
+
+    fetch('https://api.web3forms.com/submit', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        access_key:   'a29dfa4e-2c38-4961-93dd-9e9b197d0e19',
+        subject:      '【BLUE MOUSE】お問い合わせが届きました',
+        from_name:    'BLUE MOUSE お問い合わせフォーム',
+        name:         nameEl.value,
+        email:        emailEl.value,
+        child_age:    ageEl.value,
+        phone:        document.getElementById('f-tel').value,
+        facility:     facilityEl.value,
+        inquiry_type: typeEl.value,
+        message:      document.getElementById('f-message').value
+      })
+    })
+    .then(function (r) { return r.json(); })
+    .then(function (j) {
+      if (j.success) { window.location.href = './thanks.html'; }
+      else           { throw new Error(j.message || 'error'); }
+    })
+    .catch(function () {
+      btn.disabled    = false;
+      btn.textContent = '送信する';
+      alert('送信に失敗しました。時間をおいて再度お試しいただくか、お電話にてお問い合わせください。');
+    });
+  });
+})();
+</script>
+</body>
+</html>

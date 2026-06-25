@@ -1,0 +1,935 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#FFFEFB" />
+  <meta name="description" content="BLUE MOUSE｜岡山市の放課後等デイサービス・児童発達支援。主体性療育からIT療育へ、経済的自立を見据えた支援を行います。" />
+  <title>BLUE MOUSE | 放課後等デイサービス・児童発達支援</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
+      background: #FFFEFB;
+      color: #33251a;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    :root {
+      --coral:      #f2906c;
+      --coral-dark: #e87e59;
+      --teal:       #5fc1c7;
+      --teal-dark:  #3a9095;
+      --yellow:     #f5d24a;
+      --cream:      #fffdf7;
+      --ink:        #33251a;
+      --green:      #3a6b5e;
+    }
+
+    /* ===== Header ===== */
+    .header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 64px;
+      background: rgba(255,254,251,.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+      transition: background .3s;
+    }
+    .header.is-top {
+      background: transparent;
+      border-bottom-color: transparent;
+    }
+    .header__logo img {
+      height: 36px;
+      width: auto;
+    }
+    .header__nav {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+    .header__link {
+      font-family: "Inter", sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: .12em;
+      color: #7a6355;
+      transition: color .2s;
+    }
+    .header__link:hover { color: var(--teal-dark); }
+    .header__cta {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 22px;
+      background: var(--green);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: .08em;
+      border-radius: 100px;
+      transition: background .2s, transform .15s;
+    }
+    .header__cta:hover { background: #2d5a4e; transform: translateY(-1px); }
+
+    .header__burger {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+    }
+    .header__burger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--ink);
+      border-radius: 2px;
+      transition: transform .3s, opacity .3s;
+    }
+    .header__burger.is-open span:nth-child(1) { transform: translateY(3.75px) rotate(45deg); }
+    .header__burger.is-open span:nth-child(2) { opacity: 0; }
+    .header__burger.is-open span:nth-child(3) { transform: translateY(-3.75px) rotate(-45deg); }
+
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 64px; left: 0; right: 0; bottom: 0;
+      background: rgba(255,254,251,.98);
+      backdrop-filter: blur(16px);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+    }
+    .mobile-nav.is-open { display: flex; }
+    .mobile-nav a {
+      font-size: 18px;
+      font-weight: 400;
+      letter-spacing: .12em;
+      color: #7a6355;
+      transition: color .2s;
+    }
+    .mobile-nav a:hover { color: var(--teal-dark); }
+
+    /* ===== Hero ===== */
+    .hero {
+      position: relative;
+      height: 100vh;
+      height: 100svh;
+      overflow: hidden;
+    }
+    .hero__img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      animation: heroZoom 12s ease-out forwards;
+    }
+    @keyframes heroZoom {
+      from { transform: scale(1.08); }
+      to   { transform: scale(1.0); }
+    }
+    .hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top,
+        rgba(40,30,24,.62) 0%,
+        rgba(40,30,24,.24) 40%,
+        rgba(40,30,24,.08) 100%);
+    }
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 52px 80px;
+    }
+    .hero__kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: "Inter", sans-serif;
+      font-weight: 500;
+      font-size: .78rem;
+      letter-spacing: .42em;
+      color: var(--teal);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      text-shadow: 0 1px 8px rgba(0,0,0,.5);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp .7s ease forwards .4s;
+    }
+    .hero__kicker::before {
+      content: '';
+      display: inline-block;
+      width: 22px; height: 1px;
+      background: currentColor;
+      opacity: .85;
+    }
+    .hero__title {
+      font-weight: 500;
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
+      color: var(--cream);
+      line-height: 1.15;
+      letter-spacing: .04em;
+      text-shadow: 0 1px 20px rgba(0,0,0,.38);
+      margin-bottom: 12px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp .7s ease forwards .55s;
+    }
+    .hero__sub {
+      font-weight: 400;
+      font-size: clamp(.82rem, 1.1vw, 1rem);
+      color: rgba(255,253,247,.74);
+      line-height: 1.85;
+      letter-spacing: .09em;
+      text-shadow: 0 1px 10px rgba(0,0,0,.35);
+      margin-bottom: 28px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp .7s ease forwards .7s;
+    }
+    .hero__btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 36px;
+      background: var(--coral);
+      color: #fff;
+      font-size: .9rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      border-radius: 100px;
+      box-shadow: 0 4px 14px rgba(242,144,108,.30);
+      transition: background .2s, transform .2s, box-shadow .2s;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp .7s ease forwards .85s;
+      align-self: flex-start;
+    }
+    .hero__btn:hover {
+      background: var(--coral-dark);
+      transform: scale(1.04);
+      box-shadow: 0 8px 22px rgba(242,144,108,.44);
+    }
+
+    .hero__scroll {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      animation: fadeUp .7s ease forwards 1.2s;
+    }
+    .hero__scroll-line {
+      width: 1px;
+      height: 28px;
+      background: rgba(255,253,247,.4);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { transform: scaleY(1); opacity: 1; }
+      50% { transform: scaleY(.4); opacity: .3; }
+    }
+    .hero__scroll-text {
+      font-family: "Inter", sans-serif;
+      font-size: 9px;
+      letter-spacing: .4em;
+      color: rgba(255,253,247,.45);
+      text-transform: uppercase;
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== Section Cards ===== */
+    .sec {
+      position: relative;
+      height: 100vh;
+      height: 100svh;
+      overflow: hidden;
+    }
+    .sec__img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .sec__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top,
+        rgba(40,30,24,.62) 0%,
+        rgba(40,30,24,.24) 40%,
+        rgba(40,30,24,.08) 100%);
+    }
+    .sec__content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 52px 80px;
+    }
+    .sec__content--right {
+      align-items: flex-end;
+      text-align: right;
+    }
+    .sec__kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: "Inter", sans-serif;
+      font-weight: 500;
+      font-size: .78rem;
+      letter-spacing: .42em;
+      color: var(--teal);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      text-shadow: 0 1px 8px rgba(0,0,0,.5);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .65s ease, transform .65s cubic-bezier(.22,1,.36,1);
+    }
+    .sec__kicker::before {
+      content: '';
+      display: inline-block;
+      width: 22px; height: 1px;
+      background: currentColor;
+      opacity: .85;
+    }
+    .sec__title {
+      font-weight: 500;
+      font-size: clamp(2rem, 3.2vw, 3.5rem);
+      color: var(--cream);
+      line-height: 1.15;
+      letter-spacing: .04em;
+      text-shadow: 0 1px 20px rgba(0,0,0,.38);
+      margin-bottom: 12px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .65s ease .11s, transform .65s cubic-bezier(.22,1,.36,1) .11s;
+    }
+    .sec__sub {
+      font-weight: 400;
+      font-size: clamp(.8rem, 1.05vw, .96rem);
+      color: rgba(255,253,247,.74);
+      line-height: 1.85;
+      letter-spacing: .09em;
+      text-shadow: 0 1px 10px rgba(0,0,0,.35);
+      margin-bottom: 28px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .65s ease .23s, transform .65s cubic-bezier(.22,1,.36,1) .23s;
+    }
+    .sec__btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 9px 34px;
+      background: var(--coral);
+      color: #fff;
+      font-size: .9rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      border-radius: 100px;
+      box-shadow: 0 4px 14px rgba(242,144,108,.30);
+      align-self: flex-start;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .65s ease .38s, transform .65s cubic-bezier(.22,1,.36,1) .38s,
+                  background .2s, box-shadow .2s;
+    }
+    .sec__content--right .sec__btn { align-self: flex-end; }
+    .sec__btn:hover {
+      background: var(--coral-dark);
+      transform: scale(1.04);
+      box-shadow: 0 8px 22px rgba(242,144,108,.44);
+    }
+    .sec__btn--ghost {
+      background: transparent;
+      border: 1.5px solid rgba(255,255,255,.65);
+      box-shadow: none;
+    }
+    .sec__btn--ghost:hover {
+      background: rgba(255,255,255,.12);
+      border-color: #fff;
+      box-shadow: none;
+    }
+    .sec.is-visible .sec__kicker,
+    .sec.is-visible .sec__title,
+    .sec.is-visible .sec__sub,
+    .sec.is-visible .sec__btn {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ===== Info Strip ===== */
+    .info {
+      background: #fff;
+      border-top: 1px solid rgba(0,0,0,.06);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+      padding: 56px 52px;
+    }
+    .info__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    .info__card {
+      text-align: center;
+      padding: 28px 20px;
+      border: 1px solid rgba(0,0,0,.06);
+      border-radius: 8px;
+      background: #FFFEFB;
+    }
+    .info__badge {
+      display: inline-block;
+      background: transparent;
+      color: var(--yellow);
+      border: 1.5px solid var(--yellow);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 2px 14px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+    .info__title {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    /* ===== Facilities ===== */
+    .facilities {
+      padding: 80px 52px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .facilities__heading {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .facilities__kicker {
+      font-family: "Inter", sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: .4em;
+      color: var(--teal);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .facilities__title {
+      font-size: clamp(1.4rem, 2.4vw, 2rem);
+      font-weight: 500;
+      letter-spacing: .08em;
+      color: var(--ink);
+    }
+    .facilities__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+    .fac-card {
+      border: 1.5px solid rgba(0,0,0,.08);
+      border-radius: 8px;
+      overflow: hidden;
+      background: #fff;
+      transition: box-shadow .25s, transform .25s;
+    }
+    .fac-card:hover {
+      box-shadow: 0 8px 32px rgba(0,0,0,.08);
+      transform: translateY(-3px);
+    }
+    .fac-card__img {
+      height: 220px;
+      overflow: hidden;
+    }
+    .fac-card__img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .fac-card__body {
+      padding: 24px 28px 28px;
+    }
+    .fac-card__type {
+      font-family: "Inter", sans-serif;
+      font-size: 10px;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 6px;
+    }
+    .fac-card__name {
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 14px;
+    }
+    .fac-card__row {
+      display: flex;
+      gap: 10px;
+      font-size: 13px;
+      color: rgba(51,37,26,.6);
+      line-height: 1.8;
+      margin-bottom: 4px;
+    }
+    .fac-card__row span:first-child {
+      color: rgba(51,37,26,.38);
+      flex-shrink: 0;
+      width: 3em;
+    }
+    .fac-card__map {
+      margin-top: 16px;
+      border-radius: 6px;
+      overflow: hidden;
+      height: 160px;
+    }
+    .fac-card__map iframe {
+      width: 100%; height: 100%;
+      border: 0; display: block;
+    }
+    .fac-card__link {
+      display: inline-block;
+      margin-top: 10px;
+      font-family: "Inter", sans-serif;
+      font-size: 11px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--teal-dark);
+    }
+    .fac-card__link:hover { opacity: .7; }
+    .fac-card__open {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 11px;
+      background: rgba(184,110,0,.08);
+      color: #b86e00;
+      padding: 3px 12px;
+      border-radius: 4px;
+    }
+
+    /* ===== CTA Banner ===== */
+    .cta-banner {
+      background: var(--green);
+      padding: 64px 52px;
+      text-align: center;
+    }
+    .cta-banner__title {
+      font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+      font-weight: 500;
+      color: #fff;
+      letter-spacing: .08em;
+      margin-bottom: 8px;
+    }
+    .cta-banner__sub {
+      font-size: 14px;
+      color: rgba(255,255,255,.7);
+      margin-bottom: 28px;
+      letter-spacing: .06em;
+    }
+    .cta-banner__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 42px;
+      background: #fff;
+      color: var(--green);
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      border-radius: 100px;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .cta-banner__btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,.15);
+    }
+    .cta-banner__phone {
+      margin-top: 20px;
+      font-size: 13px;
+      color: rgba(255,255,255,.6);
+      letter-spacing: .06em;
+    }
+    .cta-banner__phone strong {
+      color: #fff;
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: .04em;
+    }
+
+    /* ===== Footer ===== */
+    .footer {
+      background: #1a2628;
+      color: #ccc;
+      padding: 48px 52px 24px;
+    }
+    .footer__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1.2fr;
+      gap: 36px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid rgba(94,193,198,.15);
+    }
+    .footer__logo img {
+      height: auto;
+      width: 140px;
+      filter: brightness(0) saturate(100%) invert(64%) sepia(42%) saturate(600%) hue-rotate(148deg) brightness(1.1);
+      margin-bottom: 16px;
+    }
+    .footer__tagline {
+      font-size: 14px;
+      color: #88999b;
+      line-height: 2;
+    }
+    .footer__insta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      font-size: 14px;
+      color: #888;
+      transition: color .18s;
+    }
+    .footer__insta:hover { color: var(--teal); }
+    .footer__col-title {
+      font-family: "Inter", sans-serif;
+      font-size: 12px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 16px;
+      font-weight: 600;
+    }
+    .footer__nav {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .footer__nav a {
+      font-size: 14px;
+      color: #aaa;
+      transition: color .15s;
+    }
+    .footer__nav a:hover { color: var(--teal); }
+    .footer__fac-name {
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: #ddd;
+      margin-bottom: 4px;
+    }
+    .footer__fac-type {
+      font-size: 12px;
+      color: var(--teal);
+      margin-bottom: 8px;
+    }
+    .footer__fac-info {
+      font-size: 13px;
+      color: #88999b;
+      line-height: 1.9;
+    }
+    .footer__fac + .footer__fac {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .footer__bottom {
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+      padding-top: 20px;
+      font-family: "Inter", sans-serif;
+      font-size: 12px;
+      color: #5a7275;
+      letter-spacing: .08em;
+    }
+
+    /* ===== Mobile ===== */
+    @media (max-width: 780px) {
+      .header { padding: 0 16px; height: 56px; }
+      .header__nav { display: none; }
+      .header__burger { display: flex; }
+      .mobile-nav { top: 56px; }
+
+      .hero__content { padding: 0 22px 72px; }
+      .hero__title { font-size: clamp(1.8rem, 7.5vw, 2.6rem); }
+
+      .sec__content { padding: 0 22px 72px; }
+      .sec__title { font-size: clamp(1.75rem, 7vw, 2.4rem); }
+
+      .info { padding: 40px 22px; }
+      .info__inner { grid-template-columns: 1fr; gap: 16px; }
+
+      .facilities { padding: 56px 22px; }
+      .facilities__grid { grid-template-columns: 1fr; }
+
+      .cta-banner { padding: 48px 22px; }
+
+      .footer { padding: 36px 22px 20px; }
+      .footer__inner { grid-template-columns: 1fr; gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== Header ===== -->
+<header class="header is-top" id="header">
+  <a href="./index.html" class="header__logo">
+    <img src="./logo.png" alt="BLUE MOUSE" />
+  </a>
+  <nav class="header__nav">
+    <a href="#philosophy" class="header__link">想い</a>
+    <a href="#child" class="header__link">児童発達支援</a>
+    <a href="#afterschool" class="header__link">放課後等デイ</a>
+    <a href="#recruit" class="header__link">採用情報</a>
+    <a href="#facilities" class="header__link">施設案内</a>
+    <a href="./contact.html" class="header__cta">お問い合わせ</a>
+  </nav>
+  <button class="header__burger" id="burger" aria-label="メニュー">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<nav class="mobile-nav" id="mobile-nav">
+  <a href="#philosophy" class="mn-link">BLUE MOUSEの想い</a>
+  <a href="#child" class="mn-link">児童発達支援事業</a>
+  <a href="#afterschool" class="mn-link">放課後等デイサービス</a>
+  <a href="#recruit" class="mn-link">採用情報</a>
+  <a href="#facilities" class="mn-link">施設案内</a>
+  <a href="./contact.html" class="mn-link" style="color:var(--teal-dark); font-weight:500;">お問い合わせ</a>
+  <a href="https://www.instagram.com/blue_mouse_okayama/" target="_blank" rel="noopener" style="color:#aaa; font-size:14px;">Instagram →</a>
+</nav>
+
+<!-- ===== Hero ===== -->
+<section class="hero" id="philosophy">
+  <img class="hero__img" src="./photos/IMG_8852.jpg" alt="BLUE MOUSE" />
+  <div class="hero__overlay"></div>
+  <div class="hero__content">
+    <p class="hero__kicker">Philosophy</p>
+    <h1 class="hero__title">主体性療育から<br>IT療育へ</h1>
+    <p class="hero__sub">経済的自立から逆算した、<br>10年後のロードマップ。</p>
+    <a href="./philosophy.html" class="hero__btn">MORE ›</a>
+  </div>
+  <div class="hero__scroll">
+    <span class="hero__scroll-line"></span>
+    <span class="hero__scroll-text">scroll</span>
+  </div>
+</section>
+
+<!-- ===== Info Strip ===== -->
+<div class="info">
+  <div class="info__inner">
+    <div class="info__card">
+      <span class="info__badge">対象年齢</span>
+      <p class="info__title">未就学児〜高校生</p>
+    </div>
+    <div class="info__card">
+      <span class="info__badge">定員</span>
+      <p class="info__title">10名 / 日</p>
+    </div>
+    <div class="info__card">
+      <span class="info__badge">支援内容</span>
+      <p class="info__title">IT療育・PCスキル・SST</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Section: Child ===== -->
+<section class="sec" id="child">
+  <img class="sec__img" src="./photos/jidou_opt.jpg" alt="児童発達支援" />
+  <div class="sec__overlay"></div>
+  <div class="sec__content">
+    <p class="sec__kicker">Early Intervention</p>
+    <h2 class="sec__title">こどもが自ら、<br>育む。</h2>
+    <p class="sec__sub">土台となる「見えない力」は、<br>こどもが主役。</p>
+    <a href="./child.html" class="sec__btn">MORE ›</a>
+  </div>
+</section>
+
+<!-- ===== Section: After School ===== -->
+<section class="sec" id="afterschool">
+  <img class="sec__img" src="./photos/hokago_opt.jpg" alt="放課後等デイサービス" />
+  <div class="sec__overlay"></div>
+  <div class="sec__content sec__content--right">
+    <p class="sec__kicker">After School</p>
+    <h2 class="sec__title">強みとなる<br>「見える力」を、<br>武器に。</h2>
+    <p class="sec__sub">IT療育で、<br>収入格差に立ち向かう。</p>
+    <a href="./afterschool.html" class="sec__btn">MORE ›</a>
+  </div>
+</section>
+
+<!-- ===== Section: Recruit ===== -->
+<section class="sec" id="recruit">
+  <img class="sec__img" src="./photos/recruit_opt.jpg" alt="採用情報" />
+  <div class="sec__overlay"></div>
+  <div class="sec__content">
+    <p class="sec__kicker">Recruit</p>
+    <h2 class="sec__title">自分らしく、<br>働く。</h2>
+    <p class="sec__sub">岡山で一番働きやすい<br>職場を目指しています。</p>
+    <a href="./recruit.html" class="sec__btn sec__btn--ghost">MORE ›</a>
+  </div>
+</section>
+
+<!-- ===== Facilities ===== -->
+<section class="facilities" id="facilities">
+  <div class="facilities__heading">
+    <p class="facilities__kicker">Facilities</p>
+    <h2 class="facilities__title">施設のご案内</h2>
+  </div>
+  <div class="facilities__grid">
+    <div class="fac-card">
+      <div class="fac-card__img">
+        <img src="./1.webp" alt="BLUE MOUSE" />
+      </div>
+      <div class="fac-card__body">
+        <p class="fac-card__type">After School Day Service</p>
+        <h3 class="fac-card__name">BLUE MOUSE</h3>
+        <div class="fac-card__row"><span>住所</span><span>岡山県岡山市中区徳吉町二丁目11番地25</span></div>
+        <div class="fac-card__row"><span>最寄</span><span>東山電停から徒歩1分</span></div>
+        <div class="fac-card__row"><span>営業</span><span>月〜土 放課後〜18:00 / 長期休暇中 10:00〜18:00</span></div>
+        <div class="fac-card__map">
+          <iframe src="https://maps.google.com/maps?q=岡山県岡山市中区徳吉町二丁目11番地25&output=embed&z=17&hl=ja"
+            allowfullscreen loading="lazy"></iframe>
+        </div>
+        <a class="fac-card__link" href="https://maps.google.com/?q=岡山県岡山市中区徳吉町二丁目11番地25" target="_blank" rel="noopener">Google Mapsで見る →</a>
+      </div>
+    </div>
+    <div class="fac-card">
+      <div class="fac-card__img">
+        <img src="./5.webp" alt="LITTLE BLUE MOUSE" />
+      </div>
+      <div class="fac-card__body">
+        <p class="fac-card__type">Early Intervention</p>
+        <h3 class="fac-card__name">LITTLE BLUE MOUSE</h3>
+        <div class="fac-card__row"><span>住所</span><span>岡山県岡山市北区辰巳２６−１０２</span></div>
+        <div class="fac-card__row"><span>最寄</span><span>北長瀬駅から徒歩約18分</span></div>
+        <div class="fac-card__row"><span>営業</span><span>平日 9:30〜18:30 / 土曜 9:00〜18:00</span></div>
+        <span class="fac-card__open">2025年12月オープン予定</span>
+        <div class="fac-card__map">
+          <iframe src="https://maps.google.com/maps?q=岡山県岡山市北区辰巳26-102&output=embed&z=17&hl=ja"
+            allowfullscreen loading="lazy"></iframe>
+        </div>
+        <a class="fac-card__link" href="https://maps.google.com/?q=岡山県岡山市北区辰巳26-102" target="_blank" rel="noopener">Google Mapsで見る →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA Banner ===== -->
+<div class="cta-banner" id="contact">
+  <h2 class="cta-banner__title">見学・お問い合わせ</h2>
+  <p class="cta-banner__sub">お気軽にご相談ください。施設見学も随時受け付けております。</p>
+  <a href="./contact.html" class="cta-banner__btn">お問い合わせフォーム ›</a>
+  <p class="cta-banner__phone">お電話でのお問い合わせ<br><strong>086-273-3880</strong></p>
+</div>
+
+<!-- ===== Footer ===== -->
+<footer class="footer">
+  <div class="footer__inner">
+    <div>
+      <a href="./index.html" class="footer__logo">
+        <img src="./logo.png" alt="BLUE MOUSE" />
+      </a>
+      <p class="footer__tagline">主体性療育からIT療育へ。<br>こどもの10年後を見据えた支援。</p>
+      <a class="footer__insta" href="https://www.instagram.com/blue_mouse_okayama/" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>
+        Instagram
+      </a>
+    </div>
+    <div>
+      <p class="footer__col-title">Pages</p>
+      <ul class="footer__nav">
+        <li><a href="./philosophy.html">BLUE MOUSEの想い</a></li>
+        <li><a href="./child.html">児童発達支援事業</a></li>
+        <li><a href="./afterschool.html">放課後等デイサービス</a></li>
+        <li><a href="./recruit.html">採用情報</a></li>
+        <li><a href="./contact.html">お問い合わせ</a></li>
+        <li><a href="./privacy.html">プライバシーポリシー</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer__col-title">Access</p>
+      <div class="footer__fac">
+        <p class="footer__fac-name">BLUE MOUSE</p>
+        <p class="footer__fac-type">放課後等デイサービス</p>
+        <p class="footer__fac-info">岡山県岡山市中区<br>徳吉町二丁目11番地25<br>東山電停から徒歩1分</p>
+      </div>
+      <div class="footer__fac">
+        <p class="footer__fac-name">LITTLE BLUE MOUSE</p>
+        <p class="footer__fac-type">児童発達支援事業</p>
+        <p class="footer__fac-info">岡山県岡山市北区<br>辰巳２６−１０２<br>北長瀬駅から徒歩約18分</p>
+      </div>
+    </div>
+  </div>
+  <p class="footer__bottom">© BLUE MOUSE All Rights Reserved.</p>
+</footer>
+
+<script>
+(function () {
+  var header = document.getElementById('header');
+  var burger = document.getElementById('burger');
+  var mobileNav = document.getElementById('mobile-nav');
+
+  window.addEventListener('scroll', function () {
+    header.classList.toggle('is-top', window.scrollY < 80);
+  });
+
+  burger.addEventListener('click', function () {
+    burger.classList.toggle('is-open');
+    mobileNav.classList.toggle('is-open');
+  });
+
+  document.querySelectorAll('.mn-link').forEach(function (a) {
+    a.addEventListener('click', function () {
+      burger.classList.remove('is-open');
+      mobileNav.classList.remove('is-open');
+    });
+  });
+
+  var secs = document.querySelectorAll('.sec');
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) e.target.classList.add('is-visible');
+    });
+  }, { threshold: 0.35 });
+  secs.forEach(function (s) { obs.observe(s); });
+})();
+</script>
+
+</body>
+</html>

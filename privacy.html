@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#FFFEFB" />
+  <title>プライバシーポリシー | BLUE MOUSE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./layout.css?v=45" />
+  <style>
+    /* ===== ページヘッダー ===== */
+    .pp-header {
+      padding: 48px 0 36px;
+      border-bottom: 1px solid rgba(0,0,0,.07);
+      margin-bottom: 40px;
+    }
+    .pp-kicker {
+      font-family: "Inter", sans-serif;
+      font-size: 10px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: #5EC1C6;
+      margin-bottom: 10px;
+      font-weight: 500;
+      display: block;
+    }
+    .pp-title {
+      font-family: "Noto Sans JP", sans-serif;
+      font-size: clamp(1.5rem, 2.2vw, 1.9rem);
+      font-weight: 500;
+      color: #6aadcc;
+      margin: 0 0 12px;
+      line-height: 1.35;
+    }
+    .pp-lead {
+      font-size: 13px;
+      color: #888;
+      line-height: 1.85;
+      margin: 0;
+    }
+
+    /* ===== ポリシーセクション ===== */
+    .pp-sections {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .pp-section {
+      padding: 32px 0;
+      border-bottom: 1px solid rgba(0,0,0,.07);
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 32px;
+      align-items: flex-start;
+    }
+    .pp-section:last-child { border-bottom: none; }
+
+    .pp-section__label {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding-top: 3px;
+    }
+    .pp-section__num {
+      font-family: "Inter", sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      color: rgba(94,193,198,.6);
+      letter-spacing: .14em;
+    }
+    .pp-section__title {
+      font-family: "Noto Sans JP", sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: #2a2a2a;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .pp-section__body {
+      font-size: 13.5px;
+      color: #555;
+      line-height: 2;
+      font-weight: 400;
+    }
+
+    /* ===== 最終更新日 ===== */
+    .pp-footer {
+      padding: 32px 0 48px;
+      text-align: right;
+    }
+    .pp-footer__date {
+      font-family: "Inter", sans-serif;
+      font-size: 12px;
+      color: #bbb;
+      letter-spacing: .06em;
+    }
+    .pp-footer__company {
+      font-size: 12px;
+      color: #aaa;
+      margin-top: 4px;
+    }
+
+    /* ===== レスポンシブ ===== */
+    @media (max-width: 780px) {
+      .pp-section {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .pp-section__label {
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="bm-layout">
+
+  <!-- ===== 左サイドバー ===== -->
+  <aside class="bm-left">
+    <a class="bm-logo" href="./index.html">
+      <img src="./logo.png" alt="BLUE MOUSE" />
+    </a>
+        <nav class="bm-nav">
+      <a href="./index.html"       class="bm-nav__item" data-page="index">Front</a>
+      <a href="./philosophy.html"  class="bm-nav__item" data-page="philosophy">BLUE MOUSEの想い</a>
+      <div class="bm-nav__group">
+        <div class="bm-nav__group-header">
+          <a href="./child.html" class="bm-nav__group-link">児童発達支援事業</a>
+          <button type="button" class="bm-nav__toggle" data-group="child" data-target="nav-child">
+            <span class="bm-nav__arrow">▶</span>
+          </button>
+        </div>
+        <ul class="bm-nav__sub" id="nav-child">
+          <li><a href="./child.html#overview" class="bm-nav__subitem" data-group="child" data-hash="#overview">事業内容</a></li>
+          <li><a href="./child.html#pricing"  class="bm-nav__subitem" data-group="child" data-hash="#pricing">料金表</a></li>
+        </ul>
+      </div>
+      <div class="bm-nav__group">
+        <div class="bm-nav__group-header">
+          <a href="./afterschool.html" class="bm-nav__group-link">放課後等デイサービス</a>
+          <button type="button" class="bm-nav__toggle" data-group="afterschool" data-target="nav-after">
+            <span class="bm-nav__arrow">▶</span>
+          </button>
+        </div>
+        <ul class="bm-nav__sub" id="nav-after">
+          <li><a href="./afterschool.html#program"  class="bm-nav__subitem" data-group="afterschool" data-hash="#program">事業内容</a></li>
+          <li><a href="./afterschool.html#pricing"  class="bm-nav__subitem" data-group="afterschool" data-hash="#pricing">料金表</a></li>
+        </ul>
+      </div>
+      <a href="./recruit.html"     class="bm-nav__item" data-page="recruit">採用情報</a>
+      <a href="./contact.html"     class="bm-nav__item" data-page="contact">お問い合わせ</a>
+    </nav>
+    <a class="bm-drawer-sns" href="https://www.instagram.com/blue_mouse_okayama/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg></a>
+  </aside>
+
+  <!-- ===== メインコンテンツ ===== -->
+  <main class="bm-main">
+
+    <div class="pp-header">
+      <span class="pp-kicker">Privacy Policy</span>
+      <h1 class="pp-title">プライバシーポリシー</h1>
+      <p class="pp-lead">合同会社C EIGHTY PERCENT（以下「当社」）は、お客様の個人情報の保護を重要な責務と認識し、<br>以下の方針に基づき適切に取り扱います。</p>
+    </div>
+
+    <div class="pp-sections">
+
+      <div class="pp-section">
+        <div class="pp-section__label">
+          <span class="pp-section__num">01</span>
+          <h2 class="pp-section__title">個人情報の取得</h2>
+        </div>
+        <p class="pp-section__body">お客様の個人情報を取得させていただく場合は、利用目的をできる限り特定するとともに、適法かつ公正な手段で必要な範囲の個人情報を取得させていただきます。</p>
+      </div>
+
+      <div class="pp-section">
+        <div class="pp-section__label">
+          <span class="pp-section__num">02</span>
+          <h2 class="pp-section__title">個人情報の利用目的</h2>
+        </div>
+        <p class="pp-section__body">お客様からお預かりした個人情報は、業務のご案内やお問い合わせに対する回答として、電子メールや資料の送付に利用いたします。</p>
+      </div>
+
+      <div class="pp-section">
+        <div class="pp-section__label">
+          <span class="pp-section__num">03</span>
+          <h2 class="pp-section__title">個人情報の管理・開示</h2>
+        </div>
+        <p class="pp-section__body">お客様より取得させていただいた個人情報は適切に管理し、法律に基づき必要と判断される場合を除き、お客様の同意を得た第三者以外への提供、開示等一切いたしません。</p>
+      </div>
+
+      <div class="pp-section">
+        <div class="pp-section__label">
+          <span class="pp-section__num">04</span>
+          <h2 class="pp-section__title">個人情報の安全対策</h2>
+        </div>
+        <p class="pp-section__body">お客様よりお預かりした個人情報の安全管理は合理的、組織的、物理的、技術的施策を講じるとともに、関連法令に準じた適切な取り扱いを行うことで個人情報への不正な侵入、紛失、改ざん、漏えい等の危険防止に努めます。</p>
+      </div>
+
+      <div class="pp-section">
+        <div class="pp-section__label">
+          <span class="pp-section__num">05</span>
+          <h2 class="pp-section__title">ご本人の照会</h2>
+        </div>
+        <p class="pp-section__body">お客さまがご本人の個人情報の照会・修正・削除などをご希望される場合には、ご本人であることを確認の上、対応させていただきます。</p>
+      </div>
+
+      <div class="pp-section">
+        <div class="pp-section__label">
+          <span class="pp-section__num">06</span>
+          <h2 class="pp-section__title">他のサイトとのリンク</h2>
+        </div>
+        <p class="pp-section__body">当サイト内に、他のウェブサイトへのリンクが貼られている場合があります。それらの独立した第三者のサイトおよびサービスについて、当社はいかなる義務や責任も負いかねます。ご自身の責任で、各サイトの定める個人情報保護方針等を事前にご確認されることをおすすめします。</p>
+      </div>
+
+    </div>
+
+    <div class="pp-footer">
+      <p class="pp-footer__date">制定日：2025年12月1日</p>
+      <p class="pp-footer__company">合同会社C EIGHTY PERCENT</p>
+    </div>
+
+  </main>
+
+  <!-- ===== 右サイドバー ===== -->
+  <aside class="bm-right">
+    <p class="side-heading">PRIVACY</p>
+    <div class="side-cards">
+      <div class="side-card">
+        <span class="side-card__badge">運営</span>
+        <p class="side-card__title">合同会社C EIGHTY PERCENT</p>
+      </div>
+      <div class="side-card">
+        <span class="side-card__badge">お問い合わせ</span>
+        <p class="side-card__title" style="font-size:12px;">tokuyoshi@blue-mouse.net</p>
+      </div>
+    </div>
+    <a href="./contact.html" class="side-cta">
+      お問い合わせ
+      <span class="side-cta__icon">›</span>
+    </a>
+    <p class="bm-copy" style="text-align:center; margin-top:14px;">© BLUE MOUSE All Rights Reserved.</p>
+  </aside>
+
+</div>
+<script src="./layout.js"></script>
+</body>
+</html>

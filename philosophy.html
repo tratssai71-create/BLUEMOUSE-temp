@@ -1,0 +1,876 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#FFFEFB" />
+  <title>BLUE MOUSEの想い | 主体性療育からIT療育へ</title>
+  <meta name="description" content="主体性療育から、IT療育へ。経済的自立から逆算した、10年後のロードマップ。合同会社BLUE MOUSEが事業に込めた想いと全体像。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./layout.css?v=45" />
+  <style>
+    :root {
+      --pf-coral: #f2906c; --pf-coral-dark: #e87e59; --pf-teal: #5fc1c7; --pf-yellow: #f5d24a;
+      --pf-cream: #fffdf7; --pf-paper: #FFFEFB; --pf-ink: #2a1d12; --pf-ink-soft: #6b5a4c;
+      --pf-scrim: 40, 30, 24;
+    }
+    .bm-layout { animation: none !important; }
+    .bm-main { padding: 0 !important; }
+    .bm-main, .bm-main h1, .bm-main h2, .bm-main h3, .bm-main p, .bm-main span, .bm-main a, .bm-main div, .bm-main li {
+      font-family: "Inter", "Zen Kaku Gothic New", sans-serif !important;
+    }
+
+    .pf-section { position: fixed; top: 0; left: 25vw; width: 50vw; height: 100vh; height: 100svh; overflow: hidden; visibility: hidden; }
+    .pf-section[data-idx="0"] { visibility: visible; }
+
+    /* プロローグ（導入画面）：通常スクロールでiOSバーを縮小→スワイプし切るとジャック演出へ */
+    .pf-prologue { position: relative; z-index: 50; width: 50vw; height: 100vh; height: 100dvh; margin: 0 auto; background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(95,193,199,.13) 0%, transparent 70%), var(--pf-paper); display: flex; align-items: center; justify-content: center; }
+    .pf-prologue__inner { display: flex; flex-direction: column; align-items: center; gap: 36px; animation: pf-pro-in 1.1s cubic-bezier(.22,1,.36,1) both; }
+    .pf-prologue__tagline { font-family: "Zen Kaku Gothic New", sans-serif; font-size: .82rem; font-weight: 400; letter-spacing: .1em; color: rgba(42,29,18,.34); text-align: center; line-height: 1.75; margin: 0; }
+    .pf-prologue__accent { position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--pf-teal); opacity: .45; }
+    .pf-prologue__logo { width: clamp(120px, 18vw, 180px); height: auto; }
+    .pf-prologue__scroll { font-family: "Inter", sans-serif; font-size: .68rem; font-weight: 600; letter-spacing: .4em; text-transform: uppercase; color: var(--pf-ink-soft); display: flex; flex-direction: column; align-items: center; gap: 12px; }
+    .pf-prologue__scroll i { width: 1px; height: 44px; background: currentColor; transform-origin: top; animation: pf-pro-scroll 1.8s ease-in-out infinite; }
+    @keyframes pf-pro-in { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+    @keyframes pf-pro-out { to { opacity: 0; transform: translateY(-52px) scale(1.07); } }
+    @keyframes pf-pro-scroll { 0%, 100% { transform: scaleY(.25); opacity: .35; } 50% { transform: scaleY(1); opacity: 1; } }
+    .pf-prologue__inner.is-leaving { animation: pf-pro-out 0.45s cubic-bezier(.4,0,1,1) forwards; }
+
+    .pf-title { background: var(--pf-paper); }
+    .pf-title__inner { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); display: flex; flex-direction: column; align-items: center; text-align: center; width: max-content; max-width: calc(100% - 44px); }
+    .pf-title__en { font-family: "Inter", sans-serif; font-size: .8rem; font-weight: 600; letter-spacing: .42em; text-transform: uppercase; color: var(--pf-teal); display: inline-flex; align-items: center; gap: 14px; margin: 0 0 26px; }
+    .pf-title__en::before, .pf-title__en::after { content: ""; width: 28px; height: 1px; background: currentColor; opacity: .85; }
+    .pf-title__ja { font-family: "Zen Kaku Gothic New", sans-serif; font-size: clamp(2.1rem, 5vw, 3.6rem); font-weight: 700; color: var(--pf-ink); letter-spacing: .06em; line-height: 1.42; margin: 0; }
+    .pf-title__spark { display: block; width: 44px; height: 4px; border-radius: 4px; background: var(--pf-yellow); margin: 24px 0 0; }
+    .pf-title__sub { font-size: clamp(.86rem, 1.3vw, 1rem); font-weight: 400; color: var(--pf-ink-soft); letter-spacing: .06em; line-height: 1.9; margin: 22px 0 0; }
+    .pf-title__hint { position: absolute; bottom: 44px; left: 50%; transform: translateX(-50%); opacity: 0; transition: opacity 0.8s cubic-bezier(.22,1,.36,1); pointer-events: none; }
+    .pf-title__hint.is-visible { opacity: 1; }
+    .pf-title__hint svg { display: block; width: 22px; height: 22px; color: var(--pf-ink-soft); animation: hintBob 2.4s ease-in-out infinite; }
+    @keyframes hintBob { 0%, 100% { transform: translateY(0); } 60% { transform: translateY(8px); } }
+
+    .pf-photo { background: #1a130c; }
+    .pf-photo__img { position: absolute; left: 0; right: 0; top: -5%; width: 100%; height: 110%; object-fit: cover; object-position: center; display: block; will-change: transform; }
+    .pf-photo__img.pos-35 { object-position: center 35%; }
+    .pf-photo__img.pos-40 { object-position: center 40%; }
+    .pf-photo__grad { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to top, rgba(var(--pf-scrim),.80) 0%, rgba(var(--pf-scrim),.42) 38%, rgba(var(--pf-scrim),.12) 66%, rgba(var(--pf-scrim),.04) 100%); }
+    .pf-photo__copy { position: absolute; left: 0; right: 0; bottom: 0; padding: 56px 52px 60px; display: flex; flex-direction: column; }
+    .pf-eyebrow { font-family: "Inter", sans-serif; font-size: .72rem; font-weight: 600; letter-spacing: .3em; text-transform: uppercase; color: var(--pf-teal); display: inline-flex; align-items: center; gap: 12px; margin: 0 0 18px; text-shadow: 0 1px 10px rgba(0,0,0,.4); }
+    .pf-eyebrow::before { content: ""; width: 28px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: right center; transition: transform 3.1s cubic-bezier(.16,1,.3,1) 0.4s; }
+    .pf-eyebrow.is-visible::before { transform: scaleX(1); }
+    .pf-photo__title { font-family: "Zen Kaku Gothic New", sans-serif; font-size: clamp(1.7rem, 3.4vw, 2.7rem); font-weight: 700; color: var(--pf-cream); line-height: 1.55; letter-spacing: .04em; margin: 0; text-shadow: 0 2px 18px rgba(0,0,0,.4); }
+    .pf-photo__note { font-size: .82rem; font-weight: 500; color: rgba(255,253,247,.66); letter-spacing: .14em; margin: 16px 0 0; }
+
+    .pf-text { background: var(--pf-paper); display: flex; flex-direction: column; justify-content: center; padding: 0 56px; }
+    .pf-text .pf-eyebrow { color: var(--pf-teal); text-shadow: none; }
+    /* 問いのセクション: 暗転で一文を際立たせる */
+    .pf-text--dark { background: #1a130c; align-items: center; text-align: center; }
+    .pf-text--dark .pf-text__lead { color: var(--pf-cream); }
+    .pf-text__lead { font-family: "Zen Kaku Gothic New", sans-serif; font-size: clamp(1.9rem, 3.6vw, 3.2rem); font-weight: 700; color: var(--pf-ink); line-height: 1.4; letter-spacing: .01em; margin: 0 0 28px; }
+    .pf-text__lead em { font-style: normal; color: var(--pf-coral); }
+    .pf-text__body { font-size: clamp(.94rem, 1.2vw, 1.05rem); font-weight: 400; line-height: 2.05; color: var(--pf-ink-soft); max-width: 520px; letter-spacing: .02em; margin: 0; }
+    .pf-text__body strong { color: var(--pf-ink); font-weight: 700; }
+    .pf-fignum { font-family: "Inter", sans-serif; font-weight: 700; font-size: clamp(3.4rem, 9vw, 6rem); color: var(--pf-coral); line-height: 1; margin: 0 0 18px; }
+    .pf-fignum small { font-size: .32em; font-weight: 600; letter-spacing: .04em; }
+
+    .pf-cta { background: var(--pf-paper); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 56px; }
+    .pf-cta__lead { font-family: "Zen Kaku Gothic New", sans-serif; font-size: clamp(1.8rem, 3.6vw, 2.8rem); font-weight: 700; color: var(--pf-ink); line-height: 1.45; margin: 0 0 18px; letter-spacing: .03em; }
+    .pf-cta__sub { font-size: clamp(.9rem, 1.3vw, 1.02rem); color: var(--pf-ink-soft); line-height: 1.9; margin: 0 0 38px; }
+    .pf-btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+    .pf-btn { display: inline-flex; align-items: center; gap: 10px; font-family: "Inter","Zen Kaku Gothic New",sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: .08em; padding: 16px 34px; border-radius: 100px; text-decoration: none; transition: transform .22s cubic-bezier(.34,1.56,.64,1), background .2s, box-shadow .25s, color .2s, border-color .2s; }
+    .pf-btn__arrow { display: inline-block; transition: transform .25s cubic-bezier(.34,1.56,.64,1); }
+    .pf-btn--primary { background: var(--pf-coral); color: #fff; box-shadow: 0 6px 18px rgba(242,144,108,.42); }
+    .pf-btn--primary:hover { background: var(--pf-coral-dark); transform: scale(1.04); box-shadow: 0 10px 26px rgba(242,144,108,.54); }
+    .pf-btn--primary:hover .pf-btn__arrow { transform: translateX(5px); }
+    .pf-btn--ink { background: transparent; color: var(--pf-ink); border: 1.5px solid rgba(42,29,18,.3); }
+    .pf-btn--ink:hover { background: rgba(42,29,18,.06); border-color: var(--pf-ink); transform: translateY(-2px); }
+
+    /* opacity/transformのアニメーションはJSのrAFで一括制御（CSS transition/animationは競合するので使わない） */
+    .pf-anim { will-change: opacity, transform; -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+    .pf-anim:not(.is-visible) { opacity: 0 !important; } /* 初期は確実に非表示（他CSSのopacity:1に負けないよう!important） */
+    .pf-anim.is-visible { opacity: 1; transform: translateZ(0); }
+    .pf-title .pf-anim, .pf-photo .pf-anim { transform: translateX(40px); }
+    .pf-title .pf-anim.is-visible, .pf-photo .pf-anim.is-visible { transform: translateZ(0); }
+    .pf-section[data-idx="3"] .pf-anim, .pf-section[data-idx="8"] .pf-anim { transform: translateX(40px); }
+    .pf-section[data-idx="3"] .pf-anim.is-visible, .pf-section[data-idx="8"] .pf-anim.is-visible { transform: translateZ(0); }
+    .pf-section[data-idx="8"] .pf-text__lead .pf-anim { display: inline-block; } /* transformを効かせる */
+    /* オレンジ（13万円の数字／土台・武器）だけ横スライドさせず、その場でフェードイン */
+    .pf-section[data-idx="3"] .pf-fignum, .pf-section[data-idx="8"] .pf-lead-em,
+    .pf-section[data-idx="3"] .pf-fignum.is-visible, .pf-section[data-idx="8"] .pf-lead-em.is-visible { transform: translateZ(0); }
+    /* section3: 13万円＋5年間の二段構成（flex流しで全体を中央寄せ） */
+    .pf-s3b { margin-top: clamp(60px, 12vh, 100px); }
+    /* ④ コーラルグロウ: 13万円登場時に背景が淡くウォームアップ */
+    .pf-s3-wash { position: absolute; inset: 0; background: radial-gradient(ellipse at 28% 46%, rgba(242,144,108,0.09) 0%, transparent 60%); opacity: 0; pointer-events: none; transition: opacity 2s ease; }
+    .pf-s3-wash.is-on { opacity: 1; }
+    /* ② モバイル進行バー（スマホ最優先・dotsの代替） */
+    .pf-progress { position: fixed; top: 0; left: 0; height: 2px; background: var(--pf-teal); z-index: 200; width: 0%; opacity: 0; pointer-events: none; transition: width 0.7s cubic-bezier(.16,1,.3,1), opacity 0.4s; }
+    .pf-progress.is-active { opacity: 1; }
+    @media (min-width: 781px) { .pf-progress { display: none; } }
+    /* Section4/6: 2フレーズを block 表示してそれぞれ独立アニメ */
+    .pf-s4-line, .pf-s6-line { display: block; }
+    /* Section7「答え」: リードを大きく——これがページの核心の一文 */
+    .pf-section[data-idx="7"] .pf-text__lead { font-size: clamp(2.4rem, 5.2vw, 4.4rem); line-height: 1.35; }
+    /* Section8「ロードマップ」: 中央揃えで宣言・マニフェスト感。section7の左揃え告白との対比 */
+    .pf-section[data-idx="8"] { align-items: center; text-align: center; }
+    /* Section4: 暗転時の極薄ウォームグロウ */
+    .pf-s4-wash { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 52%, rgba(255,160,100,0.055) 0%, transparent 58%); opacity: 0; pointer-events: none; transition: opacity 2.8s ease; }
+    .pf-s4-wash.is-on { opacity: 1; }
+
+    .pf-dots { position: fixed; right: calc(12.5vw - 3px); top: 50%; transform: translateY(-50%); z-index: 60; display: flex; flex-direction: column; gap: 14px; }
+    .pf-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(42,29,18,.20); transition: background .35s, transform .35s; }
+    .pf-dot.active { background: var(--pf-teal); transform: scale(1.9); }
+    .pf-dots.dark .pf-dot { background: rgba(255,253,247,.30); }
+    .pf-dots.dark .pf-dot.active { background: var(--pf-cream); }
+
+    @media (max-width: 780px) {
+      .pf-section { left: 0 !important; width: 100vw !important; }
+      .pf-prologue { width: 100vw; }
+      .pf-title { padding: 0 24px; }
+      .pf-photo__copy { padding: 40px 24px 48px; }
+      .pf-text { padding: 0 24px; }
+      .pf-cta { padding: 0 24px; }
+      .pf-text__body { max-width: none; }
+      .pf-btn { width: 100%; max-width: 320px; justify-content: center; }
+      .pf-dots { display: none; }
+      .pf-s3b { margin-top: clamp(60px, 12vh, 100px); }
+    }
+
+    /* ─── スクロール方向インジケーター（モバイル専用） ─── */
+    .pf-vscroll { position: fixed; right: 18px; top: 50%; transform: translateY(-50%); z-index: 60; display: none; flex-direction: column; align-items: center; opacity: 0; transition: opacity 0.5s; pointer-events: none; }
+    .pf-vscroll.is-active { opacity: 1; }
+    .pf-vscroll__line { width: 1px; height: 32px; background: rgba(42,29,18,.22); transition: background .35s; }
+    .pf-vscroll__icon { font-size: 12px; color: rgba(42,29,18,.40); padding: 5px 0; line-height: 1; }
+    .pf-vscroll.dark .pf-vscroll__line { background: rgba(255,253,247,.28); }
+    .pf-vscroll.dark .pf-vscroll__icon { color: rgba(255,253,247,.55); }
+    @media (max-width: 780px) { .pf-vscroll { display: flex; } }
+    /* ─── セクションカウンター（モバイル右下） ─── */
+    .pf-counter { position: fixed; right: 18px; bottom: 28px; z-index: 60; display: none; flex-direction: column; align-items: center; opacity: 0; transition: opacity 0.5s; pointer-events: none; }
+    .pf-counter.is-active { opacity: 1; }
+    .pf-counter__cur { font-family: "Inter", sans-serif; font-size: 1.0rem; font-weight: 600; line-height: 1; color: var(--pf-teal); letter-spacing: .02em; }
+    .pf-counter__sep { width: 1px; height: 14px; background: rgba(42,29,18,.18); margin: 4px 0; transition: background .35s; }
+    .pf-counter__total { font-family: "Inter", sans-serif; font-size: 0.68rem; font-weight: 400; line-height: 1; color: rgba(42,29,18,.38); letter-spacing: .04em; transition: color .35s; }
+    .pf-counter.dark .pf-counter__sep { background: rgba(255,253,247,.22); }
+    .pf-counter.dark .pf-counter__total { color: rgba(255,253,247,.42); }
+    @media (max-width: 780px) { .pf-counter { display: flex; } }
+  </style>
+</head>
+<body>
+<div class="bm-layout">
+
+  <aside class="bm-left">
+    <a class="bm-logo" href="./index.html"><img src="./logo.png" alt="BLUE MOUSE" /></a>
+        <nav class="bm-nav">
+      <a href="./index.html"       class="bm-nav__item" data-page="index">Front</a>
+      <a href="./philosophy.html"  class="bm-nav__item is-active" data-page="philosophy">BLUE MOUSEの想い</a>
+      <div class="bm-nav__group">
+        <div class="bm-nav__group-header">
+          <a href="./child.html" class="bm-nav__group-link">児童発達支援事業</a>
+          <button type="button" class="bm-nav__toggle" data-group="child" data-target="nav-child">
+            <span class="bm-nav__arrow">▶</span>
+          </button>
+        </div>
+        <ul class="bm-nav__sub" id="nav-child">
+          <li><a href="./child.html#overview" class="bm-nav__subitem" data-group="child" data-hash="#overview">事業内容</a></li>
+          <li><a href="./child.html#pricing"  class="bm-nav__subitem" data-group="child" data-hash="#pricing">料金表</a></li>
+        </ul>
+      </div>
+      <div class="bm-nav__group">
+        <div class="bm-nav__group-header">
+          <a href="./afterschool.html" class="bm-nav__group-link">放課後等デイサービス</a>
+          <button type="button" class="bm-nav__toggle" data-group="afterschool" data-target="nav-after">
+            <span class="bm-nav__arrow">▶</span>
+          </button>
+        </div>
+        <ul class="bm-nav__sub" id="nav-after">
+          <li><a href="./afterschool.html#program"  class="bm-nav__subitem" data-group="afterschool" data-hash="#program">事業内容</a></li>
+          <li><a href="./afterschool.html#pricing"  class="bm-nav__subitem" data-group="afterschool" data-hash="#pricing">料金表</a></li>
+        </ul>
+      </div>
+      <a href="./recruit.html"     class="bm-nav__item" data-page="recruit">採用情報</a>
+      <a href="./contact.html"     class="bm-nav__item" data-page="contact">お問い合わせ</a>
+    </nav>
+    <a class="bm-drawer-sns" href="https://www.instagram.com/blue_mouse_okayama/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg></a>
+  </aside>
+
+  <main class="bm-main">
+
+    <!-- プロローグ：最初のネイティブスクロールでiOSアドレスバーを縮小させる導入画面（ジャック演出とは完全に独立） -->
+    <div class="pf-prologue" id="pf-prologue">
+      <div class="pf-prologue__inner">
+        <img class="pf-prologue__logo" src="./logo.png" alt="BLUE MOUSE" />
+        <p class="pf-prologue__tagline">主体性療育から、IT療育へ。</p>
+        <span class="pf-prologue__scroll" aria-hidden="true">Scroll<i></i></span>
+      </div>
+      <div class="pf-prologue__accent"></div>
+    </div>
+
+    <!-- [0] タイトル -->
+    <section class="pf-section pf-title" data-idx="0">
+      <div class="pf-title__inner">
+        <p class="pf-title__en pf-anim">Philosophy</p>
+        <h1 class="pf-title__ja pf-anim">主体性療育から、<br>IT療育へ。</h1>
+        <span class="pf-title__spark pf-anim" aria-hidden="true"></span>
+        <p class="pf-title__sub pf-anim">経済的自立から逆算した、10年後のロードマップ。</p>
+      </div>
+      <div class="pf-title__hint" id="pf-title-hint" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </div>
+    </section>
+
+    <!-- [1] 出発点（写真＋一言） -->
+    <section class="pf-section pf-photo" data-idx="1" data-dark="1">
+      <img class="pf-photo__img pos-40" src="./1.webp" alt="BLUE MOUSEで過ごすこども" loading="lazy" />
+      <div class="pf-photo__grad"></div>
+      <div class="pf-photo__copy">
+        <h2 class="pf-photo__title pf-anim">この子の10年後を、<br>本気で。</h2>
+      </div>
+    </section>
+
+    <!-- [2] 画像のみ -->
+    <section class="pf-section pf-photo" data-idx="2" data-dark="1">
+      <img class="pf-photo__img pos-35" src="./photos/ph/ph-4.svg" alt="" loading="lazy" />
+      <div class="pf-photo__grad"></div>
+    </section>
+
+    <!-- [3] 数字（13万円）＋5年間 stagnation: Phase A→Phase B の順に自動進行 -->
+    <section class="pf-section pf-text" data-idx="3">
+      <div class="pf-s3-wash" aria-hidden="true"></div><!-- ④ コーラルグロウ背景 -->
+      <!-- Phase A: 13万円 Reality -->
+      <p class="pf-eyebrow pf-anim">Reality</p>
+      <p class="pf-fignum pf-anim"><span class="pf-count" data-target="13">13</span><small>万円</small></p>
+      <p class="pf-text__lead pf-anim">発達障害者の、<br>平均月収。</p>
+      <p class="pf-text__body pf-anim">一般労働者の、約4割。</p>
+      <!-- Phase B: 5年間 Stagnation（JSが自動で遅延表示） -->
+      <div class="pf-s3b">
+        <p class="pf-fignum pf-anim pf-s3b-el"><span class="pf-count" data-target="5">5</span><small>年間</small></p>
+        <p class="pf-text__lead pf-anim pf-s3b-el">改善されていない。</p>
+        <p class="pf-text__body pf-anim pf-s3b-el">2019年から変わらない、現実。</p>
+      </div>
+    </section>
+
+    <!-- [4] 問い（2フレーズ時差）: 暗転で台詞として読ませる -->
+    <section class="pf-section pf-text pf-text--dark" data-idx="4" data-dark="1">
+      <div class="pf-s4-wash" aria-hidden="true"></div>
+      <p class="pf-text__lead">
+        <span class="pf-anim pf-s4-line">自分の力で、</span>
+        <span class="pf-anim pf-s4-line">生きていけるのか。</span>
+      </p>
+    </section>
+
+    <!-- [5] 画像のみ -->
+    <section class="pf-section pf-photo" data-idx="5" data-dark="1">
+      <img class="pf-photo__img pos-35" src="./tree_child.jpg" alt="" loading="lazy" />
+      <div class="pf-photo__grad"></div>
+    </section>
+
+    <!-- [6] 壁（暗転・告白）: 既存の療育に答えはなかった -->
+    <section class="pf-section pf-text pf-text--dark" data-idx="6" data-dark="1">
+      <div class="pf-s4-wash" aria-hidden="true"></div>
+      <p class="pf-text__lead">
+        <span class="pf-anim pf-s4-line">既存の療育に、</span>
+        <span class="pf-anim pf-s4-line">答えはなかった。</span>
+      </p>
+    </section>
+
+    <!-- [7] 答え（文脈→結論→補足の3段）: 暗転を抜けて白へ、前進の宣言 -->
+    <section class="pf-section pf-text" data-idx="7">
+      <p class="pf-text__lead">
+        <span class="pf-anim pf-s6-line">だから私たちは、</span>
+        <span class="pf-anim pf-s6-line">別の道を選んだ。</span>
+      </p>
+      <p class="pf-text__body pf-anim">経済的自立から逆算した、10年のロードマップ。</p>
+    </section>
+
+    <!-- [8] ロードマップ（リードのみ） -->
+    <section class="pf-section pf-text" data-idx="8">
+      <p class="pf-eyebrow pf-anim">Roadmap</p>
+      <p class="pf-text__lead"><span class="pf-anim pf-lead-tx">まず</span><em class="pf-anim pf-lead-em">土台</em><span class="pf-anim pf-lead-tx">を育て、</span><br><span class="pf-anim pf-lead-tx">次に</span><em class="pf-anim pf-lead-em">武器</em><span class="pf-anim pf-lead-tx">を手にする。</span></p>
+      <p class="pf-text__body pf-anim">その実践が、二つの事業です。</p>
+    </section>
+
+    <!-- [9] フェーズ1（写真＋一言） -->
+    <section class="pf-section pf-photo" data-idx="9" data-dark="1">
+      <img class="pf-photo__img pos-35" src="./photos/jidou_opt.jpg" alt="児童発達支援の様子" loading="lazy" />
+      <div class="pf-photo__grad"></div>
+      <div class="pf-photo__copy">
+        <p class="pf-eyebrow pf-anim">Phase 01 — 児童発達支援</p>
+        <h2 class="pf-photo__title pf-anim">見えない力は、<br>こどもが自ら育む。</h2>
+        <p class="pf-photo__note pf-anim">気持ちや意見を言語化する力が、10年後の経済的自立を支える根っこになります。</p>
+      </div>
+    </section>
+
+    <!-- [10] 画像のみ -->
+    <section class="pf-section pf-photo" data-idx="10" data-dark="1">
+      <img class="pf-photo__img pos-35" src="./momose_opt.jpg" alt="" loading="lazy" />
+      <div class="pf-photo__grad"></div>
+    </section>
+
+    <!-- [11] フェーズ2（写真＋一言） -->
+    <section class="pf-section pf-photo" data-idx="11" data-dark="1">
+      <img class="pf-photo__img pos-35" src="./photos/hokago_opt.jpg" alt="放課後等デイサービスの様子" loading="lazy" />
+      <div class="pf-photo__grad"></div>
+      <div class="pf-photo__copy">
+        <p class="pf-eyebrow pf-anim">Phase 02 — 放課後等デイ</p>
+        <h2 class="pf-photo__title pf-anim">見える力は、<br>伴走者と共に。</h2>
+        <p class="pf-photo__note pf-anim">IT学習で自分の凸凹と向き合い、社会で使える武器を手にします。</p>
+      </div>
+    </section>
+
+    <!-- [12] 事業への導線 -->
+    <section class="pf-section pf-cta" data-idx="12">
+      <p class="pf-cta__lead pf-anim">この想いを、<br>二つの現場で。</p>
+      <p class="pf-cta__sub pf-anim">それぞれの事業が、ロードマップを形にします。</p>
+      <div class="pf-btns">
+        <a href="./child.html" class="pf-btn pf-btn--primary pf-anim">児童発達支援を見る <span class="pf-btn__arrow">›</span></a>
+        <a href="./afterschool.html" class="pf-btn pf-btn--ink pf-anim">放課後等デイサービスを見る</a>
+      </div>
+    </section>
+
+    <div id="pf-spacer"></div>
+
+  </main>
+
+  <aside class="bm-right">
+    <p class="side-heading">BLUE MOUSE</p>
+    <div class="side-cards">
+      <div class="side-card">
+        <span class="side-card__badge">児童発達支援</span>
+        <p class="side-card__title">2〜5歳</p>
+        <p class="side-card__sub">岡山市北区 辰巳</p>
+        <a href="https://maps.google.com/?q=岡山県岡山市北区辰巳26-102" target="_blank" rel="noopener" class="side-card__link">場所を見る</a>
+      </div>
+      <div class="side-card">
+        <span class="side-card__badge">放課後等デイ</span>
+        <p class="side-card__title">小学生〜高校生</p>
+        <p class="side-card__sub">岡山市中区 徳吉町</p>
+        <a href="https://maps.google.com/?q=岡山県岡山市中区徳吉町二丁目11番地25" target="_blank" rel="noopener" class="side-card__link">場所を見る</a>
+      </div>
+    </div>
+    <a href="./recruit.html" class="side-cta">採用情報を見る <span class="side-cta__icon">›</span></a>
+    <p class="bm-copy" style="text-align:center; margin-top:14px;">© BLUE MOUSE All Rights Reserved.</p>
+  </aside>
+
+</div>
+
+<div class="pf-progress" id="pf-progress"></div>
+<div class="pf-dots" id="pf-dots">
+  <span class="pf-dot active"></span><span class="pf-dot"></span><span class="pf-dot"></span><span class="pf-dot"></span>
+  <span class="pf-dot"></span><span class="pf-dot"></span><span class="pf-dot"></span><span class="pf-dot"></span>
+  <span class="pf-dot"></span><span class="pf-dot"></span><span class="pf-dot"></span><span class="pf-dot"></span>
+  <span class="pf-dot"></span>
+
+<div class="pf-vscroll" id="pf-vscroll">
+  <span class="pf-vscroll__line"></span>
+  <span class="pf-vscroll__icon">&#x2195;</span>
+  <span class="pf-vscroll__line"></span>
+</div>
+<div class="pf-counter" id="pf-counter">
+  <span class="pf-counter__cur" id="pf-counter-cur">01</span>
+  <span class="pf-counter__sep"></span>
+  <span class="pf-counter__total" id="pf-counter-total">--</span>
+</div>
+
+<script src="./layout.js"></script>
+<script>
+(function () {
+  'use strict';
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  if (document.fonts && document.fonts.load) {
+    document.fonts.load('700 2rem "Zen Kaku Gothic New"');
+    document.fonts.load('400 1rem "Zen Kaku Gothic New"');
+    document.fonts.load('900 2rem "Zen Kaku Gothic New"');
+  }
+  var sections = Array.prototype.slice.call(document.querySelectorAll('.pf-section'));
+  var n = sections.length;
+  var dotEls = Array.prototype.slice.call(document.querySelectorAll('.pf-dot'));
+  var dotsWrap = document.getElementById('pf-dots');
+  var spacer = document.getElementById('pf-spacer');
+  var prologue = document.getElementById('pf-prologue');
+  var proInner = prologue ? prologue.querySelector('.pf-prologue__inner') : null;
+  var progressEl = document.getElementById('pf-progress');
+  var vscrollEl    = document.getElementById('pf-vscroll');
+  var counterEl    = document.getElementById('pf-counter');
+  var counterCurEl = document.getElementById('pf-counter-cur');
+  var counterTotEl = document.getElementById('pf-counter-total');
+  function pad2(x) { return (x < 10 ? '0' : '') + x; }
+  if (counterTotEl) counterTotEl.textContent = pad2(n);
+  var PRO = 0;
+  var titleEls = sections[0] ? Array.prototype.slice.call(sections[0].querySelectorAll('.pf-anim')) : [];
+  var s3Els    = sections[3] ? Array.prototype.slice.call(sections[3].querySelectorAll('.pf-anim')) : [];
+  var s7Els    = sections[8] ? Array.prototype.slice.call(sections[8].querySelectorAll('.pf-anim')) : [];
+  var s3Gen = 0, s3PhaseTimer = null, s3Step = 0;
+  var vh = window.innerHeight, prevBase = -1, prevNext = -1, locked = false, lockedVh = 0;
+  var seen = sections.map(function () { return false; });
+  var hintEl = document.getElementById('pf-title-hint');
+
+  /* ── 仮想スクロールエンジン ──────────────────────────────────────────────────
+     virtualY が描画の唯一のソース。window.pageYOffset はプロローグのiOSバー縮小だけに使う。
+     touchmove中 → virtualY をリアルタイム更新 → draw() → 画面が指に追従
+     touchend後  → 指の速度を初速としてスプリング物理 → 最寄りセクションへ吸着（余韻）  */
+  var virtualY = 0;        /* 現在位置 px (0 = section0, vh = section1, ...) */
+  var springVel = 0;       /* スプリング速度 px/frame */
+  var springTarget = 0;    /* スナップ先 */
+  var springActive = false;
+  var animRaf = null;      /* 実行中アニメーションの RAF id */
+  var animating = false;   /* wheel連打ブロック */
+
+  var touching = false;
+  var touchStartY = 0, touchBaseVY = 0, touchRawVY = 0;
+  var needsTouchReset = false; /* lockLayout後の最初のtouchmoveでtouchStartYをリセットするフラグ */
+  var touchSlideOffset = 0;   /* touchstart時点のスプリングスライド量（translateY連続性のため引き継ぐ） */
+  var touchHistory = [];
+  var DRAG_SENSITIVITY = 0.35;
+  var SLIDE_SENSITIVITY = 0.7; /* 視覚スライド量（rawDragに対する比率、DRAG_SENSITIVITYの2倍） */
+  var touchTiltDeg = 0;  /* touchmoveで更新。物理ドラッグから計算した最大チルト角（指を離すまで増加のみ） */
+  var tiltDeg = 0;       /* スプリング中の現在チルト角（→0に収束） */
+  var tiltVel = 0;       /* チルトスプリング速度 */
+
+  var secGen = {};
+  function bumpSecGen (si) { secGen[si] = (secGen[si] || 0) + 1; return secGen[si]; }
+  function checkSecGen (si, g) { return (secGen[si] || 0) === g; }
+
+  function setup () {
+    if (locked) return;
+    vh = window.innerHeight;
+    PRO = prologue ? Math.round(prologue.offsetHeight) : 0;
+    spacer.style.height = (PRO + vh) + 'px';
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    document.body.style.overflow = '';
+  }
+  function lockLayout () {
+    vh = window.innerHeight; lockedVh = vh;
+    PRO = prologue ? Math.round(prologue.offsetHeight) : 0;
+    spacer.style.height = (PRO + vh) + 'px';
+    locked = true;
+    window.scrollTo(0, PRO);
+    /* body を fixed に固定して iOS body-lock。
+       overflow-x:hidden の親を持つ fixed 要素が iOS でズレる問題も同時に解消。 */
+    document.body.style.position = 'fixed';
+    document.body.style.top = '-' + PRO + 'px';
+    document.body.style.width = '100%';
+    document.body.style.overflow = 'hidden';
+    if (proInner) proInner.classList.add('is-leaving');
+    /* プロローグ中に指が触れたまま locked=true になった場合、
+       蓄積ドラッグが最初の touchmove で急スライド/急チルトを起こさないよう
+       最初のtouchmoveでtouchStartYをリセットするフラグを立てる。 */
+    if (touching) needsTouchReset = true;
+  }
+  function setTf (el, val) { el.style.webkitTransform = val; el.style.transform = val; }
+
+  function showEl (el, forceX) {
+    el._pfCancelled = false;
+    var noMove = el.classList.contains('pf-fignum') || el.classList.contains('pf-lead-em');
+    var isEyebrow = el.classList.contains('pf-eyebrow');
+    var useX = !isEyebrow && forceX && !noMove;
+    var fx = useX ? 40 : 0;
+    var fy = (!noMove && !useX && !isEyebrow) ? 26 : 0;
+    var isPunch = el.classList.contains('pf-fignum');
+    var countSpan = isPunch ? el.querySelector('.pf-count') : null;
+    var countTarget = countSpan ? parseInt(countSpan.getAttribute('data-target'), 10) : 0;
+    if (countSpan) countSpan.textContent = '0';
+    el.style.transition = 'none'; el.style.webkitTransition = 'none'; el.style.animation = 'none';
+    el.style.opacity = '0';
+    if (fx) setTf(el, 'translate3d(' + fx + 'px, 0, 0)');
+    else if (fy) setTf(el, 'translate3d(0, ' + fy + 'px, 0)');
+    else if (isPunch) setTf(el, 'scale(1.08)');
+    el.classList.add('is-visible');
+    void el.offsetWidth;
+    var dur = 900, startT = null;
+    function stp (ts) {
+      if (el._pfCancelled) return;
+      if (!startT) startT = ts;
+      var p = Math.min((ts - startT) / dur, 1);
+      var e = 1 - Math.pow(1 - p, 3);
+      el.style.opacity = String(e);
+      if (fx) setTf(el, 'translate3d(' + (fx * (1 - e)).toFixed(1) + 'px, 0, 0)');
+      else if (fy) setTf(el, 'translate3d(0, ' + (fy * (1 - e)).toFixed(1) + 'px, 0)');
+      else if (isPunch) setTf(el, 'scale(' + (1 + 0.08 * (1 - e)).toFixed(4) + ')');
+      if (countSpan) countSpan.textContent = p < 0.98 ? String(Math.round((1 - Math.pow(1 - p, 2)) * countTarget)) : String(countTarget);
+      if (p < 1) requestAnimationFrame(stp);
+      else { el.style.opacity = ''; setTf(el, ''); el.style.transition = ''; el.style.webkitTransition = ''; el.style.animation = ''; if (countSpan) countSpan.textContent = String(countTarget); }
+    }
+    requestAnimationFrame(stp);
+  }
+
+  function animateS3PhaseB () {
+    var gen = ++s3Gen;
+    if (s3PhaseTimer) { clearTimeout(s3PhaseTimer); s3PhaseTimer = null; }
+    var bEls = sections[3] ? Array.prototype.slice.call(sections[3].querySelectorAll('.pf-s3b-el')) : [];
+    bEls.forEach(function (el) {
+      var d;
+      if (el.classList.contains('pf-eyebrow'))         d = 40;
+      else if (el.classList.contains('pf-fignum'))     d = 160;
+      else if (el.classList.contains('pf-text__lead')) d = 1300;
+      else                                             d = 1500;
+      setTimeout(function () { if (s3Gen !== gen) return; showEl(el, false); }, d);
+    });
+  }
+
+  function animateIn (section) {
+    section.style.visibility = 'visible';
+    var sIdx = +section.getAttribute('data-idx');
+    var els = Array.prototype.slice.call(section.querySelectorAll('.pf-anim'));
+    els.forEach(function (el) { el.classList.remove('is-visible'); el.style.opacity = ''; el.style.transition = ''; el.style.webkitTransition = ''; el.style.transform = ''; el.style.webkitTransform = ''; el.style.animation = ''; });
+    void section.offsetHeight;
+    if (sIdx === 4) {
+      var gen4 = bumpSecGen(4);
+      var washEl4 = section.querySelector('.pf-s4-wash');
+      if (washEl4) setTimeout(function () { if (!checkSecGen(4, gen4)) return; washEl4.classList.add('is-on'); }, 500);
+      els.forEach(function (el, i) { setTimeout(function () { if (!checkSecGen(4, gen4)) return; showEl(el, false); }, i === 0 ? 300 : 1500); });
+      return;
+    }
+    if (sIdx === 6) {
+      var gen6 = bumpSecGen(6);
+      var washEl6 = section.querySelector('.pf-s4-wash');
+      if (washEl6) setTimeout(function () { if (!checkSecGen(6, gen6)) return; washEl6.classList.add('is-on'); }, 400);
+      els.forEach(function (el, i) { setTimeout(function () { if (!checkSecGen(6, gen6)) return; showEl(el, false); }, i === 0 ? 80 : 800); });
+      return;
+    }
+    if (sIdx === 7) {
+      var gen7 = bumpSecGen(7);
+      els.forEach(function (el, i) { setTimeout(function () { if (!checkSecGen(7, gen7)) return; showEl(el, true); }, i === 0 ? 80 : i === 1 ? 520 : 1100); });
+      return;
+    }
+    if (sIdx === 12) {
+      var gen12 = bumpSecGen(12);
+      els.forEach(function (el, i) { setTimeout(function () { if (!checkSecGen(12, gen12)) return; showEl(el, false); }, 80 + i * 180); });
+      return;
+    }
+    if (sIdx === 3) {
+      s3Step = 0;
+      var gen3 = ++s3Gen;
+      if (s3PhaseTimer) { clearTimeout(s3PhaseTimer); s3PhaseTimer = null; }
+      var aEls = els.filter(function (el) { return !el.classList.contains('pf-s3b-el'); });
+      aEls.forEach(function (el) {
+        var d;
+        if (el.classList.contains('pf-eyebrow'))         d = 40;
+        else if (el.classList.contains('pf-fignum'))     d = 160;
+        else if (el.classList.contains('pf-text__lead')) d = 1300;
+        else                                             d = 1500;
+        setTimeout(function () { if (s3Gen !== gen3) return; showEl(el, false); }, d);
+      });
+      var washEl = sections[3].querySelector('.pf-s3-wash');
+      if (washEl) setTimeout(function () { if (s3Gen !== gen3) return; washEl.classList.add('is-on'); }, 600);
+      return;
+    }
+    if (sIdx === 1) {
+      var gen1 = bumpSecGen(1);
+      els.forEach(function (el, i) { setTimeout(function () { if (!checkSecGen(1, gen1)) return; showEl(el, true); }, 80 + i * 120); });
+      return;
+    }
+    if (sIdx === 8) {
+      var gen8 = bumpSecGen(8);
+      els.forEach(function (el) {
+        var d;
+        if (el.classList.contains('pf-eyebrow'))      d = 40;
+        else if (el.classList.contains('pf-lead-em')) d = 160;
+        else if (el.classList.contains('pf-lead-tx')) d = 1300;
+        else                                          d = 1500;
+        setTimeout(function () { if (!checkSecGen(8, gen8)) return; showEl(el, true); }, d);
+      });
+      return;
+    }
+    var genD = bumpSecGen(sIdx);
+    els.forEach(function (el, i) { setTimeout(function () { if (!checkSecGen(sIdx, genD)) return; showEl(el, true); }, 80 + i * 120); });
+    if (sIdx === 0 && hintEl) {
+      setTimeout(function () { if (!checkSecGen(0, genD)) return; hintEl.classList.add('is-visible'); }, 80 + (els.length > 0 ? (els.length - 1) * 120 : 0) + 700);
+    }
+  }
+
+  function resetAnim (section) {
+    var si = +section.getAttribute('data-idx');
+    if (!isNaN(si)) bumpSecGen(si);
+    Array.prototype.slice.call(section.querySelectorAll('.pf-anim')).forEach(function (el) {
+      el._pfCancelled = true;
+      el.classList.remove('is-visible'); el.style.opacity = ''; el.style.transform = ''; el.style.webkitTransform = ''; el.style.transition = ''; el.style.webkitTransition = ''; el.style.animation = '';
+    });
+    section.querySelectorAll('.pf-s3-wash, .pf-s4-wash').forEach(function (w) { w.classList.remove('is-on'); });
+    if (si === 0 && hintEl) hintEl.classList.remove('is-visible');
+  }
+
+  function inPrologue () { return !locked; }
+  function currentBase () { var b = 0; for (var i = n - 2; i >= 0; i--) { if (virtualY >= i * vh) { b = i; break; } } return Math.max(0, b); }
+
+  function draw () {
+    if (!locked) {
+      dotEls.forEach(function (d, j) { d.classList.toggle('active', j === 0); });
+      if (dotsWrap) dotsWrap.classList.remove('dark');
+      if (vscrollEl) { vscrollEl.classList.remove('is-active'); vscrollEl.classList.remove('dark'); }
+      if (counterEl) { counterEl.classList.remove('is-active'); counterEl.classList.remove('dark'); }
+      return;
+    }
+    var st = Math.max(0, virtualY);
+    var base = 0;
+    for (var i = n - 2; i >= 0; i--) { if (st >= i * vh) { base = i; break; } }
+    var next = Math.min(base + 1, n - 1);
+    var secSpan = vh, stRel = st - base * vh;
+    if (next !== base) {
+      /* touch中・spring中ともに virtualY（DRAG_SENSITIVITY圧縮済）ベースで描画。
+         → 指を離すまで最大35%しか遷移しない（完全入れ替わりは指を離した後のspringが担う）
+         → touchend→spring の opacity 連続性も同時に保証。 */
+      var drag_t = Math.min(1, Math.max(0, stRel / secSpan));
+      var e = drag_t * drag_t * (3 - 2 * drag_t); /* smoothstep */
+      sections[base].style.opacity = String(1 - e);
+      sections[base].style.transform = '';
+      sections[next].style.opacity = String(e);
+      sections[next].style.transform = 'translateY(0)';
+    } else {
+      tiltDeg = 0; tiltVel = 0; /* touchTiltDegは保持（最終セクションでも次ジェスチャーへ引継ぎ） */
+      sections[base].style.opacity = '';
+      sections[base].style.transform = '';
+      sections[base].style.zIndex = '';
+    }
+    [base, next].forEach(function (si) {
+      if (si < 0 || si >= n) return;
+      var sec = sections[si];
+      if (!sec.classList.contains('pf-photo')) return;
+      var img = sec.querySelector('.pf-photo__img');
+      if (!img) return;
+      img.style.transform = 'translateY(' + (((st - si * vh) / vh) * 40).toFixed(1) + 'px)';
+    });
+    var tp = Math.min(1, Math.max(0, (st - vh * 0.05) / (vh * 0.85)));
+    titleEls.forEach(function (el) {
+      if (tp > 0) { el.style.animation = 'none'; el.style.transition = 'none'; el.style.opacity = String(Math.max(0, 1 - tp)); el.style.transform = 'translateX(' + Math.round(-tp * 16) + 'px)'; }
+      else { el.style.animation = ''; el.style.transition = ''; el.style.opacity = ''; el.style.transform = ''; }
+    });
+    if (base === 3 || base === 8) {
+      var foEls = base === 3 ? s3Els : s7Els;
+      var op = Math.min(1, Math.max(0, (stRel - secSpan * 0.05) / (secSpan * 0.85)));
+      foEls.forEach(function (el) {
+        if (op > 0) { el.style.animation = 'none'; el.style.transition = 'none'; el.style.opacity = String(Math.max(0, 1 - op)); el.style.transform = 'translateX(' + Math.round(-op * 16) + 'px)'; }
+        else { el.style.animation = ''; el.style.transition = ''; el.style.opacity = ''; el.style.transform = ''; }
+      });
+    }
+    if (base !== 3) { s3Els.forEach(function (el) { el.style.animation = ''; el.style.transition = ''; el.style.opacity = ''; el.style.transform = ''; }); }
+    if (base !== 8) { s7Els.forEach(function (el) { el.style.animation = ''; el.style.transition = ''; el.style.opacity = ''; el.style.transform = ''; }); }
+    if (base !== prevBase || next !== prevNext) {
+      if (prevBase >= 0 && prevBase !== base && prevBase !== next) { sections[prevBase].style.visibility = 'hidden'; sections[prevBase].style.opacity = ''; sections[prevBase].style.transform = ''; sections[prevBase].style.zIndex = ''; seen[prevBase] = false; resetAnim(sections[prevBase]); if (prevBase === 3) { s3Gen++; s3Step = 0; if (s3PhaseTimer) { clearTimeout(s3PhaseTimer); s3PhaseTimer = null; } } }
+      if (prevNext >= 0 && prevNext !== base && prevNext !== next) { sections[prevNext].style.visibility = 'hidden'; sections[prevNext].style.opacity = ''; sections[prevNext].style.transform = ''; sections[prevNext].style.zIndex = ''; seen[prevNext] = false; resetAnim(sections[prevNext]); if (prevNext === 3) { s3Gen++; s3Step = 0; if (s3PhaseTimer) { clearTimeout(s3PhaseTimer); s3PhaseTimer = null; } } }
+      sections[base].style.visibility = 'visible'; sections[next].style.visibility = 'visible';
+      prevBase = base; prevNext = next;
+    }
+    var ai = stRel / secSpan < 0.5 ? base : next;
+    dotEls.forEach(function (d, j) { d.classList.toggle('active', j === ai); });
+    if (dotsWrap) dotsWrap.classList.toggle('dark', !!sections[ai].getAttribute('data-dark'));
+    var isDark = !!sections[ai].getAttribute('data-dark');
+    if (vscrollEl)    { vscrollEl.classList.toggle('dark', isDark); vscrollEl.classList.add('is-active'); }
+    if (counterEl)    { counterEl.classList.toggle('dark', isDark);  counterEl.classList.add('is-active'); }
+    if (counterCurEl) counterCurEl.textContent = pad2(ai + 1);
+    if (progressEl) { progressEl.classList.add('is-active'); progressEl.style.width = (n > 1 ? (ai / (n - 1)) * 100 : 0).toFixed(1) + '%'; }
+  }
+
+  /* スプリングアニメーション ─────────────────────────────────────────────────
+     displayVel(px/frame) = タッチ相の最終表示速度。spring frame1 の表示速度と
+     一致するよう springVel を逆算する。
+       表示速度 = springVel × (SLIDE_SENSITIVITY / DRAG_SENSITIVITY) = springVel × 2
+       frame1:  springVel_1 = (springVel_0 + dist × stiffness) × damping
+       → springVel_0 = displayVel/2/damping − dist×stiffness
+     displayVel=0 の場合は frame1 速度=0 で静かにスタート（Resn の余韻感）。  */
+  function springTo (targetVY, displayVel) {
+    springActive = true;
+    springTarget = Math.max(0, Math.min((n - 1) * vh, targetVY));
+    var _dist0 = springTarget - virtualY;
+    springVel = (displayVel || 0) / 2 / 0.88 - _dist0 * 0.04;
+    if (animRaf) cancelAnimationFrame(animRaf);
+    function step () {
+      if (!springActive) return;
+      var dist = springTarget - virtualY;
+      springVel = (springVel + dist * 0.04) * 0.88;
+      virtualY += springVel;
+      virtualY = Math.max(0, Math.min((n - 1) * vh, virtualY));
+      /* チルト収束スプリング：tiltDeg を 0 へ向けて追従させる */
+      if (tiltDeg !== 0) {
+        tiltVel = (tiltVel + (0 - tiltDeg) * 0.04) * 0.88;
+        tiltDeg += tiltVel;
+        if (Math.abs(tiltVel) < 0.01 && Math.abs(tiltDeg) < 0.01) { tiltDeg = 0; tiltVel = 0; }
+      }
+      draw();
+      if (Math.abs(springVel) < 0.25 && Math.abs(dist) < 0.5) {
+        virtualY = springTarget; springActive = false; springVel = 0; animating = false;
+        draw();
+        var b = currentBase(); if (!seen[b]) { seen[b] = true; animateIn(sections[b]); }
+        /* 位置は収束したがtiltDegが残留している場合、チルトだけ別RAFで0まで収束させる。
+           これがないと次ジェスチャー開始時にtouchTiltDeg=0でrotateX(0)へスナップして
+           「スクロール開始直後の急チルト消失」が起きる。 */
+        if (tiltDeg !== 0) {
+          (function tiltDecay () {
+            if (touching) { tiltDeg = 0; tiltVel = 0; return; }
+            tiltVel = (tiltVel + (0 - tiltDeg) * 0.04) * 0.88;
+            tiltDeg += tiltVel;
+            draw();
+            if (Math.abs(tiltVel) < 0.01 && Math.abs(tiltDeg) < 0.01) { tiltDeg = 0; tiltVel = 0; draw(); return; }
+            animRaf = requestAnimationFrame(tiltDecay);
+          }());
+        }
+      } else { animRaf = requestAnimationFrame(step); }
+    }
+    animRaf = requestAnimationFrame(step);
+  }
+
+  /* イージングアニメーション（プロローグ→ジャック移行など短い即時遷移用） */
+  function easeTo (targetVY, dur) {
+    animating = true; springActive = false;
+    if (animRaf) cancelAnimationFrame(animRaf);
+    var startVY = virtualY, startT = null;
+    function ease (t) { return t < .5 ? 2*t*t : -1+(4-2*t)*t; }
+    function step (ts) {
+      if (!startT) startT = ts;
+      var p = Math.min((ts - startT) / dur, 1);
+      virtualY = startVY + (targetVY - startVY) * ease(p);
+      draw();
+      if (p < 1) { animRaf = requestAnimationFrame(step); }
+      else { virtualY = targetVY; animating = false; draw(); var b = currentBase(); if (!seen[b]) { seen[b] = true; animateIn(sections[b]); } }
+    }
+    animRaf = requestAnimationFrame(step);
+  }
+
+  function goToSection (idx, dur) {
+    if (idx < 0 || idx > n - 1) return;
+    if (currentBase() === 3 && idx > 3) { if (s3Step === 0) { s3Step = 1; animateS3PhaseB(); return; } }
+    if (!locked) lockLayout();
+    var targetVY = idx * vh;
+    animating = true; easeTo(targetVY, dur || 900); /* wheel/keyboardは常にeaseInOut */
+  }
+
+  function resetToPrologue () {
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    document.body.style.overflow = '';
+    locked = false; virtualY = 0; springVel = 0; springActive = false; animating = false;
+    touchTiltDeg = 0; tiltDeg = 0; tiltVel = 0; touchSlideOffset = 0;
+    if (animRaf) { cancelAnimationFrame(animRaf); animRaf = null; }
+    window.scrollTo(0, 0);
+    prevBase = -1; prevNext = -1;
+    seen = sections.map(function () { return false; });
+    sections.forEach(function (sec, i) {
+      sec.style.height = ''; sec.style.visibility = i === 0 ? 'visible' : 'hidden';
+      sec.style.opacity = ''; sec.style.transform = ''; sec.style.zIndex = '';
+      resetAnim(sec);
+      var img = sec.querySelector('.pf-photo__img'); if (img) img.style.transform = '';
+    });
+    titleEls.forEach(function (el) { el.style.transition = ''; el.style.opacity = ''; el.style.transform = ''; });
+    s3Els.forEach(function (el) { el.style.transition = ''; el.style.opacity = ''; el.style.transform = ''; });
+    s7Els.forEach(function (el) { el.style.transition = ''; el.style.opacity = ''; el.style.transform = ''; });
+    s3Gen++; s3Step = 0; if (s3PhaseTimer) { clearTimeout(s3PhaseTimer); s3PhaseTimer = null; }
+    if (proInner) { proInner.classList.remove('is-leaving'); proInner.style.opacity = ''; proInner.style.transform = ''; }
+    if (progressEl) { progressEl.classList.remove('is-active'); progressEl.style.width = '0%'; }
+    setup(); draw();
+  }
+
+  /* ── イベントリスナー ────────────────────────────────────────────────────── */
+
+  window.addEventListener('wheel', function (e) {
+    e.preventDefault(); if (animating) return;
+    if (inPrologue()) { goToSection(0, 420); return; }
+    goToSection(e.deltaY > 0 ? currentBase() + 1 : currentBase() - 1);
+  }, { passive: false });
+
+  /* touchstart: 現在の virtualY を基点として記録。スプリング中でも即タッチ優先。
+     locked時は e.preventDefault() を呼び、iOSがジェスチャーを横取りしないようにする。
+     passive:false にしないと locked 時の preventDefault が無視され touchcancel が発生する。 */
+  window.addEventListener('touchstart', function (e) {
+    if (e.touches.length > 1) return; /* 2本目以降の指は無視 — 再発火で touchTiltDeg がリセットされるのを防ぐ */
+    if (locked) e.preventDefault(); /* iOSネイティブスクロール介入を防ぐ */
+    touching = true;
+    touchStartY = e.touches[0].clientY;
+    touchBaseVY = virtualY;
+    touchRawVY = virtualY;
+    touchTiltDeg = 0; /* 毎ジェスチャー0からスタート — tiltDeg引き継ぎはratchetと干渉して1mm操作で最大チルトになる */
+    tiltDeg = 0; tiltVel = 0; /* tiltDecay残留をここでリセット */
+    touchSlideOffset = 0; /* 退場セクションY=0固定のため不使用 */
+    needsTouchReset = false; /* touchstartで全状態を初期化するのでリセット不要 */
+    touchHistory = [{ t: Date.now(), y: touchStartY }];
+    springActive = false; animating = false;
+    if (animRaf) { cancelAnimationFrame(animRaf); animRaf = null; }
+    if (locked) draw();
+  }, { passive: false }); /* passive:false 必須 — これがないと preventDefault が効かない */
+
+  /* touchmove: 画面は指の DRAG_SENSITIVITY 倍しか動かない（粘り）。
+     スナップ判定用に実ドラッグ量は touchRawVY に別途保持する。 */
+  window.addEventListener('touchmove', function (e) {
+    if (!locked) return;
+    e.preventDefault();
+    var cy = e.touches[0].clientY;
+    /* プロローグ→ロック移行直後の最初のtouchmove。
+       プロローグ中の蓄積ドラッグをリセットしてチルト/スライドの急跳びを防ぐ。 */
+    if (needsTouchReset) { needsTouchReset = false; touchStartY = cy; touchBaseVY = virtualY; touchRawVY = virtualY; touchSlideOffset = 0; }
+    touchHistory.push({ t: Date.now(), y: cy });
+    if (touchHistory.length > 8) touchHistory.shift();
+    var drag = touchStartY - cy;
+    touchRawVY = Math.max(0, Math.min((n - 1) * vh, touchBaseVY + drag));
+    virtualY   = Math.max(0, Math.min((n - 1) * vh, touchBaseVY + drag * DRAG_SENSITIVITY));
+    /* チルト：物理ドラッグ量から計算。最大値のみ更新（指を離すまで絶対に戻らない）
+       t² のイーズインで始まりをゆっくりにする（線形だと最初から急すぎる） */
+    var physDisp = Math.abs(drag);
+    var _t = Math.min(1, physDisp / vh);
+    var newTilt  = 10 * _t * _t;
+    if (newTilt > touchTiltDeg) touchTiltDeg = newTilt;
+    draw();
+  }, { passive: false });
+
+  /* touchend: 粘りを解除 → 速度計算 → スプリングへ初速として渡す → 余韻のアニメーション */
+  window.addEventListener('touchend', function (e) {
+    if (e.touches.length > 0) return; /* まだ指が残っている — 全指が離れるまでスプリングを起動しない */
+    touching = false;
+    tiltDeg = touchTiltDeg; tiltVel = 0; /* ドラッグ終了時のチルトをスプリングへ引き継ぐ */
+    var totalDy = touchStartY - e.changedTouches[0].clientY;
+    if (!locked) { if (window.pageYOffset > 4) goToSection(0, 420); return; }
+    var vel = 0;
+    if (touchHistory.length >= 2) {
+      var recent = touchHistory.slice(-5);
+      var dt = recent[recent.length - 1].t - recent[0].t;
+      if (dt > 0) vel = ((recent[0].y - recent[recent.length - 1].y) / dt) * 16;
+    }
+    /* スナップ判定: 実ドラッグ量(touchRawVY)の50%で前進/後退を決める。
+       勢いがある場合(vel>5)は速度方向を優先。
+       画面の表示位置(virtualY)はSENSITIVITY圧縮済みのため判定には使わない。 */
+    var targetIdx;
+    if (Math.abs(vel) > 5) {
+      targetIdx = vel > 0 ? Math.ceil(touchRawVY / vh) : Math.floor(touchRawVY / vh);
+    } else {
+      targetIdx = Math.round(touchRawVY / vh);
+    }
+    targetIdx = Math.max(0, Math.min(n - 1, targetIdx));
+    if (currentBase() === 3 && targetIdx > 3) { if (s3Step === 0) { s3Step = 1; animateS3PhaseB(); springTo(3 * vh, 0); return; } }
+    if (Math.abs(totalDy) < 5) { springTo(currentBase() * vh, 0); return; }
+    animating = true;
+    springTo(targetIdx * vh, vel * SLIDE_SENSITIVITY);
+  }, { passive: true });
+
+  /* touchcancel: 安全弁。touchstart を non-passive にしたことで基本的には発生しないが
+     電話着信など OS 割り込み時の保険として残す。チルトは即消去してスプリングへ渡さない。 */
+  window.addEventListener('touchcancel', function () {
+    if (!locked || !touching) return;
+    touching = false;
+    tiltDeg = 0; tiltVel = 0; touchTiltDeg = 0; touchSlideOffset = 0; /* 収束アニメなしで即クリア */
+    springTo(currentBase() * vh, 0);
+  }, { passive: true });
+
+  window.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); if (animating) return; if (inPrologue()) goToSection(0, 420); else goToSection(currentBase() + 1); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); if (!animating && locked) goToSection(currentBase() - 1); }
+  });
+
+  window.addEventListener('scroll', function () {
+    if (locked) return;
+    if (window.pageYOffset >= PRO * 0.08) goToSection(0, 420);
+  }, { passive: true });
+
+  function relayout () {
+    if (locked) { if (Math.abs(window.innerHeight - lockedVh) > 150) { lockLayout(); draw(); } return; }
+    setup(); draw();
+  }
+  window.addEventListener('resize', relayout);
+  if (window.visualViewport) window.visualViewport.addEventListener('resize', relayout);
+  window.addEventListener('pageshow', function () { setup(); if (window.pageYOffset > 4) resetToPrologue(); });
+
+  setup(); draw();
+  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(function () { if (!locked) { setup(); draw(); } }); }
+})();
+</script>
+</body>
+</html>
