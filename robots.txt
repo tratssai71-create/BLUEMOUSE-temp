@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tratssai71-create.github.io/BLUEMOUSE-temp/sitemap.xml
+Sitemap: https://www.blue-mouse.net/sitemap.xml
