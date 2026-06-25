@@ -8,520 +8,231 @@
   <meta name="description" content="放課後等デイサービス BLUE MOUSE（岡山市中区）。IT療育で、強みとなる「見える力」を伴走者と共に育む。" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./layout.css?v=45" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet" />
   <style>
-    :root {
-      --pf-coral: #f2906c; --pf-coral-dark: #e87e59; --pf-teal: #5fc1c7; --pf-yellow: #f5d24a;
-      --pf-cream: #fffdf7; --pf-paper: #FFFEFB; --pf-ink: #2a1d12; --pf-ink-soft: #6b5a4c;
-      --pf-scrim: 40, 30, 24;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: "Zen Maru Gothic", sans-serif; background: #FFFEFB; color: #33251a; line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+    :root { --coral:#f2906c; --coral-light:#fdf0eb; --teal:#5fc1c7; --teal-dark:#3a9095; --teal-light:#e8f6f7; --yellow:#f5d24a; --yellow-light:#fef9e7; --ink:#33251a; --green:#3a6b5e; --bg:#faf8f5; }
+
+    .header { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 32px; height:60px; background:rgba(255,254,251,.95); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid rgba(0,0,0,.05); }
+    .header__logo img { height:32px; width:auto; }
+    .header__nav { display:flex; align-items:center; gap:28px; }
+    .header__link { font-size:13px; font-weight:500; letter-spacing:.06em; color:#8a7a6e; transition:color .2s; }
+    .header__link:hover { color:var(--teal-dark); }
+    .header__cta { display:inline-flex; align-items:center; padding:8px 20px; background:var(--coral); color:#fff; font-size:13px; font-weight:600; border-radius:100px; transition:background .2s; }
+    .header__cta:hover { background:#e87e59; }
+    .header__burger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:8px; }
+    .header__burger span { display:block; width:20px; height:1.5px; background:var(--ink); border-radius:2px; transition:transform .3s, opacity .3s; }
+    .header__burger.is-open span:nth-child(1) { transform:translateY(3.25px) rotate(45deg); }
+    .header__burger.is-open span:nth-child(2) { opacity:0; }
+    .header__burger.is-open span:nth-child(3) { transform:translateY(-3.25px) rotate(-45deg); }
+    .mobile-nav { display:none; position:fixed; top:60px; left:0; right:0; bottom:0; background:rgba(255,254,251,.98); backdrop-filter:blur(16px); z-index:99; flex-direction:column; align-items:center; justify-content:center; gap:24px; }
+    .mobile-nav.is-open { display:flex; }
+    .mobile-nav a { font-size:17px; color:#8a7a6e; letter-spacing:.08em; }
+
+    .pg-hero { position:relative; height:56vh; min-height:320px; overflow:hidden; }
+    .pg-hero img { width:100%; height:100%; object-fit:cover; object-position:center 30%; }
+    .pg-hero__overlay { position:absolute; inset:0; background:linear-gradient(to top, rgba(40,30,24,.55) 0%, rgba(40,30,24,.15) 50%, rgba(40,30,24,.05) 100%); }
+    .pg-hero__text { position:absolute; bottom:0; left:0; right:0; padding:40px 48px; z-index:2; }
+    .pg-hero__tag { font-family:"Inter",sans-serif; font-size:11px; font-weight:600; letter-spacing:.3em; text-transform:uppercase; color:var(--teal); margin-bottom:10px; }
+    .pg-hero__title { font-family:"Zen Maru Gothic",sans-serif; font-size:clamp(1.6rem,3.5vw,2.4rem); font-weight:700; color:#fff; line-height:1.35; text-shadow:0 2px 16px rgba(0,0,0,.3); }
+
+    .pg-content { max-width:820px; margin:0 auto; padding:56px 32px 80px; }
+
+    .pg-intro { margin-bottom:48px; }
+    .pg-intro__lead { font-size:clamp(1.2rem,2.2vw,1.6rem); font-weight:700; color:var(--ink); line-height:1.5; margin-bottom:16px; }
+    .pg-intro__lead em { font-style:normal; color:var(--coral); }
+    .pg-intro__body { font-size:15px; color:#6b5a4c; line-height:2; }
+
+    .pg-features { display:flex; flex-direction:column; gap:40px; margin-bottom:56px; }
+    .pg-feat { display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:center; }
+    .pg-feat:nth-child(even) .pg-feat__img { order:2; }
+    .pg-feat:nth-child(even) .pg-feat__text { order:1; }
+    .pg-feat__img { border-radius:16px; overflow:hidden; aspect-ratio:4/3; }
+    .pg-feat__img img { width:100%; height:100%; object-fit:cover; }
+    .pg-feat__tag { font-family:"Inter",sans-serif; font-size:10px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--teal-dark); margin-bottom:6px; }
+    .pg-feat__title { font-size:18px; font-weight:700; color:var(--ink); margin-bottom:10px; line-height:1.45; }
+    .pg-feat__desc { font-size:14px; color:#6b5a4c; line-height:1.9; }
+
+    .pg-quote { background:var(--bg); border-radius:20px; padding:36px 32px; margin-bottom:56px; text-align:center; border-left:4px solid var(--coral); }
+    .pg-quote__text { font-size:clamp(1.1rem,2vw,1.4rem); font-weight:700; color:var(--ink); line-height:1.55; }
+    .pg-quote__text em { font-style:normal; color:var(--coral); }
+
+    .pg-info { margin-bottom:56px; }
+    .pg-info__title { font-size:16px; font-weight:700; color:var(--ink); margin-bottom:16px; display:flex; align-items:center; gap:8px; }
+    .pg-info__title::before { content:''; width:3px; height:18px; background:var(--coral); border-radius:2px; }
+    .pg-table { width:100%; border-collapse:collapse; background:#fff; border-radius:12px; overflow:hidden; border:1px solid rgba(0,0,0,.06); }
+    .pg-table th, .pg-table td { padding:14px 18px; text-align:left; border-bottom:1px solid rgba(0,0,0,.05); font-size:14px; }
+    .pg-table th { background:var(--bg); color:#8a7a6e; font-weight:500; width:8em; }
+    .pg-table td { color:#6b5a4c; line-height:1.7; }
+    .pg-table tr:last-child th, .pg-table tr:last-child td { border-bottom:none; }
+
+    /* Programs */
+    .pg-programs { margin-bottom:56px; }
+    .pg-programs__title { font-size:16px; font-weight:700; color:var(--ink); margin-bottom:20px; display:flex; align-items:center; gap:8px; }
+    .pg-programs__title::before { content:''; width:3px; height:18px; background:var(--coral); border-radius:2px; }
+    .pg-programs__grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .pg-prog { background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:14px; padding:22px 20px; }
+    .pg-prog__name { font-size:15px; font-weight:700; color:var(--ink); margin-bottom:6px; }
+    .pg-prog__desc { font-size:13px; color:#8a7a6e; line-height:1.8; }
+
+    .pg-cta { text-align:center; padding:48px 32px; background:linear-gradient(135deg, var(--coral-light) 0%, var(--teal-light) 100%); border-radius:24px; margin-bottom:56px; }
+    .pg-cta__title { font-size:clamp(1.2rem,2.2vw,1.5rem); font-weight:700; color:var(--ink); margin-bottom:8px; }
+    .pg-cta__sub { font-size:14px; color:#8a7a6e; margin-bottom:20px; }
+    .pg-cta__btn { display:inline-flex; align-items:center; gap:6px; padding:12px 32px; background:var(--coral); color:#fff; font-size:14px; font-weight:600; border-radius:100px; transition:transform .2s, box-shadow .2s; }
+    .pg-cta__btn:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(242,144,108,.3); }
+
+    .pg-footer { text-align:center; padding:24px 16px; font-size:11px; color:#bbb; border-top:1px solid rgba(0,0,0,.05); }
+
+    .fade-in { opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s cubic-bezier(.22,1,.36,1); }
+    .fade-in.is-visible { opacity:1; transform:none; }
+
+    @media (max-width:780px) {
+      .header { padding:0 16px; height:56px; }
+      .header__nav { display:none; }
+      .header__burger { display:flex; }
+      .mobile-nav { top:56px; }
+      .pg-hero__text { padding:28px 22px; }
+      .pg-content { padding:40px 20px 60px; }
+      .pg-feat { grid-template-columns:1fr; }
+      .pg-feat:nth-child(even) .pg-feat__img { order:1; }
+      .pg-feat:nth-child(even) .pg-feat__text { order:2; }
+      .pg-programs__grid { grid-template-columns:1fr; }
     }
-    .bm-layout { animation: none !important; }
-    .bm-main { padding: 0 !important; }
-    .bm-main, .bm-main h1, .bm-main h2, .bm-main h3, .bm-main p, .bm-main span, .bm-main a, .bm-main div, .bm-main li {
-      font-family: "Inter", "Zen Kaku Gothic New", sans-serif !important;
-    }
-
-    .pf-section { position: fixed; top: 0; left: 25vw; width: 50vw; height: 100vh; height: 100svh; overflow: hidden; visibility: hidden; }
-    .pf-section[data-idx="0"] { visibility: visible; }
-
-    /* プロローグ */
-    .pf-prologue { position: relative; z-index: 50; width: 50vw; height: 100vh; height: 100dvh; margin: 0 auto; background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(95,193,199,.13) 0%, transparent 70%), var(--pf-paper); display: flex; align-items: center; justify-content: center; }
-    .pf-prologue__inner { display: flex; flex-direction: column; align-items: center; gap: 36px; animation: pf-pro-in 1.1s cubic-bezier(.22,1,.36,1) both; }
-    .pf-prologue__tagline { font-family: "Zen Kaku Gothic New", sans-serif; font-size: .82rem; font-weight: 400; letter-spacing: .1em; color: rgba(42,29,18,.34); text-align: center; line-height: 1.75; margin: 0; }
-    .pf-prologue__accent { position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--pf-teal); opacity: .45; }
-    .pf-prologue__logo { width: clamp(120px, 18vw, 180px); height: auto; }
-    .pf-prologue__scroll { font-family: "Inter", sans-serif; font-size: .68rem; font-weight: 600; letter-spacing: .4em; text-transform: uppercase; color: var(--pf-ink-soft); display: flex; flex-direction: column; align-items: center; gap: 12px; }
-    .pf-prologue__scroll i { width: 1px; height: 44px; background: currentColor; transform-origin: top; animation: pf-pro-scroll 1.8s ease-in-out infinite; }
-    @keyframes pf-pro-in { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
-    @keyframes pf-pro-out { to { opacity: 0; transform: translateY(-52px) scale(1.07); } }
-    @keyframes pf-pro-scroll { 0%, 100% { transform: scaleY(.25); opacity: .35; } 50% { transform: scaleY(1); opacity: 1; } }
-    .pf-prologue__inner.is-leaving { animation: pf-pro-out 0.45s cubic-bezier(.4,0,1,1) forwards; }
-
-    .pf-title { background: var(--pf-paper); }
-    .pf-title__inner { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); display: flex; flex-direction: column; align-items: center; text-align: center; width: max-content; max-width: calc(100% - 44px); }
-    .pf-title__en { font-family: "Inter", sans-serif; font-size: .8rem; font-weight: 600; letter-spacing: .42em; text-transform: uppercase; color: var(--pf-teal); display: inline-flex; align-items: center; gap: 14px; margin: 0 0 26px; }
-    .pf-title__en::before, .pf-title__en::after { content: ""; width: 28px; height: 1px; background: currentColor; opacity: .85; }
-    .pf-title__ja { font-family: "Zen Kaku Gothic New", sans-serif; font-size: clamp(2rem, 4.8vw, 3.4rem); font-weight: 700; color: var(--pf-ink); letter-spacing: .06em; line-height: 1.4; margin: 0; }
-    .pf-title__spark { display: block; width: 44px; height: 4px; border-radius: 4px; background: var(--pf-yellow); margin: 24px 0 0; }
-    .pf-title__sub { font-size: clamp(.86rem, 1.3vw, 1rem); font-weight: 400; color: var(--pf-ink-soft); letter-spacing: .06em; line-height: 1.9; margin: 22px 0 0; }
-    .pf-title__hint { position: absolute; bottom: 44px; left: 50%; transform: translateX(-50%); opacity: 0; transition: opacity 0.8s cubic-bezier(.22,1,.36,1); pointer-events: none; }
-    .pf-title__hint.is-visible { opacity: 1; }
-    .pf-title__hint svg { display: block; width: 22px; height: 22px; color: var(--pf-ink-soft); animation: hintBob 2.4s ease-in-out infinite; }
-    @keyframes hintBob { 0%, 100% { transform: translateY(0); } 60% { transform: translateY(8px); } }
-
-    .pf-photo { background: #1a130c; }
-    .pf-photo__img { position: absolute; left: 0; right: 0; top: -5%; width: 100%; height: 110%; object-fit: cover; object-position: center; display: block; will-change: transform; }
-    .pf-photo__img.pos-35 { object-position: center 35%; }
-    .pf-photo__img.pos-40 { object-position: center 40%; }
-    .pf-photo__grad { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to top, rgba(var(--pf-scrim),.80) 0%, rgba(var(--pf-scrim),.42) 38%, rgba(var(--pf-scrim),.12) 66%, rgba(var(--pf-scrim),.04) 100%); }
-    .pf-photo__copy { position: absolute; left: 0; right: 0; bottom: 0; padding: 56px 52px 60px; display: flex; flex-direction: column; }
-    .pf-eyebrow { font-family: "Inter", sans-serif; font-size: .72rem; font-weight: 600; letter-spacing: .3em; text-transform: uppercase; color: var(--pf-teal); display: inline-flex; align-items: center; gap: 12px; margin: 0 0 18px; text-shadow: 0 1px 10px rgba(0,0,0,.4); }
-    .pf-eyebrow::before { content: ""; width: 28px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: right center; transition: transform 3.1s cubic-bezier(.16,1,.3,1) 0.4s; }
-    .pf-eyebrow.is-visible::before { transform: scaleX(1); }
-    .pf-photo__title { font-family: "Zen Kaku Gothic New", sans-serif; font-size: clamp(1.7rem, 3.4vw, 2.7rem); font-weight: 700; color: var(--pf-cream); line-height: 1.55; letter-spacing: .04em; margin: 0; text-shadow: 0 2px 18px rgba(0,0,0,.4); }
-    .pf-photo__note { font-size: .82rem; font-weight: 500; color: rgba(255,253,247,.66); letter-spacing: .14em; margin: 16px 0 0; }
-
-    .pf-text { background: var(--pf-paper); display: flex; flex-direction: column; justify-content: center; padding: 0 56px; }
-    .pf-text .pf-eyebrow { color: var(--pf-teal); text-shadow: none; }
-    .pf-text--dark { background: #1a130c; align-items: center; text-align: center; }
-    .pf-text--dark .pf-text__lead { color: var(--pf-cream); }
-    .pf-text__lead { font-family: "Zen Kaku Gothic New", sans-serif; font-size: clamp(1.9rem, 3.6vw, 3.2rem); font-weight: 700; color: var(--pf-ink); line-height: 1.4; letter-spacing: .01em; margin: 0 0 28px; }
-    .pf-text__lead em { font-style: normal; color: var(--pf-coral); }
-    .pf-text__body { font-size: clamp(.94rem, 1.2vw, 1.05rem); font-weight: 400; line-height: 2.05; color: var(--pf-ink-soft); max-width: 520px; letter-spacing: .02em; margin: 0; }
-    .pf-text__body strong { color: var(--pf-ink); font-weight: 700; }
-    .pf-list { list-style: none; margin: 4px 0 0; padding: 0; max-width: 480px; }
-    .pf-list li { position: relative; padding: 16px 0 16px 30px; font-size: clamp(1rem, 1.4vw, 1.15rem); font-weight: 600; color: var(--pf-ink); border-bottom: 1px solid rgba(42,29,18,.09); letter-spacing: .03em; }
-    .pf-list li:last-child { border-bottom: none; }
-    .pf-list li::before { content: ""; position: absolute; left: 2px; top: 26px; transform: rotate(45deg); width: 8px; height: 8px; border-radius: 2px; background: var(--pf-teal); }
-    .pf-list li span { display: block; font-family: "Inter", sans-serif; font-size: .72rem; font-weight: 500; color: var(--pf-ink-soft); letter-spacing: .14em; text-transform: uppercase; margin-top: 4px; }
-
-    .pf-cta { background: var(--pf-paper); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 56px; }
-    .pf-cta__lead { font-family: "Zen Kaku Gothic New", sans-serif; font-size: clamp(1.8rem, 3.6vw, 2.8rem); font-weight: 700; color: var(--pf-ink); line-height: 1.45; margin: 0 0 18px; letter-spacing: .03em; }
-    .pf-cta__sub { font-size: clamp(.9rem, 1.3vw, 1.02rem); color: var(--pf-ink-soft); line-height: 1.9; margin: 0 0 38px; }
-    .pf-btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
-    .pf-btn { display: inline-flex; align-items: center; gap: 10px; font-family: "Inter","Zen Kaku Gothic New",sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: .08em; padding: 16px 34px; border-radius: 100px; text-decoration: none; transition: transform .22s cubic-bezier(.34,1.56,.64,1), background .2s, box-shadow .25s, color .2s, border-color .2s; }
-    .pf-btn__arrow { display: inline-block; transition: transform .25s cubic-bezier(.34,1.56,.64,1); }
-    .pf-btn--primary { background: var(--pf-coral); color: #fff; box-shadow: 0 6px 18px rgba(242,144,108,.42); }
-    .pf-btn--primary:hover { background: var(--pf-coral-dark); transform: scale(1.04); box-shadow: 0 10px 26px rgba(242,144,108,.54); }
-    .pf-btn--primary:hover .pf-btn__arrow { transform: translateX(5px); }
-    .pf-btn--ink { background: transparent; color: var(--pf-ink); border: 1.5px solid rgba(42,29,18,.3); }
-    .pf-btn--ink:hover { background: rgba(42,29,18,.06); border-color: var(--pf-ink); transform: translateY(-2px); }
-
-    .pf-anim { will-change: opacity, transform; -webkit-backface-visibility: hidden; backface-visibility: hidden; }
-    .pf-anim:not(.is-visible) { opacity: 0 !important; }
-    .pf-anim.is-visible { opacity: 1; transform: translateZ(0); }
-    .pf-title .pf-anim, .pf-photo .pf-anim { transform: translateX(40px); }
-    .pf-title .pf-anim.is-visible, .pf-photo .pf-anim.is-visible { transform: translateZ(0); }
-
-    /* 暗転セクション2フレーズ・ウォッシュ（拡張用） */
-    .pf-s4-line { display: block; }
-    .pf-s4-wash { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 52%, rgba(255,160,100,0.055) 0%, transparent 58%); opacity: 0; pointer-events: none; transition: opacity 2.8s ease; }
-    .pf-s4-wash.is-on { opacity: 1; }
-
-    /* モバイル進行バー */
-    .pf-progress { position: fixed; top: 0; left: 0; height: 2px; background: var(--pf-teal); z-index: 200; width: 0%; opacity: 0; pointer-events: none; transition: width 0.7s cubic-bezier(.16,1,.3,1), opacity 0.4s; }
-    .pf-progress.is-active { opacity: 1; }
-    @media (min-width: 781px) { .pf-progress { display: none; } }
-
-    .pf-dots { position: fixed; right: calc(12.5vw - 3px); top: 50%; transform: translateY(-50%); z-index: 60; display: flex; flex-direction: column; gap: 14px; }
-    .pf-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(42,29,18,.20); transition: background .35s, transform .35s; }
-    .pf-dot.active { background: var(--pf-teal); transform: scale(1.9); }
-    .pf-dots.dark .pf-dot { background: rgba(255,253,247,.30); }
-    .pf-dots.dark .pf-dot.active { background: var(--pf-cream); }
-
-    @media (max-width: 780px) {
-      .pf-section { left: 0 !important; width: 100vw !important; }
-      .pf-prologue { width: 100vw; }
-      .pf-title { padding: 0 24px; }
-      .pf-photo__copy { padding: 40px 24px 48px; }
-      .pf-text { padding: 0 24px; }
-      .pf-cta { padding: 0 24px; }
-      .pf-text__body, .pf-list { max-width: none; }
-      .pf-btn { width: 100%; max-width: 320px; justify-content: center; }
-      .pf-dots { display: none; }
-    }
-
   </style>
 </head>
 <body>
-<div class="bm-layout">
 
-  <aside class="bm-left">
-    <a class="bm-logo" href="./index.html"><img src="./logo.png" alt="BLUE MOUSE" /></a>
-        <nav class="bm-nav">
-      <a href="./index.html"       class="bm-nav__item" data-page="index">Front</a>
-      <a href="./philosophy.html"  class="bm-nav__item" data-page="philosophy">BLUE MOUSEの想い</a>
-      <div class="bm-nav__group">
-        <div class="bm-nav__group-header">
-          <a href="./child.html" class="bm-nav__group-link">児童発達支援事業</a>
-          <button type="button" class="bm-nav__toggle" data-group="child" data-target="nav-child">
-            <span class="bm-nav__arrow">▶</span>
-          </button>
-        </div>
-        <ul class="bm-nav__sub" id="nav-child">
-          <li><a href="./child.html#overview" class="bm-nav__subitem" data-group="child" data-hash="#overview">事業内容</a></li>
-          <li><a href="./child.html#pricing"  class="bm-nav__subitem" data-group="child" data-hash="#pricing">料金表</a></li>
-        </ul>
+<header class="header">
+  <a href="./index.html" class="header__logo"><img src="./logo.png" alt="BLUE MOUSE" /></a>
+  <nav class="header__nav">
+    <a href="./index.html" class="header__link">ホーム</a>
+    <a href="./child.html" class="header__link">児童発達支援</a>
+    <a href="./recruit.html" class="header__link">採用情報</a>
+    <a href="./contact.html" class="header__cta">お問い合わせ ›</a>
+  </nav>
+  <button class="header__burger" id="burger" aria-label="メニュー"><span></span><span></span><span></span></button>
+</header>
+<nav class="mobile-nav" id="mobile-nav">
+  <a href="./index.html" class="mn-link">ホーム</a>
+  <a href="./child.html" class="mn-link">児童発達支援事業</a>
+  <a href="./recruit.html" class="mn-link">採用情報</a>
+  <a href="./contact.html" class="mn-link" style="color:var(--coral); font-weight:600;">お問い合わせ</a>
+</nav>
+
+<!-- Hero -->
+<div class="pg-hero">
+  <img src="./photos/hokago_opt.jpg" alt="放課後等デイサービス" />
+  <div class="pg-hero__overlay"></div>
+  <div class="pg-hero__text">
+    <p class="pg-hero__tag">After School Day Service</p>
+    <h1 class="pg-hero__title">強みとなる「見える力」を、<br>武器に。</h1>
+  </div>
+</div>
+
+<!-- Content -->
+<div class="pg-content">
+
+  <div class="pg-intro fade-in">
+    <p class="pg-intro__lead"><em>IT療育</em>で、<br>収入格差に立ち向かう。</p>
+    <p class="pg-intro__body">BLUE MOUSEの放課後等デイサービスは、小学生〜高校生を対象に、ITスキルを中心とした「見える力」を育てます。将来の経済的自立を見据え、プログラミング・PCスキル・SSTなど、社会で武器になる力を伴走者と共に伸ばします。</p>
+  </div>
+
+  <div class="pg-features">
+    <div class="pg-feat fade-in">
+      <div class="pg-feat__img">
+        <img src="./photos/hokago_opt.jpg" alt="IT療育" />
       </div>
-      <div class="bm-nav__group">
-        <div class="bm-nav__group-header">
-          <a href="./afterschool.html" class="bm-nav__group-link is-active">放課後等デイサービス</a>
-          <button type="button" class="bm-nav__toggle" data-group="afterschool" data-target="nav-after">
-            <span class="bm-nav__arrow">▶</span>
-          </button>
-        </div>
-        <ul class="bm-nav__sub" id="nav-after">
-          <li><a href="./afterschool.html#program"  class="bm-nav__subitem" data-group="afterschool" data-hash="#program">事業内容</a></li>
-          <li><a href="./afterschool.html#pricing"  class="bm-nav__subitem" data-group="afterschool" data-hash="#pricing">料金表</a></li>
-        </ul>
-      </div>
-      <a href="./recruit.html"     class="bm-nav__item" data-page="recruit">採用情報</a>
-      <a href="./contact.html"     class="bm-nav__item" data-page="contact">お問い合わせ</a>
-    </nav>
-    <a class="bm-drawer-sns" href="https://www.instagram.com/blue_mouse_okayama/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg></a>
-  </aside>
-
-  <main class="bm-main">
-
-    <!-- プロローグ -->
-    <div class="pf-prologue" id="pf-prologue">
-      <div class="pf-prologue__inner">
-        <img class="pf-prologue__logo" src="./logo.png" alt="BLUE MOUSE" />
-        <p class="pf-prologue__tagline">強みとなる「見える力」を、武器に。</p>
-        <span class="pf-prologue__scroll" aria-hidden="true">Scroll<i></i></span>
-      </div>
-      <div class="pf-prologue__accent"></div>
-    </div>
-
-    <!-- [0] タイトル -->
-    <section class="pf-section pf-title" style="z-index:1" data-idx="0">
-      <div class="pf-title__inner">
-        <p class="pf-title__en pf-anim">After School</p>
-        <h1 class="pf-title__ja pf-anim">放課後等<br>デイサービス</h1>
-        <span class="pf-title__spark pf-anim" aria-hidden="true"></span>
-        <p class="pf-title__sub pf-anim">強みとなる「見える力」を、武器に。</p>
-      </div>
-      <div class="pf-title__hint" id="pf-title-hint" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-      </div>
-    </section>
-
-    <!-- [1] 写真＋一言 -->
-    <section class="pf-section pf-photo" style="z-index:2" data-idx="1" data-dark="1">
-      <img class="pf-photo__img pos-40" src="./3.webp" alt="放課後等デイサービスの様子" loading="lazy" />
-      <div class="pf-photo__grad"></div>
-      <div class="pf-photo__copy">
-        <p class="pf-eyebrow pf-anim">IT療育 — 就学期</p>
-        <h2 class="pf-photo__title pf-anim">強みを、<br>武器に。</h2>
-      </div>
-    </section>
-
-    <!-- [2] なぜITか（最小限） -->
-    <section class="pf-section pf-text" style="z-index:3" data-idx="2">
-      <p class="pf-eyebrow pf-anim">Why IT</p>
-      <p class="pf-text__lead pf-anim">なぜ、<br><em>IT</em>なのか。</p>
-      <p class="pf-text__body pf-anim">AI時代を、その子の<strong>強み</strong>で生き抜くために。</p>
-    </section>
-
-    <!-- [3] 画像のみ -->
-    <section class="pf-section pf-photo" style="z-index:4" data-idx="3" data-dark="1">
-      <img class="pf-photo__img pos-35" src="./tsumiki_opt.jpg" alt="" loading="lazy" />
-      <div class="pf-photo__grad"></div>
-    </section>
-
-    <!-- [4] 4つの柱 -->
-    <section class="pf-section pf-text" style="z-index:5" data-idx="4">
-      <p class="pf-eyebrow pf-anim">Program</p>
-      <p class="pf-text__lead pf-anim">IT療育の、<br>4つの柱。</p>
-      <ul class="pf-list pf-anim">
-        <li>タイピング練習<span>Typing</span></li>
-        <li>プログラミング学習<span>Programming</span></li>
-        <li>オフィスソフト操作<span>Office Skills</span></li>
-        <li>コミュニケーション支援<span>SST</span></li>
-      </ul>
-    </section>
-
-    <!-- [5] 画像のみ（仮画像） -->
-    <section class="pf-section pf-photo" style="z-index:6" data-idx="5" data-dark="1">
-      <img class="pf-photo__img" src="./photos/ph/ph-5.svg" alt="" loading="lazy" />
-      <div class="pf-photo__grad"></div>
-    </section>
-
-    <!-- [6] 写真＋一言：伴走者 -->
-    <section class="pf-section pf-photo" style="z-index:7" data-idx="6" data-dark="1">
-      <img class="pf-photo__img pos-35" src="./photos/riku_opt.jpg" alt="スタッフとこども" loading="lazy" />
-      <div class="pf-photo__grad"></div>
-      <div class="pf-photo__copy">
-        <p class="pf-eyebrow pf-anim">Difference</p>
-        <h2 class="pf-photo__title pf-anim">専門的な、<br>「伴走者」。</h2>
-      </div>
-    </section>
-
-    <!-- [7] 伴走（最小限） -->
-    <section class="pf-section pf-text" style="z-index:8" data-idx="7">
-      <p class="pf-eyebrow pf-anim">Our Specialty</p>
-      <p class="pf-text__lead pf-anim">預けるのではなく、<br>伴走する。</p>
-      <p class="pf-text__body pf-anim">一般的なパソコン教室との、<strong>明確な違い</strong>です。</p>
-    </section>
-
-    <!-- [8] 画像のみ -->
-    <section class="pf-section pf-photo" style="z-index:9" data-idx="8" data-dark="1">
-      <img class="pf-photo__img pos-40" src="./5.webp" alt="" loading="lazy" />
-      <div class="pf-photo__grad"></div>
-    </section>
-
-    <!-- [9] CTA -->
-    <section class="pf-section pf-cta" style="z-index:10" data-idx="9">
-      <p class="pf-cta__lead pf-anim">まずは、<br>見学から。</p>
-      <p class="pf-cta__sub pf-anim">受給者証の取得から、サポートします。</p>
-      <div class="pf-btns">
-        <a href="./contact.html" class="pf-btn pf-btn--primary pf-anim">見学・お問い合わせ <span class="pf-btn__arrow">›</span></a>
-        <a href="./child.html" class="pf-btn pf-btn--ink pf-anim">児童発達支援を見る</a>
-      </div>
-    </section>
-
-    <div id="pf-spacer"></div>
-
-  </main>
-
-  <aside class="bm-right">
-    <p class="side-heading">BLUE MOUSE</p>
-    <div class="side-cards">
-      <div class="side-card"><span class="side-card__badge">対象年齢</span><p class="side-card__title">小学生〜高校生</p></div>
-      <div class="side-card"><span class="side-card__badge">定員</span><p class="side-card__title">10名 / 日</p></div>
-      <div class="side-card"><span class="side-card__badge">支援内容</span><p class="side-card__title">IT療育・PCスキル・SST</p></div>
-      <div class="side-card">
-        <span class="side-card__badge">所在地</span>
-        <p class="side-card__title">岡山市中区<br>徳吉町二丁目11番地25</p>
-        <p class="side-card__sub">東山電停から徒歩1分</p>
-        <a class="side-card__link" href="https://maps.google.com/?q=岡山県岡山市中区徳吉町二丁目11番地25" target="_blank" rel="noopener">場所を見る</a>
+      <div class="pg-feat__text">
+        <p class="pg-feat__tag">IT Skills</p>
+        <h3 class="pg-feat__title">PCスキルから<br>プログラミングまで。</h3>
+        <p class="pg-feat__desc">タイピング、Office操作、Webデザイン、プログラミングなど、段階的にスキルを積み上げます。「できる」を実感する体験が自信につながります。</p>
       </div>
     </div>
-    <div class="side-map-wrap">
-      <iframe src="https://maps.google.com/maps?q=ブルーマウス徳吉町+放課後等デイサービス&output=embed&z=17&hl=ja" title="BLUE MOUSE 放課後等デイサービス" loading="lazy" allowfullscreen></iframe>
+    <div class="pg-feat fade-in">
+      <div class="pg-feat__img">
+        <img src="./1.webp" alt="SST" />
+      </div>
+      <div class="pg-feat__text">
+        <p class="pg-feat__tag">Social Skills</p>
+        <h3 class="pg-feat__title">社会で生きる力を、<br>日常の中で。</h3>
+        <p class="pg-feat__desc">SST（ソーシャルスキルトレーニング）を通じて、コミュニケーション力や自己表現力を育てます。実際の場面に即した実践的なプログラムです。</p>
+      </div>
     </div>
-    <a href="./contact.html" class="side-cta">見学・お問い合わせ <span class="side-cta__icon">›</span></a>
-    <p class="bm-copy" style="text-align:center;margin-top:14px;">© BLUE MOUSE All Rights Reserved.</p>
-  </aside>
+    <div class="pg-feat fade-in">
+      <div class="pg-feat__img">
+        <img src="./5.webp" alt="伴走者" />
+      </div>
+      <div class="pg-feat__text">
+        <p class="pg-feat__tag">Companion</p>
+        <h3 class="pg-feat__title">伴走者として、<br>一緒に歩む。</h3>
+        <p class="pg-feat__desc">スタッフは「教える人」ではなく「伴走者」。一人ひとりの強みを見つけ、その子のペースで成長できるよう寄り添います。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg-quote fade-in">
+    <p class="pg-quote__text">10年後、<em>自分の力で生きていく。</em></p>
+  </div>
+
+  <div class="pg-programs fade-in" id="program">
+    <h2 class="pg-programs__title">プログラム内容</h2>
+    <div class="pg-programs__grid">
+      <div class="pg-prog">
+        <p class="pg-prog__name">PCスキル</p>
+        <p class="pg-prog__desc">タイピング・Word・Excel・PowerPointなどの基本操作を習得します。</p>
+      </div>
+      <div class="pg-prog">
+        <p class="pg-prog__name">プログラミング</p>
+        <p class="pg-prog__desc">Scratch・HTML/CSSなどを使い、論理的思考力と創造力を養います。</p>
+      </div>
+      <div class="pg-prog">
+        <p class="pg-prog__name">SST</p>
+        <p class="pg-prog__desc">ロールプレイやグループワークを通じて、社会的スキルを実践的に学びます。</p>
+      </div>
+      <div class="pg-prog">
+        <p class="pg-prog__name">創作活動</p>
+        <p class="pg-prog__desc">動画制作・デザイン・3Dモデリングなど、表現力を伸ばす活動も行います。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg-info fade-in" id="overview">
+    <h2 class="pg-info__title">事業概要</h2>
+    <table class="pg-table">
+      <tr><th>事業名</th><td>BLUE MOUSE</td></tr>
+      <tr><th>種別</th><td>放課後等デイサービス</td></tr>
+      <tr><th>対象</th><td>小学生〜高校生</td></tr>
+      <tr><th>定員</th><td>10名 / 日</td></tr>
+      <tr><th>営業時間</th><td>月〜土 放課後〜18:00 / 長期休暇中 10:00〜18:00</td></tr>
+      <tr><th>所在地</th><td>岡山県岡山市中区徳吉町二丁目11番地25</td></tr>
+      <tr><th>最寄り</th><td>東山電停から徒歩1分</td></tr>
+    </table>
+  </div>
+
+  <div class="pg-cta fade-in">
+    <h2 class="pg-cta__title">見学・体験をお待ちしています。</h2>
+    <p class="pg-cta__sub">お気軽にお問い合わせください。受給者証の取得からサポートします。</p>
+    <a href="./contact.html" class="pg-cta__btn">お問い合わせ ›</a>
+  </div>
 
 </div>
 
-<div class="pf-progress" id="pf-progress"></div>
-<div class="pf-dots" id="pf-dots">
-  <span class="pf-dot active"></span><span class="pf-dot"></span><span class="pf-dot"></span><span class="pf-dot"></span><span class="pf-dot"></span>
-  <span class="pf-dot"></span><span class="pf-dot"></span><span class="pf-dot"></span><span class="pf-dot"></span><span class="pf-dot"></span>
+<div class="pg-footer">© BLUE MOUSE All Rights Reserved.</div>
 
-
-<script src="./layout.js"></script>
 <script>
 (function () {
-  'use strict';
-  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-  if (document.fonts && document.fonts.load) {
-    document.fonts.load('700 2rem "Zen Kaku Gothic New"');
-    document.fonts.load('400 1rem "Zen Kaku Gothic New"');
-  }
-  var sections   = Array.prototype.slice.call(document.querySelectorAll('.pf-section'));
-  var n          = sections.length;
-  var dotEls     = Array.prototype.slice.call(document.querySelectorAll('.pf-dot'));
-  var dotsWrap   = document.getElementById('pf-dots');
-  var spacer     = document.getElementById('pf-spacer');
-  var prologue   = document.getElementById('pf-prologue');
-  var proInner   = prologue ? prologue.querySelector('.pf-prologue__inner') : null;
-  var progressEl = document.getElementById('pf-progress');
-  var PRO        = 0;
-  var titleEls   = sections[0] ? Array.prototype.slice.call(sections[0].querySelectorAll('.pf-anim')) : [];
-  var vh = window.innerHeight, ticking = false, prevBase = -1, prevNext = -1, locked = false, lockedVh = 0;
-  var seen = sections.map(function () { return false; });
-  var hintEl = document.getElementById('pf-title-hint');
-
-  function setup () { if (locked) return; vh = window.innerHeight; PRO = prologue ? Math.round(prologue.offsetHeight) : 0; spacer.style.height = (n * vh) + 'px'; }
-  function lockLayout () {
-    vh = window.innerHeight; lockedVh = vh;
-    PRO = prologue ? Math.round(prologue.offsetHeight) : 0;
-    spacer.style.height = (n * vh) + 'px';
-    locked = true;
-    if (proInner) proInner.classList.add('is-leaving');
-  }
-  function setTf (el, val) { el.style.webkitTransform = val; el.style.transform = val; }
-
-  function showEl (el, forceX) {
-    el._pfCancelled = false;
-    var noMove    = el.classList.contains('pf-fignum') || el.classList.contains('pf-lead-em');
-    var isEyebrow = el.classList.contains('pf-eyebrow');
-    var useX = !isEyebrow && forceX && !noMove;
-    var fx = useX ? 40 : 0;
-    var fy = (!noMove && !useX && !isEyebrow) ? 26 : 0;
-    el.style.transition = 'none'; el.style.webkitTransition = 'none'; el.style.animation = 'none';
-    el.style.opacity = '0';
-    if (fx)      setTf(el, 'translate3d(' + fx + 'px, 0, 0)');
-    else if (fy) setTf(el, 'translate3d(0, ' + fy + 'px, 0)');
-    el.classList.add('is-visible');
-    void el.offsetWidth;
-    var dur = 900, startT = null;
-    function stp (ts) {
-      if (el._pfCancelled) return;
-      if (!startT) startT = ts;
-      var p = Math.min((ts - startT) / dur, 1);
-      var e = 1 - Math.pow(1 - p, 3);
-      el.style.opacity = String(e);
-      if (fx)      setTf(el, 'translate3d(' + (fx * (1 - e)).toFixed(1) + 'px, 0, 0)');
-      else if (fy) setTf(el, 'translate3d(0, ' + (fy * (1 - e)).toFixed(1) + 'px, 0)');
-      if (p < 1) requestAnimationFrame(stp);
-      else { el.style.opacity = ''; setTf(el, ''); el.style.transition = ''; el.style.webkitTransition = ''; el.style.animation = ''; }
-    }
-    requestAnimationFrame(stp);
-  }
-
-  var secGen = {};
-  function bumpSecGen (si) { secGen[si] = (secGen[si] || 0) + 1; return secGen[si]; }
-  function checkSecGen (si, g) { return (secGen[si] || 0) === g; }
-
-  function animateIn (section) {
-    section.style.visibility = 'visible';
-    var sIdx = +section.getAttribute('data-idx');
-    var els  = Array.prototype.slice.call(section.querySelectorAll('.pf-anim'));
-    els.forEach(function (el) { el.classList.remove('is-visible'); el.style.opacity = ''; el.style.transition = ''; el.style.webkitTransition = ''; el.style.transform = ''; el.style.webkitTransform = ''; el.style.animation = ''; });
-    void section.offsetHeight;
-    /* [9] CTA: 下からフェード時差 */
-    if (sIdx === 9) {
-      var gen9 = bumpSecGen(9);
-      els.forEach(function (el, i) {
-        setTimeout(function () { if (!checkSecGen(9, gen9)) return; showEl(el, false); }, 80 + i * 180);
-      });
-      return;
-    }
-    /* [1][6] 写真セクション: 右からスライドイン */
-    if (sIdx === 1 || sIdx === 6) {
-      var genP = bumpSecGen(sIdx);
-      els.forEach(function (el, i) {
-        setTimeout(function () { if (!checkSecGen(sIdx, genP)) return; showEl(el, true); }, 80 + i * 120);
-      });
-      return;
-    }
-    /* デフォルト: 右からスライドイン */
-    var genD = bumpSecGen(sIdx);
-    var bDel = 80, step = 120;
-    els.forEach(function (el, i) {
-      setTimeout(function () { if (!checkSecGen(sIdx, genD)) return; showEl(el, true); }, bDel + i * step);
-    });
-    if (sIdx === 0 && hintEl) {
-      setTimeout(function () { if (!checkSecGen(0, genD)) return; hintEl.classList.add('is-visible'); }, bDel + (els.length > 0 ? (els.length - 1) * step : 0) + 700);
-    }
-  }
-
-  function resetAnim (section) {
-    var si = +section.getAttribute('data-idx');
-    if (!isNaN(si)) bumpSecGen(si);
-    Array.prototype.slice.call(section.querySelectorAll('.pf-anim')).forEach(function (el) {
-      el._pfCancelled = true;
-      el.classList.remove('is-visible'); el.style.opacity = ''; el.style.transform = ''; el.style.webkitTransform = ''; el.style.transition = ''; el.style.webkitTransition = ''; el.style.animation = '';
-    });
-    section.querySelectorAll('.pf-s4-wash').forEach(function (w) { w.classList.remove('is-on'); });
-    if (si === 0 && hintEl) hintEl.classList.remove('is-visible');
-  }
-
-  function resetToPrologue () {
-    locked = false;
-    window.scrollTo(0, 0);
-    prevBase = -1; prevNext = -1;
-    seen = sections.map(function () { return false; });
-    sections.forEach(function (sec, i) {
-      sec.style.height = '';
-      sec.style.visibility = i === 0 ? 'visible' : 'hidden';
-      sec.style.opacity = ''; sec.style.transform = '';
-      resetAnim(sec);
-      var img = sec.querySelector('.pf-photo__img'); if (img) img.style.transform = '';
-    });
-    titleEls.forEach(function (el) { el.style.transition = ''; el.style.opacity = ''; el.style.transform = ''; });
-    if (proInner)   { proInner.classList.remove('is-leaving'); proInner.style.opacity = ''; proInner.style.transform = ''; }
-    if (progressEl) { progressEl.classList.remove('is-active'); progressEl.style.width = '0%'; }
-    setup(); draw();
-  }
-
-  function draw () {
-    ticking = false;
-    var st = window.pageYOffset - PRO;
-    if (st < -2) {
-      dotEls.forEach(function (d, j) { d.classList.toggle('active', j === 0); });
-      if (dotsWrap) dotsWrap.classList.remove('dark');
-      return;
-    }
-    if (st < 0) st = 0;
-    var base = 0;
-    for (var i = n - 2; i >= 0; i--) { if (st >= i * vh) { base = i; break; } }
-    var next    = Math.min(base + 1, n - 1);
-    var secSpan = vh, stRel = st - base * vh;
-    sections[base].style.opacity = '';
-    if (next !== base) {
-      var thr  = base === 0 ? 0.55 : 0.80;
-      var span = base === 0 ? 0.45 : 0.20;
-      var fade  = stRel < secSpan * thr ? 1 : Math.max(0, 1 - (stRel - secSpan * thr) / (secSpan * span));
-      var exitP = 1 - fade;
-      sections[next].style.transform = 'translateY(0)';
-      sections[next].style.opacity   = String(1 - fade);
-      sections[base].style.transform = exitP > 0.001 ? 'scale(' + (1 - exitP * 0.03).toFixed(4) + ')' : 'translateY(0)';
-    } else {
-      sections[base].style.transform = 'translateY(0)';
-    }
-    [base, next].forEach(function (si) {
-      if (si < 0 || si >= n) return;
-      var sec = sections[si];
-      if (!sec.classList.contains('pf-photo')) return;
-      var img = sec.querySelector('.pf-photo__img');
-      if (!img) return;
-      img.style.transform = 'translateY(' + (((st - si * vh) / vh) * 40).toFixed(1) + 'px)';
-    });
-    var tp = Math.min(1, Math.max(0, (st - vh * 0.05) / (vh * 0.85)));
-    titleEls.forEach(function (el) {
-      if (tp > 0) { el.style.animation = 'none'; el.style.transition = 'none'; el.style.opacity = String(Math.max(0, 1 - tp)); el.style.transform = 'translateX(' + Math.round(-tp * 16) + 'px)'; }
-      else        { el.style.animation = ''; el.style.transition = ''; el.style.opacity = ''; el.style.transform = ''; }
-    });
-    if (base !== prevBase || next !== prevNext) {
-      if (prevBase >= 0 && prevBase !== base && prevBase !== next) { sections[prevBase].style.visibility = 'hidden'; sections[prevBase].style.transform = ''; seen[prevBase] = false; resetAnim(sections[prevBase]); }
-      if (prevNext >= 0 && prevNext !== base && prevNext !== next) { sections[prevNext].style.visibility = 'hidden'; sections[prevNext].style.transform = ''; seen[prevNext] = false; resetAnim(sections[prevNext]); }
-      sections[base].style.visibility = 'visible'; sections[next].style.visibility = 'visible';
-      prevBase = base; prevNext = next;
-    }
-    var ty = Math.round(vh * Math.max(0, 1 - stRel / secSpan));
-    var ai = ty < vh * 0.5 ? next : base;
-    dotEls.forEach(function (d, j) { d.classList.toggle('active', j === ai); });
-    if (dotsWrap)   dotsWrap.classList.toggle('dark', !!sections[ai].getAttribute('data-dark'));
-    if (progressEl) {
-      if (st >= 0) { progressEl.classList.add('is-active'); progressEl.style.width = (n > 1 ? (ai / (n - 1)) * 100 : 0).toFixed(1) + '%'; }
-      else         { progressEl.classList.remove('is-active'); progressEl.style.width = '0%'; }
-    }
-  }
-  function onScroll () { if (!ticking) { requestAnimationFrame(draw); ticking = true; } }
-
-  var scrollLocked = false, touchStartY = 0;
-  function currentBase () { var st = window.pageYOffset - PRO, b = 0; for (var i = n - 2; i >= 0; i--) { if (st >= i * vh) { b = i; break; } } return Math.max(0, b); }
-  function goToSection (idx, dur) {
-    if (idx < 0 || idx > n - 1 || scrollLocked) return;
-    if (!locked) lockLayout();
-    scrollLocked = true;
-    var startY = window.pageYOffset, targetY = PRO + idx * vh;
-    if (startY === targetY) { scrollLocked = false; return; }
-    var startT = null; dur = dur || 1000;
-    function ease (t) { return t < .5 ? 2 * t * t : -1 + (4 - 2 * t) * t; }
-    function step (ts) { if (!startT) startT = ts; var p = Math.min((ts - startT) / dur, 1); window.scrollTo(0, startY + (targetY - startY) * ease(p)); if (p < 1) requestAnimationFrame(step); else { scrollLocked = false; var b = currentBase(); if (!seen[b]) { seen[b] = true; animateIn(sections[b]); } } }
-    requestAnimationFrame(step);
-  }
-  function inPrologue () { return window.pageYOffset < PRO - 1; }
-
-  window.addEventListener('wheel', function (e) {
-    e.preventDefault(); if (scrollLocked) return;
-    if (inPrologue()) { goToSection(0, 420); return; }
-    goToSection(e.deltaY > 0 ? currentBase() + 1 : currentBase() - 1);
-  }, { passive: false });
-  window.addEventListener('touchstart', function (e) { touchStartY = e.touches[0].clientY; }, { passive: true });
-  window.addEventListener('touchmove',  function (e) { if (!inPrologue()) e.preventDefault(); }, { passive: false });
-  window.addEventListener('touchend',   function (e) {
-    var dy = touchStartY - e.changedTouches[0].clientY;
-    if (inPrologue()) { if (window.pageYOffset > 4) goToSection(0, 420); return; }
-    if (scrollLocked) return;
-    if (Math.abs(dy) < 5) return;
-    goToSection(dy > 0 ? currentBase() + 1 : currentBase() - 1);
-  }, { passive: true });
-  window.addEventListener('keydown', function (e) {
-    if (e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); if (scrollLocked) return; if (inPrologue()) goToSection(0, 420); else goToSection(currentBase() + 1); }
-    else if (e.key === 'ArrowUp') { e.preventDefault(); if (!scrollLocked && !inPrologue()) goToSection(currentBase() - 1); }
-  });
-
-  setup(); draw();
-  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(function () { if (!locked) { setup(); draw(); } }); }
-  window.addEventListener('scroll', function () {
-    if (!scrollLocked && window.pageYOffset > 0 && window.pageYOffset < PRO && window.pageYOffset >= PRO * 0.08) goToSection(0, 420);
-    onScroll();
-  }, { passive: true });
-  function relayout () {
-    if (locked) { if (Math.abs(window.innerHeight - lockedVh) > 150) { lockLayout(); draw(); } return; }
-    setup(); draw();
-  }
-  window.addEventListener('resize', relayout);
-  if (window.visualViewport) window.visualViewport.addEventListener('resize', relayout);
-  window.addEventListener('pageshow', function () { setup(); if (window.pageYOffset > 4) resetToPrologue(); });
+  var burger = document.getElementById('burger');
+  var mobileNav = document.getElementById('mobile-nav');
+  burger.addEventListener('click', function () { burger.classList.toggle('is-open'); mobileNav.classList.toggle('is-open'); });
+  document.querySelectorAll('.mn-link').forEach(function (a) { a.addEventListener('click', function () { burger.classList.remove('is-open'); mobileNav.classList.remove('is-open'); }); });
+  var els = document.querySelectorAll('.fade-in');
+  var obs = new IntersectionObserver(function (entries) { entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); } }); }, { threshold: 0.05 });
+  els.forEach(function (el) { obs.observe(el); });
+  setTimeout(function () { els.forEach(function (el) { if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('is-visible'); }); }, 100);
 })();
 </script>
 </body>
