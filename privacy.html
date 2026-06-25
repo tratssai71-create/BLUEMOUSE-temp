@@ -7,246 +7,147 @@
   <title>プライバシーポリシー | BLUE MOUSE</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./layout.css?v=45" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet" />
   <style>
-    /* ===== ページヘッダー ===== */
-    .pp-header {
-      padding: 48px 0 36px;
-      border-bottom: 1px solid rgba(0,0,0,.07);
-      margin-bottom: 40px;
-    }
-    .pp-kicker {
-      font-family: "Inter", sans-serif;
-      font-size: 10px;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      color: #5EC1C6;
-      margin-bottom: 10px;
-      font-weight: 500;
-      display: block;
-    }
-    .pp-title {
-      font-family: "Noto Sans JP", sans-serif;
-      font-size: clamp(1.5rem, 2.2vw, 1.9rem);
-      font-weight: 500;
-      color: #6aadcc;
-      margin: 0 0 12px;
-      line-height: 1.35;
-    }
-    .pp-lead {
-      font-size: 13px;
-      color: #888;
-      line-height: 1.85;
-      margin: 0;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: "Zen Maru Gothic", sans-serif; background: #FFFEFB; color: #33251a; line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+    :root { --coral:#f2906c; --teal:#5fc1c7; --teal-dark:#3a9095; --teal-light:#e8f6f7; --ink:#33251a; --bg:#faf8f5; }
 
-    /* ===== ポリシーセクション ===== */
-    .pp-sections {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-    .pp-section {
-      padding: 32px 0;
-      border-bottom: 1px solid rgba(0,0,0,.07);
-      display: grid;
-      grid-template-columns: 200px 1fr;
-      gap: 32px;
-      align-items: flex-start;
-    }
-    .pp-section:last-child { border-bottom: none; }
+    .header { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 32px; height:60px; background:rgba(255,254,251,.95); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid rgba(0,0,0,.05); }
+    .header__logo img { height:32px; width:auto; }
+    .header__nav { display:flex; align-items:center; gap:28px; }
+    .header__link { font-size:13px; font-weight:500; letter-spacing:.06em; color:#8a7a6e; transition:color .2s; }
+    .header__link:hover { color:var(--teal-dark); }
+    .header__cta { display:inline-flex; align-items:center; padding:8px 20px; background:var(--coral); color:#fff; font-size:13px; font-weight:600; border-radius:100px; transition:background .2s; }
+    .header__cta:hover { background:#e87e59; }
+    .header__burger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:8px; }
+    .header__burger span { display:block; width:20px; height:1.5px; background:var(--ink); border-radius:2px; transition:transform .3s, opacity .3s; }
+    .header__burger.is-open span:nth-child(1) { transform:translateY(3.25px) rotate(45deg); }
+    .header__burger.is-open span:nth-child(2) { opacity:0; }
+    .header__burger.is-open span:nth-child(3) { transform:translateY(-3.25px) rotate(-45deg); }
+    .mobile-nav { display:none; position:fixed; top:60px; left:0; right:0; bottom:0; background:rgba(255,254,251,.98); backdrop-filter:blur(16px); z-index:99; flex-direction:column; align-items:center; justify-content:center; gap:24px; }
+    .mobile-nav.is-open { display:flex; }
+    .mobile-nav a { font-size:17px; color:#8a7a6e; letter-spacing:.08em; }
 
-    .pp-section__label {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      padding-top: 3px;
-    }
-    .pp-section__num {
-      font-family: "Inter", sans-serif;
-      font-size: 10px;
-      font-weight: 600;
-      color: rgba(94,193,198,.6);
-      letter-spacing: .14em;
-    }
-    .pp-section__title {
-      font-family: "Noto Sans JP", sans-serif;
-      font-size: 14px;
-      font-weight: 500;
-      color: #2a2a2a;
-      line-height: 1.5;
-      margin: 0;
-    }
+    .pp-page { max-width:720px; margin:0 auto; padding:100px 32px 80px; }
+    .pp-header { text-align:center; margin-bottom:48px; }
+    .pp-tag { font-family:"Inter",sans-serif; font-size:11px; font-weight:600; letter-spacing:.3em; text-transform:uppercase; color:var(--teal-dark); margin-bottom:8px; }
+    .pp-title { font-size:clamp(1.5rem,3vw,2rem); font-weight:700; color:var(--ink); margin-bottom:12px; }
+    .pp-lead { font-size:14px; color:#8a7a6e; line-height:1.9; }
 
-    .pp-section__body {
-      font-size: 13.5px;
-      color: #555;
-      line-height: 2;
-      font-weight: 400;
-    }
+    .pp-sections { display:flex; flex-direction:column; gap:28px; margin-bottom:48px; }
+    .pp-section { background:#fff; border:1px solid rgba(0,0,0,.05); border-radius:16px; padding:24px 28px; }
+    .pp-section__head { display:flex; align-items:center; gap:12px; margin-bottom:10px; }
+    .pp-section__num { width:32px; height:32px; border-radius:8px; background:var(--teal-light); color:var(--teal-dark); font-family:"Inter",sans-serif; font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .pp-section__title { font-size:15px; font-weight:700; color:var(--ink); }
+    .pp-section__body { font-size:14px; color:#6b5a4c; line-height:1.9; }
 
-    /* ===== 最終更新日 ===== */
-    .pp-footer {
-      padding: 32px 0 48px;
-      text-align: right;
-    }
-    .pp-footer__date {
-      font-family: "Inter", sans-serif;
-      font-size: 12px;
-      color: #bbb;
-      letter-spacing: .06em;
-    }
-    .pp-footer__company {
-      font-size: 12px;
-      color: #aaa;
-      margin-top: 4px;
-    }
+    .pp-footer-info { text-align:center; padding:24px 0; border-top:1px solid rgba(0,0,0,.06); }
+    .pp-footer-info p { font-size:13px; color:#8a7a6e; margin-bottom:2px; }
 
-    /* ===== レスポンシブ ===== */
-    @media (max-width: 780px) {
-      .pp-section {
-        grid-template-columns: 1fr;
-        gap: 10px;
-      }
-      .pp-section__label {
-        flex-direction: row;
-        align-items: center;
-        gap: 10px;
-      }
+    .pg-footer { text-align:center; padding:24px 16px; font-size:11px; color:#bbb; border-top:1px solid rgba(0,0,0,.05); margin-top:40px; }
+
+    @media (max-width:780px) {
+      .header { padding:0 16px; height:56px; }
+      .header__nav { display:none; }
+      .header__burger { display:flex; }
+      .mobile-nav { top:56px; }
+      .pp-page { padding:84px 16px 60px; }
+      .pp-section { padding:20px 20px; }
     }
   </style>
 </head>
 <body>
-<div class="bm-layout">
 
-  <!-- ===== 左サイドバー ===== -->
-  <aside class="bm-left">
-    <a class="bm-logo" href="./index.html">
-      <img src="./logo.png" alt="BLUE MOUSE" />
-    </a>
-        <nav class="bm-nav">
-      <a href="./index.html"       class="bm-nav__item" data-page="index">Front</a>
-      <a href="./philosophy.html"  class="bm-nav__item" data-page="philosophy">BLUE MOUSEの想い</a>
-      <div class="bm-nav__group">
-        <div class="bm-nav__group-header">
-          <a href="./child.html" class="bm-nav__group-link">児童発達支援事業</a>
-          <button type="button" class="bm-nav__toggle" data-group="child" data-target="nav-child">
-            <span class="bm-nav__arrow">▶</span>
-          </button>
-        </div>
-        <ul class="bm-nav__sub" id="nav-child">
-          <li><a href="./child.html#overview" class="bm-nav__subitem" data-group="child" data-hash="#overview">事業内容</a></li>
-          <li><a href="./child.html#pricing"  class="bm-nav__subitem" data-group="child" data-hash="#pricing">料金表</a></li>
-        </ul>
+<header class="header">
+  <a href="./index.html" class="header__logo"><img src="./logo.png" alt="BLUE MOUSE" /></a>
+  <nav class="header__nav">
+    <a href="./index.html" class="header__link">ホーム</a>
+    <a href="./child.html" class="header__link">児童発達支援</a>
+    <a href="./afterschool.html" class="header__link">放課後等デイ</a>
+    <a href="./contact.html" class="header__cta">お問い合わせ ›</a>
+  </nav>
+  <button class="header__burger" id="burger" aria-label="メニュー"><span></span><span></span><span></span></button>
+</header>
+<nav class="mobile-nav" id="mobile-nav">
+  <a href="./index.html" class="mn-link">ホーム</a>
+  <a href="./child.html" class="mn-link">児童発達支援事業</a>
+  <a href="./afterschool.html" class="mn-link">放課後等デイサービス</a>
+  <a href="./contact.html" class="mn-link" style="color:var(--coral); font-weight:600;">お問い合わせ</a>
+</nav>
+
+<div class="pp-page">
+
+  <div class="pp-header">
+    <p class="pp-tag">Privacy Policy</p>
+    <h1 class="pp-title">プライバシーポリシー</h1>
+    <p class="pp-lead">合同会社C EIGHTY PERCENT（以下「当社」）は、お客様の個人情報の保護を重要な責務と認識し、以下の方針に基づき適切に取り扱います。</p>
+  </div>
+
+  <div class="pp-sections">
+    <div class="pp-section">
+      <div class="pp-section__head">
+        <span class="pp-section__num">01</span>
+        <h2 class="pp-section__title">個人情報の取得</h2>
       </div>
-      <div class="bm-nav__group">
-        <div class="bm-nav__group-header">
-          <a href="./afterschool.html" class="bm-nav__group-link">放課後等デイサービス</a>
-          <button type="button" class="bm-nav__toggle" data-group="afterschool" data-target="nav-after">
-            <span class="bm-nav__arrow">▶</span>
-          </button>
-        </div>
-        <ul class="bm-nav__sub" id="nav-after">
-          <li><a href="./afterschool.html#program"  class="bm-nav__subitem" data-group="afterschool" data-hash="#program">事業内容</a></li>
-          <li><a href="./afterschool.html#pricing"  class="bm-nav__subitem" data-group="afterschool" data-hash="#pricing">料金表</a></li>
-        </ul>
-      </div>
-      <a href="./recruit.html"     class="bm-nav__item" data-page="recruit">採用情報</a>
-      <a href="./contact.html"     class="bm-nav__item" data-page="contact">お問い合わせ</a>
-    </nav>
-    <a class="bm-drawer-sns" href="https://www.instagram.com/blue_mouse_okayama/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg></a>
-  </aside>
-
-  <!-- ===== メインコンテンツ ===== -->
-  <main class="bm-main">
-
-    <div class="pp-header">
-      <span class="pp-kicker">Privacy Policy</span>
-      <h1 class="pp-title">プライバシーポリシー</h1>
-      <p class="pp-lead">合同会社C EIGHTY PERCENT（以下「当社」）は、お客様の個人情報の保護を重要な責務と認識し、<br>以下の方針に基づき適切に取り扱います。</p>
+      <p class="pp-section__body">お客様の個人情報を取得させていただく場合は、利用目的をできる限り特定するとともに、適法かつ公正な手段で必要な範囲の個人情報を取得させていただきます。</p>
     </div>
-
-    <div class="pp-sections">
-
-      <div class="pp-section">
-        <div class="pp-section__label">
-          <span class="pp-section__num">01</span>
-          <h2 class="pp-section__title">個人情報の取得</h2>
-        </div>
-        <p class="pp-section__body">お客様の個人情報を取得させていただく場合は、利用目的をできる限り特定するとともに、適法かつ公正な手段で必要な範囲の個人情報を取得させていただきます。</p>
+    <div class="pp-section">
+      <div class="pp-section__head">
+        <span class="pp-section__num">02</span>
+        <h2 class="pp-section__title">個人情報の利用目的</h2>
       </div>
-
-      <div class="pp-section">
-        <div class="pp-section__label">
-          <span class="pp-section__num">02</span>
-          <h2 class="pp-section__title">個人情報の利用目的</h2>
-        </div>
-        <p class="pp-section__body">お客様からお預かりした個人情報は、業務のご案内やお問い合わせに対する回答として、電子メールや資料の送付に利用いたします。</p>
-      </div>
-
-      <div class="pp-section">
-        <div class="pp-section__label">
-          <span class="pp-section__num">03</span>
-          <h2 class="pp-section__title">個人情報の管理・開示</h2>
-        </div>
-        <p class="pp-section__body">お客様より取得させていただいた個人情報は適切に管理し、法律に基づき必要と判断される場合を除き、お客様の同意を得た第三者以外への提供、開示等一切いたしません。</p>
-      </div>
-
-      <div class="pp-section">
-        <div class="pp-section__label">
-          <span class="pp-section__num">04</span>
-          <h2 class="pp-section__title">個人情報の安全対策</h2>
-        </div>
-        <p class="pp-section__body">お客様よりお預かりした個人情報の安全管理は合理的、組織的、物理的、技術的施策を講じるとともに、関連法令に準じた適切な取り扱いを行うことで個人情報への不正な侵入、紛失、改ざん、漏えい等の危険防止に努めます。</p>
-      </div>
-
-      <div class="pp-section">
-        <div class="pp-section__label">
-          <span class="pp-section__num">05</span>
-          <h2 class="pp-section__title">ご本人の照会</h2>
-        </div>
-        <p class="pp-section__body">お客さまがご本人の個人情報の照会・修正・削除などをご希望される場合には、ご本人であることを確認の上、対応させていただきます。</p>
-      </div>
-
-      <div class="pp-section">
-        <div class="pp-section__label">
-          <span class="pp-section__num">06</span>
-          <h2 class="pp-section__title">他のサイトとのリンク</h2>
-        </div>
-        <p class="pp-section__body">当サイト内に、他のウェブサイトへのリンクが貼られている場合があります。それらの独立した第三者のサイトおよびサービスについて、当社はいかなる義務や責任も負いかねます。ご自身の責任で、各サイトの定める個人情報保護方針等を事前にご確認されることをおすすめします。</p>
-      </div>
-
+      <p class="pp-section__body">お客様からお預かりした個人情報は、業務のご案内やお問い合わせに対する回答として、電子メールや資料の送付に利用いたします。</p>
     </div>
-
-    <div class="pp-footer">
-      <p class="pp-footer__date">制定日：2025年12月1日</p>
-      <p class="pp-footer__company">合同会社C EIGHTY PERCENT</p>
-    </div>
-
-  </main>
-
-  <!-- ===== 右サイドバー ===== -->
-  <aside class="bm-right">
-    <p class="side-heading">PRIVACY</p>
-    <div class="side-cards">
-      <div class="side-card">
-        <span class="side-card__badge">運営</span>
-        <p class="side-card__title">合同会社C EIGHTY PERCENT</p>
+    <div class="pp-section">
+      <div class="pp-section__head">
+        <span class="pp-section__num">03</span>
+        <h2 class="pp-section__title">個人情報の管理・開示</h2>
       </div>
-      <div class="side-card">
-        <span class="side-card__badge">お問い合わせ</span>
-        <p class="side-card__title" style="font-size:12px;">tokuyoshi@blue-mouse.net</p>
-      </div>
+      <p class="pp-section__body">お客様より取得させていただいた個人情報は適切に管理し、法律に基づき必要と判断される場合を除き、お客様の同意を得た第三者以外への提供、開示等一切いたしません。</p>
     </div>
-    <a href="./contact.html" class="side-cta">
-      お問い合わせ
-      <span class="side-cta__icon">›</span>
-    </a>
-    <p class="bm-copy" style="text-align:center; margin-top:14px;">© BLUE MOUSE All Rights Reserved.</p>
-  </aside>
+    <div class="pp-section">
+      <div class="pp-section__head">
+        <span class="pp-section__num">04</span>
+        <h2 class="pp-section__title">個人情報の安全対策</h2>
+      </div>
+      <p class="pp-section__body">お客様よりお預かりした個人情報の安全管理は合理的、組織的、物理的、技術的施策を講じるとともに、関連法令に準じた適切な取り扱いを行うことで個人情報への不正な侵入、紛失、改ざん、漏えい等の危険防止に努めます。</p>
+    </div>
+    <div class="pp-section">
+      <div class="pp-section__head">
+        <span class="pp-section__num">05</span>
+        <h2 class="pp-section__title">ご本人の照会</h2>
+      </div>
+      <p class="pp-section__body">お客さまがご本人の個人情報の照会・修正・削除などをご希望される場合には、ご本人であることを確認の上、対応させていただきます。</p>
+    </div>
+    <div class="pp-section">
+      <div class="pp-section__head">
+        <span class="pp-section__num">06</span>
+        <h2 class="pp-section__title">他のサイトとのリンク</h2>
+      </div>
+      <p class="pp-section__body">当サイト内に、他のウェブサイトへのリンクが貼られている場合があります。それらの独立した第三者のサイトおよびサービスについて、当社はいかなる義務や責任も負いかねます。ご自身の責任で、各サイトの定める個人情報保護方針等を事前にご確認されることをおすすめします。</p>
+    </div>
+  </div>
+
+  <div class="pp-footer-info">
+    <p>制定日：2025年12月1日</p>
+    <p>合同会社C EIGHTY PERCENT</p>
+  </div>
 
 </div>
-<script src="./layout.js"></script>
+
+<div class="pg-footer">© BLUE MOUSE All Rights Reserved.</div>
+
+<script>
+(function () {
+  var burger = document.getElementById('burger');
+  var mobileNav = document.getElementById('mobile-nav');
+  burger.addEventListener('click', function () { burger.classList.toggle('is-open'); mobileNav.classList.toggle('is-open'); });
+  document.querySelectorAll('.mn-link').forEach(function (a) { a.addEventListener('click', function () { burger.classList.remove('is-open'); mobileNav.classList.remove('is-open'); }); });
+})();
+</script>
 </body>
 </html>

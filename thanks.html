@@ -7,209 +7,47 @@
   <title>送信完了 | BLUE MOUSE</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./layout.css?v=45" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet" />
   <style>
-    .tk-wrap {
-      padding: 60px 0 80px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-    .tk-icon {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      background: #edf7f2;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 28px;
-    }
-    .tk-icon svg {
-      width: 34px;
-      height: 34px;
-      stroke: #3a6b5e;
-    }
-    .tk-title {
-      font-family: "Noto Sans JP", sans-serif;
-      font-size: clamp(1.25rem, 1.8vw, 1.55rem);
-      font-weight: 500;
-      color: #2a2a2a;
-      margin: 0 0 16px;
-    }
-    .tk-sub {
-      font-size: 14px;
-      color: #666;
-      line-height: 1.9;
-      max-width: 480px;
-      margin: 0 auto 40px;
-    }
-    .tk-divider {
-      width: 40px;
-      height: 2px;
-      background: rgba(0,0,0,.1);
-      margin: 0 auto 40px;
-      border-radius: 2px;
-    }
-    .tk-links {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      width: 100%;
-      max-width: 300px;
-    }
-    .tk-link--primary {
-      display: block;
-      padding: 13px 24px;
-      background: #3a6b5e;
-      color: #fff;
-      border-radius: 3px;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 400;
-      transition: opacity .2s;
-    }
-    .tk-link--primary:hover { opacity: .82; }
-    .tk-link--secondary {
-      display: block;
-      padding: 12px 24px;
-      border: 1px solid rgba(0,0,0,.15);
-      color: #555;
-      border-radius: 3px;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 400;
-      background: #fff;
-      transition: background .2s, border-color .2s;
-    }
-    .tk-link--secondary:hover {
-      background: #f9f9f9;
-      border-color: rgba(0,0,0,.25);
-    }
-    .tk-note {
-      margin-top: 48px;
-      padding: 20px 24px;
-      background: #fafafa;
-      border-radius: 3px;
-      border: 1px solid rgba(0,0,0,.07);
-      font-size: 12px;
-      color: #888;
-      line-height: 1.85;
-      max-width: 480px;
-      width: 100%;
-      text-align: left;
-    }
-    .tk-note strong {
-      display: block;
-      color: #555;
-      font-weight: 500;
-      margin-bottom: 6px;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Zen Maru Gothic", sans-serif; background: #FFFEFB; color: #33251a; line-height: 1.75; -webkit-font-smoothing: antialiased; min-height: 100vh; display: flex; flex-direction: column; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+    :root { --coral:#f2906c; --teal-light:#e8f6f7; --coral-light:#fdf0eb; --ink:#33251a; }
+
+    .header { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:center; padding:0 32px; height:60px; background:rgba(255,254,251,.95); backdrop-filter:blur(12px); border-bottom:1px solid rgba(0,0,0,.05); }
+    .header__logo img { height:32px; width:auto; }
+
+    .thanks { flex:1; display:flex; align-items:center; justify-content:center; padding:80px 32px; }
+    .thanks__card { max-width:520px; text-align:center; background:linear-gradient(135deg, var(--teal-light) 0%, var(--coral-light) 100%); border-radius:28px; padding:56px 40px; }
+    .thanks__title { font-size:clamp(1.4rem,3vw,1.8rem); font-weight:700; color:var(--ink); margin-bottom:12px; }
+    .thanks__body { font-size:14px; color:#6b5a4c; line-height:1.9; margin-bottom:28px; }
+    .thanks__btn { display:inline-flex; align-items:center; gap:6px; padding:12px 32px; background:var(--coral); color:#fff; font-size:14px; font-weight:600; border-radius:100px; transition:transform .2s, box-shadow .2s; }
+    .thanks__btn:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(242,144,108,.3); }
+
+    .pg-footer { text-align:center; padding:24px 16px; font-size:11px; color:#bbb; border-top:1px solid rgba(0,0,0,.05); }
+
+    @media (max-width:780px) {
+      .thanks { padding:80px 16px; }
+      .thanks__card { padding:40px 24px; border-radius:20px; }
     }
   </style>
 </head>
 <body>
-<div class="bm-layout">
 
-  <!-- ===== 左サイドバー ===== -->
-  <aside class="bm-left">
-    <a class="bm-logo" href="./index.html">
-      <img src="./logo.png" alt="BLUE MOUSE" />
-    </a>
-        <nav class="bm-nav">
-      <a href="./index.html"       class="bm-nav__item" data-page="index">Front</a>
-      <a href="./philosophy.html"  class="bm-nav__item" data-page="philosophy">BLUE MOUSEの想い</a>
-      <div class="bm-nav__group">
-        <div class="bm-nav__group-header">
-          <a href="./child.html" class="bm-nav__group-link">児童発達支援事業</a>
-          <button type="button" class="bm-nav__toggle" data-group="child" data-target="nav-child">
-            <span class="bm-nav__arrow">▶</span>
-          </button>
-        </div>
-        <ul class="bm-nav__sub" id="nav-child">
-          <li><a href="./child.html#overview" class="bm-nav__subitem" data-group="child" data-hash="#overview">事業内容</a></li>
-          <li><a href="./child.html#pricing"  class="bm-nav__subitem" data-group="child" data-hash="#pricing">料金表</a></li>
-        </ul>
-      </div>
-      <div class="bm-nav__group">
-        <div class="bm-nav__group-header">
-          <a href="./afterschool.html" class="bm-nav__group-link">放課後等デイサービス</a>
-          <button type="button" class="bm-nav__toggle" data-group="afterschool" data-target="nav-after">
-            <span class="bm-nav__arrow">▶</span>
-          </button>
-        </div>
-        <ul class="bm-nav__sub" id="nav-after">
-          <li><a href="./afterschool.html#program"  class="bm-nav__subitem" data-group="afterschool" data-hash="#program">事業内容</a></li>
-          <li><a href="./afterschool.html#pricing"  class="bm-nav__subitem" data-group="afterschool" data-hash="#pricing">料金表</a></li>
-        </ul>
-      </div>
-      <a href="./recruit.html"     class="bm-nav__item" data-page="recruit">採用情報</a>
-      <a href="./contact.html"     class="bm-nav__item is-active" data-page="contact">お問い合わせ</a>
-    </nav>
-    <a class="bm-drawer-sns" href="https://www.instagram.com/blue_mouse_okayama/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg></a>
-  </aside>
+<header class="header">
+  <a href="./index.html" class="header__logo"><img src="./logo.png" alt="BLUE MOUSE" /></a>
+</header>
 
-  <!-- ===== メインコンテンツ ===== -->
-  <main class="bm-main">
-
-    <div class="tk-wrap">
-
-      <!-- チェックアイコン -->
-      <div class="tk-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-             stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="20 6 9 17 4 12"/>
-        </svg>
-      </div>
-
-      <h1 class="tk-title">送信が完了しました</h1>
-      <p class="tk-sub">
-        お問い合わせいただきありがとうございます。<br>
-        内容を確認のうえ、2営業日以内にご連絡いたします。<br>
-        しばらくお待ちください。
-      </p>
-
-      <div class="tk-divider"></div>
-
-      <div class="tk-links">
-        <a class="tk-link--primary" href="./index.html">トップページへ戻る</a>
-        <a class="tk-link--secondary" href="./contact.html">お問い合わせページへ</a>
-      </div>
-
-      <div class="tk-note">
-        <strong>確認メールについて</strong>
-        ご入力いただいたメールアドレスへ確認メールをお送りしております。<br>
-        届かない場合は、迷惑メールフォルダのご確認、またはお電話（086-273-3880）にてお問い合わせください。
-      </div>
-
-    </div>
-
-  </main>
-
-  <!-- ===== 右サイドバー ===== -->
-  <aside class="bm-right">
-    <p class="side-heading">CONTACT</p>
-    <div class="side-cards">
-      <div class="side-card">
-        <span class="side-card__badge">BLUE MOUSE</span>
-        <p class="side-card__title">放課後等デイサービス</p>
-        <p class="side-card__sub">岡山市中区 徳吉町</p>
-      </div>
-      <div class="side-card">
-        <span class="side-card__badge">LITTLE BLUE MOUSE</span>
-        <p class="side-card__title">児童発達支援事業</p>
-        <p class="side-card__sub">岡山市北区 辰巳</p>
-      </div>
-      <div class="side-card">
-        <span class="side-card__badge">電話</span>
-        <p class="side-card__title">086-273-3880</p>
-      </div>
-    </div>
-    <p class="bm-copy" style="text-align:center; margin-top:14px;">© BLUE MOUSE All Rights Reserved.</p>
-  </aside>
-
+<div class="thanks">
+  <div class="thanks__card">
+    <h1 class="thanks__title">お問い合わせ<br>ありがとうございます。</h1>
+    <p class="thanks__body">内容を確認のうえ、担当者よりご連絡いたします。<br>通常2〜3営業日以内にご返信いたしますので、<br>しばらくお待ちください。</p>
+    <a href="./index.html" class="thanks__btn">トップに戻る ›</a>
+  </div>
 </div>
-<script src="./layout.js"></script>
+
+<div class="pg-footer">© BLUE MOUSE All Rights Reserved.</div>
+
 </body>
 </html>
