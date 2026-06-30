@@ -211,8 +211,9 @@
           <span class="ct-error" id="err-email">有効なメールアドレスを入力してください。</span>
         </div>
         <div class="ct-field">
-          <label class="ct-label" for="f-tel">電話番号</label>
+          <label class="ct-label" for="f-tel">電話番号<span class="ct-req">*</span></label>
           <input class="ct-input" id="f-tel" name="phone" type="tel" placeholder="000-0000-0000" autocomplete="tel" />
+          <span class="ct-error" id="err-tel">電話番号を入力してください。</span>
         </div>
         <div class="ct-field ct-field--full">
           <label class="ct-label" for="facility-select">ご希望の事業所<span class="ct-req">*</span></label>
@@ -308,7 +309,7 @@
   function showError(el, errId) { el.classList.add('is-error'); var e = document.getElementById(errId); if (e) e.classList.add('is-show'); }
   function clearError(el, errId) { el.classList.remove('is-error'); var e = document.getElementById(errId); if (e) e.classList.remove('is-show'); }
 
-  [['f-name','err-name'],['f-age','err-age'],['f-email','err-email'],['facility-select','err-facility'],['f-type','err-type']].forEach(function (pair) {
+  [['f-name','err-name'],['f-age','err-age'],['f-email','err-email'],['f-tel','err-tel'],['facility-select','err-facility'],['f-type','err-type']].forEach(function (pair) {
     var el = document.getElementById(pair[0]);
     if (!el) return;
     ['input','change'].forEach(function (ev) { el.addEventListener(ev, function () { clearError(el, pair[1]); }); });
@@ -326,6 +327,8 @@
     if (!nameEl.value.trim()) { showError(nameEl, 'err-name'); valid = false; } else clearError(nameEl, 'err-name');
     if (!ageEl.value) { showError(ageEl, 'err-age'); valid = false; } else clearError(ageEl, 'err-age');
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value)) { showError(emailEl, 'err-email'); valid = false; } else clearError(emailEl, 'err-email');
+    var telEl = document.getElementById('f-tel');
+    if (!telEl.value.trim()) { showError(telEl, 'err-tel'); valid = false; } else clearError(telEl, 'err-tel');
     if (!facilityEl.value) { showError(facilityEl, 'err-facility'); valid = false; } else clearError(facilityEl, 'err-facility');
     if (!typeEl.value) { showError(typeEl, 'err-type'); valid = false; } else clearError(typeEl, 'err-type');
 
