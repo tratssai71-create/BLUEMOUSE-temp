@@ -288,6 +288,18 @@
   burger.addEventListener('click', function () { burger.classList.toggle('is-open'); mobileNav.classList.toggle('is-open'); });
   document.querySelectorAll('.mn-link').forEach(function (a) { a.addEventListener('click', function () { burger.classList.remove('is-open'); mobileNav.classList.remove('is-open'); }); });
 
+  // Pre-fill from URL param (?type=afterschool or ?type=child)
+  var urlType = new URLSearchParams(window.location.search).get('type');
+  if (urlType === 'afterschool') {
+    document.getElementById('f-type').value = '施設見学のご希望';
+    var fac = document.getElementById('facility-select');
+    fac.value = 'BLUE MOUSE（放課後等デイサービス）';
+  } else if (urlType === 'child') {
+    document.getElementById('f-type').value = '施設見学のご希望';
+    var fac = document.getElementById('facility-select');
+    fac.value = 'LITTLE BLUE MOUSE（児童発達支援事業）';
+  }
+
   var els = document.querySelectorAll('.fade-in');
   var obs = new IntersectionObserver(function (entries) { entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); } }); }, { threshold: 0.05 });
   els.forEach(function (el) { obs.observe(el); });
