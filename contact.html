@@ -61,6 +61,22 @@
     .ct-fac__addr { font-size:12px; color:#8a7a6e; line-height:1.6; }
     .ct-fac__phone { font-size:15px; font-weight:700; color:var(--ink); margin-top:8px; }
 
+    /* Inquiry type selector */
+    .ct-type-selector { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:28px; }
+    .ct-type-card {
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      gap:6px; padding:16px 10px; border:2px solid rgba(0,0,0,.08); border-radius:16px;
+      background:#faf8f5; cursor:pointer; transition:border-color .2s, background .2s, box-shadow .2s;
+      text-align:center; user-select:none;
+    }
+    .ct-type-card:hover { border-color:var(--teal); background:#fff; }
+    .ct-type-card.is-selected { border-color:var(--teal); background:var(--teal-light); box-shadow:0 0 0 3px rgba(95,193,199,.15); }
+    .ct-type-card__icon { font-size:22px; line-height:1; }
+    .ct-type-card__label { font-size:12px; font-weight:700; color:var(--ink); letter-spacing:.02em; line-height:1.4; }
+    .ct-type-card__sub { font-size:10px; color:#8a7a6e; letter-spacing:.02em; }
+    .ct-type-error { display:none; font-size:12px; color:#d94f4f; margin-top:-20px; margin-bottom:16px; }
+    .ct-type-error.is-show { display:block; }
+
     /* Form */
     .ct-form { background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:20px; padding:36px 32px; }
     .ct-form__grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:18px; }
@@ -137,6 +153,7 @@
       .ct-form { padding:28px 20px; }
       .ct-form__grid { grid-template-columns:1fr; }
       .ct-access__grid { grid-template-columns:1fr; }
+      .ct-type-selector { grid-template-columns:1fr; }
     }
   </style>
 </head>
@@ -187,6 +204,29 @@
   <!-- Form -->
   <div class="ct-form fade-in">
     <form id="contact-form" novalidate>
+
+      <!-- Inquiry type cards -->
+      <div class="ct-type-selector" id="type-selector">
+        <button type="button" class="ct-type-card" data-type="お問い合わせ" data-facility="">
+          <span class="ct-type-card__icon">✉️</span>
+          <span class="ct-type-card__label">お問い合わせ</span>
+          <span class="ct-type-card__sub">一般のご相談</span>
+        </button>
+        <button type="button" class="ct-type-card" data-type="放課後等デイサービス 見学" data-facility="BLUE MOUSE（放課後等デイサービス）">
+          <span class="ct-type-card__icon">🏫</span>
+          <span class="ct-type-card__label">放課後デイサービス<br>見学</span>
+          <span class="ct-type-card__sub">BLUE MOUSE</span>
+        </button>
+        <button type="button" class="ct-type-card" data-type="児童発達支援 見学" data-facility="LITTLE BLUE MOUSE（児童発達支援事業）">
+          <span class="ct-type-card__icon">🌱</span>
+          <span class="ct-type-card__label">児童発達支援<br>見学</span>
+          <span class="ct-type-card__sub">LITTLE BLUE MOUSE</span>
+        </button>
+      </div>
+      <span class="ct-type-error" id="err-type-card">お問い合わせの種類を選択してください。</span>
+      <input type="hidden" id="f-type" name="inquiry_type" value="" />
+      <input type="hidden" id="f-facility-hidden" name="facility" value="" />
+
       <div class="ct-form__grid">
         <div class="ct-field">
           <label class="ct-label" for="f-name">お名前<span class="ct-req">*</span></label>
@@ -214,27 +254,15 @@
           <label class="ct-label" for="f-tel">電話番号</label>
           <input class="ct-input" id="f-tel" name="phone" type="tel" placeholder="000-0000-0000" autocomplete="tel" />
         </div>
-        <div class="ct-field ct-field--full">
+        <div class="ct-field ct-field--full" id="facility-field" style="display:none;">
           <label class="ct-label" for="facility-select">ご希望の事業所<span class="ct-req">*</span></label>
-          <select class="ct-select" id="facility-select" name="facility">
+          <select class="ct-select" id="facility-select" name="facility_manual">
             <option value="">選択してください</option>
             <option value="BLUE MOUSE（放課後等デイサービス）">BLUE MOUSE（放課後等デイサービス）</option>
             <option value="LITTLE BLUE MOUSE（児童発達支援事業）">LITTLE BLUE MOUSE（児童発達支援事業）</option>
             <option value="どちらでも">どちらでも</option>
           </select>
           <span class="ct-error" id="err-facility">事業所を選択してください。</span>
-        </div>
-        <div class="ct-field ct-field--full">
-          <label class="ct-label" for="f-type">お問い合わせ種別<span class="ct-req">*</span></label>
-          <select class="ct-select" id="f-type" name="inquiry_type">
-            <option value="">選択してください</option>
-            <option>施設見学のご希望</option>
-            <option>事業内容について</option>
-            <option>料金・手続きについて</option>
-            <option>受給者証の取得について</option>
-            <option>その他</option>
-          </select>
-          <span class="ct-error" id="err-type">お問い合わせ種別を選択してください。</span>
         </div>
         <div class="ct-field ct-field--full">
           <label class="ct-label" for="f-message">ご質問・ご要望</label>
@@ -293,10 +321,46 @@
   els.forEach(function (el) { obs.observe(el); });
   setTimeout(function () { els.forEach(function (el) { if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('is-visible'); }); }, 100);
 
+  // Inquiry type card selector
+  var selectedType = '';
+  var selectedFacility = '';
+  var typeInput = document.getElementById('f-type');
+  var facilityHidden = document.getElementById('f-facility-hidden');
+  var facilityField = document.getElementById('facility-field');
+  var facilitySelect = document.getElementById('facility-select');
+  var typeErrCard = document.getElementById('err-type-card');
+
+  document.querySelectorAll('.ct-type-card').forEach(function (card) {
+    card.addEventListener('click', function () {
+      document.querySelectorAll('.ct-type-card').forEach(function (c) { c.classList.remove('is-selected'); });
+      card.classList.add('is-selected');
+      selectedType = card.dataset.type;
+      selectedFacility = card.dataset.facility;
+      typeInput.value = selectedType;
+      typeErrCard.classList.remove('is-show');
+
+      if (selectedFacility) {
+        // 見学: facility is fixed, hide select
+        facilityHidden.value = selectedFacility;
+        facilityField.style.display = 'none';
+        facilitySelect.value = '';
+      } else {
+        // お問い合わせ: show facility select
+        facilityHidden.value = '';
+        facilityField.style.display = '';
+      }
+    });
+  });
+
+  facilitySelect.addEventListener('change', function () {
+    facilityHidden.value = facilitySelect.value;
+    document.getElementById('err-facility').classList.remove('is-show');
+  });
+
   function showError(el, errId) { el.classList.add('is-error'); var e = document.getElementById(errId); if (e) e.classList.add('is-show'); }
   function clearError(el, errId) { el.classList.remove('is-error'); var e = document.getElementById(errId); if (e) e.classList.remove('is-show'); }
 
-  [['f-name','err-name'],['f-age','err-age'],['f-email','err-email'],['facility-select','err-facility'],['f-type','err-type']].forEach(function (pair) {
+  [['f-name','err-name'],['f-age','err-age'],['f-email','err-email']].forEach(function (pair) {
     var el = document.getElementById(pair[0]);
     if (!el) return;
     ['input','change'].forEach(function (ev) { el.addEventListener(ev, function () { clearError(el, pair[1]); }); });
@@ -307,21 +371,28 @@
     var nameEl = document.getElementById('f-name');
     var ageEl = document.getElementById('f-age');
     var emailEl = document.getElementById('f-email');
-    var facilityEl = document.getElementById('facility-select');
-    var typeEl = document.getElementById('f-type');
     var valid = true;
 
+    if (!selectedType) { typeErrCard.classList.add('is-show'); valid = false; } else typeErrCard.classList.remove('is-show');
     if (!nameEl.value.trim()) { showError(nameEl, 'err-name'); valid = false; } else clearError(nameEl, 'err-name');
     if (!ageEl.value) { showError(ageEl, 'err-age'); valid = false; } else clearError(ageEl, 'err-age');
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value)) { showError(emailEl, 'err-email'); valid = false; } else clearError(emailEl, 'err-email');
-    if (!facilityEl.value) { showError(facilityEl, 'err-facility'); valid = false; } else clearError(facilityEl, 'err-facility');
-    if (!typeEl.value) { showError(typeEl, 'err-type'); valid = false; } else clearError(typeEl, 'err-type');
+    if (!selectedFacility && facilityField.style.display !== 'none') {
+      if (!facilitySelect.value) { showError(facilitySelect, 'err-facility'); valid = false; } else clearError(facilitySelect, 'err-facility');
+    }
 
     if (!valid) {
-      var first = document.querySelector('.ct-input.is-error, .ct-select.is-error');
+      var first = document.querySelector('.ct-type-error.is-show, .ct-input.is-error, .ct-select.is-error');
       if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
+
+    var facilityValue = selectedFacility || facilitySelect.value;
+    var subjectMap = {
+      'お問い合わせ': '【BLUE MOUSE】お問い合わせが届きました',
+      '放課後等デイサービス 見学': '【BLUE MOUSE】放課後等デイサービス 見学希望が届きました',
+      '児童発達支援 見学': '【BLUE MOUSE】児童発達支援 見学希望が届きました'
+    };
 
     var btn = document.getElementById('submit-btn');
     btn.disabled = true;
@@ -332,14 +403,14 @@
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({
         access_key: '4fa56afb-03c9-4795-8e00-0d2c8e7b00b6',
-        subject: '【BLUE MOUSE】お問い合わせが届きました',
+        subject: subjectMap[selectedType] || '【BLUE MOUSE】お問い合わせが届きました',
         from_name: 'BLUE MOUSE お問い合わせフォーム',
         name: nameEl.value,
         email: emailEl.value,
         child_age: ageEl.value,
         phone: document.getElementById('f-tel').value,
-        facility: facilityEl.value,
-        inquiry_type: typeEl.value,
+        facility: facilityValue,
+        inquiry_type: selectedType,
         message: document.getElementById('f-message').value
       })
     })
