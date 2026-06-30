@@ -237,6 +237,28 @@
           </select>
           <span class="ct-error" id="err-type">お問い合わせ種別を選択してください。</span>
         </div>
+        <!-- 見学用フィールド（両施設共通） -->
+        <div class="ct-field ct-field--full" id="field-certificate" style="display:none;">
+          <label class="ct-label" for="f-certificate">受給者証の有無<span class="ct-req">*</span></label>
+          <select class="ct-select" id="f-certificate" name="certificate">
+            <option value="">選択してください</option>
+            <option>持っている</option>
+            <option>申請中</option>
+            <option>持っていない</option>
+          </select>
+          <span class="ct-error" id="err-certificate">受給者証の有無を選択してください。</span>
+        </div>
+        <div class="ct-field ct-field--full" id="field-timing" style="display:none;">
+          <label class="ct-label" for="f-timing">利用時期の希望<span class="ct-req">*</span></label>
+          <select class="ct-select" id="f-timing" name="start_timing">
+            <option value="">選択してください</option>
+            <option>今すぐ</option>
+            <option>6ヶ月以内</option>
+            <option>将来的には</option>
+            <option>未定</option>
+          </select>
+          <span class="ct-error" id="err-timing">利用時期の希望を選択してください。</span>
+        </div>
         <!-- 見学用フィールド（児童発達支援：園名のみ / 放課後デイ：学校名＋学級） -->
         <div class="ct-field ct-field--full" id="field-school" style="display:none;">
           <label class="ct-label" for="f-school"><span id="school-label">現在通っている園・学校名</span><span style="font-size:11px;color:#aaa;margin-left:4px;">任意</span></label>
@@ -309,7 +331,8 @@
   if (urlType === 'afterschool') {
     document.getElementById('f-type').value = '施設見学のご希望';
     document.getElementById('facility-select').value = 'BLUE MOUSE（放課後等デイサービス）';
-    // 放課後デイ：学校名＋学級を表示
+    document.getElementById('field-certificate').style.display = '';
+    document.getElementById('field-timing').style.display = '';
     document.getElementById('field-school').style.display = '';
     document.getElementById('school-label').textContent = '現在通っている学校名';
     document.getElementById('f-school').placeholder = '○○小学校・○○中学校';
@@ -317,7 +340,8 @@
   } else if (urlType === 'child') {
     document.getElementById('f-type').value = '施設見学のご希望';
     document.getElementById('facility-select').value = 'LITTLE BLUE MOUSE（児童発達支援事業）';
-    // 児童発達支援：園名のみ表示（学級なし）
+    document.getElementById('field-certificate').style.display = '';
+    document.getElementById('field-timing').style.display = '';
     document.getElementById('field-school').style.display = '';
     document.getElementById('school-label').textContent = '現在通っている園の名前';
     document.getElementById('f-school').placeholder = '○○幼稚園・○○保育園';
@@ -352,6 +376,10 @@
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value)) { showError(emailEl, 'err-email'); valid = false; } else clearError(emailEl, 'err-email');
     var telEl = document.getElementById('f-tel');
     if (!telEl.value.trim()) { showError(telEl, 'err-tel'); valid = false; } else clearError(telEl, 'err-tel');
+    var certEl = document.getElementById('f-certificate');
+    if (document.getElementById('field-certificate').style.display !== 'none' && !certEl.value) { showError(certEl, 'err-certificate'); valid = false; } else clearError(certEl, 'err-certificate');
+    var timingEl = document.getElementById('f-timing');
+    if (document.getElementById('field-timing').style.display !== 'none' && !timingEl.value) { showError(timingEl, 'err-timing'); valid = false; } else clearError(timingEl, 'err-timing');
 
     if (!facilityEl.value) { showError(facilityEl, 'err-facility'); valid = false; } else clearError(facilityEl, 'err-facility');
     if (!typeEl.value) { showError(typeEl, 'err-type'); valid = false; } else clearError(typeEl, 'err-type');
