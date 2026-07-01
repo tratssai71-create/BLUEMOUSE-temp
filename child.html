@@ -38,7 +38,8 @@
         .header__cta { display:inline-flex; align-items:center; padding:8px 20px; background:var(--coral); color:#fff; font-size:13px; font-weight:600; border-radius:100px; transition:background .2s; cursor:pointer; }
     .header__cta:hover { background:#e87e59; }
     .header__cta-wrap { position:relative; }
-    .header__cta-drop { display:none; position:absolute; top:calc(100% + 10px); right:0; background:#fff; border-radius:14px; box-shadow:0 8px 32px rgba(0,0,0,.12); padding:8px; min-width:210px; z-index:200; flex-direction:column; gap:2px; }
+    .header__cta-drop { display:none; position:absolute; top:100%; right:0; background:transparent; padding-top:10px; min-width:210px; z-index:200; flex-direction:column; gap:2px; }
+    .header__cta-drop::before { content:''; position:absolute; top:10px; left:0; right:0; bottom:0; background:#fff; border-radius:14px; box-shadow:0 8px 32px rgba(0,0,0,.12); z-index:-1; }
     .header__cta-wrap:hover .header__cta-drop { display:flex; }
     .header__cta-drop a { padding:10px 14px; font-size:13px; font-weight:600; border-radius:8px; color:var(--ink); white-space:nowrap; transition:background .15s; }
     .header__cta-drop a:nth-child(1):hover { background:var(--coral-light); color:var(--coral); }
