@@ -35,8 +35,15 @@
     .header__nav { display:flex; align-items:center; gap:28px; }
     .header__link { font-size:13px; font-weight:500; letter-spacing:.06em; color:#8a7a6e; transition:color .2s; }
     .header__link:hover { color:var(--teal-dark); }
-    .header__cta { display:inline-flex; align-items:center; padding:8px 20px; background:var(--coral); color:#fff; font-size:13px; font-weight:600; border-radius:100px; transition:background .2s; }
+        .header__cta { display:inline-flex; align-items:center; padding:8px 20px; background:var(--coral); color:#fff; font-size:13px; font-weight:600; border-radius:100px; transition:background .2s; cursor:pointer; }
     .header__cta:hover { background:#e87e59; }
+    .header__cta-wrap { position:relative; }
+    .header__cta-drop { display:none; position:absolute; top:calc(100% + 10px); right:0; background:#fff; border-radius:14px; box-shadow:0 8px 32px rgba(0,0,0,.12); padding:8px; min-width:210px; z-index:200; flex-direction:column; gap:2px; }
+    .header__cta-wrap:hover .header__cta-drop { display:flex; }
+    .header__cta-drop a { padding:10px 14px; font-size:13px; font-weight:600; border-radius:8px; color:var(--ink); white-space:nowrap; transition:background .15s; }
+    .header__cta-drop a:nth-child(1):hover { background:var(--coral-light); color:var(--coral); }
+    .header__cta-drop a:nth-child(2):hover { background:var(--teal-light); color:var(--teal-dark); }
+    .header__cta-drop a:nth-child(3):hover { background:#e8f0ee; color:var(--green); }
     .header__burger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:8px; }
     .header__burger span { display:block; width:20px; height:1.5px; background:var(--ink); border-radius:2px; transition:transform .3s, opacity .3s; }
     .header__burger.is-open span:nth-child(1) { transform:translateY(3.25px) rotate(45deg); }
@@ -122,7 +129,14 @@
     <a href="./child.html" class="header__link">児童発達支援</a>
     <a href="./afterschool.html" class="header__link">放課後等デイ</a>
     <a href="https://bouemouse.studio.site" target="_blank" rel="noopener" class="header__link">採用情報</a>
-    <a href="./contact.html" class="header__cta">お問い合わせ ›</a>
+        <div class="header__cta-wrap">
+      <span class="header__cta">お問い合わせ ›</span>
+      <div class="header__cta-drop">
+        <a href="./contact.html">お問い合わせ</a>
+        <a href="./contact.html?type=afterschool">放課後等デイサービス 見学</a>
+        <a href="./contact.html?type=child">児童発達支援 見学</a>
+      </div>
+    </div>
   </nav>
   <button class="header__burger" id="burger" aria-label="メニュー"><span></span><span></span><span></span></button>
 </header>
@@ -132,6 +146,8 @@
   <a href="./afterschool.html" class="mn-link">放課後等デイサービス</a>
   <a href="https://bouemouse.studio.site" target="_blank" rel="noopener" class="mn-link">採用情報</a>
   <a href="./contact.html" class="mn-link" style="color:var(--coral); font-weight:600;">お問い合わせ</a>
+  <a href="./contact.html?type=afterschool" class="mn-link" style="color:var(--teal-dark); font-weight:600;">放課後等デイサービス 見学</a>
+  <a href="./contact.html?type=child" class="mn-link" style="color:var(--green); font-weight:600;">児童発達支援 見学</a>
 </nav>
 
 <!-- Page Header -->
