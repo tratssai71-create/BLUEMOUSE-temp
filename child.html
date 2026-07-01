@@ -100,6 +100,11 @@
     .pg-cta__sub { font-size:14px; color:#8a7a6e; margin-bottom:20px; }
     .pg-cta__btn { display:inline-flex; align-items:center; gap:6px; padding:12px 32px; background:var(--coral); color:#fff; font-size:14px; font-weight:600; border-radius:100px; transition:transform .2s, box-shadow .2s; }
     .pg-cta__btn:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(242,144,108,.3); }
+    .pg-cta__btns { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; }
+    .pg-cta__btn--teal { background:var(--teal-dark); }
+    .pg-cta__btn--teal:hover { box-shadow:0 8px 24px rgba(58,144,149,.3); }
+    .pg-cta__btn--green { background:var(--green); }
+    .pg-cta__btn--green:hover { box-shadow:0 8px 24px rgba(58,107,94,.3); }
 
     /* Footer (minimal) */
     .pg-footer { text-align:center; padding:24px 16px; font-size:11px; color:#bbb; border-top:1px solid rgba(0,0,0,.05); }
@@ -218,7 +223,11 @@
   <div class="pg-cta fade-in">
     <h2 class="pg-cta__title">まずは、見学から。</h2>
     <p class="pg-cta__sub">受給者証の取得からサポートします。お気軽にご相談ください。</p>
-    <a href="./contact.html" class="pg-cta__btn">見学・相談のお申し込み ›</a>
+    <div class="pg-cta__btns">
+      <a href="./contact.html" class="pg-cta__btn">お問い合わせ ›</a>
+      <a href="./contact.html?type=afterschool" class="pg-cta__btn pg-cta__btn--teal">放課後等デイサービス 見学 ›</a>
+      <a href="./contact.html?type=child" class="pg-cta__btn pg-cta__btn--green">児童発達支援 見学 ›</a>
+    </div>
   </div>
 
 </div>
