@@ -8,11 +8,16 @@
 - **ブランチ**: main（pushすれば即本番反映）
 - **ドメイン**: www.blue-mouse.net（CNAME → tratssai71-create.github.io）
 
-## ローカル作業ディレクトリのセットアップ
+## ローカル作業ディレクトリ（永続）
+```
+~/Desktop/合同会社BLUEMOUSE/BLUEMOUSE-temp/
+```
+※ すでにclone済み。再起動後もここで作業できる。
+
+初回セットアップ（別PCの場合のみ）:
 ```bash
-mkdir -p /tmp/bluemouse-temp-work
-cd /tmp/bluemouse-temp-work
-git clone https://github.com/tratssai71-create/BLUEMOUSE-temp.git .
+git clone https://github.com/tratssai71-create/BLUEMOUSE-temp.git ~/Desktop/合同会社BLUEMOUSE/BLUEMOUSE-temp
+cd ~/Desktop/合同会社BLUEMOUSE/BLUEMOUSE-temp
 git config http.postBuffer 524288000
 ```
 
