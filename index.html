@@ -581,7 +581,7 @@
     }
 
     /* ===== Animations ===== */
-    .fade-in {
+    .js-ready .fade-in {
       opacity: 0;
       transform: translateY(24px);
       transition: opacity .7s ease, transform .7s cubic-bezier(.22,1,.36,1);
@@ -663,7 +663,7 @@
 
 <!-- ===== Hero ===== -->
 <section class="hero">
-  <div class="hero__text fade-in">
+  <div class="hero__text">
     <p class="hero__badge">放課後等デイサービス・児童発達支援</p>
     <h1 class="hero__title">こどもの未来を、<br><span>IT療育</span>で切りひらく。</h1>
     <p class="hero__sub">経済的自立から逆算した10年後のロードマップ。<br>主体性療育からIT療育へ——BLUE MOUSEの想い。</p>
@@ -672,7 +672,7 @@
       <a href="#services" class="btn btn--outline">サービスを見る</a>
     </div>
   </div>
-  <div class="hero__visual fade-in">
+  <div class="hero__visual">
     <div class="hero__img-wrap">
       <img src="./photos/IMG_8852.jpg" alt="BLUE MOUSEの活動風景" />
     </div>
@@ -850,6 +850,8 @@
 
 <script>
 (function () {
+  document.documentElement.classList.add('js-ready');
+
   var burger = document.getElementById('burger');
   var mobileNav = document.getElementById('mobile-nav');
   burger.addEventListener('click', function () {
@@ -871,6 +873,8 @@
   }, { threshold: 0.05, rootMargin: '0px 0px 40px 0px' });
   els.forEach(function (el) { obs.observe(el); });
   setTimeout(function () { els.forEach(function (el) { if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('is-visible'); }); }, 100);
+  /* フォールバック: 2秒後も非表示なら強制表示 */
+  setTimeout(function () { els.forEach(function (el) { el.classList.add('is-visible'); }); }, 2000);
 })();
 </script>
 

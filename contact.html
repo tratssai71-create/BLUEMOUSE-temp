@@ -134,7 +134,7 @@
 
     .pg-footer { text-align:center; padding:24px 16px; font-size:11px; color:#bbb; border-top:1px solid rgba(0,0,0,.05); margin-top:56px; }
 
-    .fade-in { opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s cubic-bezier(.22,1,.36,1); }
+    .js-ready .fade-in { opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s cubic-bezier(.22,1,.36,1); }
     .fade-in.is-visible { opacity:1; transform:none; }
 
     @media (max-width:780px) {
@@ -367,10 +367,13 @@
     document.getElementById('field-class').style.display = 'none';
   }
 
+  document.documentElement.classList.add('js-ready');
+
   var els = document.querySelectorAll('.fade-in');
   var obs = new IntersectionObserver(function (entries) { entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); } }); }, { threshold: 0.05 });
   els.forEach(function (el) { obs.observe(el); });
   setTimeout(function () { els.forEach(function (el) { if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('is-visible'); }); }, 100);
+  setTimeout(function () { els.forEach(function (el) { el.classList.add('is-visible'); }); }, 2000);
 
   function showError(el, errId) { el.classList.add('is-error'); var e = document.getElementById(errId); if (e) e.classList.add('is-show'); }
   function clearError(el, errId) { el.classList.remove('is-error'); var e = document.getElementById(errId); if (e) e.classList.remove('is-show'); }
