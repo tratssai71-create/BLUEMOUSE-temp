@@ -14,12 +14,33 @@
 ```
 ※ すでにclone済み。再起動後もここで作業できる。
 
-初回セットアップ（別PCの場合のみ）:
+## 別端末での初回セットアップ
+
+### ステップ1: GitHubトークン取得（ユーザーが行う）
+1. https://github.com/settings/tokens を開く
+2. 「Generate new token (classic)」をクリック
+3. Note: `BLUE MOUSE site`、`repo` にチェック → 生成
+4. 表示された `ghp_xxx...` をClaudeに渡す
+
+### ステップ2: Claudeが実行するコマンド
 ```bash
-git clone https://github.com/tratssai71-create/BLUEMOUSE-temp.git ~/Desktop/合同会社BLUEMOUSE/BLUEMOUSE-temp
-cd ~/Desktop/合同会社BLUEMOUSE/BLUEMOUSE-temp
+# クローン
+git clone https://github.com/tratssai71-create/BLUEMOUSE-temp.git /tmp/bluemouse-temp-work
+cd /tmp/bluemouse-temp-work
+
+# 大きいファイル対応
 git config http.postBuffer 524288000
+
+# GitHub認証設定（YOUR_TOKENを実際のトークンに置換）
+git remote set-url origin https://tratssai71-create:YOUR_TOKEN@github.com/tratssai71-create/BLUEMOUSE-temp.git
 ```
+
+### ステップ3: 動作確認
+```bash
+git pull  # エラーが出なければOK
+```
+
+以降は通常通り `git add → commit → push` で本番に反映される。
 
 ## ファイル構成
 | ファイル | 内容 |
