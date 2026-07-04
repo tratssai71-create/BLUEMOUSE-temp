@@ -203,8 +203,8 @@
     </div>
   </div>
 
-  <!-- Form -->
-  <div class="ct-form fade-in">
+  <!-- 通常フォーム（一般お問い合わせ・放課後デイ見学） -->
+  <div class="ct-form fade-in" id="form-general">
     <form id="contact-form" novalidate>
       <div class="ct-form__grid">
         <div class="ct-field">
@@ -256,7 +256,6 @@
           </select>
           <span class="ct-error" id="err-type">お問い合わせ種別を選択してください。</span>
         </div>
-        <!-- 見学用フィールド（両施設共通） -->
         <div class="ct-field ct-field--full" id="field-certificate" style="display:none;">
           <label class="ct-label" for="f-certificate">受給者証の有無<span class="ct-req">*</span></label>
           <select class="ct-select" id="f-certificate" name="certificate">
@@ -278,7 +277,6 @@
           </select>
           <span class="ct-error" id="err-timing">利用時期の希望を選択してください。</span>
         </div>
-        <!-- 見学用フィールド（児童発達支援：園名のみ / 放課後デイ：学校名＋学級） -->
         <div class="ct-field ct-field--full" id="field-school" style="display:none;">
           <label class="ct-label" for="f-school"><span id="school-label">現在通っている園・学校名</span><span style="font-size:11px;color:#aaa;margin-left:4px;">任意</span></label>
           <input class="ct-input" id="f-school" name="school_name" type="text" placeholder="○○幼稚園・○○小学校" />
@@ -300,6 +298,53 @@
       </div>
       <div class="ct-submit">
         <button class="ct-btn" id="submit-btn" type="submit">送信する ›</button>
+        <p class="ct-privacy">送信いただいた情報はお問い合わせへの返信目的にのみ使用します。<br><a href="./privacy.html" target="_blank">プライバシーポリシー</a>をご確認の上、送信してください。</p>
+      </div>
+    </form>
+  </div>
+
+  <!-- 児童発達支援専用フォーム（?type=child） -->
+  <div class="ct-form fade-in" id="form-child" style="display:none;">
+    <form id="child-form" novalidate>
+      <div class="ct-form__grid">
+        <div class="ct-field">
+          <label class="ct-label" for="c-age">お子さまの年齢<span class="ct-req">*</span></label>
+          <select class="ct-select" id="c-age" name="child_age">
+            <option value="">選択してください</option>
+            <option value="3歳">3歳</option>
+            <option value="4歳">4歳</option>
+            <option value="5歳">5歳</option>
+            <option value="6歳">6歳</option>
+          </select>
+          <span class="ct-error" id="cerr-age">年齢を選択してください。</span>
+        </div>
+        <div class="ct-field">
+          <label class="ct-label" for="c-gender">性別<span class="ct-req">*</span></label>
+          <select class="ct-select" id="c-gender" name="gender">
+            <option value="">選択してください</option>
+            <option value="男の子">男の子</option>
+            <option value="女の子">女の子</option>
+          </select>
+          <span class="ct-error" id="cerr-gender">性別を選択してください。</span>
+        </div>
+        <div class="ct-field ct-field--full">
+          <label class="ct-label" for="c-child-name">おこさまのお名前<span class="ct-req">*</span></label>
+          <input class="ct-input" id="c-child-name" name="child_name" type="text" placeholder="山田 花子" />
+          <span class="ct-error" id="cerr-child-name">おこさまのお名前を入力してください。</span>
+        </div>
+        <div class="ct-field">
+          <label class="ct-label" for="c-email">メールアドレス<span class="ct-req">*</span></label>
+          <input class="ct-input" id="c-email" name="email" type="email" placeholder="example@mail.com" autocomplete="email" />
+          <span class="ct-error" id="cerr-email">有効なメールアドレスを入力してください。</span>
+        </div>
+        <div class="ct-field">
+          <label class="ct-label" for="c-tel">電話番号<span class="ct-req">*</span></label>
+          <input class="ct-input" id="c-tel" name="phone" type="tel" placeholder="000-0000-0000" autocomplete="tel" />
+          <span class="ct-error" id="cerr-tel">電話番号を入力してください。</span>
+        </div>
+      </div>
+      <div class="ct-submit">
+        <button class="ct-btn" id="child-submit-btn" type="submit">送信する ›</button>
         <p class="ct-privacy">送信いただいた情報はお問い合わせへの返信目的にのみ使用します。<br><a href="./privacy.html" target="_blank">プライバシーポリシー</a>をご確認の上、送信してください。</p>
       </div>
     </form>
@@ -357,14 +402,9 @@
     document.getElementById('f-school').placeholder = '○○小学校・○○中学校';
     document.getElementById('field-class').style.display = '';
   } else if (urlType === 'child') {
-    document.getElementById('f-type').value = '施設見学のご希望';
-    document.getElementById('facility-select').value = 'LITTLE BLUE MOUSE（児童発達支援事業）';
-    document.getElementById('field-certificate').style.display = '';
-    document.getElementById('field-timing').style.display = '';
-    document.getElementById('field-school').style.display = '';
-    document.getElementById('school-label').textContent = '現在通っている園の名前';
-    document.getElementById('f-school').placeholder = '○○幼稚園・○○保育園';
-    document.getElementById('field-class').style.display = 'none';
+    // 児童発達支援専用フォームに切り替え
+    document.getElementById('form-general').style.display = 'none';
+    document.getElementById('form-child').style.display = '';
   }
 
   document.documentElement.classList.add('js-ready');
@@ -443,6 +483,68 @@
       alert('送信に失敗しました。時間をおいて再度お試しいただくか、お電話にてお問い合わせください。');
     });
   });
+
+  // 児童発達支援専用フォーム送信
+  var childForm = document.getElementById('child-form');
+  if (childForm) {
+    [['c-age','cerr-age'],['c-gender','cerr-gender'],['c-child-name','cerr-child-name'],['c-email','cerr-email'],['c-tel','cerr-tel']].forEach(function(pair) {
+      var el = document.getElementById(pair[0]);
+      if (el) ['input','change'].forEach(function(ev) { el.addEventListener(ev, function() { clearError(el, pair[1]); }); });
+    });
+
+    childForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var ageEl   = document.getElementById('c-age');
+      var genEl   = document.getElementById('c-gender');
+      var cNameEl = document.getElementById('c-child-name');
+      var emailEl = document.getElementById('c-email');
+      var telEl   = document.getElementById('c-tel');
+      var valid   = true;
+
+      if (!ageEl.value)                { showError(ageEl,   'cerr-age');        valid = false; } else clearError(ageEl,   'cerr-age');
+      if (!genEl.value)                { showError(genEl,   'cerr-gender');      valid = false; } else clearError(genEl,   'cerr-gender');
+      if (!cNameEl.value.trim())       { showError(cNameEl, 'cerr-child-name'); valid = false; } else clearError(cNameEl, 'cerr-child-name');
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value)) { showError(emailEl, 'cerr-email'); valid = false; } else clearError(emailEl, 'cerr-email');
+      if (!telEl.value.trim())         { showError(telEl,   'cerr-tel');         valid = false; } else clearError(telEl,   'cerr-tel');
+
+      if (!valid) {
+        var first = document.querySelector('#child-form .ct-input.is-error, #child-form .ct-select.is-error');
+        if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      var btn = document.getElementById('child-submit-btn');
+      btn.disabled = true;
+      btn.textContent = '送信中…';
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          access_key: '4fa56afb-03c9-4795-8e00-0d2c8e7b00b6',
+          subject: '【LITTLE BLUE MOUSE】児童発達支援 見学お申し込み',
+          from_name: 'BLUE MOUSE お問い合わせフォーム',
+          child_age: ageEl.value,
+          gender: genEl.value,
+          child_name: cNameEl.value,
+          email: emailEl.value,
+          phone: telEl.value,
+          facility: 'LITTLE BLUE MOUSE（児童発達支援事業）',
+          inquiry_type: '施設見学のご希望'
+        })
+      })
+      .then(function(r) { return r.json(); })
+      .then(function(j) {
+        if (j.success) { window.location.href = './thanks.html'; }
+        else { throw new Error(j.message || 'error'); }
+      })
+      .catch(function() {
+        btn.disabled = false;
+        btn.textContent = '送信する ›';
+        alert('送信に失敗しました。時間をおいて再度お試しいただくか、お電話にてお問い合わせください。');
+      });
+    });
+  }
 })();
 </script>
 </body>
