@@ -222,10 +222,14 @@
       box-shadow: 0 12px 40px rgba(0,0,0,.08);
     }
     .hero__img-wrap img {
+      position: absolute; top: 0; left: 0;
       width: 100%; height: 100%;
       object-fit: cover;
       object-position: center 65%;
+      opacity: 0;
+      transition: opacity 1s ease;
     }
+    .hero__img-wrap img.is-active { opacity: 1; }
     .hero__float-card {
       position: absolute;
       bottom: 16px;
@@ -681,8 +685,11 @@
     </div>
   </div>
   <div class="hero__visual">
-    <div class="hero__img-wrap">
-      <img src="./photos/IMG_8852.jpg" alt="BLUE MOUSEの活動風景" />
+    <div class="hero__img-wrap" id="hero-slides">
+      <img src="./photos/budou_child.jpg" alt="BLUE MOUSEの活動風景" style="object-position:center 60%;" class="is-active" />
+      <img src="./photos/IMG_8852.jpg" alt="BLUE MOUSEの活動風景" style="object-position:center 65%;" />
+      <img src="./photos/karakara_tsumiki.jpg" alt="BLUE MOUSEの活動風景" style="object-position:center center;" />
+      <img src="./photos/jidou_opt.jpg" alt="BLUE MOUSEの活動風景" style="object-position:center center;" />
     </div>
   </div>
 </section>
@@ -834,16 +841,19 @@
 (function () {
   document.documentElement.classList.add('js-ready');
 
-  // 児童発達支援カード スライドショー
-  (function() {
-    var imgs = document.querySelectorAll('#child-slides img');
+  // スライドショー共通処理
+  function startSlideshow(id, interval) {
+    var imgs = document.querySelectorAll('#' + id + ' img');
+    if (!imgs.length) return;
     var cur = 0;
     setInterval(function() {
       imgs[cur].classList.remove('is-active');
       cur = (cur + 1) % imgs.length;
       imgs[cur].classList.add('is-active');
-    }, 3000);
-  })();
+    }, interval);
+  }
+  startSlideshow('hero-slides', 4000);
+  startSlideshow('child-slides', 3000);
 
   var burger = document.getElementById('burger');
   var mobileNav = document.getElementById('mobile-nav');
