@@ -156,24 +156,30 @@
     }
     .hero__text { order: 1; }
     .hero__visual { order: 2; position: relative; }
+    .hero__badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
     .hero__badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      background: var(--teal-light);
-      color: var(--teal-dark);
       font-size: 12px;
       font-weight: 600;
       padding: 5px 14px;
       border-radius: 100px;
-      margin-bottom: 16px;
       letter-spacing: .04em;
+      border: 2px solid;
+      background: transparent;
     }
-    .hero__badge::before {
-      content: '';
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--teal);
+    .hero__badge--yellow {
+      border-color: var(--yellow);
+      color: #8a6f00;
+    }
+    .hero__badge--teal {
+      border-color: var(--teal-dark);
+      color: var(--teal-dark);
     }
     .hero__title {
       font-family: "Zen Maru Gothic", sans-serif;
@@ -677,7 +683,10 @@
 <!-- ===== Hero ===== -->
 <section class="hero">
   <div class="hero__text">
-    <p class="hero__badge">児童発達支援・放課後等デイサービス</p>
+    <div class="hero__badges">
+      <span class="hero__badge hero__badge--yellow">児童発達支援</span>
+      <span class="hero__badge hero__badge--teal">放課後等デイサービス</span>
+    </div>
     <h1 class="hero__title">主体性療育から<br><span>IT療育</span>へ。</h1>
     <p class="hero__sub">経済的自立から逆算した10年間のロードマップ。</p>
     <div class="hero__btns">
