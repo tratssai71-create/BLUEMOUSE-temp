@@ -361,6 +361,14 @@
       width: 100%; height: 100%;
       object-fit: cover;
     }
+    /* スライドショー */
+    .svc__slides { position: relative; width: 100%; height: 100%; }
+    .svc__slides img {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%; object-fit: cover;
+      opacity: 0; transition: opacity .8s ease;
+    }
+    .svc__slides img.is-active { opacity: 1; }
     .svc__img-tag {
       position: absolute;
       top: 12px; left: 12px;
@@ -687,7 +695,12 @@
   <div class="service-cards">
     <a href="./child.html" class="svc fade-in">
       <div class="svc__img">
-        <img src="./photos/budou_child.jpg" alt="児童発達支援" style="object-fit: cover; object-position: center 60%;" />
+        <div class="svc__slides" id="child-slides">
+          <img src="./photos/budou_child.jpg" alt="児童発達支援" style="object-position: center 60%;" class="is-active" />
+          <img src="./photos/karakara_tsumiki.jpg" alt="児童発達支援" style="object-position: center center;" />
+          <img src="./2.webp" alt="児童発達支援" style="object-position: center center;" />
+          <img src="./photos/jidou_opt.jpg" alt="児童発達支援" style="object-position: center center;" />
+        </div>
         <span class="svc__img-tag">Early Intervention</span>
       </div>
       <div class="svc__body">
@@ -819,6 +832,17 @@
 <script>
 (function () {
   document.documentElement.classList.add('js-ready');
+
+  // 児童発達支援カード スライドショー
+  (function() {
+    var imgs = document.querySelectorAll('#child-slides img');
+    var cur = 0;
+    setInterval(function() {
+      imgs[cur].classList.remove('is-active');
+      cur = (cur + 1) % imgs.length;
+      imgs[cur].classList.add('is-active');
+    }, 3000);
+  })();
 
   var burger = document.getElementById('burger');
   var mobileNav = document.getElementById('mobile-nav');
