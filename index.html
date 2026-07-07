@@ -963,25 +963,28 @@
     bottom: 24px;
     right: 24px;
     z-index: 150;
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    gap: 6px;
-    padding: 14px 28px;
+    justify-content: center;
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
     background: var(--coral);
     color: #fff;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.4;
     letter-spacing: .02em;
+    text-align: center;
     text-decoration: none;
-    border-radius: 100px;
     box-shadow: 0 8px 24px rgba(242,144,108,.4);
     transition: transform .2s, box-shadow .2s;
   }
-  .floating-cta:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(242,144,108,.5); }
+  .floating-cta:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 12px 32px rgba(242,144,108,.5); }
   @media (max-width: 780px) {
-    .floating-cta { bottom: 16px; right: 16px; padding: 11px 20px; font-size: 13px; }
+    .floating-cta { bottom: 16px; right: 16px; width: 68px; height: 68px; font-size: 10px; }
   }
 </style>
-<a href="./contact.html" class="floating-cta">体験・お問い合わせ ›</a>
+<a href="./contact.html" class="floating-cta">体験<br>お問い合わせ</a>
 </body>
 </html>
