@@ -463,7 +463,7 @@
       border-radius: 4px;
       margin-bottom: 10px;
     }
-    .fac__type--yellow { background: var(--yellow); color: var(--ink); }
+    .fac__type--yellow { background: var(--yellow); color: #fff; }
     .fac__name {
       font-family: "Zen Maru Gothic", sans-serif;
       font-size: 17px;
@@ -994,7 +994,6 @@
     right: auto;
     margin: 0 auto;
   }
-  .floating-cta.is-fading { opacity: 0; }
   .floating-cta::before {
     content: '';
     position: absolute;
@@ -1038,20 +1037,33 @@
   function move(intoDock) {
     if (busy) return;
     busy = true;
-    btn.classList.add('is-fading');
-    setTimeout(function () {
-      if (intoDock) {
-        dock.appendChild(btn);
-        btn.classList.add('is-docked');
-      } else {
-        anchor.parentNode.insertBefore(btn, anchor);
-        btn.classList.remove('is-docked');
-      }
-      requestAnimationFrame(function () {
-        btn.classList.remove('is-fading');
+
+    var startRect = btn.getBoundingClientRect();
+
+    if (intoDock) {
+      dock.appendChild(btn);
+      btn.classList.add('is-docked');
+    } else {
+      anchor.parentNode.insertBefore(btn, anchor);
+      btn.classList.remove('is-docked');
+    }
+
+    var endRect = btn.getBoundingClientRect();
+    var dx = startRect.left - endRect.left;
+    var dy = startRect.top - endRect.top;
+
+    btn.style.transition = 'none';
+    btn.style.transform = 'translate(' + dx + 'px, ' + dy + 'px)';
+    btn.offsetHeight; /* force reflow */
+
+    requestAnimationFrame(function () {
+      btn.style.transition = 'transform .8s cubic-bezier(.22,1,.36,1)';
+      btn.style.transform = '';
+      setTimeout(function () {
+        btn.style.transition = '';
         busy = false;
-      });
-    }, 400);
+      }, 820);
+    });
   }
 
   var io = new IntersectionObserver(function (entries) {
