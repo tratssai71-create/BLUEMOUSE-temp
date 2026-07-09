@@ -806,11 +806,7 @@
   <div class="cta__card fade-in">
     <h2 class="cta__title">体験・お問い合わせ</h2>
     <p class="cta__sub">お気軽にご相談ください。</p>
-    <div class="cta__btns">
-      <a href="./contact.html" class="btn btn--coral">お問い合わせ ›</a>
-      <a href="./contact.html?type=child" class="btn btn--green">児童発達支援 見学 ›</a>
-      <a href="./contact.html?type=afterschool" class="btn btn--teal">放課後等デイサービス 見学 ›</a>
-    </div>
+    <div class="cta-dock" id="ctaDock"></div>
     <p class="cta__phone">お電話はこちら<br><strong>086-273-3880</strong></p>
   </div>
 </section>
@@ -983,8 +979,22 @@
     text-align: center;
     text-decoration: none;
     box-shadow: 0 10px 26px rgba(242,144,108,.45);
-    transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s;
+    transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s, opacity .5s ease;
   }
+  .cta-dock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 40px;
+    margin: 28px 0 4px;
+  }
+  .floating-cta.is-docked {
+    position: static;
+    bottom: auto;
+    right: auto;
+    margin: 0 auto;
+  }
+  .floating-cta.is-fading { opacity: 0; }
   .floating-cta::before {
     content: '';
     position: absolute;
@@ -1013,5 +1023,51 @@
   <span class="floating-cta__sub">お問い合わせ</span>
   <svg class="floating-cta__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
 </a>
+<script>
+(function () {
+  var btn = document.querySelector('.floating-cta');
+  var dock = document.getElementById('ctaDock');
+  if (!btn || !dock || !window.IntersectionObserver) return;
+
+  var anchor = document.createComment('floating-cta-anchor');
+  btn.parentNode.insertBefore(anchor, btn);
+
+  var docked = false;
+  var busy = false;
+
+  function move(intoDock) {
+    if (busy) return;
+    busy = true;
+    btn.classList.add('is-fading');
+    setTimeout(function () {
+      if (intoDock) {
+        dock.appendChild(btn);
+        btn.classList.add('is-docked');
+      } else {
+        anchor.parentNode.insertBefore(btn, anchor);
+        btn.classList.remove('is-docked');
+      }
+      requestAnimationFrame(function () {
+        btn.classList.remove('is-fading');
+        busy = false;
+      });
+    }, 400);
+  }
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting && !docked) {
+        docked = true;
+        move(true);
+      } else if (!entry.isIntersecting && docked) {
+        docked = false;
+        move(false);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  io.observe(dock);
+})();
+</script>
 </body>
 </html>
