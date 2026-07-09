@@ -1033,9 +1033,13 @@
 
   var docked = false;
   var busy = false;
+  var pending = null;
 
   function move(intoDock) {
-    if (busy) return;
+    if (busy) {
+      pending = intoDock;
+      return;
+    }
     busy = true;
 
     var startRect = btn.getBoundingClientRect();
@@ -1062,6 +1066,11 @@
       setTimeout(function () {
         btn.style.transition = '';
         busy = false;
+        if (pending !== null) {
+          var next = pending;
+          pending = null;
+          move(next);
+        }
       }, 1320);
     });
   }
