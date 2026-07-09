@@ -1057,12 +1057,12 @@
     btn.offsetHeight; /* force reflow */
 
     requestAnimationFrame(function () {
-      btn.style.transition = 'transform .8s cubic-bezier(.22,1,.36,1)';
+      btn.style.transition = 'transform 1.3s cubic-bezier(.22,1,.36,1)';
       btn.style.transform = '';
       setTimeout(function () {
         btn.style.transition = '';
         busy = false;
-      }, 820);
+      }, 1320);
     });
   }
 
