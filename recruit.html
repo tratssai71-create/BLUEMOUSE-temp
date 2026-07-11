@@ -187,6 +187,7 @@
   <div class="pg-cta fade-in">
     <h2 class="pg-cta__title">採用に関するお問い合わせ</h2>
     <p class="pg-cta__sub">お気軽にご相談ください。</p>
+    <div class="cta-dock" id="ctaDock"></div>
     <p class="pg-cta__phone">お電話はこちら<br><strong>086-273-3880</strong></p>
   </div>
 
@@ -234,7 +235,20 @@
     text-align: center;
     text-decoration: none;
     box-shadow: 0 10px 26px rgba(242,144,108,.45);
-    transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s;
+    transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s, opacity .5s ease;
+  }
+  .cta-dock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 92px;
+    margin: 28px 0 4px;
+  }
+  .floating-cta.is-docked {
+    position: static;
+    bottom: auto;
+    right: auto;
+    margin: 0 auto;
   }
   .floating-cta::before {
     content: '';
@@ -257,6 +271,7 @@
     .floating-cta__icon { width: 13px; height: 13px; }
     .floating-cta__main { font-size: 12px; }
     .floating-cta__sub { font-size: 9.5px; }
+    .cta-dock { min-height: 78px; }
   }
 </style>
 <a href="./contact.html" class="floating-cta">
@@ -264,5 +279,73 @@
   <span class="floating-cta__sub">お問い合わせ</span>
   <svg class="floating-cta__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
 </a>
+<script>
+(function () {
+  var btn = document.querySelector('.floating-cta');
+  var dock = document.getElementById('ctaDock');
+  if (!btn || !dock || !window.IntersectionObserver) return;
+
+  var anchor = document.createComment('floating-cta-anchor');
+  btn.parentNode.insertBefore(anchor, btn);
+
+  var docked = false;
+  var busy = false;
+  var pending = null;
+
+  function move(intoDock) {
+    if (busy) {
+      pending = intoDock;
+      return;
+    }
+    busy = true;
+
+    var startRect = btn.getBoundingClientRect();
+
+    if (intoDock) {
+      dock.appendChild(btn);
+      btn.classList.add('is-docked');
+    } else {
+      anchor.parentNode.insertBefore(btn, anchor);
+      btn.classList.remove('is-docked');
+    }
+
+    var endRect = btn.getBoundingClientRect();
+    var dx = startRect.left - endRect.left;
+    var dy = startRect.top - endRect.top;
+
+    btn.style.transition = 'none';
+    btn.style.transform = 'translate(' + dx + 'px, ' + dy + 'px)';
+    btn.offsetHeight; /* force reflow */
+
+    requestAnimationFrame(function () {
+      btn.style.transition = 'transform 1.3s cubic-bezier(.22,1,.36,1)';
+      btn.style.transform = '';
+      setTimeout(function () {
+        btn.style.transition = '';
+        busy = false;
+        if (pending !== null) {
+          var next = pending;
+          pending = null;
+          move(next);
+        }
+      }, 1320);
+    });
+  }
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting && !docked) {
+        docked = true;
+        move(true);
+      } else if (!entry.isIntersecting && docked) {
+        docked = false;
+        move(false);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  io.observe(dock);
+})();
+</script>
 </body>
 </html>
