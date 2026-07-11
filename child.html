@@ -119,8 +119,21 @@
     .pg-cta__btn--green { background:var(--green); }
     .pg-cta__btn--green:hover { box-shadow:0 8px 24px rgba(58,107,94,.3); }
 
-    /* Footer (minimal) */
-    .pg-footer { text-align:center; padding:24px 16px; font-size:11px; color:#bbb; border-top:1px solid rgba(0,0,0,.05); }
+    /* Footer */
+    .footer { background: #1e2a2c; color: #aaa; padding: 44px 32px 20px; }
+    .footer__inner { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1.2fr; gap: 32px; padding-bottom: 28px; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .footer__logo img { width: 120px; filter: brightness(0) saturate(100%) invert(64%) sepia(42%) saturate(600%) hue-rotate(148deg) brightness(1.1); margin-bottom: 12px; }
+    .footer__tagline { font-size: 13px; color: #7a8a8c; line-height: 1.9; }
+    .footer__insta { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; font-size: 13px; color: #7a8a8c; transition: color .2s; }
+    .footer__insta:hover { color: var(--teal); }
+    .footer__col-title { font-family: "Inter", sans-serif; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--teal); margin-bottom: 14px; font-weight: 600; }
+    .footer__nav { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer__nav a { font-size: 13px; color: #7a8a8c; transition: color .15s; }
+    .footer__nav a:hover { color: var(--teal); }
+    .footer__fac-name { font-size: 13px; font-weight: 500; color: #ccc; margin-bottom: 2px; }
+    .footer__fac-info { font-size: 12px; color: #6a7a7c; line-height: 1.8; }
+    .footer__fac + .footer__fac { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.06); }
+    .footer__bottom { max-width: 1000px; margin: 0 auto; text-align: center; padding-top: 16px; font-family: "Inter", sans-serif; font-size: 11px; color: #5a6a6c; }
 
     /* Fade */
     .js-ready .fade-in { opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s cubic-bezier(.22,1,.36,1); }
@@ -136,6 +149,8 @@
       .pg-feat { grid-template-columns:1fr; }
       .pg-feat:nth-child(even) .pg-feat__img { order:1; }
       .pg-feat:nth-child(even) .pg-feat__text { order:2; }
+      .footer { padding: 32px 16px 16px; }
+      .footer__inner { grid-template-columns: 1fr; gap: 20px; }
     }
   </style>
 </head>
@@ -266,7 +281,40 @@
 
 </div>
 
-<div class="pg-footer">© BLUE MOUSE All Rights Reserved.</div>
+<footer class="footer">
+  <div class="footer__inner">
+    <div>
+      <a href="./index.html" class="footer__logo"><img src="./logo.png" alt="BLUE MOUSE" /></a>
+      <p class="footer__tagline">主体性療育からIT療育へ。<br>こどもの10年間を見据えた支援。</p>
+      <a class="footer__insta" href="https://www.instagram.com/blue_mouse_okayama/" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>
+        Instagram
+      </a>
+    </div>
+    <div>
+      <p class="footer__col-title">Pages</p>
+      <ul class="footer__nav">
+        <li><a href="./child.html">児童発達支援事業</a></li>
+        <li><a href="./afterschool.html">放課後等デイサービス</a></li>
+        <li><a href="https://bouemouse.studio.site" target="_blank" rel="noopener">採用情報</a></li>
+        <li><a href="./contact.html">お問い合わせ</a></li>
+        <li><a href="./privacy.html">プライバシーポリシー</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer__col-title">Access</p>
+      <div class="footer__fac">
+        <p class="footer__fac-name">LITTLE BLUE MOUSE（児童発達支援）</p>
+        <p class="footer__fac-info">岡山市北区辰巳２６−１０２</p>
+      </div>
+      <div class="footer__fac">
+        <p class="footer__fac-name">BLUE MOUSE（放課後等デイサービス）</p>
+        <p class="footer__fac-info">岡山市中区徳吉町二丁目11番地25</p>
+      </div>
+    </div>
+  </div>
+  <p class="footer__bottom">© BLUE MOUSE All Rights Reserved.</p>
+</footer>
 
 <script>
 (function () {
