@@ -235,10 +235,17 @@
       object-fit: cover;
       object-position: center 65%;
       opacity: 0;
-      transform: scale(1.12) translate(0,0);
-      transition: opacity 1s ease, transform 5s ease-in-out;
+      transform: scale(1.12);
+      transition: opacity 1s ease;
+      animation: 9s ease-in-out infinite alternate;
     }
     .hero__img-wrap img.is-active { opacity: 1; }
+    .hero__img-wrap img:nth-child(1) { animation-name: kbPanBR; }
+    .hero__img-wrap img:nth-child(2) { animation-name: kbPanTL; }
+    .hero__img-wrap img:nth-child(3) { animation-name: kbPanLR; }
+    @keyframes kbPanBR { from { transform: scale(1.12) translate(-2.5%,-2.5%); } to { transform: scale(1.12) translate(2.5%,2.5%); } }
+    @keyframes kbPanTL { from { transform: scale(1.12) translate(2.5%,-2.5%); } to { transform: scale(1.12) translate(-2.5%,2.5%); } }
+    @keyframes kbPanLR { from { transform: scale(1.12) translate(-3%,0); } to { transform: scale(1.12) translate(3%,0); } }
     .hero__float-card {
       position: absolute;
       bottom: 16px;
@@ -706,9 +713,9 @@
   </div>
   <div class="hero__visual">
     <div class="hero__img-wrap" id="hero-slides">
-      <img src="./photos/IMG_8852.jpg" alt="BLUE MOUSEの活動風景" style="object-position:center 65%;" class="is-active" data-pan-a="-2.5%,-2.5%" data-pan-b="2.5%,2.5%" />
-      <img src="./photos/dino_window_opt.jpg" alt="BLUE MOUSEの活動風景" style="object-position:center center;" data-pan-a="2.5%,-2.5%" data-pan-b="-2.5%,2.5%" />
-      <img src="./photos/hp_slide2_opt.jpg" alt="BLUE MOUSEの活動風景" style="object-position:center center;" data-pan-a="-3%,0" data-pan-b="3%,0" />
+      <img src="./photos/IMG_8852.jpg" alt="BLUE MOUSEの活動風景" style="object-position:center 65%;" class="is-active" />
+      <img src="./photos/dino_window_opt.jpg" alt="BLUE MOUSEの活動風景" style="object-position:center center;" />
+      <img src="./photos/hp_slide2_opt.jpg" alt="BLUE MOUSEの活動風景" style="object-position:center center;" />
     </div>
   </div>
 </section>
@@ -852,23 +859,14 @@
   document.documentElement.classList.add('js-ready');
 
   // スライドショー共通処理
-  function applyPan(img) {
-    var a = img.getAttribute('data-pan-a'), b = img.getAttribute('data-pan-b');
-    if (!a || !b) return;
-    var useB = img.getAttribute('data-pan-state') !== 'b';
-    img.style.transform = 'scale(1.12) translate(' + (useB ? b : a) + ')';
-    img.setAttribute('data-pan-state', useB ? 'b' : 'a');
-  }
   function startSlideshow(id, interval) {
     var imgs = document.querySelectorAll('#' + id + ' img');
     if (!imgs.length) return;
     var cur = 0;
-    applyPan(imgs[cur]);
     setInterval(function() {
       imgs[cur].classList.remove('is-active');
       cur = (cur + 1) % imgs.length;
       imgs[cur].classList.add('is-active');
-      applyPan(imgs[cur]);
     }, interval);
   }
   startSlideshow('hero-slides', 4000);
