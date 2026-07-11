@@ -143,6 +143,16 @@
     .mobile-nav.is-open { display: flex; }
     .mobile-nav a { font-size: 17px; color: #8a7a6e; letter-spacing: .08em; }
     .mobile-nav a:hover { color: var(--teal); }
+    .mn-accordion { width: 100%; text-align: center; }
+    .mn-accordion__toggle { background: none; border: none; cursor: pointer; font-family: inherit; font-size: 17px; color: #8a7a6e; letter-spacing: .08em; display: inline-flex; align-items: center; gap: 8px; padding: 0; }
+    .mn-accordion__toggle:hover { color: var(--teal); }
+    .mn-caret { font-size: 10px; display: inline-block; transition: transform .25s ease; }
+    .mn-accordion.is-open .mn-caret { transform: rotate(90deg); }
+    .mn-accordion__panel { max-height: 0; overflow: hidden; transition: max-height .3s ease; display: flex; flex-direction: column; gap: 14px; align-items: center; }
+    .mn-accordion.is-open .mn-accordion__panel { max-height: 160px; margin-top: 14px; }
+    .mobile-nav a.mn-sublink { font-size: 14px; color: #a89583; }
+    .mn-insta { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1.5px solid rgba(0,0,0,.15); border-radius: 12px; color: var(--ink); margin-top: 8px; }
+    .mn-insta:hover { border-color: var(--teal); color: var(--teal); }
 
     /* ===== Hero ===== */
     .hero {
@@ -679,13 +689,27 @@
 </header>
 
 <nav class="mobile-nav" id="mobile-nav">
-  <a href="./child.html" class="mn-link">児童発達支援事業</a>
-  <a href="./afterschool.html" class="mn-link">放課後等デイサービス</a>
-  <a href="#facilities" class="mn-link">施設案内</a>
-  <a href="https://bouemouse.studio.site" target="_blank" rel="noopener" class="mn-link">採用情報</a>
-  <a href="./contact.html" class="mn-link" style="color:var(--coral); font-weight:600;">お問い合わせ</a>
-  <a href="./contact.html?type=child" class="mn-link" style="color:var(--green); font-weight:600;">児童発達支援 見学</a>
-  <a href="./contact.html?type=afterschool" class="mn-link" style="color:var(--teal); font-weight:600;">放課後等デイサービス 見学</a>
+  <a href="./index.html" class="mn-link">Front</a>
+  <a href="./philosophy.html" class="mn-link">BLUE MOUSEの想い</a>
+  <div class="mn-accordion">
+    <button type="button" class="mn-accordion__toggle">児童発達支援事業<span class="mn-caret">▶</span></button>
+    <div class="mn-accordion__panel">
+      <a href="./child.html" class="mn-link mn-sublink">サービスを見る</a>
+      <a href="./contact.html?type=child" class="mn-link mn-sublink">見学・お問い合わせ</a>
+    </div>
+  </div>
+  <div class="mn-accordion">
+    <button type="button" class="mn-accordion__toggle">放課後等デイサービス<span class="mn-caret">▶</span></button>
+    <div class="mn-accordion__panel">
+      <a href="./afterschool.html" class="mn-link mn-sublink">サービスを見る</a>
+      <a href="./contact.html?type=afterschool" class="mn-link mn-sublink">見学・お問い合わせ</a>
+    </div>
+  </div>
+  <a href="./recruit.html" class="mn-link">採用情報</a>
+  <a href="./contact.html" class="mn-link" style="color:var(--coral); font-weight:600;">お問い合わせ<span class="mn-caret">▶</span></a>
+  <a class="mn-insta" href="https://www.instagram.com/blue_mouse_okayama/" target="_blank" rel="noopener" aria-label="Instagram">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>
+  </a>
 </nav>
 
 <!-- ===== Hero ===== -->
@@ -887,6 +911,11 @@
     a.addEventListener('click', function () {
       burger.classList.remove('is-open');
       mobileNav.classList.remove('is-open');
+    });
+  });
+  document.querySelectorAll('.mn-accordion__toggle').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      btn.closest('.mn-accordion').classList.toggle('is-open');
     });
   });
 
