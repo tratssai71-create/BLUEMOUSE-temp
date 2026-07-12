@@ -81,16 +81,11 @@
     .ct-fac__addr { font-size:12px; color:#8a7a6e; line-height:1.6; }
     .ct-fac__phone { font-size:15px; font-weight:700; color:var(--ink); margin-top:8px; }
 
-    /* Choice (体験 / お問い合わせ) */
-    .ct-choice { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:40px; }
-    .ct-choice__card { background:#fff; border:1.5px solid rgba(0,0,0,.08); border-radius:16px; padding:24px 22px; text-align:left; cursor:pointer; font-family:inherit; display:flex; flex-direction:column; gap:6px; transition:border-color .2s, transform .15s, box-shadow .2s; }
-    .ct-choice__card:hover { transform:translateY(-2px); box-shadow:0 10px 26px rgba(0,0,0,.07); }
-    .ct-choice__card--main { border-color:var(--coral); background:var(--coral-light); }
-    .ct-choice__card--main:hover { border-color:#e87e59; }
-    .ct-choice__label { font-size:17px; font-weight:700; color:var(--ink); }
-    .ct-choice__desc { font-size:12.5px; color:#8a7a6e; line-height:1.6; }
-    .ct-choice__arrow { align-self:flex-end; font-size:13px; color:var(--coral); font-weight:700; margin-top:6px; }
-    @media (max-width:600px) { .ct-choice { grid-template-columns:1fr; } }
+    /* Choice tabs (体験 / お問い合わせ) */
+    .ct-tabs { display:flex; background:#f1ede7; border-radius:100px; padding:4px; gap:4px; margin-bottom:32px; }
+    .ct-tab { flex:1; border:none; background:transparent; font-family:inherit; font-size:13.5px; font-weight:600; color:#8a7a6e; padding:12px 16px; border-radius:100px; cursor:pointer; transition:background .2s, color .2s; }
+    .ct-tab.is-active { background:var(--coral); color:#fff; }
+    .ct-tab:not(.is-active):hover { color:var(--ink); }
 
     /* Form */
     .ct-form { background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:20px; padding:36px 32px; }
@@ -253,18 +248,10 @@
     </div>
   </div>
 
-  <!-- 体験 / お問い合わせ 選択 -->
-  <div class="ct-choice fade-in" id="ct-choice">
-    <button type="button" class="ct-choice__card ct-choice__card--main" data-choice="trial">
-      <span class="ct-choice__label">体験・見学を申し込む</span>
-      <span class="ct-choice__desc">施設の見学・体験を希望される方はこちら</span>
-      <span class="ct-choice__arrow">→</span>
-    </button>
-    <button type="button" class="ct-choice__card" data-choice="general">
-      <span class="ct-choice__label">その他のお問い合わせ</span>
-      <span class="ct-choice__desc">料金・受給者証・事業内容などのご質問はこちら</span>
-      <span class="ct-choice__arrow">→</span>
-    </button>
+  <!-- 体験 / お問い合わせ 選択タブ -->
+  <div class="ct-tabs fade-in" id="ct-tabs">
+    <button type="button" class="ct-tab" data-choice="trial">体験・見学</button>
+    <button type="button" class="ct-tab" data-choice="general">その他のお問い合わせ</button>
   </div>
 
   <!-- 通常フォーム（一般お問い合わせ・放課後デイ見学） -->
@@ -505,25 +492,21 @@
     document.getElementById('form-child').style.display = '';
   }
 
-  // 体験・見学 / その他のお問い合わせ の2択（type未指定の初回アクセス時のみ表示）
-  var ctChoice = document.getElementById('ct-choice');
-  if (ctChoice) {
+  // 体験・見学 / その他のお問い合わせ タブ（type未指定の初回アクセス時のみ表示・いつでも選び直し可）
+  var ctTabs = document.getElementById('ct-tabs');
+  if (ctTabs) {
     if (urlType === 'child' || urlType === 'afterschool') {
-      ctChoice.style.display = 'none';
+      ctTabs.style.display = 'none';
     } else {
-      document.getElementById('form-general').style.display = 'none';
-      ctChoice.querySelectorAll('.ct-choice__card').forEach(function (card) {
-        card.addEventListener('click', function () {
-          if (card.getAttribute('data-choice') === 'trial') {
-            document.getElementById('f-type').value = '施設見学のご希望';
-          }
-          ctChoice.style.display = 'none';
-          var formEl = document.getElementById('form-general');
-          formEl.style.display = '';
-          formEl.classList.add('is-visible');
-          formEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
+      var tabButtons = ctTabs.querySelectorAll('.ct-tab');
+      var applyTab = function (choice) {
+        tabButtons.forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-choice') === choice); });
+        document.getElementById('f-type').value = choice === 'trial' ? '施設見学のご希望' : '';
+      };
+      tabButtons.forEach(function (btn) {
+        btn.addEventListener('click', function () { applyTab(btn.getAttribute('data-choice')); });
       });
+      applyTab('trial');
     }
   }
 
