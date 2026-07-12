@@ -73,11 +73,16 @@
     .ct-title { font-family:"Zen Maru Gothic",sans-serif; font-size:clamp(1.5rem,3vw,2rem); font-weight:700; color:var(--ink); margin-bottom:8px; }
     .ct-sub { font-size:14px; color:#8a7a6e; }
 
-    /* Choice tabs (体験 / お問い合わせ) */
-    .ct-tabs { display:flex; background:#f1ede7; border-radius:100px; padding:4px; gap:4px; margin-bottom:32px; }
-    .ct-tab { flex:1; border:none; background:transparent; font-family:inherit; font-size:13.5px; font-weight:600; color:#8a7a6e; padding:12px 16px; border-radius:100px; cursor:pointer; transition:background .2s, color .2s; }
+    /* Choice tabs: レベル1（ご利用について / 採用について）・レベル2（体験 / お問い合わせ） */
+    .ct-tabs { display:flex; background:#f1ede7; border-radius:100px; padding:4px; gap:4px; }
+    .ct-tab { flex:1; border:none; background:transparent; font-family:inherit; font-size:13.5px; font-weight:600; color:#8a7a6e; padding:12px 16px; border-radius:100px; cursor:pointer; transition:background .2s, color .2s; display:inline-flex; align-items:center; justify-content:center; gap:6px; }
     .ct-tab.is-active { background:var(--coral); color:#fff; }
     .ct-tab:not(.is-active):hover { color:var(--ink); }
+    #ct-tabs-lv1 { margin-bottom:10px; }
+    .ct-tabs-lv2-wrap { margin:0 0 28px 20px; max-height:60px; opacity:1; overflow:hidden; transition:max-height .25s ease, opacity .2s ease, margin-bottom .25s ease; }
+    .ct-tabs-lv2-wrap.is-collapsed { max-height:0; opacity:0; margin-bottom:0; }
+    .ct-tabs-lv2-wrap .ct-tabs { padding:3px; border:1.5px solid #ece7df; background:transparent; }
+    .ct-tabs-lv2-wrap .ct-tab { font-size:12px; padding:9px 12px; }
 
     /* Form */
     .ct-form { background:#fff; border:1px solid rgba(0,0,0,.06); border-left:4px solid rgba(0,0,0,.06); border-radius:20px; padding:36px 32px; transition:border-color .25s ease; }
@@ -226,10 +231,18 @@
     <p class="ct-sub">お気軽にご相談ください。体験も随時受け付けております。</p>
   </div>
 
-  <!-- 体験 / お問い合わせ 選択タブ -->
-  <div class="ct-tabs fade-in" id="ct-tabs">
-    <button type="button" class="ct-tab" data-choice="trial">体験</button>
-    <button type="button" class="ct-tab" data-choice="general">お問い合わせ</button>
+  <!-- ご利用について / 採用について 選択タブ（レベル1） -->
+  <div class="ct-tabs fade-in" id="ct-tabs-lv1">
+    <button type="button" class="ct-tab" data-role="user">ご利用について</button>
+    <button type="button" class="ct-tab" data-role="recruit">採用について</button>
+  </div>
+
+  <!-- 体験 / お問い合わせ 選択タブ（レベル2・ご利用について選択時のみ） -->
+  <div class="ct-tabs-lv2-wrap fade-in" id="ct-tabs-lv2-wrap">
+    <div class="ct-tabs" id="ct-tabs">
+      <button type="button" class="ct-tab" data-choice="trial">体験</button>
+      <button type="button" class="ct-tab" data-choice="general">お問い合わせ</button>
+    </div>
   </div>
 
   <!-- 通常フォーム（一般お問い合わせ・放課後デイ体験） -->
@@ -379,6 +392,37 @@
     </form>
   </div>
 
+  <!-- 採用について専用フォーム（role=recruit） -->
+  <div class="ct-form fade-in mode-general" id="form-recruit" style="display:none;">
+    <form id="recruit-form" novalidate>
+      <div class="ct-form__grid">
+        <div class="ct-field ct-field--full">
+          <label class="ct-label" for="r-name">お名前<span class="ct-req">*</span></label>
+          <input class="ct-input" id="r-name" name="name" type="text" placeholder="山田 太郎" autocomplete="name" />
+          <span class="ct-error" id="rerr-name">お名前を入力してください。</span>
+        </div>
+        <div class="ct-field">
+          <label class="ct-label" for="r-email">メールアドレス<span class="ct-req">*</span></label>
+          <input class="ct-input" id="r-email" name="email" type="email" placeholder="example@mail.com" autocomplete="email" />
+          <span class="ct-error" id="rerr-email">有効なメールアドレスを入力してください。</span>
+        </div>
+        <div class="ct-field">
+          <label class="ct-label" for="r-tel">電話番号<span style="font-size:11px;color:#aaa;margin-left:4px;">任意</span></label>
+          <input class="ct-input" id="r-tel" name="phone" type="tel" placeholder="000-0000-0000" autocomplete="tel" />
+        </div>
+        <div class="ct-field ct-field--full">
+          <label class="ct-label" for="r-message">ご質問・メッセージ<span class="ct-req">*</span></label>
+          <textarea class="ct-textarea" id="r-message" name="message" placeholder="気になること・聞いてみたいことをご記入ください"></textarea>
+          <span class="ct-error" id="rerr-message">メッセージを入力してください。</span>
+        </div>
+      </div>
+      <div class="ct-submit">
+        <button class="ct-btn" id="recruit-submit-btn" type="submit">送信する ›</button>
+        <p class="ct-privacy">送信いただいた情報はお問い合わせへの返信目的にのみ使用します。<br><a href="./privacy.html" target="_blank">プライバシーポリシー</a>をご確認の上、送信してください。</p>
+      </div>
+    </form>
+  </div>
+
   <!-- Access -->
   <div class="ct-access fade-in">
     <h2 class="ct-access__title">施設へのアクセス</h2>
@@ -453,8 +497,23 @@
   document.querySelectorAll('.mn-link').forEach(function (a) { a.addEventListener('click', function () { burger.classList.remove('is-open'); mobileNav.classList.remove('is-open'); }); });
   document.querySelectorAll('.mn-accordion__toggle').forEach(function (btn) { btn.addEventListener('click', function () { btn.closest('.mn-accordion').classList.toggle('is-open'); }); });
 
-  // Pre-fill from URL param (?type=afterschool or ?type=child)
-  var urlType = new URLSearchParams(window.location.search).get('type');
+  // Pre-fill from URL param (?type=afterschool / ?type=child / ?role=recruit)
+  var urlParams = new URLSearchParams(window.location.search);
+  var urlType = urlParams.get('type');
+  var urlRole = urlParams.get('role');
+
+  var formGeneralEl = document.getElementById('form-general');
+  var formChildEl = document.getElementById('form-child');
+  var formRecruitEl = document.getElementById('form-recruit');
+  var lv1Tabs = document.getElementById('ct-tabs-lv1');
+  var lv2Wrap = document.getElementById('ct-tabs-lv2-wrap');
+
+  function showForm(which) {
+    formGeneralEl.style.display = which === 'general' ? '' : 'none';
+    formChildEl.style.display = which === 'child' ? '' : 'none';
+    formRecruitEl.style.display = which === 'recruit' ? '' : 'none';
+  }
+
   if (urlType === 'afterschool') {
     document.getElementById('f-type').value = '体験のご希望';
     document.getElementById('facility-select').value = 'BLUE MOUSE（放課後等デイサービス）';
@@ -464,31 +523,52 @@
     document.getElementById('school-label').textContent = '現在通っている学校名';
     document.getElementById('f-school').placeholder = '○○小学校・○○中学校';
     document.getElementById('field-class').style.display = '';
+    showForm('general');
+    lv1Tabs.style.display = 'none';
+    lv2Wrap.style.display = 'none';
   } else if (urlType === 'child') {
-    // 児童発達支援専用フォームに切り替え
-    document.getElementById('form-general').style.display = 'none';
-    document.getElementById('form-child').style.display = '';
-  }
+    showForm('child');
+    lv1Tabs.style.display = 'none';
+    lv2Wrap.style.display = 'none';
+  } else if (urlRole === 'recruit') {
+    showForm('recruit');
+    lv1Tabs.style.display = 'none';
+    lv2Wrap.style.display = 'none';
+  } else {
+    // 未指定の初回アクセス: レベル1「ご利用について／採用について」→ レベル2「体験／お問い合わせ」、いつでも選び直し可
+    showForm('general');
+    var lv1Buttons = lv1Tabs.querySelectorAll('.ct-tab');
+    var lv2Buttons = lv2Wrap.querySelectorAll('.ct-tab');
+    var choiceState = 'trial';
 
-  // 体験 / お問い合わせ タブ（type未指定の初回アクセス時のみ表示・いつでも選び直し可）
-  var ctTabs = document.getElementById('ct-tabs');
-  if (ctTabs) {
-    if (urlType === 'child' || urlType === 'afterschool') {
-      ctTabs.style.display = 'none';
-    } else {
-      var tabButtons = ctTabs.querySelectorAll('.ct-tab');
-      var formGeneralEl = document.getElementById('form-general');
-      var applyTab = function (choice) {
-        tabButtons.forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-choice') === choice); });
-        document.getElementById('f-type').value = choice === 'trial' ? '体験のご希望' : '';
-        formGeneralEl.classList.toggle('mode-trial', choice === 'trial');
-        formGeneralEl.classList.toggle('mode-general', choice === 'general');
-      };
-      tabButtons.forEach(function (btn) {
-        btn.addEventListener('click', function () { applyTab(btn.getAttribute('data-choice')); });
-      });
-      applyTab('trial');
-    }
+    var applyChoice = function (choice) {
+      choiceState = choice;
+      lv2Buttons.forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-choice') === choice); });
+      document.getElementById('f-type').value = choice === 'trial' ? '体験のご希望' : '';
+      formGeneralEl.classList.toggle('mode-trial', choice === 'trial');
+      formGeneralEl.classList.toggle('mode-general', choice === 'general');
+    };
+
+    var applyRole = function (role) {
+      lv1Buttons.forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-role') === role); });
+      if (role === 'recruit') {
+        lv2Wrap.classList.add('is-collapsed');
+        showForm('recruit');
+      } else {
+        lv2Wrap.classList.remove('is-collapsed');
+        showForm('general');
+        applyChoice(choiceState);
+      }
+    };
+
+    lv1Buttons.forEach(function (btn) {
+      btn.addEventListener('click', function () { applyRole(btn.getAttribute('data-role')); });
+    });
+    lv2Buttons.forEach(function (btn) {
+      btn.addEventListener('click', function () { applyChoice(btn.getAttribute('data-choice')); });
+    });
+
+    applyRole('user');
   }
 
   document.documentElement.classList.add('js-ready');
@@ -615,6 +695,63 @@
           phone: telEl.value,
           facility: 'LITTLE BLUE MOUSE（児童発達支援事業）',
           inquiry_type: '体験のご希望'
+        })
+      })
+      .then(function(r) { return r.json(); })
+      .then(function(j) {
+        if (j.success) { window.location.href = './thanks.html'; }
+        else { throw new Error(j.message || 'error'); }
+      })
+      .catch(function() {
+        btn.disabled = false;
+        btn.textContent = '送信する ›';
+        alert('送信に失敗しました。時間をおいて再度お試しいただくか、お電話にてお問い合わせください。');
+      });
+    });
+  }
+
+  // 採用について専用フォーム送信
+  var recruitForm = document.getElementById('recruit-form');
+  if (recruitForm) {
+    [['r-name','rerr-name'],['r-email','rerr-email'],['r-message','rerr-message']].forEach(function(pair) {
+      var el = document.getElementById(pair[0]);
+      if (el) ['input','change'].forEach(function(ev) { el.addEventListener(ev, function() { clearError(el, pair[1]); }); });
+    });
+
+    recruitForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var nameEl = document.getElementById('r-name');
+      var emailEl = document.getElementById('r-email');
+      var telEl = document.getElementById('r-tel');
+      var msgEl = document.getElementById('r-message');
+      var valid = true;
+
+      if (!nameEl.value.trim()) { showError(nameEl, 'rerr-name'); valid = false; } else clearError(nameEl, 'rerr-name');
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value)) { showError(emailEl, 'rerr-email'); valid = false; } else clearError(emailEl, 'rerr-email');
+      if (!msgEl.value.trim()) { showError(msgEl, 'rerr-message'); valid = false; } else clearError(msgEl, 'rerr-message');
+
+      if (!valid) {
+        var first = document.querySelector('#recruit-form .ct-input.is-error, #recruit-form .ct-textarea.is-error');
+        if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      var btn = document.getElementById('recruit-submit-btn');
+      btn.disabled = true;
+      btn.textContent = '送信中…';
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          access_key: '4fa56afb-03c9-4795-8e00-0d2c8e7b00b6',
+          subject: '【BLUE MOUSE】採用についてのお問い合わせが届きました',
+          from_name: 'BLUE MOUSE お問い合わせフォーム',
+          name: nameEl.value,
+          email: emailEl.value,
+          phone: telEl.value,
+          inquiry_type: '採用について',
+          message: msgEl.value
         })
       })
       .then(function(r) { return r.json(); })
