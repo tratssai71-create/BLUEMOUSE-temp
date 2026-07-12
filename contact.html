@@ -73,21 +73,29 @@
     .ct-title { font-family:"Zen Maru Gothic",sans-serif; font-size:clamp(1.5rem,3vw,2rem); font-weight:700; color:var(--ink); margin-bottom:8px; }
     .ct-sub { font-size:14px; color:#8a7a6e; }
 
-    /* Choice tabs: レベル1（ご利用について / 採用について）・レベル2（体験 / お問い合わせ） */
+    /* Choice tabs: レベル1（ご利用について/採用について）→ レベル2（児童発達支援/放課後等デイサービス）→ レベル3（体験/お問い合わせ）
+       コーラル/ティールは使わず、濃淡（ink→ブラウン）と形状（塗り→塗り→下線）で階層を表現 */
     .ct-tabs { display:flex; background:#f1ede7; border-radius:100px; padding:4px; gap:4px; }
-    .ct-tab { flex:1; border:none; background:transparent; font-family:inherit; font-size:13.5px; font-weight:600; color:#8a7a6e; padding:12px 16px; border-radius:100px; cursor:pointer; transition:background .2s, color .2s; display:inline-flex; align-items:center; justify-content:center; gap:6px; }
-    .ct-tab.is-active { background:var(--coral); color:#fff; }
-    .ct-tab:not(.is-active):hover { color:var(--ink); }
+    .ct-tab { flex:1; border:none; background:transparent; font-family:inherit; font-size:13.5px; font-weight:600; color:#8a7a6e; padding:12px 16px; border-radius:100px; cursor:pointer; transition:background .2s, color .2s, border-color .2s; display:inline-flex; align-items:center; justify-content:center; gap:6px; }
+    .ct-tab:hover:not(.is-active) { color:var(--ink); }
+
     #ct-tabs-lv1 { margin-bottom:10px; }
-    .ct-tabs-lv2-wrap { margin:0 0 28px 20px; max-height:60px; opacity:1; overflow:hidden; transition:max-height .25s ease, opacity .2s ease, margin-bottom .25s ease; }
+    #ct-tabs-lv1 .ct-tab.is-active { background:var(--ink); color:#fff; }
+
+    .ct-tabs-lv2-wrap { margin:0 0 10px 18px; max-height:60px; opacity:1; overflow:hidden; transition:max-height .25s ease, opacity .2s ease, margin-bottom .25s ease; }
     .ct-tabs-lv2-wrap.is-collapsed { max-height:0; opacity:0; margin-bottom:0; }
     .ct-tabs-lv2-wrap .ct-tabs { padding:3px; border:1.5px solid #ece7df; background:transparent; }
-    .ct-tabs-lv2-wrap .ct-tab { font-size:12px; padding:9px 12px; }
+    .ct-tabs-lv2-wrap .ct-tab { font-size:12px; padding:9px 10px; }
+    .ct-tabs-lv2-wrap .ct-tab.is-active { background:#6b5a4c; color:#fff; }
+
+    .ct-tabs-lv3-wrap { margin:0 0 28px 34px; max-height:50px; opacity:1; overflow:hidden; transition:max-height .25s ease, opacity .2s ease, margin-bottom .25s ease; }
+    .ct-tabs-lv3-wrap.is-collapsed { max-height:0; opacity:0; margin-bottom:0; }
+    .ct-tabs-lv3-wrap .ct-tabs { padding:0; background:transparent; gap:18px; }
+    .ct-tabs-lv3-wrap .ct-tab { flex:none; font-size:12px; padding:4px 2px 6px; border-radius:0; border-bottom:2px solid transparent; color:#a89583; }
+    .ct-tabs-lv3-wrap .ct-tab.is-active { background:transparent; color:var(--ink); border-bottom-color:var(--ink); font-weight:700; }
 
     /* Form */
-    .ct-form { background:#fff; border:1px solid rgba(0,0,0,.06); border-left:4px solid rgba(0,0,0,.06); border-radius:20px; padding:36px 32px; transition:border-color .25s ease; }
-    .ct-form.mode-trial { border-left-color:var(--coral); }
-    .ct-form.mode-general { border-left-color:var(--teal); }
+    .ct-form { background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:20px; padding:36px 32px; }
     .ct-form__grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:18px; }
     .ct-field { display:flex; flex-direction:column; gap:5px; }
     .ct-field--full { grid-column:1 / -1; }
@@ -237,9 +245,17 @@
     <button type="button" class="ct-tab" data-role="recruit">採用について</button>
   </div>
 
-  <!-- 体験 / お問い合わせ 選択タブ（レベル2・ご利用について選択時のみ） -->
+  <!-- 児童発達支援 / 放課後等デイサービス 選択タブ（レベル2・ご利用について選択時のみ） -->
   <div class="ct-tabs-lv2-wrap fade-in" id="ct-tabs-lv2-wrap">
-    <div class="ct-tabs" id="ct-tabs">
+    <div class="ct-tabs" id="ct-tabs-lv2">
+      <button type="button" class="ct-tab" data-facility="child">児童発達支援</button>
+      <button type="button" class="ct-tab" data-facility="afterschool">放課後等デイサービス</button>
+    </div>
+  </div>
+
+  <!-- 体験 / お問い合わせ 選択タブ（レベル3・ご利用について選択時のみ） -->
+  <div class="ct-tabs-lv3-wrap fade-in" id="ct-tabs-lv3-wrap">
+    <div class="ct-tabs" id="ct-tabs-lv3">
       <button type="button" class="ct-tab" data-choice="trial">体験</button>
       <button type="button" class="ct-tab" data-choice="general">お問い合わせ</button>
     </div>
@@ -276,7 +292,7 @@
           <input class="ct-input" id="f-tel" name="phone" type="tel" placeholder="000-0000-0000" autocomplete="tel" />
           <span class="ct-error" id="err-tel">電話番号を入力してください。</span>
         </div>
-        <div class="ct-field ct-field--full">
+        <div class="ct-field ct-field--full" id="field-facility">
           <label class="ct-label" for="facility-select">ご希望の事業所<span class="ct-req">*</span></label>
           <select class="ct-select" id="facility-select" name="facility">
             <option value="">選択してください</option>
@@ -286,7 +302,7 @@
           </select>
           <span class="ct-error" id="err-facility">事業所を選択してください。</span>
         </div>
-        <div class="ct-field ct-field--full">
+        <div class="ct-field ct-field--full" id="field-type">
           <label class="ct-label" for="f-type">お問い合わせ種別<span class="ct-req">*</span></label>
           <select class="ct-select" id="f-type" name="inquiry_type">
             <option value="">選択してください</option>
@@ -393,7 +409,7 @@
   </div>
 
   <!-- 採用について専用フォーム（role=recruit） -->
-  <div class="ct-form fade-in mode-general" id="form-recruit" style="display:none;">
+  <div class="ct-form fade-in" id="form-recruit" style="display:none;">
     <form id="recruit-form" novalidate>
       <div class="ct-form__grid">
         <div class="ct-field ct-field--full">
@@ -507,6 +523,7 @@
   var formRecruitEl = document.getElementById('form-recruit');
   var lv1Tabs = document.getElementById('ct-tabs-lv1');
   var lv2Wrap = document.getElementById('ct-tabs-lv2-wrap');
+  var lv3Wrap = document.getElementById('ct-tabs-lv3-wrap');
 
   function showForm(which) {
     formGeneralEl.style.display = which === 'general' ? '' : 'none';
@@ -514,61 +531,88 @@
     formRecruitEl.style.display = which === 'recruit' ? '' : 'none';
   }
 
+  var FACILITY_LABEL = {
+    child: 'LITTLE BLUE MOUSE（児童発達支援事業）',
+    afterschool: 'BLUE MOUSE（放課後等デイサービス）'
+  };
+
+  function setAfterschoolExtraFields(show) {
+    ['field-certificate', 'field-timing', 'field-school', 'field-class'].forEach(function (id) {
+      document.getElementById(id).style.display = show ? '' : 'none';
+    });
+    if (show) {
+      document.getElementById('school-label').textContent = '現在通っている学校名';
+      document.getElementById('f-school').placeholder = '○○小学校・○○中学校';
+    }
+  }
+
   if (urlType === 'afterschool') {
     document.getElementById('f-type').value = '体験のご希望';
-    document.getElementById('facility-select').value = 'BLUE MOUSE（放課後等デイサービス）';
-    document.getElementById('field-certificate').style.display = '';
-    document.getElementById('field-timing').style.display = '';
-    document.getElementById('field-school').style.display = '';
-    document.getElementById('school-label').textContent = '現在通っている学校名';
-    document.getElementById('f-school').placeholder = '○○小学校・○○中学校';
-    document.getElementById('field-class').style.display = '';
+    document.getElementById('facility-select').value = FACILITY_LABEL.afterschool;
+    setAfterschoolExtraFields(true);
     showForm('general');
     lv1Tabs.style.display = 'none';
     lv2Wrap.style.display = 'none';
+    lv3Wrap.style.display = 'none';
   } else if (urlType === 'child') {
     showForm('child');
     lv1Tabs.style.display = 'none';
     lv2Wrap.style.display = 'none';
+    lv3Wrap.style.display = 'none';
   } else if (urlRole === 'recruit') {
     showForm('recruit');
     lv1Tabs.style.display = 'none';
     lv2Wrap.style.display = 'none';
+    lv3Wrap.style.display = 'none';
   } else {
-    // 未指定の初回アクセス: レベル1「ご利用について／採用について」→ レベル2「体験／お問い合わせ」、いつでも選び直し可
-    showForm('general');
+    // 未指定の初回アクセス: レベル1「ご利用について／採用について」→ レベル2「児童発達支援／放課後等デイサービス」→ レベル3「体験／お問い合わせ」、いつでも選び直し可
     var lv1Buttons = lv1Tabs.querySelectorAll('.ct-tab');
     var lv2Buttons = lv2Wrap.querySelectorAll('.ct-tab');
-    var choiceState = 'trial';
+    var lv3Buttons = lv3Wrap.querySelectorAll('.ct-tab');
+    var state = { role: 'user', facility: 'child', choice: 'trial' };
 
-    var applyChoice = function (choice) {
-      choiceState = choice;
-      lv2Buttons.forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-choice') === choice); });
-      document.getElementById('f-type').value = choice === 'trial' ? '体験のご希望' : '';
-      formGeneralEl.classList.toggle('mode-trial', choice === 'trial');
-      formGeneralEl.classList.toggle('mode-general', choice === 'general');
+    var applyForm = function () {
+      if (state.role === 'recruit') { showForm('recruit'); return; }
+      if (state.facility === 'child' && state.choice === 'trial') { showForm('child'); return; }
+
+      showForm('general');
+      document.getElementById('facility-select').value = FACILITY_LABEL[state.facility];
+      document.getElementById('field-facility').style.display = 'none';
+
+      if (state.choice === 'trial') {
+        document.getElementById('f-type').value = '体験のご希望';
+        document.getElementById('field-type').style.display = 'none';
+      } else {
+        document.getElementById('f-type').value = '';
+        document.getElementById('field-type').style.display = '';
+      }
+
+      setAfterschoolExtraFields(state.facility === 'afterschool' && state.choice === 'trial');
     };
 
-    var applyRole = function (role) {
-      lv1Buttons.forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-role') === role); });
-      if (role === 'recruit') {
-        lv2Wrap.classList.add('is-collapsed');
-        showForm('recruit');
-      } else {
-        lv2Wrap.classList.remove('is-collapsed');
-        showForm('general');
-        applyChoice(choiceState);
+    var render = function () {
+      lv1Buttons.forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-role') === state.role); });
+      var showLower = state.role === 'user';
+      lv2Wrap.classList.toggle('is-collapsed', !showLower);
+      lv3Wrap.classList.toggle('is-collapsed', !showLower);
+      if (showLower) {
+        lv2Buttons.forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-facility') === state.facility); });
+        lv3Buttons.forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-choice') === state.choice); });
       }
+      applyForm();
     };
 
     lv1Buttons.forEach(function (btn) {
-      btn.addEventListener('click', function () { applyRole(btn.getAttribute('data-role')); });
+      btn.addEventListener('click', function () { state.role = btn.getAttribute('data-role'); render(); });
     });
     lv2Buttons.forEach(function (btn) {
-      btn.addEventListener('click', function () { applyChoice(btn.getAttribute('data-choice')); });
+      btn.addEventListener('click', function () { state.facility = btn.getAttribute('data-facility'); render(); });
+    });
+    lv3Buttons.forEach(function (btn) {
+      btn.addEventListener('click', function () { state.choice = btn.getAttribute('data-choice'); render(); });
     });
 
-    applyRole('user');
+    render();
   }
 
   document.documentElement.classList.add('js-ready');
