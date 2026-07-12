@@ -3,20 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="BLUE MOUSEへのお問い合わせ・施設見学のご予約はこちら。児童発達支援事業（岡山市北区）・放課後等デイサービス（岡山市中区）の2事業所。受給者証の取得からサポートします。" />
+  <meta name="description" content="BLUE MOUSEへのお問い合わせ・体験のご予約はこちら。児童発達支援事業（岡山市北区）・放課後等デイサービス（岡山市中区）の2事業所。受給者証の取得からサポートします。" />
   <meta name="theme-color" content="#FFFEFB" />
   <title>体験・お問い合わせ｜BLUE MOUSE</title>
   <link rel="canonical" href="https://www.blue-mouse.net/contact.html" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.blue-mouse.net/contact.html" />
   <meta property="og:title" content="体験・お問い合わせ｜BLUE MOUSE" />
-  <meta property="og:description" content="BLUE MOUSEへのお問い合わせ・施設見学のご予約はこちら。児童発達支援事業（岡山市北区）・放課後等デイサービス（岡山市中区）の2事業所。受給者証の取得からサポートします。" />
+  <meta property="og:description" content="BLUE MOUSEへのお問い合わせ・体験のご予約はこちら。児童発達支援事業（岡山市北区）・放課後等デイサービス（岡山市中区）の2事業所。受給者証の取得からサポートします。" />
   <meta property="og:image" content="https://www.blue-mouse.net/logo.png" />
   <meta property="og:site_name" content="BLUE MOUSE" />
   <meta property="og:locale" content="ja_JP" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="体験・お問い合わせ｜BLUE MOUSE" />
-  <meta name="twitter:description" content="BLUE MOUSEへのお問い合わせ・施設見学のご予約はこちら。児童発達支援事業（岡山市北区）・放課後等デイサービス（岡山市中区）の2事業所。受給者証の取得からサポートします。" />
+  <meta name="twitter:description" content="BLUE MOUSEへのお問い合わせ・体験のご予約はこちら。児童発達支援事業（岡山市北区）・放課後等デイサービス（岡山市中区）の2事業所。受給者証の取得からサポートします。" />
   <meta name="twitter:image" content="https://www.blue-mouse.net/logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -73,14 +73,6 @@
     .ct-title { font-family:"Zen Maru Gothic",sans-serif; font-size:clamp(1.5rem,3vw,2rem); font-weight:700; color:var(--ink); margin-bottom:8px; }
     .ct-sub { font-size:14px; color:#8a7a6e; }
 
-    /* Facility cards */
-    .ct-facilities { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:40px; }
-    .ct-fac { background:#fff; border:1.5px solid rgba(0,0,0,.06); border-radius:14px; padding:18px 20px; text-align:center; }
-    .ct-fac__name { font-size:14px; font-weight:700; color:var(--ink); margin-bottom:4px; }
-    .ct-fac__type { font-size:11px; color:var(--teal); font-weight:500; letter-spacing:.06em; margin-bottom:6px; }
-    .ct-fac__addr { font-size:12px; color:#8a7a6e; line-height:1.6; }
-    .ct-fac__phone { font-size:15px; font-weight:700; color:var(--ink); margin-top:8px; }
-
     /* Choice tabs (体験 / お問い合わせ) */
     .ct-tabs { display:flex; background:#f1ede7; border-radius:100px; padding:4px; gap:4px; margin-bottom:32px; }
     .ct-tab { flex:1; border:none; background:transparent; font-family:inherit; font-size:13.5px; font-weight:600; color:#8a7a6e; padding:12px 16px; border-radius:100px; cursor:pointer; transition:background .2s, color .2s; }
@@ -88,7 +80,9 @@
     .ct-tab:not(.is-active):hover { color:var(--ink); }
 
     /* Form */
-    .ct-form { background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:20px; padding:36px 32px; }
+    .ct-form { background:#fff; border:1px solid rgba(0,0,0,.06); border-left:4px solid rgba(0,0,0,.06); border-radius:20px; padding:36px 32px; transition:border-color .25s ease; }
+    .ct-form.mode-trial { border-left-color:var(--coral); }
+    .ct-form.mode-general { border-left-color:var(--teal); }
     .ct-form__grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:18px; }
     .ct-field { display:flex; flex-direction:column; gap:5px; }
     .ct-field--full { grid-column:1 / -1; }
@@ -172,7 +166,6 @@
       .header__burger { display:flex; }
       .mobile-nav { top:56px; }
       .ct-page { padding:84px 16px 60px; }
-      .ct-facilities { grid-template-columns:1fr; }
       .ct-form { padding:28px 20px; }
       .ct-form__grid { grid-template-columns:1fr; }
       .ct-access__grid { grid-template-columns:1fr; }
@@ -193,8 +186,8 @@
       <span class="header__cta">お問い合わせ ›</span>
       <div class="header__cta-drop">
         <a href="./contact.html">お問い合わせ</a>
-        <a href="./contact.html?type=child">児童発達支援 見学</a>
-        <a href="./contact.html?type=afterschool">放課後等デイサービス 見学</a>
+        <a href="./contact.html?type=child">児童発達支援 体験</a>
+        <a href="./contact.html?type=afterschool">放課後等デイサービス 体験</a>
       </div>
     </div>
   </nav>
@@ -230,31 +223,16 @@
   <div class="ct-header fade-in">
     <p class="ct-tag">Contact</p>
     <h1 class="ct-title">体験・お問い合わせ</h1>
-    <p class="ct-sub">お気軽にご相談ください。施設見学も随時受け付けております。</p>
-  </div>
-
-  <!-- Facility info -->
-  <div class="ct-facilities fade-in">
-    <div class="ct-fac">
-      <p class="ct-fac__name">LITTLE BLUE MOUSE</p>
-      <p class="ct-fac__type">児童発達支援事業</p>
-      <p class="ct-fac__addr">岡山市北区 辰巳</p>
-    </div>
-    <div class="ct-fac">
-      <p class="ct-fac__name">BLUE MOUSE</p>
-      <p class="ct-fac__type">放課後等デイサービス</p>
-      <p class="ct-fac__addr">岡山市中区 徳吉町</p>
-      <p class="ct-fac__phone">086-273-3880</p>
-    </div>
+    <p class="ct-sub">お気軽にご相談ください。体験も随時受け付けております。</p>
   </div>
 
   <!-- 体験 / お問い合わせ 選択タブ -->
   <div class="ct-tabs fade-in" id="ct-tabs">
-    <button type="button" class="ct-tab" data-choice="trial">体験・見学</button>
-    <button type="button" class="ct-tab" data-choice="general">その他のお問い合わせ</button>
+    <button type="button" class="ct-tab" data-choice="trial">体験</button>
+    <button type="button" class="ct-tab" data-choice="general">お問い合わせ</button>
   </div>
 
-  <!-- 通常フォーム（一般お問い合わせ・放課後デイ見学） -->
+  <!-- 通常フォーム（一般お問い合わせ・放課後デイ体験） -->
   <div class="ct-form fade-in" id="form-general">
     <form id="contact-form" novalidate>
       <div class="ct-form__grid">
@@ -299,7 +277,7 @@
           <label class="ct-label" for="f-type">お問い合わせ種別<span class="ct-req">*</span></label>
           <select class="ct-select" id="f-type" name="inquiry_type">
             <option value="">選択してください</option>
-            <option>施設見学のご希望</option>
+            <option>体験のご希望</option>
             <option>事業内容について</option>
             <option>料金・手続きについて</option>
             <option>受給者証の取得について</option>
@@ -478,7 +456,7 @@
   // Pre-fill from URL param (?type=afterschool or ?type=child)
   var urlType = new URLSearchParams(window.location.search).get('type');
   if (urlType === 'afterschool') {
-    document.getElementById('f-type').value = '施設見学のご希望';
+    document.getElementById('f-type').value = '体験のご希望';
     document.getElementById('facility-select').value = 'BLUE MOUSE（放課後等デイサービス）';
     document.getElementById('field-certificate').style.display = '';
     document.getElementById('field-timing').style.display = '';
@@ -492,16 +470,19 @@
     document.getElementById('form-child').style.display = '';
   }
 
-  // 体験・見学 / その他のお問い合わせ タブ（type未指定の初回アクセス時のみ表示・いつでも選び直し可）
+  // 体験 / お問い合わせ タブ（type未指定の初回アクセス時のみ表示・いつでも選び直し可）
   var ctTabs = document.getElementById('ct-tabs');
   if (ctTabs) {
     if (urlType === 'child' || urlType === 'afterschool') {
       ctTabs.style.display = 'none';
     } else {
       var tabButtons = ctTabs.querySelectorAll('.ct-tab');
+      var formGeneralEl = document.getElementById('form-general');
       var applyTab = function (choice) {
         tabButtons.forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-choice') === choice); });
-        document.getElementById('f-type').value = choice === 'trial' ? '施設見学のご希望' : '';
+        document.getElementById('f-type').value = choice === 'trial' ? '体験のご希望' : '';
+        formGeneralEl.classList.toggle('mode-trial', choice === 'trial');
+        formGeneralEl.classList.toggle('mode-general', choice === 'general');
       };
       tabButtons.forEach(function (btn) {
         btn.addEventListener('click', function () { applyTab(btn.getAttribute('data-choice')); });
@@ -625,7 +606,7 @@
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({
           access_key: '4fa56afb-03c9-4795-8e00-0d2c8e7b00b6',
-          subject: '【LITTLE BLUE MOUSE】児童発達支援 見学お申し込み',
+          subject: '【LITTLE BLUE MOUSE】児童発達支援 体験お申し込み',
           from_name: 'BLUE MOUSE お問い合わせフォーム',
           child_age: ageEl.value,
           gender: genEl.value,
@@ -633,7 +614,7 @@
           email: emailEl.value,
           phone: telEl.value,
           facility: 'LITTLE BLUE MOUSE（児童発達支援事業）',
-          inquiry_type: '施設見学のご希望'
+          inquiry_type: '体験のご希望'
         })
       })
       .then(function(r) { return r.json(); })
