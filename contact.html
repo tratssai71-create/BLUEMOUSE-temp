@@ -571,8 +571,10 @@
     var lv2Buttons = lv2Wrap.querySelectorAll('.ct-tab');
     var lv3Buttons = lv3Wrap.querySelectorAll('.ct-tab');
     var state = { role: 'user', facility: 'child', choice: 'trial' };
+    var revealed = false;
 
     var applyForm = function () {
+      if (!revealed) { showForm(null); return; }
       if (state.role === 'recruit') { showForm('recruit'); return; }
       if (state.facility === 'child' && state.choice === 'trial') { showForm('child'); return; }
 
@@ -604,13 +606,13 @@
     };
 
     lv1Buttons.forEach(function (btn) {
-      btn.addEventListener('click', function () { state.role = btn.getAttribute('data-role'); render(); });
+      btn.addEventListener('click', function () { revealed = true; state.role = btn.getAttribute('data-role'); render(); });
     });
     lv2Buttons.forEach(function (btn) {
-      btn.addEventListener('click', function () { state.facility = btn.getAttribute('data-facility'); render(); });
+      btn.addEventListener('click', function () { revealed = true; state.facility = btn.getAttribute('data-facility'); render(); });
     });
     lv3Buttons.forEach(function (btn) {
-      btn.addEventListener('click', function () { state.choice = btn.getAttribute('data-choice'); render(); });
+      btn.addEventListener('click', function () { revealed = true; state.choice = btn.getAttribute('data-choice'); render(); });
     });
 
     render();
