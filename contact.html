@@ -82,15 +82,16 @@
     #ct-tabs-lv1-wrap { margin-bottom:10px; }
     #ct-tabs-lv1 .ct-tab.is-active { background:#6b5a4c; color:#fff; }
 
-    .ct-tabs-lv2-wrap { margin:0 0 10px 18px; max-height:60px; opacity:1; overflow:hidden; transition:max-height .25s ease, opacity .2s ease, margin-bottom .25s ease; }
-    .ct-tabs-lv2-wrap.is-collapsed { max-height:0; opacity:0; margin-bottom:0; }
-    .ct-tabs-lv2-wrap .ct-tabs { padding:3px; border:1.5px solid #ece7df; background:transparent; }
+    .ct-substeps { background:#f7f4ee; border:1px solid #ece7df; border-radius:16px; padding:14px 16px; margin-bottom:28px; max-height:220px; opacity:1; overflow:hidden; transition:max-height .25s ease, opacity .2s ease, margin-bottom .25s ease, padding .25s ease, border-color .25s ease; }
+    .ct-substeps.is-collapsed { max-height:0; opacity:0; margin-bottom:0; padding-top:0; padding-bottom:0; border-color:transparent; }
+
+    .ct-tabs-lv2-wrap { margin:0 0 10px; }
+    .ct-tabs-lv2-wrap .ct-tabs { padding:3px; border:1.5px solid #ece7df; background:#fff; }
     .ct-tabs-lv2-wrap .ct-tab { font-size:12px; padding:9px 10px; }
     .ct-tabs-lv2-wrap .ct-tab[data-facility="child"].is-active { background:var(--yellow); color:#fff; }
     .ct-tabs-lv2-wrap .ct-tab[data-facility="afterschool"].is-active { background:var(--teal); color:#fff; }
 
-    .ct-tabs-lv3-wrap { margin:0 0 28px 34px; max-height:50px; opacity:1; overflow:hidden; transition:max-height .25s ease, opacity .2s ease, margin-bottom .25s ease; }
-    .ct-tabs-lv3-wrap.is-collapsed { max-height:0; opacity:0; margin-bottom:0; }
+    .ct-tabs-lv3-wrap { margin:0 0 0 16px; }
     .ct-tabs-lv3-wrap .ct-tabs { padding:0; background:transparent; gap:18px; }
     .ct-tabs-lv3-wrap .ct-tab { flex:none; font-size:12px; padding:4px 2px 6px; border-radius:0; border-bottom:2px solid transparent; color:#a89583; }
     .ct-tabs-lv3-wrap .ct-tab.is-active { background:transparent; color:var(--ink); border-bottom-color:var(--ink); font-weight:700; }
@@ -271,19 +272,20 @@
     </div>
   </div>
 
-  <!-- 児童発達支援 / 放課後等デイサービス 選択タブ（レベル2・ご利用について選択時のみ） -->
-  <div class="ct-tabs-lv2-wrap fade-in" id="ct-tabs-lv2-wrap">
-    <div class="ct-tabs" id="ct-tabs-lv2">
-      <button type="button" class="ct-tab" data-facility="child">児童発達支援</button>
-      <button type="button" class="ct-tab" data-facility="afterschool">放課後等デイサービス</button>
+  <!-- 児童発達支援/放課後等デイサービス・体験/お問い合わせ 選択タブ（レベル2・3、ご利用について選択時のみ表示） -->
+  <div class="ct-substeps fade-in" id="ct-substeps">
+    <div class="ct-tabs-lv2-wrap" id="ct-tabs-lv2-wrap">
+      <div class="ct-tabs" id="ct-tabs-lv2">
+        <button type="button" class="ct-tab" data-facility="child">児童発達支援</button>
+        <button type="button" class="ct-tab" data-facility="afterschool">放課後等デイサービス</button>
+      </div>
     </div>
-  </div>
 
-  <!-- 体験 / お問い合わせ 選択タブ（レベル3・ご利用について選択時のみ） -->
-  <div class="ct-tabs-lv3-wrap fade-in" id="ct-tabs-lv3-wrap">
-    <div class="ct-tabs" id="ct-tabs-lv3">
-      <button type="button" class="ct-tab" data-choice="trial">体験</button>
-      <button type="button" class="ct-tab" data-choice="general">お問い合わせ</button>
+    <div class="ct-tabs-lv3-wrap" id="ct-tabs-lv3-wrap">
+      <div class="ct-tabs" id="ct-tabs-lv3">
+        <button type="button" class="ct-tab" data-choice="trial">体験</button>
+        <button type="button" class="ct-tab" data-choice="general">お問い合わせ</button>
+      </div>
     </div>
   </div>
 
@@ -551,6 +553,7 @@
   var lv1Tabs = document.getElementById('ct-tabs-lv1');
   var lv2Wrap = document.getElementById('ct-tabs-lv2-wrap');
   var lv3Wrap = document.getElementById('ct-tabs-lv3-wrap');
+  var ctSubsteps = document.getElementById('ct-substeps');
   var ctAccess = document.getElementById('ct-access');
   var accCards = ctAccess.querySelectorAll('.ct-acc');
 
@@ -590,20 +593,17 @@
     showForm('general');
     showAccess('afterschool');
     lv1Wrap.style.display = 'none';
-    lv2Wrap.style.display = 'none';
-    lv3Wrap.style.display = 'none';
+    ctSubsteps.style.display = 'none';
   } else if (urlType === 'child') {
     showForm('child');
     showAccess('child');
     lv1Wrap.style.display = 'none';
-    lv2Wrap.style.display = 'none';
-    lv3Wrap.style.display = 'none';
+    ctSubsteps.style.display = 'none';
   } else if (urlRole === 'recruit') {
     showForm('recruit');
     showAccess(null);
     lv1Wrap.style.display = 'none';
-    lv2Wrap.style.display = 'none';
-    lv3Wrap.style.display = 'none';
+    ctSubsteps.style.display = 'none';
   } else {
     // 未指定の初回アクセス: レベル1「ご利用について／採用について」→ レベル2「児童発達支援／放課後等デイサービス」→ レベル3「体験／お問い合わせ」、いつでも選び直し可
     var lv1Buttons = lv1Tabs.querySelectorAll('.ct-tab');
@@ -636,8 +636,7 @@
     var render = function () {
       lv1Buttons.forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-role') === state.role); });
       var showLower = state.role === 'user';
-      lv2Wrap.classList.toggle('is-collapsed', !showLower);
-      lv3Wrap.classList.toggle('is-collapsed', !showLower);
+      ctSubsteps.classList.toggle('is-collapsed', !showLower);
       if (showLower) {
         lv2Buttons.forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-facility') === state.facility); });
         lv3Buttons.forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-choice') === state.choice); });
