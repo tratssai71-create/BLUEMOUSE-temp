@@ -147,7 +147,7 @@
     .ct-access { margin-top:56px; }
     .ct-access__title { font-size:16px; font-weight:700; color:var(--ink); margin-bottom:20px; display:flex; align-items:center; gap:8px; }
     .ct-access__title::before { content:''; width:3px; height:18px; background:var(--teal); border-radius:2px; }
-    .ct-access__grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+    .ct-access__grid { display:grid; grid-template-columns:1fr; gap:20px; }
     .ct-acc { background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:14px; overflow:hidden; }
     .ct-acc__body { padding:18px 20px 22px; }
     .ct-acc__name { font-size:15px; font-weight:700; color:var(--ink); margin-bottom:8px; }
@@ -182,7 +182,6 @@
       .ct-page { padding:84px 16px 60px; }
       .ct-form { padding:28px 20px; }
       .ct-form__grid { grid-template-columns:1fr; }
-      .ct-access__grid { grid-template-columns:1fr; }
       .footer { padding: 32px 16px 16px; }
       .footer__inner { grid-template-columns: 1fr; gap: 20px; }
     }
@@ -441,10 +440,10 @@
   </div>
 
   <!-- Access -->
-  <div class="ct-access fade-in">
+  <div class="ct-access fade-in" id="ct-access">
     <h2 class="ct-access__title">施設へのアクセス</h2>
     <div class="ct-access__grid">
-      <div class="ct-acc">
+      <div class="ct-acc" data-facility="afterschool">
         <div class="ct-acc__body">
           <h3 class="ct-acc__name">BLUE MOUSE</h3>
           <div class="ct-acc__row"><span class="ct-acc__row-label">住所</span><span>岡山市中区徳吉町2丁目11-25</span></div>
@@ -455,7 +454,7 @@
           </div>
         </div>
       </div>
-      <div class="ct-acc">
+      <div class="ct-acc" data-facility="child">
         <div class="ct-acc__body">
           <h3 class="ct-acc__name">LITTLE BLUE MOUSE</h3>
           <div class="ct-acc__row"><span class="ct-acc__row-label">住所</span><span>岡山市北区辰巳26-102 2F</span></div>
@@ -525,11 +524,19 @@
   var lv1Tabs = document.getElementById('ct-tabs-lv1');
   var lv2Wrap = document.getElementById('ct-tabs-lv2-wrap');
   var lv3Wrap = document.getElementById('ct-tabs-lv3-wrap');
+  var ctAccess = document.getElementById('ct-access');
+  var accCards = ctAccess.querySelectorAll('.ct-acc');
 
   function showForm(which) {
     formGeneralEl.style.display = which === 'general' ? '' : 'none';
     formChildEl.style.display = which === 'child' ? '' : 'none';
     formRecruitEl.style.display = which === 'recruit' ? '' : 'none';
+  }
+
+  function showAccess(facility) {
+    if (!facility) { ctAccess.style.display = 'none'; return; }
+    ctAccess.style.display = '';
+    accCards.forEach(function (c) { c.style.display = c.getAttribute('data-facility') === facility ? '' : 'none'; });
   }
 
   var FACILITY_LABEL = {
@@ -552,16 +559,19 @@
     document.getElementById('facility-select').value = FACILITY_LABEL.afterschool;
     setAfterschoolExtraFields(true);
     showForm('general');
+    showAccess('afterschool');
     lv1Tabs.style.display = 'none';
     lv2Wrap.style.display = 'none';
     lv3Wrap.style.display = 'none';
   } else if (urlType === 'child') {
     showForm('child');
+    showAccess('child');
     lv1Tabs.style.display = 'none';
     lv2Wrap.style.display = 'none';
     lv3Wrap.style.display = 'none';
   } else if (urlRole === 'recruit') {
     showForm('recruit');
+    showAccess(null);
     lv1Tabs.style.display = 'none';
     lv2Wrap.style.display = 'none';
     lv3Wrap.style.display = 'none';
@@ -574,8 +584,9 @@
     var revealed = false;
 
     var applyForm = function () {
-      if (!revealed) { showForm(null); return; }
-      if (state.role === 'recruit') { showForm('recruit'); return; }
+      if (!revealed) { showForm(null); showAccess(null); return; }
+      if (state.role === 'recruit') { showForm('recruit'); showAccess(null); return; }
+      showAccess(state.facility);
       if (state.facility === 'child' && state.choice === 'trial') { showForm('child'); return; }
 
       showForm('general');
