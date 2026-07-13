@@ -78,18 +78,19 @@
     .ct-tabs { display:flex; background:#f1ede7; border-radius:100px; padding:4px; gap:4px; }
     .ct-tab { flex:1; border:none; background:transparent; font-family:inherit; font-size:13.5px; font-weight:600; color:#8a7a6e; padding:12px 16px; border-radius:100px; cursor:pointer; transition:background .2s, color .2s, border-color .2s; display:inline-flex; align-items:center; justify-content:center; gap:6px; }
     .ct-tab:hover:not(.is-active) { color:var(--ink); }
+    .ct-step { font-family:"Inter",sans-serif; font-size:10px; font-weight:600; letter-spacing:.15em; text-transform:uppercase; color:#a89583; margin-bottom:8px; }
 
-    #ct-tabs-lv1 { margin-bottom:10px; }
+    #ct-tabs-lv1-wrap { margin-bottom:10px; }
     #ct-tabs-lv1 .ct-tab.is-active { background:#6b5a4c; color:#fff; }
 
-    .ct-tabs-lv2-wrap { margin:0 0 10px 18px; max-height:60px; opacity:1; overflow:hidden; transition:max-height .25s ease, opacity .2s ease, margin-bottom .25s ease; }
+    .ct-tabs-lv2-wrap { margin:0 0 10px 18px; max-height:85px; opacity:1; overflow:hidden; transition:max-height .25s ease, opacity .2s ease, margin-bottom .25s ease; }
     .ct-tabs-lv2-wrap.is-collapsed { max-height:0; opacity:0; margin-bottom:0; }
     .ct-tabs-lv2-wrap .ct-tabs { padding:3px; border:1.5px solid #ece7df; background:transparent; }
     .ct-tabs-lv2-wrap .ct-tab { font-size:12px; padding:9px 10px; }
     .ct-tabs-lv2-wrap .ct-tab[data-facility="child"].is-active { background:var(--yellow); color:#fff; }
     .ct-tabs-lv2-wrap .ct-tab[data-facility="afterschool"].is-active { background:var(--teal); color:#fff; }
 
-    .ct-tabs-lv3-wrap { margin:0 0 28px 34px; max-height:50px; opacity:1; overflow:hidden; transition:max-height .25s ease, opacity .2s ease, margin-bottom .25s ease; }
+    .ct-tabs-lv3-wrap { margin:0 0 28px 34px; max-height:75px; opacity:1; overflow:hidden; transition:max-height .25s ease, opacity .2s ease, margin-bottom .25s ease; }
     .ct-tabs-lv3-wrap.is-collapsed { max-height:0; opacity:0; margin-bottom:0; }
     .ct-tabs-lv3-wrap .ct-tabs { padding:0; background:transparent; gap:18px; }
     .ct-tabs-lv3-wrap .ct-tab { flex:none; font-size:12px; padding:4px 2px 6px; border-radius:0; border-bottom:2px solid transparent; color:#a89583; }
@@ -264,13 +265,17 @@
   </div>
 
   <!-- ご利用について / 採用について 選択タブ（レベル1） -->
-  <div class="ct-tabs fade-in" id="ct-tabs-lv1">
-    <button type="button" class="ct-tab" data-role="user">ご利用について</button>
-    <button type="button" class="ct-tab" data-role="recruit">採用について</button>
+  <div class="ct-tabs-lv1-wrap fade-in" id="ct-tabs-lv1-wrap">
+    <p class="ct-step">STEP 1</p>
+    <div class="ct-tabs" id="ct-tabs-lv1">
+      <button type="button" class="ct-tab" data-role="user">ご利用について</button>
+      <button type="button" class="ct-tab" data-role="recruit">採用について</button>
+    </div>
   </div>
 
   <!-- 児童発達支援 / 放課後等デイサービス 選択タブ（レベル2・ご利用について選択時のみ） -->
   <div class="ct-tabs-lv2-wrap fade-in" id="ct-tabs-lv2-wrap">
+    <p class="ct-step">STEP 2</p>
     <div class="ct-tabs" id="ct-tabs-lv2">
       <button type="button" class="ct-tab" data-facility="child">児童発達支援</button>
       <button type="button" class="ct-tab" data-facility="afterschool">放課後等デイサービス</button>
@@ -279,6 +284,7 @@
 
   <!-- 体験 / お問い合わせ 選択タブ（レベル3・ご利用について選択時のみ） -->
   <div class="ct-tabs-lv3-wrap fade-in" id="ct-tabs-lv3-wrap">
+    <p class="ct-step">STEP 3</p>
     <div class="ct-tabs" id="ct-tabs-lv3">
       <button type="button" class="ct-tab" data-choice="trial">体験</button>
       <button type="button" class="ct-tab" data-choice="general">お問い合わせ</button>
@@ -545,6 +551,7 @@
   var formGeneralEl = document.getElementById('form-general');
   var formChildEl = document.getElementById('form-child');
   var formRecruitEl = document.getElementById('form-recruit');
+  var lv1Wrap = document.getElementById('ct-tabs-lv1-wrap');
   var lv1Tabs = document.getElementById('ct-tabs-lv1');
   var lv2Wrap = document.getElementById('ct-tabs-lv2-wrap');
   var lv3Wrap = document.getElementById('ct-tabs-lv3-wrap');
@@ -586,19 +593,19 @@
     setAfterschoolExtraFields(true);
     showForm('general');
     showAccess('afterschool');
-    lv1Tabs.style.display = 'none';
+    lv1Wrap.style.display = 'none';
     lv2Wrap.style.display = 'none';
     lv3Wrap.style.display = 'none';
   } else if (urlType === 'child') {
     showForm('child');
     showAccess('child');
-    lv1Tabs.style.display = 'none';
+    lv1Wrap.style.display = 'none';
     lv2Wrap.style.display = 'none';
     lv3Wrap.style.display = 'none';
   } else if (urlRole === 'recruit') {
     showForm('recruit');
     showAccess(null);
-    lv1Tabs.style.display = 'none';
+    lv1Wrap.style.display = 'none';
     lv2Wrap.style.display = 'none';
     lv3Wrap.style.display = 'none';
   } else {
