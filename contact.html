@@ -73,26 +73,27 @@
     .ct-title { font-family:"Zen Maru Gothic",sans-serif; font-size:clamp(1.5rem,3vw,2rem); font-weight:700; color:var(--ink); margin-bottom:8px; }
     .ct-sub { font-size:14px; color:#8a7a6e; }
 
-    /* Choice cards: レベル1（ご利用について/採用について）→ レベル2（児童発達支援/放課後等デイサービス）→ レベル3（体験/お問い合わせ）
-       全レベルを常時表示し、大きめのカード＋選択マークで「選ぶもの」であることを一目で伝える */
-    .ct-tabs { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-    .ct-tab { position:relative; border:1.5px solid transparent; background:#f1ede7; font-family:inherit; font-size:14px; font-weight:700; color:#6b5a4c; text-align:left; padding:18px 14px 18px 42px; border-radius:14px; cursor:pointer; transition:background .2s, color .2s, border-color .2s; }
-    .ct-tab:hover:not(.is-active) { background:#e9e2d4; }
-    .ct-tab::before { content:''; position:absolute; left:16px; top:50%; transform:translateY(-50%); width:16px; height:16px; border-radius:50%; border:2px solid #c9bfae; background:transparent; transition:all .2s; }
-    .ct-tab.is-active::before { border-color:#fff; background:#fff; }
-    .ct-tab.is-active::after { content:''; position:absolute; left:20px; top:50%; transform:translateY(-50%); width:8px; height:8px; border-radius:50%; background:#33251a; }
+    /* Choice tabs: レベル1（ご利用について/採用について）→ レベル2（児童発達支援/放課後等デイサービス）→ レベル3（体験/お問い合わせ）
+       コーラル/ティールは使わず、濃淡（ink→ブラウン）と形状（塗り→塗り→下線）で階層を表現 */
+    .ct-tabs { display:flex; background:#f1ede7; border-radius:100px; padding:4px; gap:4px; }
+    .ct-tab { flex:1; border:none; background:transparent; font-family:inherit; font-size:13.5px; font-weight:600; color:#8a7a6e; padding:12px 16px; border-radius:100px; cursor:pointer; transition:background .2s, color .2s, border-color .2s; display:inline-flex; align-items:center; justify-content:center; gap:6px; }
+    .ct-tab:hover:not(.is-active) { color:var(--ink); }
 
-    #ct-tabs-lv1-wrap { margin-bottom:14px; }
+    #ct-tabs-lv1-wrap { margin-bottom:10px; }
     #ct-tabs-lv1 .ct-tab.is-active { background:#6b5a4c; color:#fff; }
 
-    .ct-tabs-lv2-wrap { margin:0 0 14px; max-height:100px; opacity:1; overflow:hidden; transition:max-height .25s ease, opacity .2s ease, margin-bottom .25s ease; }
+    .ct-tabs-lv2-wrap { margin:0 0 10px 18px; max-height:60px; opacity:1; overflow:hidden; transition:max-height .25s ease, opacity .2s ease, margin-bottom .25s ease; }
     .ct-tabs-lv2-wrap.is-collapsed { max-height:0; opacity:0; margin-bottom:0; }
+    .ct-tabs-lv2-wrap .ct-tabs { padding:3px; border:1.5px solid #ece7df; background:transparent; }
+    .ct-tabs-lv2-wrap .ct-tab { font-size:12px; padding:9px 10px; }
     .ct-tabs-lv2-wrap .ct-tab[data-facility="child"].is-active { background:var(--yellow); color:#fff; }
     .ct-tabs-lv2-wrap .ct-tab[data-facility="afterschool"].is-active { background:var(--teal); color:#fff; }
 
-    .ct-tabs-lv3-wrap { margin:0 0 28px; max-height:100px; opacity:1; overflow:hidden; transition:max-height .25s ease, opacity .2s ease, margin-bottom .25s ease; }
+    .ct-tabs-lv3-wrap { margin:0 0 28px 34px; max-height:50px; opacity:1; overflow:hidden; transition:max-height .25s ease, opacity .2s ease, margin-bottom .25s ease; }
     .ct-tabs-lv3-wrap.is-collapsed { max-height:0; opacity:0; margin-bottom:0; }
-    .ct-tabs-lv3-wrap .ct-tab.is-active { background:#6b5a4c; color:#fff; }
+    .ct-tabs-lv3-wrap .ct-tabs { padding:0; background:transparent; gap:18px; }
+    .ct-tabs-lv3-wrap .ct-tab { flex:none; font-size:12px; padding:4px 2px 6px; border-radius:0; border-bottom:2px solid transparent; color:#a89583; }
+    .ct-tabs-lv3-wrap .ct-tab.is-active { background:transparent; color:var(--ink); border-bottom-color:var(--ink); font-weight:700; }
 
     /* Form */
     .ct-form { background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:20px; padding:36px 32px; transition:background .3s ease; }
