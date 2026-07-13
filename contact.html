@@ -24,7 +24,9 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { font-family: "Zen Maru Gothic", sans-serif; background: #FFFEFB; color: #33251a; line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    body { font-family: "Zen Maru Gothic", sans-serif; background: #FFFEFB; color: #33251a; line-height: 1.75; -webkit-font-smoothing: antialiased; transition: background .3s ease; }
+    body.bg-child { background: var(--yellow-light); }
+    body.bg-afterschool { background: var(--teal-light); }
     a { text-decoration: none; color: inherit; }
     img { display: block; max-width: 100%; }
     :root { --coral:#f2906c; --coral-light:#fdf0eb; --teal:#5fc1c7; --teal-dark:#3a9095; --teal-light:#e8f6f7; --yellow:#f5d24a; --yellow-light:#fef9e7; --ink:#33251a; --green:#3a6b5e; --bg:#faf8f5; }
@@ -534,6 +536,8 @@
   }
 
   function showAccess(facility) {
+    document.body.classList.toggle('bg-child', facility === 'child');
+    document.body.classList.toggle('bg-afterschool', facility === 'afterschool');
     if (!facility) { ctAccess.style.display = 'none'; return; }
     ctAccess.style.display = '';
     accCards.forEach(function (c) { c.style.display = c.getAttribute('data-facility') === facility ? '' : 'none'; });
