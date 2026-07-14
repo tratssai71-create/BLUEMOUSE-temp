@@ -445,6 +445,7 @@
   <!-- 採用について専用フォーム（role=recruit） -->
   <div class="ct-form fade-in" id="form-recruit" style="display:none;">
     <form id="recruit-form" novalidate>
+      <p class="ct-selection-summary"><span class="ct-summary-tag">Selected</span><span class="ct-summary-value"></span></p>
       <div class="ct-form__grid">
         <div class="ct-field ct-field--full">
           <label class="ct-label" for="r-name">お名前<span class="ct-req">*</span></label>
@@ -587,10 +588,9 @@
   var FACILITY_NAME = { child: '児童発達支援', afterschool: '放課後等デイサービス' };
   var CHOICE_NAME = { trial: '体験', general: 'お問い合わせ' };
 
-  function updateSummary(facility, choice) {
-    var text = (facility && choice) ? (FACILITY_NAME[facility] + '・' + CHOICE_NAME[choice]) : '';
-    summaryEls.forEach(function (el) { el.textContent = text; });
-    summaryTagEls.forEach(function (el) { el.classList.toggle('is-child', facility === 'child'); });
+  function updateSummary(text, isChild) {
+    summaryEls.forEach(function (el) { el.textContent = text || ''; });
+    summaryTagEls.forEach(function (el) { el.classList.toggle('is-child', !!isChild); });
   }
 
   function setAfterschoolExtraFields(show) {
@@ -609,19 +609,19 @@
     setAfterschoolExtraFields(true);
     showForm('general');
     showAccess('afterschool');
-    updateSummary('afterschool', 'trial');
+    updateSummary(FACILITY_NAME.afterschool + '・' + CHOICE_NAME.trial, false);
     lv1Wrap.style.display = 'none';
     ctSubsteps.style.display = 'none';
   } else if (urlType === 'child') {
     showForm('child');
     showAccess('child');
-    updateSummary('child', 'trial');
+    updateSummary(FACILITY_NAME.child + '・' + CHOICE_NAME.trial, true);
     lv1Wrap.style.display = 'none';
     ctSubsteps.style.display = 'none';
   } else if (urlRole === 'recruit') {
     showForm('recruit');
     showAccess(null);
-    updateSummary(null, null);
+    updateSummary('採用について', false);
     lv1Wrap.style.display = 'none';
     ctSubsteps.style.display = 'none';
   } else {
@@ -633,10 +633,10 @@
     var revealed = false;
 
     var applyForm = function () {
-      if (!revealed) { showForm(null); showAccess(null); updateSummary(null, null); return; }
-      if (state.role === 'recruit') { showForm('recruit'); showAccess(null); updateSummary(null, null); return; }
+      if (!revealed) { showForm(null); showAccess(null); updateSummary('', false); return; }
+      if (state.role === 'recruit') { showForm('recruit'); showAccess(null); updateSummary('採用について', false); return; }
       showAccess(state.facility);
-      updateSummary(state.facility, state.choice);
+      updateSummary(FACILITY_NAME[state.facility] + '・' + CHOICE_NAME[state.choice], state.facility === 'child');
       if (state.facility === 'child' && state.choice === 'trial') { showForm('child'); return; }
 
       showForm('general');
