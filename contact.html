@@ -122,8 +122,9 @@
         radial-gradient(circle at 15% 85%, rgba(236,233,229,.25) 0%, rgba(236,233,229,0) 45%),
         #fff;
     }
-    .ct-selection-summary { font-size:13px; color:#8a7a6e; margin:0 0 20px; padding-bottom:14px; border-bottom:1px solid #ece7df; }
-    .ct-selection-summary strong { color:var(--ink); font-weight:700; }
+    .ct-selection-summary { margin:0 0 20px; padding-bottom:14px; border-bottom:1px solid #ece7df; }
+    .ct-summary-tag { display:block; font-family:"Inter",sans-serif; font-size:10px; font-weight:600; letter-spacing:.25em; text-transform:uppercase; color:var(--teal); margin-bottom:5px; }
+    .ct-summary-value { font-size:15px; color:var(--ink); font-weight:700; }
     .ct-form__grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:18px; }
     .ct-field { display:flex; flex-direction:column; gap:5px; }
     .ct-field--full { grid-column:1 / -1; }
@@ -294,7 +295,7 @@
   <!-- 通常フォーム（一般お問い合わせ・放課後デイ体験） -->
   <div class="ct-form fade-in" id="form-general">
     <form id="contact-form" novalidate>
-      <p class="ct-selection-summary"></p>
+      <p class="ct-selection-summary"><span class="ct-summary-tag">Selected</span><span class="ct-summary-value"></span></p>
       <div class="ct-form__grid">
         <div class="ct-field">
           <label class="ct-label" for="f-name">保護者のお名前<span class="ct-req">*</span></label>
@@ -395,7 +396,7 @@
   <!-- 児童発達支援専用フォーム（?type=child） -->
   <div class="ct-form fade-in" id="form-child" style="display:none;">
     <form id="child-form" novalidate>
-      <p class="ct-selection-summary"></p>
+      <p class="ct-selection-summary"><span class="ct-summary-tag">Selected</span><span class="ct-summary-value"></span></p>
       <div class="ct-form__grid">
         <div class="ct-field">
           <label class="ct-label" for="c-age">お子さまの年齢<span class="ct-req">*</span></label>
@@ -560,7 +561,7 @@
   var ctSubsteps = document.getElementById('ct-substeps');
   var ctAccess = document.getElementById('ct-access');
   var accCards = ctAccess.querySelectorAll('.ct-acc');
-  var summaryEls = document.querySelectorAll('.ct-selection-summary');
+  var summaryEls = document.querySelectorAll('.ct-summary-value');
 
   function showForm(which) {
     formGeneralEl.style.display = which === 'general' ? '' : 'none';
@@ -585,8 +586,8 @@
   var CHOICE_NAME = { trial: '体験', general: 'お問い合わせ' };
 
   function updateSummary(facility, choice) {
-    var text = (facility && choice) ? ('選択中：<strong>' + FACILITY_NAME[facility] + '</strong>・<strong>' + CHOICE_NAME[choice] + '</strong>') : '';
-    summaryEls.forEach(function (el) { el.innerHTML = text; });
+    var text = (facility && choice) ? (FACILITY_NAME[facility] + '・' + CHOICE_NAME[choice]) : '';
+    summaryEls.forEach(function (el) { el.textContent = text; });
   }
 
   function setAfterschoolExtraFields(show) {
