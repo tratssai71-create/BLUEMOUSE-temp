@@ -400,6 +400,11 @@
     <form id="child-form" novalidate>
       <p class="ct-selection-summary"><span class="ct-summary-tag">Selected</span><span class="ct-summary-value"></span></p>
       <div class="ct-form__grid">
+        <div class="ct-field ct-field--full">
+          <label class="ct-label" for="c-child-name">おこさまのお名前<span class="ct-req">*</span></label>
+          <input class="ct-input" id="c-child-name" name="child_name" type="text" placeholder="山田 花子" />
+          <span class="ct-error" id="cerr-child-name">おこさまのお名前を入力してください。</span>
+        </div>
         <div class="ct-field">
           <label class="ct-label" for="c-age">お子さまの年齢<span class="ct-req">*</span></label>
           <select class="ct-select" id="c-age" name="child_age">
@@ -419,11 +424,6 @@
             <option value="女の子">女の子</option>
           </select>
           <span class="ct-error" id="cerr-gender">性別を選択してください。</span>
-        </div>
-        <div class="ct-field ct-field--full">
-          <label class="ct-label" for="c-child-name">おこさまのお名前<span class="ct-req">*</span></label>
-          <input class="ct-input" id="c-child-name" name="child_name" type="text" placeholder="山田 花子" />
-          <span class="ct-error" id="cerr-child-name">おこさまのお名前を入力してください。</span>
         </div>
         <div class="ct-field">
           <label class="ct-label" for="c-email">メールアドレス<span class="ct-req">*</span></label>
