@@ -386,9 +386,8 @@
           <span class="ct-error" id="err-class">在籍している学級を選択してください。</span>
         </div>
         <div class="ct-field ct-field--full">
-          <label class="ct-label" for="f-message">ご質問・ご要望<span class="ct-req">*</span></label>
+          <label class="ct-label" for="f-message">ご質問・ご要望</label>
           <textarea class="ct-textarea" id="f-message" name="message" placeholder="気になること・困っていることをご記入ください"></textarea>
-          <span class="ct-error" id="err-message">ご質問・ご要望を入力してください。</span>
         </div>
       </div>
       <div class="ct-submit">
@@ -437,6 +436,10 @@
           <label class="ct-label" for="c-tel">でんわばんごう<span class="ct-req">*</span></label>
           <input class="ct-input" id="c-tel" name="phone" type="tel" placeholder="000-0000-0000" autocomplete="tel" />
           <span class="ct-error" id="cerr-tel">電話番号を入力してください。</span>
+        </div>
+        <div class="ct-field ct-field--full">
+          <label class="ct-label" for="c-message">ごしつもん・ごようぼう</label>
+          <textarea class="ct-textarea" id="c-message" name="message" placeholder="気になること・困っていることをご記入ください"></textarea>
         </div>
       </div>
       <div class="ct-submit">
@@ -724,9 +727,6 @@
     if (document.getElementById('field-school').style.display !== 'none' && !schoolEl.value.trim()) { showError(schoolEl, 'err-school'); valid = false; } else clearError(schoolEl, 'err-school');
     var classEl = document.getElementById('f-class');
     if (document.getElementById('field-class').style.display !== 'none' && !classEl.value) { showError(classEl, 'err-class'); valid = false; } else clearError(classEl, 'err-class');
-    var messageEl = document.getElementById('f-message');
-    if (!messageEl.value.trim()) { showError(messageEl, 'err-message'); valid = false; } else clearError(messageEl, 'err-message');
-
     if (!facilityEl.value) { showError(facilityEl, 'err-facility'); valid = false; } else clearError(facilityEl, 'err-facility');
     if (!typeEl.value) { showError(typeEl, 'err-type'); valid = false; } else clearError(typeEl, 'err-type');
 
@@ -814,7 +814,8 @@
           email: emailEl.value,
           phone: telEl.value,
           facility: 'LITTLE BLUE MOUSE（児童発達支援事業）',
-          inquiry_type: '体験のご希望'
+          inquiry_type: '体験のご希望',
+          message: document.getElementById('c-message').value
         })
       })
       .then(function(r) { return r.json(); })
