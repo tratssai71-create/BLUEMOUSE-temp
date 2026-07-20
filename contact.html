@@ -300,7 +300,7 @@
       <p class="ct-selection-summary"><span class="ct-summary-tag">Selected</span><span class="ct-summary-value"></span></p>
       <div class="ct-form__grid">
         <div class="ct-field">
-          <label class="ct-label" for="f-name">ほごしゃのお名前<span class="ct-req">*</span></label>
+          <label class="ct-label" for="f-name"><span id="name-label">ほごしゃのお名前</span><span class="ct-req">*</span></label>
           <input class="ct-input" id="f-name" name="name" type="text" placeholder="山田 太郎（保護者）" autocomplete="name" />
           <span class="ct-error" id="err-name">お名前を入力してください。</span>
         </div>
@@ -639,6 +639,7 @@
       showForm('general');
       document.getElementById('facility-select').value = FACILITY_LABEL[state.facility];
       document.getElementById('field-facility').style.display = 'none';
+      document.getElementById('name-label').textContent = state.facility === 'child' ? 'ほごしゃのおなまえ' : 'ほごしゃのお名前';
       document.getElementById('age-label').textContent = state.facility === 'child' ? 'おこさまのねんれい' : 'おこさまの年齢';
       document.getElementById('email-label').textContent = state.facility === 'child' ? 'めーるあどれす' : 'メールアドレス';
 
