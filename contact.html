@@ -305,7 +305,7 @@
           <span class="ct-error" id="err-name">お名前を入力してください。</span>
         </div>
         <div class="ct-field">
-          <label class="ct-label" for="f-age">おこさまの年齢<span class="ct-req">*</span></label>
+          <label class="ct-label" for="f-age"><span id="age-label">おこさまの年齢</span><span class="ct-req">*</span></label>
           <select class="ct-select" id="f-age" name="child_age">
             <option value="">選択してください</option>
             <option>2〜5歳（未就学）</option>
@@ -317,7 +317,7 @@
           <span class="ct-error" id="err-age">年齢を選択してください。</span>
         </div>
         <div class="ct-field">
-          <label class="ct-label" for="f-email">メールアドレス<span class="ct-req">*</span></label>
+          <label class="ct-label" for="f-email"><span id="email-label">メールアドレス</span><span class="ct-req">*</span></label>
           <input class="ct-input" id="f-email" name="email" type="email" placeholder="example@mail.com" autocomplete="email" />
           <span class="ct-error" id="err-email">有効なメールアドレスを入力してください。</span>
         </div>
@@ -639,6 +639,8 @@
       showForm('general');
       document.getElementById('facility-select').value = FACILITY_LABEL[state.facility];
       document.getElementById('field-facility').style.display = 'none';
+      document.getElementById('age-label').textContent = state.facility === 'child' ? 'おこさまのねんれい' : 'おこさまの年齢';
+      document.getElementById('email-label').textContent = state.facility === 'child' ? 'めーるあどれす' : 'メールアドレス';
 
       setAfterschoolExtraFields(state.facility === 'afterschool' && state.choice === 'trial');
     };
