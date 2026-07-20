@@ -370,11 +370,12 @@
           <span class="ct-error" id="err-timing">利用時期の希望を選択してください。</span>
         </div>
         <div class="ct-field ct-field--full" id="field-school" style="display:none;">
-          <label class="ct-label" for="f-school"><span id="school-label">現在通っている園・学校名</span><span style="font-size:11px;color:#aaa;margin-left:4px;">任意</span></label>
+          <label class="ct-label" for="f-school"><span id="school-label">現在通っている園・学校名</span><span class="ct-req">*</span></label>
           <input class="ct-input" id="f-school" name="school_name" type="text" placeholder="○○幼稚園・○○小学校" />
+          <span class="ct-error" id="err-school">園・学校名を入力してください。</span>
         </div>
         <div class="ct-field ct-field--full" id="field-class" style="display:none;">
-          <label class="ct-label" for="f-class">在籍している学級<span style="font-size:11px;color:#aaa;margin-left:4px;">任意</span></label>
+          <label class="ct-label" for="f-class">在籍している学級<span class="ct-req">*</span></label>
           <select class="ct-select" id="f-class" name="class_type">
             <option value="">選択してください</option>
             <option>普通学級</option>
@@ -382,10 +383,12 @@
             <option>特別支援学級</option>
             <option>特別支援学校</option>
           </select>
+          <span class="ct-error" id="err-class">在籍している学級を選択してください。</span>
         </div>
         <div class="ct-field ct-field--full">
-          <label class="ct-label" for="f-message">ご質問・ご要望</label>
+          <label class="ct-label" for="f-message">ご質問・ご要望<span class="ct-req">*</span></label>
           <textarea class="ct-textarea" id="f-message" name="message" placeholder="気になること・困っていることをご記入ください"></textarea>
+          <span class="ct-error" id="err-message">ご質問・ご要望を入力してください。</span>
         </div>
       </div>
       <div class="ct-submit">
@@ -717,12 +720,18 @@
     if (document.getElementById('field-certificate').style.display !== 'none' && !certEl.value) { showError(certEl, 'err-certificate'); valid = false; } else clearError(certEl, 'err-certificate');
     var timingEl = document.getElementById('f-timing');
     if (document.getElementById('field-timing').style.display !== 'none' && !timingEl.value) { showError(timingEl, 'err-timing'); valid = false; } else clearError(timingEl, 'err-timing');
+    var schoolEl = document.getElementById('f-school');
+    if (document.getElementById('field-school').style.display !== 'none' && !schoolEl.value.trim()) { showError(schoolEl, 'err-school'); valid = false; } else clearError(schoolEl, 'err-school');
+    var classEl = document.getElementById('f-class');
+    if (document.getElementById('field-class').style.display !== 'none' && !classEl.value) { showError(classEl, 'err-class'); valid = false; } else clearError(classEl, 'err-class');
+    var messageEl = document.getElementById('f-message');
+    if (!messageEl.value.trim()) { showError(messageEl, 'err-message'); valid = false; } else clearError(messageEl, 'err-message');
 
     if (!facilityEl.value) { showError(facilityEl, 'err-facility'); valid = false; } else clearError(facilityEl, 'err-facility');
     if (!typeEl.value) { showError(typeEl, 'err-type'); valid = false; } else clearError(typeEl, 'err-type');
 
     if (!valid) {
-      var first = document.querySelector('.ct-input.is-error, .ct-select.is-error');
+      var first = document.querySelector('.ct-input.is-error, .ct-select.is-error, .ct-textarea.is-error');
       if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
