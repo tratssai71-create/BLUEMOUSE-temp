@@ -322,7 +322,7 @@
           <span class="ct-error" id="err-email">有効なメールアドレスを入力してください。</span>
         </div>
         <div class="ct-field">
-          <label class="ct-label" for="f-tel">でんわばんごう<span class="ct-req">*</span></label>
+          <label class="ct-label" for="f-tel"><span id="tel-label">でんわばんごう</span><span class="ct-req">*</span></label>
           <input class="ct-input" id="f-tel" name="phone" type="tel" placeholder="000-0000-0000" autocomplete="tel" />
           <span class="ct-error" id="err-tel">電話番号を入力してください。</span>
         </div>
@@ -337,7 +337,7 @@
           <span class="ct-error" id="err-facility">事業所を選択してください。</span>
         </div>
         <div class="ct-field ct-field--full" id="field-certificate" style="display:none;">
-          <label class="ct-label" for="f-certificate">受給者証の有無<span class="ct-req">*</span></label>
+          <label class="ct-label" for="f-certificate">受給者証<span class="ct-req">*</span></label>
           <select class="ct-select" id="f-certificate" name="certificate">
             <option value="">選択してください</option>
             <option>持っている</option>
@@ -347,7 +347,7 @@
           <span class="ct-error" id="err-certificate">受給者証の有無を選択してください。</span>
         </div>
         <div class="ct-field ct-field--full" id="field-timing" style="display:none;">
-          <label class="ct-label" for="f-timing">ごりよう開始希望<span class="ct-req">*</span></label>
+          <label class="ct-label" for="f-timing">ごりよう希望<span class="ct-req">*</span></label>
           <select class="ct-select" id="f-timing" name="start_timing">
             <option value="">選択してください</option>
             <option>今すぐ</option>
@@ -374,7 +374,7 @@
           <span class="ct-error" id="err-class">在籍している学級を選択してください。</span>
         </div>
         <div class="ct-field ct-field--full">
-          <label class="ct-label" for="f-message">ごしつもん</label>
+          <label class="ct-label" for="f-message"><span id="message-label">ごしつもん</span></label>
           <textarea class="ct-textarea" id="f-message" name="message" placeholder="気になること・困っていることをご記入ください"></textarea>
         </div>
       </div>
@@ -596,13 +596,15 @@
       document.getElementById(id).style.display = show ? '' : 'none';
     });
     if (show) {
-      document.getElementById('school-label').textContent = 'かよっている学校';
+      document.getElementById('school-label').textContent = 'ざいせき学校';
       document.getElementById('f-school').placeholder = '○○小学校・○○中学校';
     }
   }
 
   if (urlType === 'afterschool') {
     document.getElementById('facility-select').value = FACILITY_LABEL.afterschool;
+    document.getElementById('tel-label').textContent = 'でんわ番号';
+    document.getElementById('message-label').textContent = 'ご質問';
     setAfterschoolExtraFields(true);
     showForm('general');
     showAccess('afterschool');
@@ -642,6 +644,8 @@
       document.getElementById('name-label').textContent = state.facility === 'child' ? 'ほごしゃのおなまえ' : 'ほごしゃのお名前';
       document.getElementById('age-label').textContent = state.facility === 'child' ? 'おこさまのねんれい' : 'おこさまの年齢';
       document.getElementById('email-label').textContent = state.facility === 'child' ? 'めーるあどれす' : 'メールアドレス';
+      document.getElementById('tel-label').textContent = state.facility === 'child' ? 'でんわばんごう' : 'でんわ番号';
+      document.getElementById('message-label').textContent = state.facility === 'child' ? 'ごしつもん' : 'ご質問';
 
       setAfterschoolExtraFields(state.facility === 'afterschool' && state.choice === 'trial');
     };
