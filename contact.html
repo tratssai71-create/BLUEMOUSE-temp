@@ -300,7 +300,7 @@
       <p class="ct-selection-summary"><span class="ct-summary-tag">Selected</span><span class="ct-summary-value"></span></p>
       <div class="ct-form__grid">
         <div class="ct-field">
-          <label class="ct-label" for="f-name">保護者のお名前<span class="ct-req">*</span></label>
+          <label class="ct-label" for="f-name">ほごしゃのお名前<span class="ct-req">*</span></label>
           <input class="ct-input" id="f-name" name="name" type="text" placeholder="山田 太郎（保護者）" autocomplete="name" />
           <span class="ct-error" id="err-name">お名前を入力してください。</span>
         </div>
@@ -322,7 +322,7 @@
           <span class="ct-error" id="err-email">有効なメールアドレスを入力してください。</span>
         </div>
         <div class="ct-field">
-          <label class="ct-label" for="f-tel">電話番号<span class="ct-req">*</span></label>
+          <label class="ct-label" for="f-tel">でんわばんごう<span class="ct-req">*</span></label>
           <input class="ct-input" id="f-tel" name="phone" type="tel" placeholder="000-0000-0000" autocomplete="tel" />
           <span class="ct-error" id="err-tel">電話番号を入力してください。</span>
         </div>
@@ -347,7 +347,7 @@
           <span class="ct-error" id="err-certificate">受給者証の有無を選択してください。</span>
         </div>
         <div class="ct-field ct-field--full" id="field-timing" style="display:none;">
-          <label class="ct-label" for="f-timing">利用時期の希望<span class="ct-req">*</span></label>
+          <label class="ct-label" for="f-timing">利用したい時期<span class="ct-req">*</span></label>
           <select class="ct-select" id="f-timing" name="start_timing">
             <option value="">選択してください</option>
             <option>今すぐ</option>
@@ -596,7 +596,7 @@
       document.getElementById(id).style.display = show ? '' : 'none';
     });
     if (show) {
-      document.getElementById('school-label').textContent = '現在通っている学校名';
+      document.getElementById('school-label').textContent = '今通っている学校名';
       document.getElementById('f-school').placeholder = '○○小学校・○○中学校';
     }
   }
