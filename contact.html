@@ -336,18 +336,6 @@
           </select>
           <span class="ct-error" id="err-facility">事業所を選択してください。</span>
         </div>
-        <div class="ct-field ct-field--full" id="field-type">
-          <label class="ct-label" for="f-type">お問い合わせ種別<span class="ct-req">*</span></label>
-          <select class="ct-select" id="f-type" name="inquiry_type">
-            <option value="">選択してください</option>
-            <option>体験のご希望</option>
-            <option>事業内容について</option>
-            <option>料金・手続きについて</option>
-            <option>受給者証の取得について</option>
-            <option>その他</option>
-          </select>
-          <span class="ct-error" id="err-type">お問い合わせ種別を選択してください。</span>
-        </div>
         <div class="ct-field ct-field--full" id="field-certificate" style="display:none;">
           <label class="ct-label" for="f-certificate">受給者証の有無<span class="ct-req">*</span></label>
           <select class="ct-select" id="f-certificate" name="certificate">
@@ -614,7 +602,6 @@
   }
 
   if (urlType === 'afterschool') {
-    document.getElementById('f-type').value = '体験のご希望';
     document.getElementById('facility-select').value = FACILITY_LABEL.afterschool;
     setAfterschoolExtraFields(true);
     showForm('general');
@@ -652,14 +639,6 @@
       showForm('general');
       document.getElementById('facility-select').value = FACILITY_LABEL[state.facility];
       document.getElementById('field-facility').style.display = 'none';
-
-      if (state.choice === 'trial') {
-        document.getElementById('f-type').value = '体験のご希望';
-        document.getElementById('field-type').style.display = 'none';
-      } else {
-        document.getElementById('f-type').value = '';
-        document.getElementById('field-type').style.display = '';
-      }
 
       setAfterschoolExtraFields(state.facility === 'afterschool' && state.choice === 'trial');
     };
@@ -699,7 +678,7 @@
   function showError(el, errId) { el.classList.add('is-error'); var e = document.getElementById(errId); if (e) e.classList.add('is-show'); }
   function clearError(el, errId) { el.classList.remove('is-error'); var e = document.getElementById(errId); if (e) e.classList.remove('is-show'); }
 
-  [['f-name','err-name'],['f-age','err-age'],['f-email','err-email'],['f-tel','err-tel'],['facility-select','err-facility'],['f-type','err-type']].forEach(function (pair) {
+  [['f-name','err-name'],['f-age','err-age'],['f-email','err-email'],['f-tel','err-tel'],['facility-select','err-facility']].forEach(function (pair) {
     var el = document.getElementById(pair[0]);
     if (!el) return;
     ['input','change'].forEach(function (ev) { el.addEventListener(ev, function () { clearError(el, pair[1]); }); });
@@ -711,7 +690,6 @@
     var ageEl = document.getElementById('f-age');
     var emailEl = document.getElementById('f-email');
     var facilityEl = document.getElementById('facility-select');
-    var typeEl = document.getElementById('f-type');
     var valid = true;
 
     if (!nameEl.value.trim()) { showError(nameEl, 'err-name'); valid = false; } else clearError(nameEl, 'err-name');
@@ -728,7 +706,6 @@
     var classEl = document.getElementById('f-class');
     if (document.getElementById('field-class').style.display !== 'none' && !classEl.value) { showError(classEl, 'err-class'); valid = false; } else clearError(classEl, 'err-class');
     if (!facilityEl.value) { showError(facilityEl, 'err-facility'); valid = false; } else clearError(facilityEl, 'err-facility');
-    if (!typeEl.value) { showError(typeEl, 'err-type'); valid = false; } else clearError(typeEl, 'err-type');
 
     if (!valid) {
       var first = document.querySelector('.ct-input.is-error, .ct-select.is-error, .ct-textarea.is-error');
@@ -752,7 +729,6 @@
         child_age: ageEl.value,
         phone: document.getElementById('f-tel').value,
         facility: facilityEl.value,
-        inquiry_type: typeEl.value,
         message: document.getElementById('f-message').value
       })
     })
