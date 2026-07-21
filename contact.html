@@ -631,6 +631,7 @@
 
   if (urlType === 'afterschool') {
     document.getElementById('facility-select').value = FACILITY_LABEL.afterschool;
+    document.getElementById('field-facility').style.display = 'none';
     setAfterschoolExtraFields(true);
     showForm('general');
     showAccess('afterschool');
