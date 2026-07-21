@@ -416,7 +416,7 @@
       </div>
       <div class="ct-submit">
         <button class="ct-btn" id="submit-btn" type="submit">送信する ›</button>
-        <p class="ct-privacy">送信いただいた情報は、お問い合わせ対応のために適切に管理し、使用します。<br><a href="./privacy.html" target="_blank">プライバシーポリシー</a>をご確認の上、送信してください。</p>
+        <p class="ct-privacy"><span id="privacy-note">送信いただいた情報は、お問い合わせ対応のために適切に管理し、使用します。</span><br><a href="./privacy.html" target="_blank">プライバシーポリシー</a>をご確認の上、送信してください。</p>
       </div>
     </form>
   </div>
@@ -634,6 +634,9 @@
     if (show) {
       document.getElementById('school-label').textContent = '現在通っている学校名';
       document.getElementById('f-school').placeholder = '○○小学校・○○中学校';
+      document.getElementById('privacy-note').textContent = '診断名など配慮が必要な情報も含め、いただいた内容は責任を持って大切に管理いたします。';
+    } else {
+      document.getElementById('privacy-note').textContent = '送信いただいた情報は、お問い合わせ対応のために適切に管理し、使用します。';
     }
   }
 
