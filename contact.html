@@ -128,11 +128,13 @@
     .ct-summary-tag.is-recruit { color:#8a7a6e; }
     .ct-summary-value { font-size:15px; color:var(--ink); font-weight:700; }
     .ct-form__grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:18px; }
-    .ct-field { display:flex; flex-direction:column; gap:5px; }
+    .ct-field { display:flex; flex-direction:column; gap:5px; min-width:0; }
     .ct-field--full { grid-column:1 / -1; }
     .ct-label { font-size:13px; font-weight:500; color:#6b5a4c; }
     .ct-req { color:var(--coral); margin-left:2px; font-size:11px; }
     .ct-input, .ct-select, .ct-textarea {
+      width:100%;
+      min-width:0;
       border:1.5px solid rgba(0,0,0,.1);
       border-radius:10px;
       padding:10px 14px;
