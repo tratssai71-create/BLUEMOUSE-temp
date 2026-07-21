@@ -336,6 +336,25 @@
           </select>
           <span class="ct-error" id="err-facility">事業所を選択してください。</span>
         </div>
+        <div class="ct-field" id="field-child-name" style="display:none;">
+          <label class="ct-label" for="f-child-name">おこさまのお名前<span class="ct-req">*</span></label>
+          <input class="ct-input" id="f-child-name" name="child_name" type="text" placeholder="山田 花子" />
+          <span class="ct-error" id="err-child-name">お子さまのお名前を入力してください。</span>
+        </div>
+        <div class="ct-field" id="field-gender" style="display:none;">
+          <label class="ct-label" for="f-gender">性別<span class="ct-req">*</span></label>
+          <select class="ct-select" id="f-gender" name="gender">
+            <option value="">選択してください</option>
+            <option>男の子</option>
+            <option>女の子</option>
+          </select>
+          <span class="ct-error" id="err-gender">性別を選択してください。</span>
+        </div>
+        <div class="ct-field ct-field--full" id="field-diagnosis" style="display:none;">
+          <label class="ct-label" for="f-diagnosis">診断名<span class="ct-req">*</span></label>
+          <input class="ct-input" id="f-diagnosis" name="diagnosis" type="text" placeholder="例：自閉スペクトラム症、ADHD等" />
+          <span class="ct-error" id="err-diagnosis">診断名を入力してください。</span>
+        </div>
         <div class="ct-field ct-field--full" id="field-certificate" style="display:none;">
           <label class="ct-label" for="f-certificate">受給者証の有無<span class="ct-req">*</span></label>
           <select class="ct-select" id="f-certificate" name="certificate">
@@ -372,6 +391,15 @@
             <option>特別支援学校</option>
           </select>
           <span class="ct-error" id="err-class">在籍している学級を選択してください。</span>
+        </div>
+        <div class="ct-field ct-field--full" id="field-concurrent" style="display:none;">
+          <label class="ct-label" for="f-concurrent">他事業所の利用状況（併用）<span class="ct-req">*</span></label>
+          <select class="ct-select" id="f-concurrent" name="concurrent_use">
+            <option value="">選択してください</option>
+            <option>他の事業所を利用している</option>
+            <option>利用していない</option>
+          </select>
+          <span class="ct-error" id="err-concurrent">他事業所の利用状況を選択してください。</span>
         </div>
         <div class="ct-field ct-field--full">
           <label class="ct-label" for="f-message">ご質問</label>
@@ -592,7 +620,7 @@
   }
 
   function setAfterschoolExtraFields(show) {
-    ['field-certificate', 'field-timing', 'field-school', 'field-class'].forEach(function (id) {
+    ['field-child-name', 'field-gender', 'field-diagnosis', 'field-certificate', 'field-timing', 'field-school', 'field-class', 'field-concurrent'].forEach(function (id) {
       document.getElementById(id).style.display = show ? '' : 'none';
     });
     if (show) {
@@ -679,7 +707,7 @@
   function showError(el, errId) { el.classList.add('is-error'); var e = document.getElementById(errId); if (e) e.classList.add('is-show'); }
   function clearError(el, errId) { el.classList.remove('is-error'); var e = document.getElementById(errId); if (e) e.classList.remove('is-show'); }
 
-  [['f-name','err-name'],['f-age','err-age'],['f-email','err-email'],['f-tel','err-tel'],['facility-select','err-facility']].forEach(function (pair) {
+  [['f-name','err-name'],['f-age','err-age'],['f-email','err-email'],['f-tel','err-tel'],['facility-select','err-facility'],['f-child-name','err-child-name'],['f-gender','err-gender'],['f-diagnosis','err-diagnosis'],['f-concurrent','err-concurrent']].forEach(function (pair) {
     var el = document.getElementById(pair[0]);
     if (!el) return;
     ['input','change'].forEach(function (ev) { el.addEventListener(ev, function () { clearError(el, pair[1]); }); });
@@ -698,6 +726,12 @@
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value)) { showError(emailEl, 'err-email'); valid = false; } else clearError(emailEl, 'err-email');
     var telEl = document.getElementById('f-tel');
     if (!telEl.value.trim()) { showError(telEl, 'err-tel'); valid = false; } else clearError(telEl, 'err-tel');
+    var childNameEl = document.getElementById('f-child-name');
+    if (document.getElementById('field-child-name').style.display !== 'none' && !childNameEl.value.trim()) { showError(childNameEl, 'err-child-name'); valid = false; } else clearError(childNameEl, 'err-child-name');
+    var genderEl = document.getElementById('f-gender');
+    if (document.getElementById('field-gender').style.display !== 'none' && !genderEl.value) { showError(genderEl, 'err-gender'); valid = false; } else clearError(genderEl, 'err-gender');
+    var diagnosisEl = document.getElementById('f-diagnosis');
+    if (document.getElementById('field-diagnosis').style.display !== 'none' && !diagnosisEl.value.trim()) { showError(diagnosisEl, 'err-diagnosis'); valid = false; } else clearError(diagnosisEl, 'err-diagnosis');
     var certEl = document.getElementById('f-certificate');
     if (document.getElementById('field-certificate').style.display !== 'none' && !certEl.value) { showError(certEl, 'err-certificate'); valid = false; } else clearError(certEl, 'err-certificate');
     var timingEl = document.getElementById('f-timing');
@@ -706,6 +740,8 @@
     if (document.getElementById('field-school').style.display !== 'none' && !schoolEl.value.trim()) { showError(schoolEl, 'err-school'); valid = false; } else clearError(schoolEl, 'err-school');
     var classEl = document.getElementById('f-class');
     if (document.getElementById('field-class').style.display !== 'none' && !classEl.value) { showError(classEl, 'err-class'); valid = false; } else clearError(classEl, 'err-class');
+    var concurrentEl = document.getElementById('f-concurrent');
+    if (document.getElementById('field-concurrent').style.display !== 'none' && !concurrentEl.value) { showError(concurrentEl, 'err-concurrent'); valid = false; } else clearError(concurrentEl, 'err-concurrent');
     if (!facilityEl.value) { showError(facilityEl, 'err-facility'); valid = false; } else clearError(facilityEl, 'err-facility');
 
     if (!valid) {
@@ -727,9 +763,13 @@
         from_name: 'BLUE MOUSE お問い合わせフォーム',
         name: nameEl.value,
         email: emailEl.value,
+        child_name: childNameEl.value,
         child_age: ageEl.value,
+        gender: genderEl.value,
+        diagnosis: diagnosisEl.value,
         phone: document.getElementById('f-tel').value,
         facility: facilityEl.value,
+        concurrent_use: concurrentEl.value,
         message: document.getElementById('f-message').value
       })
     })
