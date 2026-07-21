@@ -333,7 +333,7 @@
         <div class="ct-field" id="field-child-name" style="display:none;">
           <label class="ct-label" for="f-child-name">おこさまのお名前<span class="ct-req">*</span></label>
           <input class="ct-input" id="f-child-name" name="child_name" type="text" placeholder="山田 花子" />
-          <span class="ct-error" id="err-child-name">お子さまのお名前を入力してください。</span>
+          <span class="ct-error" id="err-child-name">おこさまのお名前を入力してください。</span>
         </div>
         <div class="ct-field">
           <label class="ct-label" for="f-age"><span id="age-label">おこさまの年齢</span><span class="ct-req">*</span></label>
@@ -359,6 +359,7 @@
         <div class="ct-field ct-field--full" id="field-diagnosis" style="display:none;">
           <label class="ct-label" for="f-diagnosis">診断名<span class="ct-req">*</span></label>
           <input class="ct-input" id="f-diagnosis" name="diagnosis" type="text" placeholder="例：自閉スペクトラム症、ADHD等" />
+          <p style="font-size:11px;color:#a89583;margin-top:2px;">未診断・相談中の場合は、その旨をご記入ください。</p>
           <span class="ct-error" id="err-diagnosis">診断名を入力してください。</span>
         </div>
         <div class="ct-section-label is-divider" id="section-institutional" style="display:none;">ご利用にあたって</div>
@@ -783,7 +784,10 @@
     })
     .then(function (r) { return r.json(); })
     .then(function (j) {
-      if (j.success) { window.location.href = './thanks.html'; }
+      if (j.success) {
+        var isAfterschoolTrial = document.getElementById('field-certificate').style.display !== 'none';
+        window.location.href = isAfterschoolTrial ? './thanks.html?type=screening' : './thanks.html';
+      }
       else { throw new Error(j.message || 'error'); }
     })
     .catch(function () {

@@ -42,10 +42,16 @@
 <div class="thanks">
   <div class="thanks__card">
     <h1 class="thanks__title">お問い合わせ<br>ありがとうございます。</h1>
-    <p class="thanks__body">内容を確認のうえ、担当者よりご連絡いたします。<br>通常2〜3営業日以内にご返信いたしますので、<br>しばらくお待ちください。</p>
+    <p class="thanks__body" id="thanks-body">内容を確認のうえ、担当者よりご連絡いたします。<br>通常2〜3営業日以内にご返信いたしますので、<br>しばらくお待ちください。</p>
     <a href="./index.html" class="thanks__btn">トップに戻る ›</a>
   </div>
 </div>
+
+<script>
+  if (new URLSearchParams(window.location.search).get('type') === 'screening') {
+    document.getElementById('thanks-body').innerHTML = 'ご記入いただいた内容を確認のうえ、体験のご案内可否も含めて<br>担当者よりご連絡いたします。<br>通常2〜3営業日以内にご返信いたしますので、<br>しばらくお待ちください。';
+  }
+</script>
 
 <div class="pg-footer">© BLUE MOUSE All Rights Reserved.</div>
 
