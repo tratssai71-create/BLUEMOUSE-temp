@@ -300,7 +300,7 @@
       <p class="ct-selection-summary"><span class="ct-summary-tag">Selected</span><span class="ct-summary-value"></span></p>
       <div class="ct-form__grid">
         <div class="ct-field">
-          <label class="ct-label" for="f-name"><span id="name-label">ほごしゃのお名前</span><span class="ct-req">*</span></label>
+          <label class="ct-label" for="f-name">保護者のお名前<span class="ct-req">*</span></label>
           <input class="ct-input" id="f-name" name="name" type="text" placeholder="山田 太郎（保護者）" autocomplete="name" />
           <span class="ct-error" id="err-name">お名前を入力してください。</span>
         </div>
@@ -317,12 +317,12 @@
           <span class="ct-error" id="err-age">年齢を選択してください。</span>
         </div>
         <div class="ct-field">
-          <label class="ct-label" for="f-email"><span id="email-label">メールアドレス</span><span class="ct-req">*</span></label>
+          <label class="ct-label" for="f-email">メールアドレス<span class="ct-req">*</span></label>
           <input class="ct-input" id="f-email" name="email" type="email" placeholder="example@mail.com" autocomplete="email" />
           <span class="ct-error" id="err-email">有効なメールアドレスを入力してください。</span>
         </div>
         <div class="ct-field">
-          <label class="ct-label" for="f-tel"><span id="tel-label">でんわばんごう</span><span class="ct-req">*</span></label>
+          <label class="ct-label" for="f-tel">電話番号<span class="ct-req">*</span></label>
           <input class="ct-input" id="f-tel" name="phone" type="tel" placeholder="000-0000-0000" autocomplete="tel" />
           <span class="ct-error" id="err-tel">電話番号を入力してください。</span>
         </div>
@@ -374,7 +374,7 @@
           <span class="ct-error" id="err-class">在籍している学級を選択してください。</span>
         </div>
         <div class="ct-field ct-field--full">
-          <label class="ct-label" for="f-message"><span id="message-label">ごしつもん</span></label>
+          <label class="ct-label" for="f-message">ご質問</label>
           <textarea class="ct-textarea" id="f-message" name="message" placeholder="気になること・困っていることをご記入ください"></textarea>
         </div>
       </div>
@@ -407,7 +407,7 @@
           <span class="ct-error" id="cerr-age">年齢を選択してください。</span>
         </div>
         <div class="ct-field">
-          <label class="ct-label" for="c-gender">せいべつ<span class="ct-req">*</span></label>
+          <label class="ct-label" for="c-gender">性別<span class="ct-req">*</span></label>
           <select class="ct-select" id="c-gender" name="gender">
             <option value="">選択してください</option>
             <option value="男の子">男の子</option>
@@ -416,17 +416,17 @@
           <span class="ct-error" id="cerr-gender">性別を選択してください。</span>
         </div>
         <div class="ct-field">
-          <label class="ct-label" for="c-email">めーるあどれす<span class="ct-req">*</span></label>
+          <label class="ct-label" for="c-email">メールアドレス<span class="ct-req">*</span></label>
           <input class="ct-input" id="c-email" name="email" type="email" placeholder="example@mail.com" autocomplete="email" />
           <span class="ct-error" id="cerr-email">有効なメールアドレスを入力してください。</span>
         </div>
         <div class="ct-field">
-          <label class="ct-label" for="c-tel">でんわばんごう<span class="ct-req">*</span></label>
+          <label class="ct-label" for="c-tel">電話番号<span class="ct-req">*</span></label>
           <input class="ct-input" id="c-tel" name="phone" type="tel" placeholder="000-0000-0000" autocomplete="tel" />
           <span class="ct-error" id="cerr-tel">電話番号を入力してください。</span>
         </div>
         <div class="ct-field ct-field--full">
-          <label class="ct-label" for="c-message">ごしつもん</label>
+          <label class="ct-label" for="c-message">ご質問</label>
           <textarea class="ct-textarea" id="c-message" name="message" placeholder="気になること・困っていることをご記入ください"></textarea>
         </div>
       </div>
@@ -603,8 +603,6 @@
 
   if (urlType === 'afterschool') {
     document.getElementById('facility-select').value = FACILITY_LABEL.afterschool;
-    document.getElementById('tel-label').textContent = 'でんわ番号';
-    document.getElementById('message-label').textContent = 'ご質問';
     setAfterschoolExtraFields(true);
     showForm('general');
     showAccess('afterschool');
@@ -641,11 +639,7 @@
       showForm('general');
       document.getElementById('facility-select').value = FACILITY_LABEL[state.facility];
       document.getElementById('field-facility').style.display = 'none';
-      document.getElementById('name-label').textContent = state.facility === 'child' ? 'ほごしゃのおなまえ' : 'ほごしゃのお名前';
       document.getElementById('age-label').textContent = state.facility === 'child' ? 'おこさまのねんれい' : 'おこさまの年齢';
-      document.getElementById('email-label').textContent = state.facility === 'child' ? 'めーるあどれす' : 'メールアドレス';
-      document.getElementById('tel-label').textContent = state.facility === 'child' ? 'でんわばんごう' : 'でんわ番号';
-      document.getElementById('message-label').textContent = state.facility === 'child' ? 'ごしつもん' : 'ご質問';
 
       setAfterschoolExtraFields(state.facility === 'afterschool' && state.choice === 'trial');
     };
