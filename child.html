@@ -73,6 +73,12 @@
     /* Content */
     .pg-content { max-width:820px; margin:0 auto; padding:48px 32px 80px; }
 
+    /* Campaign banner */
+    .pg-campaign-banner { display:flex; align-items:center; justify-content:space-between; gap:12px; background:var(--yellow-light); border:1px solid rgba(0,0,0,.05); border-radius:14px; padding:16px 22px; margin-bottom:40px; font-size:13.5px; color:var(--ink); line-height:1.6; transition:transform .2s, box-shadow .2s; }
+    .pg-campaign-banner:hover { transform:translateY(-1px); box-shadow:0 6px 18px rgba(0,0,0,.06); }
+    .pg-campaign-banner strong { font-weight:700; }
+    .pg-campaign-banner__arrow { flex-shrink:0; font-size:12.5px; font-weight:700; color:var(--teal); white-space:nowrap; }
+
     /* Intro */
     .pg-intro { margin-bottom:48px; }
     .pg-intro__lead { font-size:clamp(1.2rem,2.2vw,1.6rem); font-weight:700; color:var(--ink); line-height:1.5; margin-bottom:16px; }
@@ -146,6 +152,7 @@
       .mobile-nav { top:56px; }
       .pg-page-header { padding:80px 20px 32px; }
       .pg-content { padding:32px 20px 60px; }
+      .pg-campaign-banner { flex-direction:column; align-items:flex-start; gap:8px; }
       .pg-feat { grid-template-columns:1fr; }
       .pg-feat:nth-child(even) .pg-feat__img { order:1; }
       .pg-feat:nth-child(even) .pg-feat__text { order:2; }
@@ -194,6 +201,11 @@
 
 <!-- Content -->
 <div class="pg-content">
+
+  <a href="./tatsumi.html" class="pg-campaign-banner fade-in">
+    <span><strong>9月末まで限定</strong>：辰巳教室で子育て相談を受付中です</span>
+    <span class="pg-campaign-banner__arrow">詳しく見る ›</span>
+  </a>
 
   <div class="pg-intro fade-in">
     <p class="pg-intro__lead">小学校へ上がるまでに育てたい、<br><em>一生モノの折れない心</em>を。</p>
