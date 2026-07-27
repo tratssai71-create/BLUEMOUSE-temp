@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#FFFEFB" />
+  <title>子育て相談会｜LITTLE BLUE MOUSE 辰巳教室（岡山市北区）</title>
+  <meta name="description" content="岡山市北区辰巳のLITTLE BLUE MOUSE（児童発達支援）。おうちでの関わり方や園への伝え方にお悩みの保護者の方へ、お子さまの「トリセツ」を一緒に考える子育て相談を受け付けています。" />
+  <link rel="canonical" href="https://www.blue-mouse.net/tatsumi.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.blue-mouse.net/tatsumi.html" />
+  <meta property="og:title" content="子育て相談会｜LITTLE BLUE MOUSE 辰巳教室" />
+  <meta property="og:description" content="おうちでの関わり方や園への伝え方にお悩みの保護者の方へ、お子さまの「トリセツ」を一緒に考える子育て相談を受け付けています。" />
+  <meta property="og:image" content="https://www.blue-mouse.net/2.webp" />
+  <meta property="og:site_name" content="BLUE MOUSE" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="子育て相談会｜LITTLE BLUE MOUSE 辰巳教室" />
+  <meta name="twitter:description" content="おうちでの関わり方や園への伝え方にお悩みの保護者の方へ、お子さまの「トリセツ」を一緒に考える子育て相談を受け付けています。" />
+  <meta name="twitter:image" content="https://www.blue-mouse.net/2.webp" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: "Zen Maru Gothic", sans-serif; background: #FFFEFB; color: #33251a; line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+    :root { --coral:#f2906c; --coral-light:#fdf0eb; --yellow:#f5d24a; --yellow-dark:#d9a520; --yellow-light:#fef9e7; --ink:#33251a; --bg:#faf8f5; --cream:#fffdf7; }
+
+    /* Header (reused from child.html) */
+    .header { position: fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 32px; height:60px; background: transparent; backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid rgba(0,0,0,.05); }
+    .header__logo img { height:32px; width:auto; }
+    .header__nav { display:flex; align-items:center; gap:28px; }
+    .header__link { font-size:13px; font-weight:500; letter-spacing:.06em; color:#8a7a6e; transition:color .2s; }
+    .header__link:hover { color:var(--yellow-dark); }
+    .header__cta { display:inline-flex; align-items:center; padding:8px 20px; background:var(--coral); color:#fff; font-size:13px; font-weight:600; border-radius:100px; transition:background .2s; cursor:pointer; }
+    .header__cta:hover { background:#e87e59; }
+    .header__cta-wrap { position:relative; }
+    .header__cta-drop { display:none; position:absolute; top:100%; right:0; background:transparent; padding-top:10px; min-width:210px; z-index:200; flex-direction:column; gap:2px; }
+    .header__cta-drop::before { content:''; position:absolute; top:10px; left:0; right:0; bottom:0; background:#fff; border-radius:14px; box-shadow:0 8px 32px rgba(0,0,0,.12); z-index:-1; }
+    .header__cta-wrap:hover .header__cta-drop { display:flex; }
+    .header__cta-drop a { padding:10px 14px; font-size:13px; font-weight:600; border-radius:8px; color:var(--ink); white-space:nowrap; transition:background .15s; }
+    .header__cta-drop a:nth-child(1):hover { background:var(--coral-light); color:var(--coral); }
+    .header__cta-drop a:nth-child(2):hover { background:var(--yellow-light); color:var(--yellow-dark); }
+    .header__cta-drop a:nth-child(3):hover { background:#e8f0ee; color:#3a6b5e; }
+    .header__burger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:8px; }
+    .header__burger span { display:block; width:20px; height:1.5px; background:var(--ink); border-radius:2px; transition:transform .3s, opacity .3s; }
+    .header__burger.is-open span:nth-child(1) { transform:translateY(6.5px) rotate(45deg); }
+    .header__burger.is-open span:nth-child(2) { opacity:0; }
+    .header__burger.is-open span:nth-child(3) { transform:translateY(-6.5px) rotate(-45deg); }
+    .mobile-nav { display:none; position:fixed; top:60px; left:0; right:0; bottom:0; background:rgba(255,254,251,.98); backdrop-filter:blur(16px); z-index:200; flex-direction:column; align-items:center; justify-content:center; gap:24px; }
+    .mobile-nav.is-open { display:flex; }
+    .mobile-nav a { font-size:17px; color:#8a7a6e; letter-spacing:.08em; }
+    .mn-insta { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1.5px solid rgba(0,0,0,.15); border-radius: 12px; color: var(--ink); margin-top: 8px; }
+    .mn-insta:hover { border-color: var(--yellow-dark); color: var(--yellow-dark); }
+
+    /* Landing page content */
+    .lp-page { max-width:640px; margin:0 auto; padding:104px 24px 64px; }
+    .lp-hero { text-align:center; margin-bottom:40px; }
+    .lp-badge { display:inline-block; background:var(--yellow); color:var(--ink); font-size:12px; font-weight:700; letter-spacing:.05em; padding:6px 16px; border-radius:100px; margin-bottom:14px; }
+    .lp-facility-label { font-family:"Inter",sans-serif; font-size:11px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--yellow-dark); margin-bottom:12px; }
+    .lp-hero__title { font-size:clamp(1.5rem,4vw,2rem); font-weight:700; color:var(--ink); line-height:1.5; margin-bottom:12px; }
+    .lp-hero__sub { font-size:15px; color:#6b5a4c; }
+
+    .lp-problem { background:var(--bg); border-radius:20px; padding:32px 28px; margin-bottom:32px; }
+    .lp-problem__title { font-size:17px; font-weight:700; color:var(--ink); line-height:1.6; margin-bottom:20px; }
+    .lp-problem__list { list-style:none; display:flex; flex-direction:column; gap:12px; margin-bottom:24px; }
+    .lp-problem__list li { display:flex; align-items:flex-start; gap:10px; font-size:14.5px; color:#6b5a4c; line-height:1.7; }
+    .lp-problem__list li::before { content:''; flex-shrink:0; width:6px; height:6px; border-radius:50%; background:var(--yellow-dark); margin-top:9px; }
+    .lp-problem__reframe { font-size:14.5px; color:var(--ink); line-height:1.9; padding-top:20px; border-top:1px solid rgba(0,0,0,.06); }
+
+    .lp-info { margin-bottom:32px; }
+    .lp-info__title { font-size:15px; font-weight:700; color:var(--ink); margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+    .lp-info__title::before { content:''; width:3px; height:16px; background:var(--yellow); border-radius:2px; }
+    .lp-info__card { background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:16px; padding:6px 20px; }
+    .lp-info__row { display:flex; align-items:center; gap:14px; padding:14px 0; }
+    .lp-info__row + .lp-info__row { border-top:1px solid rgba(0,0,0,.05); }
+    .lp-info__icon { flex-shrink:0; display:flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:50%; background:var(--yellow-light); color:var(--yellow-dark); }
+    .lp-info__label { font-size:11px; color:#a89583; margin-bottom:2px; }
+    .lp-info__value { font-size:14.5px; color:var(--ink); font-weight:500; line-height:1.6; }
+    .lp-info__value a { color:var(--ink); }
+
+    .lp-form { background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:20px; padding:32px 28px; margin-bottom:28px; }
+    .lp-form__title { font-size:17px; font-weight:700; color:var(--ink); margin-bottom:6px; text-align:center; }
+    .lp-form__sub { font-size:13px; color:#8a7a6e; text-align:center; margin-bottom:24px; }
+    .lp-field { margin-bottom:18px; }
+    .lp-label { display:block; font-size:13px; font-weight:500; color:#6b5a4c; margin-bottom:6px; }
+    .lp-req { color:var(--coral); margin-left:2px; font-size:11px; }
+    .lp-opt { color:#aaa; margin-left:4px; font-size:11px; }
+    .lp-input, .lp-textarea { width:100%; min-width:0; border:1.5px solid rgba(0,0,0,.1); border-radius:10px; padding:11px 14px; font-size:16px; font-family:inherit; background:var(--bg); color:var(--ink); outline:none; transition:border-color .2s, background .2s; }
+    .lp-input:focus, .lp-textarea:focus { border-color:var(--yellow-dark); background:#fff; }
+    .lp-textarea { resize:vertical; min-height:90px; }
+    .lp-contact-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .lp-error { display:none; font-size:12px; color:#d94f4f; margin-top:5px; }
+    .lp-error.is-show { display:block; }
+    .lp-input.is-error, .lp-textarea.is-error { border-color:#d94f4f; background:#fff8f8; }
+    .lp-submit { display:block; width:100%; padding:14px; background:var(--coral); color:#fff; font-size:15px; font-weight:700; border:none; border-radius:100px; cursor:pointer; transition:transform .2s, box-shadow .2s, opacity .2s; margin-top:6px; }
+    .lp-submit:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(242,144,108,.3); }
+    .lp-submit:disabled { opacity:.6; cursor:default; transform:none; box-shadow:none; }
+    .lp-submit-note { text-align:center; font-size:12px; color:#a89583; margin-top:12px; }
+
+    .lp-thanks { display:none; text-align:center; padding:24px 4px; }
+    .lp-thanks.is-show { display:block; }
+    .lp-thanks__title { font-size:18px; font-weight:700; color:var(--ink); margin-bottom:10px; }
+    .lp-thanks__body { font-size:14px; color:#6b5a4c; line-height:1.9; }
+
+    .lp-bottom { text-align:center; padding-top:8px; }
+    .lp-bottom a { font-size:13px; color:#8a7a6e; border-bottom:1px solid rgba(0,0,0,.15); padding-bottom:2px; }
+    .lp-bottom a:hover { color:var(--yellow-dark); border-color:var(--yellow-dark); }
+
+    /* Footer (reused from child.html) */
+    .footer { background: #1e2a2c; color: #aaa; padding: 44px 32px 20px; }
+    .footer__inner { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1.2fr; gap: 32px; padding-bottom: 28px; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .footer__logo img { width: 120px; margin-bottom: 12px; }
+    .footer__tagline { font-size: 13px; color: #7a8a8c; line-height: 1.9; }
+    .footer__insta { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; font-size: 13px; color: #7a8a8c; transition: color .2s; }
+    .footer__insta:hover { color: var(--yellow-dark); }
+    .footer__col-title { font-family: "Inter", sans-serif; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--yellow-dark); margin-bottom: 14px; font-weight: 600; }
+    .footer__nav { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer__nav a { font-size: 13px; color: #7a8a8c; transition: color .15s; }
+    .footer__nav a:hover { color: var(--yellow-dark); }
+    .footer__fac-name { font-size: 13px; font-weight: 500; color: #ccc; margin-bottom: 2px; }
+    .footer__fac-info { font-size: 12px; color: #6a7a7c; line-height: 1.8; }
+    .footer__fac + .footer__fac { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.06); }
+    .footer__bottom { max-width: 1000px; margin: 0 auto; text-align: center; padding-top: 16px; font-family: "Inter", sans-serif; font-size: 11px; color: #5a6a6c; }
+
+    .js-ready .fade-in { opacity:0; transform:translateY(20px); transition:opacity .6s ease, transform .6s cubic-bezier(.22,1,.36,1); }
+    .fade-in.is-visible { opacity:1; transform:none; }
+
+    @media (max-width:780px) {
+      .header { padding:0 16px; height:56px; }
+      .header__nav { display:none; }
+      .header__burger { display:flex; }
+      .mobile-nav { top:56px; }
+      .lp-page { padding:84px 18px 56px; }
+      .lp-problem { padding:26px 20px; }
+      .lp-form { padding:26px 20px; }
+      .lp-contact-row { grid-template-columns:1fr; }
+      .footer { padding: 32px 16px 16px; }
+      .footer__inner { grid-template-columns: 1fr; gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <a href="./index.html" class="header__logo"><img src="./logo.png" alt="BLUE MOUSE" /></a>
+  <nav class="header__nav">
+    <a href="./child.html" class="header__link">児童発達支援</a>
+    <a href="./afterschool.html" class="header__link">放課後等デイ</a>
+    <a href="https://bouemouse.studio.site" target="_blank" rel="noopener" class="header__link">採用情報</a>
+    <div class="header__cta-wrap">
+      <span class="header__cta">お問い合わせ ›</span>
+      <div class="header__cta-drop">
+        <a href="./contact.html">お問い合わせ</a>
+        <a href="./contact.html?type=child">児童発達支援 体験</a>
+        <a href="./contact.html?type=afterschool">放課後等デイサービス 体験</a>
+      </div>
+    </div>
+  </nav>
+  <button class="header__burger" id="burger" aria-label="メニュー"><span></span><span></span><span></span></button>
+</header>
+<nav class="mobile-nav" id="mobile-nav">
+  <a href="./index.html" class="mn-link">Front</a>
+  <a href="./philosophy.html" class="mn-link">BLUE MOUSEの想い</a>
+  <a href="./child.html" class="mn-link">児童発達支援</a>
+  <a href="./afterschool.html" class="mn-link">放課後等デイサービス</a>
+  <a href="./recruit.html" class="mn-link">採用情報</a>
+  <a href="./contact.html" class="mn-link" style="color:var(--coral); font-weight:600;">お問い合わせ</a>
+  <a class="mn-insta" href="https://www.instagram.com/blue_mouse_okayama/" target="_blank" rel="noopener" aria-label="Instagram">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>
+  </a>
+</nav>
+
+<div class="lp-page">
+
+  <div class="lp-hero fade-in">
+    <span class="lp-badge">9月末まで限定 子育て相談受付中</span>
+    <p class="lp-facility-label">LITTLE BLUE MOUSE 児童発達支援 辰巳教室</p>
+    <h1 class="lp-hero__title">こどもの「トリセツ」を、<br>一緒につくりませんか？</h1>
+    <p class="lp-hero__sub">おうちでの関わり方も、園への伝え方も。</p>
+  </div>
+
+  <div class="lp-problem fade-in">
+    <h2 class="lp-problem__title">なぜうちのこは、<br>みんなと同じようにできないんだろう？</h2>
+    <ul class="lp-problem__list">
+      <li>保育園での集団活動に入れない。</li>
+      <li>遊びから切り替えるのが苦手。</li>
+      <li>思い通りにならないと気持ちが崩れる。</li>
+    </ul>
+    <p class="lp-problem__reframe">でも、これらの行動には「こどもなりの切実な理由」がかくれています。私たちが大切にしているのは、お子さま自身が「やってみたい」を見つけ、育てていく主体性療育です。</p>
+  </div>
+
+  <div class="lp-info fade-in">
+    <h2 class="lp-info__title">施設情報</h2>
+    <div class="lp-info__card">
+      <div class="lp-info__row">
+        <span class="lp-info__icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+        </span>
+        <span>
+          <span class="lp-info__label">対象年齢</span><br>
+          <span class="lp-info__value">3歳半〜5歳</span>
+        </span>
+      </div>
+      <div class="lp-info__row">
+        <span class="lp-info__icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-7.58 7-12A7 7 0 1 0 5 10c0 4.42 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        </span>
+        <span>
+          <span class="lp-info__label">住所</span><br>
+          <span class="lp-info__value">岡山市北区辰巳26-102 2F</span>
+        </span>
+      </div>
+      <div class="lp-info__row">
+        <span class="lp-info__icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </span>
+        <span>
+          <span class="lp-info__label">お電話</span><br>
+          <span class="lp-info__value"><a href="tel:0862459880">086-245-9880</a></span>
+        </span>
+      </div>
+      <div class="lp-info__row">
+        <span class="lp-info__icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+        </span>
+        <span>
+          <span class="lp-info__label">営業時間</span><br>
+          <span class="lp-info__value">平日 9:30〜18:30／土 9:00〜18:00</span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="lp-form fade-in">
+    <p class="lp-form__title">子育て相談のお申し込み</p>
+    <p class="lp-form__sub">まずはお気軽にご相談ください。</p>
+
+    <form id="tatsumi-form" novalidate>
+      <div class="lp-field">
+        <label class="lp-label" for="t-name">お名前<span class="lp-req">*</span></label>
+        <input class="lp-input" id="t-name" name="name" type="text" placeholder="山田 太郎（保護者）" autocomplete="name" />
+        <span class="lp-error" id="terr-name">お名前を入力してください。</span>
+      </div>
+
+      <div class="lp-field">
+        <div class="lp-contact-row">
+          <div>
+            <label class="lp-label" for="t-tel">電話番号<span class="lp-opt">任意</span></label>
+            <input class="lp-input" id="t-tel" name="phone" type="tel" placeholder="000-0000-0000" autocomplete="tel" />
+          </div>
+          <div>
+            <label class="lp-label" for="t-email">メールアドレス<span class="lp-opt">任意</span></label>
+            <input class="lp-input" id="t-email" name="email" type="email" placeholder="example@mail.com" autocomplete="email" />
+          </div>
+        </div>
+        <span class="lp-error" id="terr-contact">電話番号かメールアドレス、いずれか一方をご入力ください。</span>
+      </div>
+
+      <div class="lp-field">
+        <label class="lp-label" for="t-age">お子さまの年齢<span class="lp-req">*</span></label>
+        <input class="lp-input" id="t-age" name="child_age" type="text" placeholder="例：3歳（年少）" />
+        <span class="lp-error" id="terr-age">お子さまの年齢を入力してください。</span>
+      </div>
+
+      <div class="lp-field">
+        <label class="lp-label" for="t-preference">ご希望の連絡方法・時間帯<span class="lp-opt">任意</span></label>
+        <input class="lp-input" id="t-preference" name="contact_preference" type="text" placeholder="例：夕方以降にお電話で" />
+      </div>
+
+      <div class="lp-field">
+        <label class="lp-label" for="t-concern">気になっていること<span class="lp-opt">任意</span></label>
+        <textarea class="lp-textarea" id="t-concern" name="concern" placeholder="気になっていることがあれば、簡単で構いません"></textarea>
+      </div>
+
+      <input type="hidden" name="utm_source" id="t-utm-source" value="" />
+      <input type="hidden" name="utm_medium" id="t-utm-medium" value="" />
+      <input type="hidden" name="utm_campaign" id="t-utm-campaign" value="" />
+
+      <button class="lp-submit" id="t-submit-btn" type="submit">送信する</button>
+      <p class="lp-submit-note">無理に詳しく書いていただく必要はありません。</p>
+    </form>
+
+    <div class="lp-thanks" id="t-thanks">
+      <p class="lp-thanks__title">ありがとうございます。</p>
+      <p class="lp-thanks__body">内容を確認のうえ、担当者よりご連絡いたします。<br>しばらくお待ちください。</p>
+    </div>
+  </div>
+
+  <div class="lp-bottom fade-in">
+    <a href="https://www.blue-mouse.net/index.html">サービス全体についてはこちら ›</a>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div>
+      <a href="./index.html" class="footer__logo"><img src="./logo.png" alt="BLUE MOUSE" /></a>
+      <p class="footer__tagline">主体性療育からIT療育へ。<br>こどもの10年間を見据えた支援。</p>
+      <a class="footer__insta" href="https://www.instagram.com/blue_mouse_okayama/" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>
+        Instagram
+      </a>
+    </div>
+    <div>
+      <p class="footer__col-title">Pages</p>
+      <ul class="footer__nav">
+        <li><a href="./child.html">児童発達支援事業</a></li>
+        <li><a href="./afterschool.html">放課後等デイサービス</a></li>
+        <li><a href="https://bouemouse.studio.site" target="_blank" rel="noopener">採用情報</a></li>
+        <li><a href="./contact.html">お問い合わせ</a></li>
+        <li><a href="./privacy.html">プライバシーポリシー</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer__col-title">Access</p>
+      <div class="footer__fac">
+        <p class="footer__fac-name">LITTLE BLUE MOUSE（児童発達支援）</p>
+        <p class="footer__fac-info">岡山市北区辰巳26-102 2F</p>
+      </div>
+      <div class="footer__fac">
+        <p class="footer__fac-name">BLUE MOUSE（放課後等デイサービス）</p>
+        <p class="footer__fac-info">岡山市中区徳吉町2丁目11-25</p>
+      </div>
+    </div>
+  </div>
+  <p class="footer__bottom">© BLUE MOUSE All Rights Reserved.</p>
+</footer>
+
+<script>
+(function () {
+  var burger = document.getElementById('burger');
+  var mobileNav = document.getElementById('mobile-nav');
+  burger.addEventListener('click', function () { burger.classList.toggle('is-open'); mobileNav.classList.toggle('is-open'); });
+  document.querySelectorAll('.mn-link').forEach(function (a) { a.addEventListener('click', function () { burger.classList.remove('is-open'); mobileNav.classList.remove('is-open'); }); });
+  document.documentElement.classList.add('js-ready');
+
+  var els = document.querySelectorAll('.fade-in');
+  var obs = new IntersectionObserver(function (entries) { entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); } }); }, { threshold: 0.05 });
+  els.forEach(function (el) { obs.observe(el); });
+  setTimeout(function () { els.forEach(function (el) { if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('is-visible'); }); }, 100);
+  setTimeout(function () { els.forEach(function (el) { el.classList.add('is-visible'); }); }, 2000);
+})();
+</script>
+
+<script>
+(function () {
+  // UTMパラメータをURLから取得し、フォームのhidden inputに保持する
+  var params = new URLSearchParams(window.location.search);
+  ['utm_source', 'utm_medium', 'utm_campaign'].forEach(function (key) {
+    var el = document.getElementById('t-' + key.replace('utm_', 'utm-'));
+    if (el) el.value = params.get(key) || '';
+  });
+
+  function showError(el, errId) { if (el) el.classList.add('is-error'); var e = document.getElementById(errId); if (e) e.classList.add('is-show'); }
+  function clearError(el, errId) { if (el) el.classList.remove('is-error'); var e = document.getElementById(errId); if (e) e.classList.remove('is-show'); }
+
+  var form = document.getElementById('tatsumi-form');
+  var nameEl = document.getElementById('t-name');
+  var telEl = document.getElementById('t-tel');
+  var emailEl = document.getElementById('t-email');
+  var ageEl = document.getElementById('t-age');
+
+  [['t-name','terr-name'],['t-age','terr-age']].forEach(function (pair) {
+    var el = document.getElementById(pair[0]);
+    el.addEventListener('input', function () { clearError(el, pair[1]); });
+  });
+  [telEl, emailEl].forEach(function (el) {
+    el.addEventListener('input', function () {
+      clearError(telEl, 'terr-contact');
+      clearError(emailEl, 'terr-contact');
+    });
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var valid = true;
+
+    if (!nameEl.value.trim()) { showError(nameEl, 'terr-name'); valid = false; } else clearError(nameEl, 'terr-name');
+    if (!ageEl.value.trim()) { showError(ageEl, 'terr-age'); valid = false; } else clearError(ageEl, 'terr-age');
+
+    if (!telEl.value.trim() && !emailEl.value.trim()) {
+      showError(telEl, 'terr-contact'); showError(emailEl, 'terr-contact');
+      valid = false;
+    } else {
+      clearError(telEl, 'terr-contact'); clearError(emailEl, 'terr-contact');
+    }
+
+    if (!valid) {
+      var first = document.querySelector('.lp-input.is-error, .lp-textarea.is-error');
+      if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    var btn = document.getElementById('t-submit-btn');
+    btn.disabled = true;
+    btn.textContent = '送信中…';
+
+    // TODO: FormspreeまたはGetformの実際のエンドポイントに差し替えてください
+    var FORM_ENDPOINT = 'YOUR_FORMSPREE_ENDPOINT';
+
+    fetch(FORM_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        subject: '【BLUE MOUSE】辰巳教室フライヤーからのご相談',
+        name: nameEl.value,
+        phone: telEl.value,
+        email: emailEl.value,
+        child_age: ageEl.value,
+        contact_preference: document.getElementById('t-preference').value,
+        concern: document.getElementById('t-concern').value,
+        utm_source: document.getElementById('t-utm-source').value,
+        utm_medium: document.getElementById('t-utm-medium').value,
+        utm_campaign: document.getElementById('t-utm-campaign').value
+      })
+    })
+    .then(function (r) { return r.json(); })
+    .then(function () {
+      form.style.display = 'none';
+      document.getElementById('t-thanks').classList.add('is-show');
+    })
+    .catch(function () {
+      btn.disabled = false;
+      btn.textContent = '送信する';
+      alert('送信に失敗しました。時間をおいて再度お試しいただくか、お電話にてご連絡ください。');
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
