@@ -549,13 +549,23 @@
       margin-bottom: 24px;
     }
     .cta__btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-    .cta__phone {
+    .cta__phones {
       margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+    }
+    .cta__phone-item {
       font-size: 13px;
       color: #8a7a6e;
     }
-    .cta__phone strong {
-      font-size: 22px;
+    .cta__phone-item a {
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .cta__phone-item strong {
+      font-size: 20px;
       font-weight: 700;
       color: var(--ink);
       letter-spacing: .02em;
@@ -820,7 +830,10 @@
     <h2 class="cta__title">体験・お問い合わせ</h2>
     <p class="cta__sub">お気軽にご相談ください。</p>
     <div class="cta-dock" id="ctaDock"></div>
-    <p class="cta__phone">お電話はこちら<br><strong>086-273-3880</strong></p>
+    <div class="cta__phones">
+      <p class="cta__phone-item">LITTLE BLUE MOUSE（児童発達支援）<br><a href="tel:0862459880"><strong>086-245-9880</strong></a></p>
+      <p class="cta__phone-item">BLUE MOUSE（放課後等デイサービス）<br><a href="tel:0862733880"><strong>086-273-3880</strong></a></p>
+    </div>
   </div>
 </section>
 
