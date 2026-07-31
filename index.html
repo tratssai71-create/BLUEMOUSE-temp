@@ -570,6 +570,21 @@
       color: var(--ink);
       letter-spacing: .02em;
     }
+    .cta__phone-label {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #fff;
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+    .cta__phone-item--teal .cta__phone-label { background: var(--teal); }
+    .cta__phone-item--teal strong { color: var(--teal-dark); }
+    .cta__phone-item--yellow .cta__phone-label { background: var(--yellow); }
+    .cta__phone-item--yellow strong { color: #d9a520; }
 
     /* ===== Footer ===== */
     .footer {
@@ -831,8 +846,8 @@
     <p class="cta__sub">お気軽にご相談ください。</p>
     <div class="cta-dock" id="ctaDock"></div>
     <div class="cta__phones">
-      <p class="cta__phone-item">LITTLE BLUE MOUSE（児童発達支援）<br><a href="tel:0862459880"><strong>086-245-9880</strong></a></p>
-      <p class="cta__phone-item">BLUE MOUSE（放課後等デイサービス）<br><a href="tel:0862733880"><strong>086-273-3880</strong></a></p>
+      <p class="cta__phone-item cta__phone-item--yellow"><span class="cta__phone-label">LITTLE BLUE MOUSE（児童発達支援）</span><br><a href="tel:0862459880"><strong>086-245-9880</strong></a></p>
+      <p class="cta__phone-item cta__phone-item--teal"><span class="cta__phone-label">BLUE MOUSE（放課後等デイサービス）</span><br><a href="tel:0862733880"><strong>086-273-3880</strong></a></p>
     </div>
   </div>
 </section>
