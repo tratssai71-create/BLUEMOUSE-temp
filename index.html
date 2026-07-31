@@ -129,7 +129,7 @@
     .header__burger.is-open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
     .mobile-nav {
-      display: none;
+      display: flex;
       position: fixed;
       top: 60px; left: 0; right: 0; bottom: 0;
       background: rgba(255,254,251,.98);
@@ -139,8 +139,19 @@
       align-items: center;
       justify-content: center;
       gap: 24px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      pointer-events: none;
+      transition: opacity .25s ease, transform .25s ease, visibility 0s linear .25s;
     }
-    .mobile-nav.is-open { display: flex; }
+    .mobile-nav.is-open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      pointer-events: auto;
+      transition: opacity .25s ease, transform .25s ease, visibility 0s linear 0s;
+    }
     .mobile-nav a { font-size: 17px; color: #8a7a6e; letter-spacing: .08em; }
     .mobile-nav a:hover { color: var(--teal); }
     .mn-accordion { width: 100%; text-align: center; }
