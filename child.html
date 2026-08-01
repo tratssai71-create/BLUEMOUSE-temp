@@ -90,8 +90,9 @@
 
     /* Worry section */
     .pg-worry { margin-bottom:48px; }
-    .pg-worry-list { list-style:none; display:flex; flex-wrap:wrap; gap:10px; margin:20px 0 24px; }
-    .pg-worry-list li { background:var(--coral-light); color:var(--ink); font-size:14px; font-weight:600; padding:10px 20px; border-radius:100px; border:1px solid rgba(242,144,108,.2); }
+    .pg-worry-list { list-style:none; display:flex; flex-direction:column; gap:13px; margin:20px 0 24px; }
+    .pg-worry-list li { display:flex; align-items:center; gap:12px; font-size:15px; font-weight:600; color:var(--ink); }
+    .pg-worry-list li::before { content:''; flex-shrink:0; width:7px; height:7px; border-radius:50%; background:var(--coral); }
     .pg-worry__body { font-size:15px; color:#6b5a4c; line-height:2; }
     .pg-worry__body em { font-style:normal; font-weight:700; color:var(--coral); }
     .pg-worry__body strong { font-weight:700; color:var(--teal-dark); }
