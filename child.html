@@ -124,6 +124,31 @@
       .pg-kodawari-media { flex-direction:row; justify-content:flex-start; }
     }
 
+    /* Daily schedule */
+    .pg-schedule { margin-bottom:56px; }
+    .pg-schedule-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:20px; }
+    .pg-schedule-card { background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:16px; padding:24px 22px; }
+    .pg-schedule-card__label { display:inline-block; font-family:"Inter",sans-serif; font-size:12px; font-weight:700; letter-spacing:.1em; color:#fff; background:var(--teal); padding:4px 14px; border-radius:100px; margin-bottom:10px; }
+    .pg-schedule-card__time { font-size:15px; font-weight:700; color:var(--ink); margin-bottom:16px; }
+    .pg-schedule-list { list-style:none; display:flex; flex-direction:column; }
+    .pg-schedule-list li { display:flex; gap:14px; padding:10px 0; border-top:1px solid rgba(0,0,0,.05); font-size:13.5px; }
+    .pg-schedule-list li:first-child { border-top:none; padding-top:0; }
+    .pg-schedule-list__time { flex-shrink:0; width:100px; color:#8a7a6e; font-weight:600; font-family:"Inter",sans-serif; font-size:12.5px; }
+    .pg-schedule-list__desc { color:#6b5a4c; line-height:1.6; }
+
+    @media (max-width:780px) {
+      .pg-schedule-grid { grid-template-columns:1fr; }
+    }
+
+    /* Future benefits */
+    .pg-future { margin-bottom:56px; }
+    .pg-future__intro { font-size:15px; color:#6b5a4c; line-height:2; margin:16px 0 28px; }
+    .pg-future__intro em { font-style:normal; font-weight:700; color:var(--coral); }
+    .pg-future-list { display:flex; flex-direction:column; gap:24px; }
+    .pg-future-item { display:grid; grid-template-columns:44px 1fr; gap:18px; align-items:start; }
+    .pg-future-item__body h3 { font-size:16px; font-weight:700; color:var(--ink); margin-bottom:8px; line-height:1.5; }
+    .pg-future-item__body p { font-size:14px; color:#6b5a4c; line-height:1.9; }
+
     /* Quote */
     .pg-quote { background:var(--bg); border-radius:20px; padding:36px 32px; margin-bottom:56px; text-align:center; border-left:4px solid var(--teal); }
     .pg-quote__text { font-size:clamp(1.1rem,2vw,1.4rem); font-weight:700; color:var(--ink); line-height:1.55; }
@@ -299,8 +324,59 @@
         </div>
         <div class="pg-kodawari-body">
           <h3>むやみに「干渉しない」という支援</h3>
-          <p>大人がすぐに手を出してしまう背景には、「私がした方が早い」「失敗しないで欲しい」という大人の都合が隠れていることが少なくありません。しかし、良かれと思った先回りは、こども自身が「気づき」を得るチャンスを奪ってしまいます。</p>
-          <p>私たちが提供するのは、失敗や困った経験を含めた「生きた学び」を徹底的に保障することです。放置するのではなく、介入のタイミングを緻密に計算してスタンバイし、見守る。この「待つスキル（専門的な観察者）」こそが、私たちの高度な専門性です。</p>
+          <p>私たちは「ここは安全で、大人は自分の味方だ」と思える安心の土台を何より大切にしています。この安心感があるからこそ、失敗を怖がらずに自分の意志で試行錯誤する「生きた学び」が生まれます。</p>
+          <p>放置ではなく、こどもの「自分で選ぶ」を温かく見守り、必要な時だけ手を差し伸べる。この信じて待つ姿勢こそが、私たちの高度な専門性です。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg-schedule fade-in" id="schedule">
+    <h2 class="pg-info__title">具体的な活動と1日の流れ</h2>
+    <div class="pg-schedule-grid">
+      <div class="pg-schedule-card">
+        <p class="pg-schedule-card__label">1部</p>
+        <p class="pg-schedule-card__time">14:00〜15:45</p>
+        <ul class="pg-schedule-list">
+          <li><span class="pg-schedule-list__time">14:00〜14:15</span><span class="pg-schedule-list__desc">来所</span></li>
+          <li><span class="pg-schedule-list__time">14:15〜15:15</span><span class="pg-schedule-list__desc">活動時間（小集団・自由遊び・個別対応・おやつ）</span></li>
+          <li><span class="pg-schedule-list__time">15:15〜15:35</span><span class="pg-schedule-list__desc">片付け・帰る準備</span></li>
+          <li><span class="pg-schedule-list__time">15:35〜15:45</span><span class="pg-schedule-list__desc">降所</span></li>
+        </ul>
+      </div>
+      <div class="pg-schedule-card">
+        <p class="pg-schedule-card__label">2部</p>
+        <p class="pg-schedule-card__time">15:50〜17:35</p>
+        <ul class="pg-schedule-list">
+          <li><span class="pg-schedule-list__time">15:50〜16:05</span><span class="pg-schedule-list__desc">来所</span></li>
+          <li><span class="pg-schedule-list__time">16:05〜17:05</span><span class="pg-schedule-list__desc">活動時間（小集団・自由遊び・個別対応・おやつ）</span></li>
+          <li><span class="pg-schedule-list__time">17:05〜17:25</span><span class="pg-schedule-list__desc">片付け・帰る準備</span></li>
+          <li><span class="pg-schedule-list__time">17:25〜17:35</span><span class="pg-schedule-list__desc">降所</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg-future fade-in" id="future">
+    <h2 class="pg-info__title">療育の先にある未来</h2>
+    <p class="pg-stance__sub">〜「見えない力」が、10年後の基盤になる〜</p>
+    <p class="pg-future__intro">
+      私たちが目指すのは、目先の「文字が書けた」「静かに座れた」といった表面上のスキルだけではありません。<br><br>
+      自分を認められた安心感の中で育つ<em>「自分の気持ちを伝える力（言語化）」</em>や<em>「何度でも試せる折れない心」</em>。この目に見えない「心の根っこ」こそが、将来子どもを守る最大の武器になります。
+    </p>
+    <div class="pg-future-list">
+      <div class="pg-future-item">
+        <div class="pg-kodawari-num pg-kodawari-num--teal">01</div>
+        <div class="pg-future-item__body">
+          <h3>対人トラブルを防ぐ「最大の防御」</h3>
+          <p>自分の気持ちやSOSを正しく言葉で伝えられる力は、小学校やその先の社会で直面する対人トラブルを防ぐ最大の防御になります。</p>
+        </div>
+      </div>
+      <div class="pg-future-item">
+        <div class="pg-kodawari-num pg-kodawari-num--coral">02</div>
+        <div class="pg-future-item__body">
+          <h3>一生折れない「自分基準の自信」</h3>
+          <p>「失敗しても大丈夫」「自分ならなんとかできる」という体験ベースの自信は、誰かと比べられることで崩れることがありません。これが10年後の社会的な自立を支える確かな土台になります。</p>
         </div>
       </div>
     </div>
