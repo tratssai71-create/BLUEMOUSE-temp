@@ -59,18 +59,23 @@
     /* Landing page content */
     .lp-page { max-width:640px; margin:0 auto; padding:40px 24px 64px; }
 
-    /* Photo hero */
+    /* Photo hero (matches the printed flyer's cover for instant recognition) */
     .lp-photo-hero { position:relative; width:100%; height:clamp(460px, 78vh, 680px); overflow:hidden; margin-bottom:40px; }
     .lp-photo-hero__img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 40%; }
-    .lp-photo-hero::before { content:''; position:absolute; inset:0; background:linear-gradient(180deg, rgba(20,16,10,.55) 0%, rgba(20,16,10,0) 24%, rgba(20,16,10,0) 55%, rgba(20,16,10,.75) 100%); z-index:1; }
-    .lp-photo-hero__content { position:absolute; left:0; right:0; bottom:0; z-index:2; padding:0 24px 32px; text-align:center; }
-    .lp-photo-hero .lp-facility-label { color:#ffe9a8; }
-    .lp-photo-hero .lp-hero__title { color:#fff; text-shadow:0 2px 16px rgba(0,0,0,.3); }
-    .lp-photo-hero .lp-hero__sub { color:rgba(255,255,255,.92); }
+    .lp-photo-hero::before { content:''; position:absolute; inset:0; background:linear-gradient(180deg, rgba(20,16,10,.55) 0%, rgba(20,16,10,0) 24%, rgba(20,16,10,0) 55%, rgba(20,16,10,.78) 100%); z-index:1; }
 
-    .lp-badge { display:inline-block; background:var(--yellow); color:var(--ink); font-size:12px; font-weight:700; letter-spacing:.05em; padding:6px 16px; border-radius:100px; margin-bottom:14px; }
+    .lp-hero-badge { position:absolute; top:76px; right:20px; z-index:3; width:clamp(92px,14vw,120px); height:clamp(92px,14vw,120px); border-radius:50%; background:var(--yellow); color:var(--ink); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; line-height:1.25; box-shadow:0 6px 18px rgba(0,0,0,.28); }
+    .lp-hero-badge span { display:block; }
+    .lp-hero-badge__l1, .lp-hero-badge__l2 { font-size:clamp(9.5px,1.7vw,11.5px); font-weight:700; }
+    .lp-hero-badge__l3 { font-size:clamp(15px,2.8vw,19px); font-weight:800; margin-top:3px; }
+
+    .lp-photo-hero__content { position:absolute; left:0; bottom:0; z-index:2; padding:0 24px 32px; max-width:520px; text-align:left; }
+    .lp-photo-hero .lp-facility-label { color:#ffe9a8; }
+    .lp-photo-hero .lp-hero__title { color:#fff; text-shadow:0 2px 16px rgba(0,0,0,.35); text-align:left; }
+    .lp-photo-hero .lp-hero__sub { color:rgba(255,255,255,.92); text-align:left; }
+
     .lp-facility-label { font-family:"Inter",sans-serif; font-size:11px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--yellow-dark); margin-bottom:12px; }
-    .lp-hero__title { font-size:clamp(1.5rem,4vw,2rem); font-weight:700; color:var(--ink); line-height:1.5; margin-bottom:12px; }
+    .lp-hero__title { font-size:clamp(1.6rem,5vw,2.3rem); font-weight:700; color:var(--ink); line-height:1.45; margin-bottom:12px; }
     .lp-hero__sub { font-size:15px; color:#6b5a4c; }
 
     .lp-problem { background:var(--bg); border-radius:20px; padding:32px 28px; margin-bottom:32px; }
@@ -186,8 +191,12 @@
 
 <div class="lp-photo-hero">
   <img src="./hero_sunflower.jpg" alt="ひまわり畑を笑顔で走るこども" class="lp-photo-hero__img" />
+  <div class="lp-hero-badge">
+    <span class="lp-hero-badge__l1">9月末まで限定！</span>
+    <span class="lp-hero-badge__l2">子育て相談</span>
+    <span class="lp-hero-badge__l3">受付中</span>
+  </div>
   <div class="lp-photo-hero__content">
-    <span class="lp-badge">9月末まで限定！子育て相談受付中</span>
     <p class="lp-facility-label">LITTLE BLUE MOUSE 児童発達支援 辰巳教室</p>
     <h1 class="lp-hero__title">こどもの「トリセツ」を、<br>一緒につくりませんか？</h1>
     <p class="lp-hero__sub">おうちでの関わり方も、園への伝え方も。</p>
