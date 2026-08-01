@@ -27,7 +27,7 @@
     body { font-family: "Zen Maru Gothic", sans-serif; background: #FFFEFB; color: #33251a; line-height: 1.75; -webkit-font-smoothing: antialiased; }
     a { text-decoration: none; color: inherit; }
     img { display: block; max-width: 100%; }
-    :root { --coral:#f2906c; --coral-light:#fdf0eb; --yellow:#f5d24a; --yellow-dark:#d9a520; --yellow-light:#fef9e7; --ink:#33251a; --bg:#faf8f5; --cream:#fffdf7; }
+    :root { --coral:#f2906c; --coral-light:#fdf0eb; --yellow:#f5d24a; --yellow-dark:#d9a520; --yellow-light:#fef9e7; --ink:#33251a; --bg:#faf8f5; --cream:#fffdf7; --teal:#5fc1c7; }
 
     /* Header (reused from child.html) */
     .header { position: fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 32px; height:60px; background: transparent; backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid rgba(0,0,0,.05); }
@@ -78,12 +78,19 @@
     .lp-hero__title { font-size:clamp(1.6rem,5vw,2.3rem); font-weight:700; color:var(--ink); line-height:1.45; margin-bottom:12px; }
     .lp-hero__sub { font-size:15px; color:#6b5a4c; }
 
+    /* Problem section: speech-bubble callouts, matching the flyer's back page */
     .lp-problem { background:var(--bg); border-radius:20px; padding:32px 28px; margin-bottom:32px; }
-    .lp-problem__title { font-size:17px; font-weight:700; color:var(--ink); line-height:1.6; margin-bottom:20px; }
-    .lp-problem__list { list-style:none; display:flex; flex-direction:column; gap:12px; margin-bottom:24px; }
-    .lp-problem__list li { display:flex; align-items:flex-start; gap:10px; font-size:14.5px; color:#6b5a4c; line-height:1.7; }
-    .lp-problem__list li::before { content:''; flex-shrink:0; width:6px; height:6px; border-radius:50%; background:var(--yellow-dark); margin-top:9px; }
-    .lp-problem__reframe { font-size:14.5px; color:var(--ink); line-height:1.9; padding-top:20px; border-top:1px solid rgba(0,0,0,.06); }
+    .lp-bubble { background:#fff; border-radius:18px; box-shadow:0 4px 18px rgba(0,0,0,.07); }
+    .lp-problem__title-bubble { padding:20px 24px; margin-bottom:20px; }
+    .lp-problem__title { font-size:17px; font-weight:700; color:var(--ink); line-height:1.6; }
+    .lp-problem__list { list-style:none; display:flex; flex-direction:column; align-items:flex-end; gap:10px; margin-bottom:20px; }
+    .lp-problem__list li { padding:10px 20px; font-size:14px; font-weight:500; color:#6b5a4c; line-height:1.6; }
+    .lp-problem__reframe-bubble { padding:22px 24px; }
+    .lp-problem__reframe { font-size:14.5px; color:var(--ink); line-height:1.9; text-align:center; }
+
+    /* Teal statement band, matching the flyer's back page banner */
+    .lp-teal-band { background:var(--teal); border-radius:20px; padding:28px 24px; margin-bottom:32px; text-align:center; }
+    .lp-teal-band p { font-size:clamp(1.05rem,3vw,1.3rem); font-weight:700; color:#fff; line-height:1.6; }
 
     .lp-info { margin-bottom:32px; }
     .lp-info__title { font-size:15px; font-weight:700; color:var(--ink); margin-bottom:14px; display:flex; align-items:center; gap:8px; }
@@ -206,13 +213,21 @@
 <div class="lp-page">
 
   <div class="lp-problem fade-in">
-    <h2 class="lp-problem__title">なぜうちのこは<br>みんなと同じようにできないんだろう？</h2>
+    <div class="lp-bubble lp-problem__title-bubble">
+      <h2 class="lp-problem__title">なぜうちのこは<br>みんなと同じようにできないんだろう？</h2>
+    </div>
     <ul class="lp-problem__list">
-      <li>保育園での集団活動に入れない。</li>
-      <li>遊びから切り替えるのが苦手。</li>
-      <li>思い通りにならないと気持ちが崩れる。</li>
+      <li class="lp-bubble">保育園での集団活動に入れない。</li>
+      <li class="lp-bubble">遊びから切り替えるのが苦手。</li>
+      <li class="lp-bubble">思い通りにならないと気持ちが崩れる。</li>
     </ul>
-    <p class="lp-problem__reframe">でもじつは、これらの行動には「こどもなりの切実な理由」がかくれているんです！<br>私たちが大切にしているのは、お子さま自身が「やってみたい」を見つけ、育てていく主体性療育です。</p>
+    <div class="lp-bubble lp-problem__reframe-bubble">
+      <p class="lp-problem__reframe">でもじつは、これらの行動には「こどもなりの切実な理由」がかくれているんです！<br>私たちが大切にしているのは、お子さま自身が「やってみたい」を見つけ、育てていく主体性療育です。</p>
+    </div>
+  </div>
+
+  <div class="lp-teal-band fade-in">
+    <p>おこさんの「トリセツ」を一緒に作りませんか？</p>
   </div>
 
   <div class="lp-info fade-in">
