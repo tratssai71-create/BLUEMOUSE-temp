@@ -57,8 +57,17 @@
     .mn-insta:hover { border-color: var(--yellow-dark); color: var(--yellow-dark); }
 
     /* Landing page content */
-    .lp-page { max-width:640px; margin:0 auto; padding:104px 24px 64px; }
-    .lp-hero { text-align:center; margin-bottom:40px; }
+    .lp-page { max-width:640px; margin:0 auto; padding:40px 24px 64px; }
+
+    /* Photo hero */
+    .lp-photo-hero { position:relative; width:100%; height:clamp(460px, 78vh, 680px); overflow:hidden; margin-bottom:40px; }
+    .lp-photo-hero__img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 40%; }
+    .lp-photo-hero::before { content:''; position:absolute; inset:0; background:linear-gradient(180deg, rgba(20,16,10,.55) 0%, rgba(20,16,10,0) 24%, rgba(20,16,10,0) 55%, rgba(20,16,10,.75) 100%); z-index:1; }
+    .lp-photo-hero__content { position:absolute; left:0; right:0; bottom:0; z-index:2; padding:0 24px 32px; text-align:center; }
+    .lp-photo-hero .lp-facility-label { color:#ffe9a8; }
+    .lp-photo-hero .lp-hero__title { color:#fff; text-shadow:0 2px 16px rgba(0,0,0,.3); }
+    .lp-photo-hero .lp-hero__sub { color:rgba(255,255,255,.92); }
+
     .lp-badge { display:inline-block; background:var(--yellow); color:var(--ink); font-size:12px; font-weight:700; letter-spacing:.05em; padding:6px 16px; border-radius:100px; margin-bottom:14px; }
     .lp-facility-label { font-family:"Inter",sans-serif; font-size:11px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--yellow-dark); margin-bottom:12px; }
     .lp-hero__title { font-size:clamp(1.5rem,4vw,2rem); font-weight:700; color:var(--ink); line-height:1.5; margin-bottom:12px; }
@@ -134,7 +143,8 @@
       .header__nav { display:none; }
       .header__burger { display:flex; }
       .mobile-nav { top:56px; }
-      .lp-page { padding:84px 18px 56px; }
+      .lp-page { padding:32px 18px 56px; }
+      .lp-photo-hero { height:clamp(420px, 68vh, 560px); }
       .lp-problem { padding:26px 20px; }
       .lp-form { padding:26px 20px; }
       .lp-contact-row { grid-template-columns:1fr; }
@@ -174,14 +184,17 @@
   </a>
 </nav>
 
-<div class="lp-page">
-
-  <div class="lp-hero fade-in">
+<div class="lp-photo-hero">
+  <img src="./hero_sunflower.jpg" alt="ひまわり畑を笑顔で走るこども" class="lp-photo-hero__img" />
+  <div class="lp-photo-hero__content">
     <span class="lp-badge">9月末まで限定！子育て相談受付中</span>
     <p class="lp-facility-label">LITTLE BLUE MOUSE 児童発達支援 辰巳教室</p>
     <h1 class="lp-hero__title">こどもの「トリセツ」を、<br>一緒につくりませんか？</h1>
     <p class="lp-hero__sub">おうちでの関わり方も、園への伝え方も。</p>
   </div>
+</div>
+
+<div class="lp-page">
 
   <div class="lp-problem fade-in">
     <h2 class="lp-problem__title">なぜうちのこは<br>みんなと同じようにできないんだろう？</h2>
