@@ -68,9 +68,8 @@
     .pg-page-header { position:relative; width:100%; height:clamp(380px, 64vh, 540px); overflow:hidden; }
     .pg-page-header__img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 42%; }
     .pg-page-header::before { content:''; position:absolute; inset:0; background:linear-gradient(180deg, rgba(20,24,22,.5) 0%, rgba(20,24,22,0) 26%, rgba(20,24,22,0) 55%, rgba(20,24,22,.6) 100%); z-index:1; }
-    .pg-page-header__content { position:absolute; left:0; right:0; bottom:0; z-index:2; text-align:center; padding:0 32px 36px; }
+    .pg-page-header__content { position:absolute; top:84px; right:32px; left:auto; bottom:auto; z-index:2; text-align:right; max-width:66%; }
     .pg-page-tag { font-family:"Inter",sans-serif; font-size:11px; font-weight:600; letter-spacing:.3em; text-transform:uppercase; color:#fbe08a; margin-bottom:10px; }
-    .pg-page-tag--top { position:absolute; top:84px; left:0; right:0; z-index:2; text-align:center; margin-bottom:0; }
     .pg-page-title { font-family:"Zen Maru Gothic",sans-serif; font-size:clamp(1.5rem,3vw,2.2rem); font-weight:700; color:#fff; text-shadow:0 2px 16px rgba(0,0,0,.35); line-height:1.4; margin-bottom:10px; }
     .pg-page-sub { font-size:14px; color:rgba(255,255,255,.9); }
 
@@ -200,8 +199,7 @@
       .header__burger { display:flex; }
       .mobile-nav { top:56px; }
       .pg-page-header { height:clamp(340px, 56vh, 440px); }
-      .pg-page-header__content { padding:0 20px 28px; }
-      .pg-page-tag--top { top:74px; }
+      .pg-page-header__content { top:74px; right:20px; max-width:72%; }
       .pg-content { padding:32px 20px 60px; }
       .pg-campaign-banner { flex-direction:column; align-items:flex-start; gap:8px; }
       .footer { padding: 32px 16px 16px; }
@@ -243,8 +241,8 @@
 <!-- Page Header -->
 <div class="pg-page-header">
   <img src="./photos/hero_staff_child.jpg" alt="スタッフに見守られながら遊ぶこども" class="pg-page-header__img" />
-  <p class="pg-page-tag pg-page-tag--top">Early Intervention</p>
   <div class="pg-page-header__content">
+    <p class="pg-page-tag">Early Intervention</p>
     <h1 class="pg-page-title">児童発達支援</h1>
     <p class="pg-page-sub">主体性という、土台を育てる。</p>
   </div>
