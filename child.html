@@ -122,9 +122,15 @@
     .pg-kodawari-body p { font-size:14px; color:#6b5a4c; line-height:1.9; }
     .pg-kodawari-body p + p { margin-top:10px; }
 
+    .pg-kodawari-item--01 { display:block; }
+    .pg-kodawari-item__head { display:flex; align-items:center; gap:16px; margin-bottom:14px; }
+    .pg-kodawari-item__head h3 { font-size:17px; font-weight:700; color:var(--ink); line-height:1.5; margin:0; }
+    .pg-kodawari-body--01 { padding-left:60px; }
+
     @media (max-width:780px) {
       .pg-kodawari-item { grid-template-columns:1fr; }
       .pg-kodawari-media { flex-direction:row; justify-content:flex-start; }
+      .pg-kodawari-body--01 { padding-left:0; }
     }
 
     /* Daily schedule */
@@ -302,13 +308,12 @@
   <div class="pg-kodawari fade-in" id="kodawari">
     <h2 class="pg-info__title">主体性療育の「3つのこだわり」</h2>
     <div class="pg-kodawari-list">
-      <div class="pg-kodawari-item">
-        <div class="pg-kodawari-media">
+      <div class="pg-kodawari-item pg-kodawari-item--01">
+        <div class="pg-kodawari-item__head">
           <div class="pg-kodawari-num pg-kodawari-num--teal">01</div>
-          <div class="pg-kodawari-thumb"><img src="./photos/IMG_8852.jpg" alt="環境設定" style="object-position:center 65%;" /></div>
-        </div>
-        <div class="pg-kodawari-body">
           <h3>「叱る」ではなく環境設定で解決する</h3>
+        </div>
+        <div class="pg-kodawari-body pg-kodawari-body--01">
           <p>発達に特性のあるこどもたちは、音の過敏さや見通しが立たない不安など、常に目に見えない「不快感」と戦っています。心がいっぱいになっていると、些細なことでキャパオーバーになり、癇癪や拒否となって表れます。</p>
           <p>だからこそ、私たちは「無理に枠にはめる」「頭ごなしに否定する」ことはしません。徹底的な「観察」から専門的な視点で仮説を立て、環境を変える。この「仮説と検証」の繰り返しによって不快感を取り除き、大切な療育が届くための「心の余裕」を生み出します。</p>
         </div>
