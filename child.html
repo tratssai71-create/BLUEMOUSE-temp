@@ -100,9 +100,21 @@
 
     /* Worry section */
     .pg-worry { margin-bottom:48px; }
-    .pg-worry-list { list-style:none; display:flex; flex-direction:column; gap:13px; margin:20px 0 24px; }
-    .pg-worry-list li { display:flex; align-items:center; gap:12px; font-size:15px; font-weight:600; color:var(--ink); }
-    .pg-worry-list li::before { content:''; flex-shrink:0; width:7px; height:7px; border-radius:50%; background:var(--coral); }
+    .pg-worry-list { list-style:none; display:flex; flex-direction:column; gap:14px; margin:24px 0 32px; }
+    .pg-worry-list li { position:relative; align-self:flex-start; max-width:78%; background:#fff; border:1.5px solid rgba(242,144,108,.28); border-radius:18px 18px 18px 4px; padding:13px 22px; font-size:15px; font-weight:600; color:var(--ink); box-shadow:0 4px 14px rgba(242,144,108,.09); }
+    .pg-worry-list li:nth-child(even) { align-self:flex-end; border-radius:18px 18px 4px 18px; background:var(--coral-light); border-color:rgba(242,144,108,.2); }
+    .js-ready .pg-worry-list li { opacity:0; transform:translateY(14px) scale(.96); }
+    .pg-worry.is-visible .pg-worry-list li { animation:worryPop .55s cubic-bezier(.22,1.2,.36,1) forwards; }
+    .pg-worry.is-visible .pg-worry-list li:nth-child(1) { animation-delay:.05s; }
+    .pg-worry.is-visible .pg-worry-list li:nth-child(2) { animation-delay:.20s; }
+    .pg-worry.is-visible .pg-worry-list li:nth-child(3) { animation-delay:.35s; }
+    .pg-worry.is-visible .pg-worry-list li:nth-child(4) { animation-delay:.50s; }
+    .pg-worry.is-visible .pg-worry-list li:nth-child(5) { animation-delay:.65s; }
+    @keyframes worryPop { to { opacity:1; transform:translateY(0) scale(1); } }
+    @media (prefers-reduced-motion:reduce) {
+      .js-ready .pg-worry-list li { opacity:1; transform:none; }
+      .pg-worry.is-visible .pg-worry-list li { animation:none; }
+    }
     .pg-worry__body { font-size:15px; color:#6b5a4c; line-height:2; }
     .pg-worry__body em { font-style:normal; font-weight:700; color:var(--coral); }
     .pg-worry__body strong { font-weight:700; color:var(--yellow); }
@@ -215,6 +227,7 @@
       .pg-hero__title { font-size:clamp(1.5rem,6vw,2rem); }
       .pg-content { padding:32px 20px 60px; }
       .pg-promo { flex-wrap:wrap; padding:16px 18px; }
+      .pg-worry-list li { max-width:88%; padding:12px 18px; font-size:14.5px; }
       .pg-promo__cta { width:100%; justify-content:flex-end; }
       .footer { padding: 32px 16px 16px; }
       .footer__inner { grid-template-columns: 1fr; gap: 20px; }
