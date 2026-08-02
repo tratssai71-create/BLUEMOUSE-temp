@@ -102,29 +102,30 @@
     .pg-promo:hover { transform:translateY(-3px); box-shadow:0 4px 10px rgba(217,165,32,.10), 0 20px 44px rgba(217,165,32,.18); }
 
     .pg-promo__body { position:relative; z-index:1; flex:1; min-width:0; }
-    .pg-promo__badge { display:inline-flex; align-items:center; gap:7px; background:linear-gradient(135deg, #f79e78 0%, var(--coral) 100%); color:#fff; font-size:11px; font-weight:700; letter-spacing:.06em; padding:5px 13px; border-radius:100px; margin-bottom:9px; box-shadow:0 4px 12px rgba(242,144,108,.34); }
-    .pg-promo__dot { width:6px; height:6px; border-radius:50%; background:#fff; animation:promoPulse 2s ease-out infinite; }
+    /* 「限定」は情報ラベル＝イエロー */
+    .pg-promo__badge { display:inline-flex; align-items:center; gap:6px; background:linear-gradient(135deg, #f8db63 0%, var(--yellow) 100%); color:#6b4f08; font-size:11px; font-weight:700; letter-spacing:.06em; padding:5px 13px; border-radius:100px; margin-bottom:9px; box-shadow:0 4px 12px rgba(217,165,32,.28); }
+    .pg-promo__dot { width:6px; height:6px; border-radius:50%; background:#8a6408; animation:promoPulse 2s ease-out infinite; }
     .pg-promo__text { font-size:15px; font-weight:700; color:var(--ink); line-height:1.55; letter-spacing:.01em; }
-    /* 小ぶりで上品に。サイズではなく“動き”で目を引かせる */
-    .pg-promo__cta { position:relative; z-index:1; flex-shrink:0; display:inline-flex; align-items:center; gap:6px; padding:8px 17px; border-radius:100px; overflow:hidden;
-      background:linear-gradient(135deg, #f8db63 0%, var(--yellow) 55%, #eec83a 100%); color:#6b4f08;
-      font-size:12.5px; font-weight:700; letter-spacing:.07em; white-space:nowrap;
+    /* アクションボタン＝コーラル。小さく、動きで目を引かせる */
+    .pg-promo__cta { position:relative; z-index:1; flex-shrink:0; display:inline-flex; align-items:center; gap:5px; padding:7px 15px; border-radius:100px; overflow:hidden;
+      background:linear-gradient(135deg, #f79e78 0%, var(--coral) 55%, #ec8460 100%); color:#fff;
+      font-size:12px; line-height:1.5; font-weight:700; letter-spacing:.07em; white-space:nowrap;
       animation:promoHalo 2.8s ease-out infinite;
       transition:transform .25s cubic-bezier(.22,1,.36,1); }
     /* ボタン内を横切る細い光 */
     .pg-promo__cta::after { content:''; position:absolute; top:-60%; left:-45%; width:26%; height:220%; transform:rotate(16deg); pointer-events:none;
-      background:linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.8) 50%, rgba(255,255,255,0) 100%);
+      background:linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.85) 50%, rgba(255,255,255,0) 100%);
       animation:promoCtaShine 3.4s ease-in-out infinite; }
-    .pg-promo__cta-arrow { width:13px; height:13px; animation:promoArrow 1.8s ease-in-out infinite; }
-    .pg-promo:hover .pg-promo__cta { transform:translateX(3px) scale(1.04); }
+    .pg-promo__cta-arrow { width:12px; height:12px; animation:promoArrow 1.8s ease-in-out infinite; }
+    .pg-promo:hover .pg-promo__cta { transform:translateX(3px) scale(1.05); }
 
     @keyframes promoEdge  { from { background-position:0% 0; } to { background-position:300% 0; } }
     @keyframes promoShine { 0% { left:-70%; } 45%, 100% { left:135%; } }
     @keyframes promoCtaShine { 0% { left:-45%; } 50%, 100% { left:130%; } }
     @keyframes promoHalo {
-      0%   { box-shadow:0 3px 10px rgba(217,165,32,.28), 0 0 0 0 rgba(245,210,74,.55); }
-      70%  { box-shadow:0 3px 10px rgba(217,165,32,.28), 0 0 0 11px rgba(245,210,74,0); }
-      100% { box-shadow:0 3px 10px rgba(217,165,32,.28), 0 0 0 0 rgba(245,210,74,0); }
+      0%   { box-shadow:0 3px 10px rgba(226,120,80,.30), 0 0 0 0 rgba(242,144,108,.6); }
+      70%  { box-shadow:0 3px 10px rgba(226,120,80,.30), 0 0 0 11px rgba(242,144,108,0); }
+      100% { box-shadow:0 3px 10px rgba(226,120,80,.30), 0 0 0 0 rgba(242,144,108,0); }
     }
     @keyframes promoOrb {
       0%   { transform:translate(0, -50%) scale(1); opacity:.85; }
@@ -132,12 +133,12 @@
       66%  { transform:translate(14px, -45%) scale(.94); opacity:.9; }
       100% { transform:translate(0, -50%) scale(1); opacity:.85; }
     }
-    @keyframes promoPulse { 0% { box-shadow:0 0 0 0 rgba(255,255,255,.85); } 70% { box-shadow:0 0 0 8px rgba(255,255,255,0); } 100% { box-shadow:0 0 0 0 rgba(255,255,255,0); } }
+    @keyframes promoPulse { 0% { box-shadow:0 0 0 0 rgba(138,100,8,.6); } 70% { box-shadow:0 0 0 8px rgba(138,100,8,0); } 100% { box-shadow:0 0 0 0 rgba(138,100,8,0); } }
     @keyframes promoArrow { 0%, 100% { transform:translateX(0); } 50% { transform:translateX(4px); } }
     @media (prefers-reduced-motion:reduce) {
       .pg-promo::before, .pg-promo::after, .pg-promo__shine::before, .pg-promo__dot,
       .pg-promo__cta, .pg-promo__cta::after, .pg-promo__cta-arrow { animation:none; }
-      .pg-promo__cta { box-shadow:0 3px 10px rgba(217,165,32,.28); }
+      .pg-promo__cta { box-shadow:0 3px 10px rgba(226,120,80,.30); }
     }
 
     /* Intro */
