@@ -267,15 +267,24 @@
   if (!el) return;
   var root = document.documentElement;
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var seen = false;
-  try { seen = sessionStorage.getItem('bmSeen') === '1'; } catch (e) {}
 
-  // 2ページ目以降・動きを減らす設定では出さない
-  if (seen || reduce) {
+  // サイト内リンクでの遷移・ブラウザの戻る/進むでは出さない。
+  // 直接訪問・外部からの流入・リロードなど「読み込み」のときは初回に限らず毎回出す。
+  var navType = '';
+  try {
+    var navEntry = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+    if (navEntry) navType = navEntry.type;
+  } catch (e) {}
+  var fromSameSite = false;
+  try {
+    fromSameSite = !!document.referrer && new URL(document.referrer).origin === location.origin;
+  } catch (e) {}
+  var isInternalNav = (fromSameSite && navType !== 'reload') || navType === 'back_forward';
+
+  if (reduce || isInternalNav) {
     if (el.parentNode) el.parentNode.removeChild(el);
     return;
   }
-  try { sessionStorage.setItem('bmSeen', '1'); } catch (e) {}
   root.classList.add('bm-loading');
 
   var removed = false;
