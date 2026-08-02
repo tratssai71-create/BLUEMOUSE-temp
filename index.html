@@ -662,6 +662,77 @@
 </head>
 <body>
 
+<!-- ===== Loading ===== -->
+<style>
+  .bm-loading, .bm-loading body { overflow: hidden; }
+  .bm-loader {
+    position: fixed; inset: 0; z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+    background: #FFFEFB;
+    transition: opacity .8s cubic-bezier(.22,1,.36,1), visibility .8s;
+  }
+  .bm-loader.is-done { opacity: 0; visibility: hidden; }
+  .bm-loader__inner { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+  .bm-loader__logo {
+    width: min(220px, 54vw); height: auto;
+    opacity: 0; transform: translateY(8px) scale(.97); filter: blur(7px);
+    animation: bmLogoIn 1.15s cubic-bezier(.22,1,.36,1) .08s forwards;
+  }
+  .bm-loader__rule {
+    position: relative; width: min(220px, 54vw); height: 1px;
+    background: rgba(51,37,26,.09); overflow: hidden;
+  }
+  .bm-loader__rule::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(90deg, #f5d24a 0%, #f2906c 50%, #5fc1c7 100%);
+    transform: scaleX(0); transform-origin: left center;
+    animation: bmRuleIn 1.25s cubic-bezier(.65,0,.35,1) .3s forwards;
+  }
+  @keyframes bmLogoIn { to { opacity: 1; transform: none; filter: blur(0); } }
+  @keyframes bmRuleIn { to { transform: scaleX(1); } }
+  @media (prefers-reduced-motion: reduce) {
+    .bm-loader__logo, .bm-loader__rule::after { animation: none; opacity: 1; transform: none; filter: none; }
+  }
+</style>
+<div class="bm-loader" id="bmLoader" aria-hidden="true">
+  <div class="bm-loader__inner">
+    <img src="./logo.png" alt="" class="bm-loader__logo" />
+    <span class="bm-loader__rule"></span>
+  </div>
+</div>
+<script>
+(function () {
+  var el = document.getElementById('bmLoader');
+  if (!el) return;
+  var root = document.documentElement;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var seen = false;
+  try { seen = sessionStorage.getItem('bmSeen') === '1'; } catch (e) {}
+
+  // 2ページ目以降・動きを減らす設定では出さない
+  if (seen || reduce) {
+    if (el.parentNode) el.parentNode.removeChild(el);
+    return;
+  }
+  try { sessionStorage.setItem('bmSeen', '1'); } catch (e) {}
+  root.classList.add('bm-loading');
+
+  var removed = false;
+  function done() {
+    if (removed) return;
+    removed = true;
+    el.classList.add('is-done');
+    root.classList.remove('bm-loading');
+    setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 900);
+  }
+  var start = Date.now(), MIN = 1500;
+  function finish() { setTimeout(done, Math.max(0, MIN - (Date.now() - start))); }
+  if (document.readyState === 'complete') finish();
+  else window.addEventListener('load', finish);
+  setTimeout(done, 4500); // 画像等が失敗しても必ず解除する保険
+})();
+</script>
+
 <!-- ===== Header ===== -->
 <header class="header" id="header">
   <a href="./index.html" class="header__logo">
