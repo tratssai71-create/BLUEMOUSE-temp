@@ -80,25 +80,29 @@
 
     /* Campaign promo card */
     .pg-promo { position:relative; display:flex; align-items:center; gap:20px; padding:22px 26px; margin-bottom:44px; border-radius:20px; overflow:hidden; isolation:isolate;
-      background:linear-gradient(120deg, #fffdf4 0%, #fff 42%, #fff8f4 100%);
+      background:linear-gradient(120deg, #fffdf4 0%, #f8fdfd 45%, #fff8f4 100%);
       box-shadow:0 2px 6px rgba(217,165,32,.07), 0 14px 34px rgba(217,165,32,.10);
       transition:transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s; }
-    /* 流れるグラデーションの縁 */
+    /* 流れるグラデーションの縁（イエロー→コーラル→ロゴティール） */
     .pg-promo::before { content:''; position:absolute; inset:0; border-radius:inherit; padding:1.5px; z-index:2; pointer-events:none;
-      background:linear-gradient(90deg, var(--yellow) 0%, var(--coral) 25%, var(--yellow) 50%, var(--coral) 75%, var(--yellow) 100%);
+      background:linear-gradient(90deg, var(--yellow) 0%, var(--coral) 22%, var(--teal) 45%, var(--coral) 68%, var(--yellow) 100%);
       background-size:300% 100%;
       -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
       -webkit-mask-composite:xor; mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite:exclude;
       animation:promoEdge 9s linear infinite; }
-    /* ゆっくり漂う光のにじみ */
+    /* ゆっくり漂う光のにじみ（右：暖色） */
     .pg-promo::after { content:''; position:absolute; top:50%; right:4%; width:190px; height:190px; border-radius:50%; pointer-events:none;
-      background:radial-gradient(circle, rgba(245,210,74,.34) 0%, rgba(242,144,108,.14) 45%, rgba(255,255,255,0) 72%);
+      background:radial-gradient(circle, rgba(245,210,74,.32) 0%, rgba(242,144,108,.15) 45%, rgba(255,255,255,0) 72%);
       animation:promoOrb 11s linear infinite; }
     /* 斜めに走る光のスイープ */
     .pg-promo__shine { position:absolute; inset:0; border-radius:inherit; overflow:hidden; pointer-events:none; }
     .pg-promo__shine::before { content:''; position:absolute; top:-60%; left:-70%; width:32%; height:220%; transform:rotate(14deg);
       background:linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.9) 50%, rgba(255,255,255,0) 100%);
       animation:promoShine 6s ease-in-out infinite; }
+    /* 逆回りに漂うティールの光（寒色を足して奥行きを出す） */
+    .pg-promo__shine::after { content:''; position:absolute; top:50%; left:26%; width:210px; height:210px; border-radius:50%;
+      background:radial-gradient(circle, rgba(95,193,199,.20) 0%, rgba(95,193,199,.09) 46%, rgba(255,255,255,0) 74%);
+      animation:promoOrbTeal 13s linear infinite; }
     .pg-promo:hover { transform:translateY(-3px); box-shadow:0 4px 10px rgba(217,165,32,.10), 0 20px 44px rgba(217,165,32,.18); }
 
     .pg-promo__body { position:relative; z-index:1; flex:1; min-width:0; }
@@ -133,10 +137,17 @@
       66%  { transform:translate(14px, -45%) scale(.94); opacity:.9; }
       100% { transform:translate(0, -50%) scale(1); opacity:.85; }
     }
+    /* 暖色オーブとは逆回りに漂わせて、常に色が混ざり続けるように */
+    @keyframes promoOrbTeal {
+      0%   { transform:translate(0, -50%) scale(1); opacity:.8; }
+      33%  { transform:translate(30px, -44%) scale(.92); opacity:.95; }
+      66%  { transform:translate(-16px, -57%) scale(1.1); opacity:.85; }
+      100% { transform:translate(0, -50%) scale(1); opacity:.8; }
+    }
     @keyframes promoPulse { 0% { box-shadow:0 0 0 0 rgba(138,100,8,.6); } 70% { box-shadow:0 0 0 8px rgba(138,100,8,0); } 100% { box-shadow:0 0 0 0 rgba(138,100,8,0); } }
     @keyframes promoArrow { 0%, 100% { transform:translateX(0); } 50% { transform:translateX(4px); } }
     @media (prefers-reduced-motion:reduce) {
-      .pg-promo::before, .pg-promo::after, .pg-promo__shine::before, .pg-promo__dot,
+      .pg-promo::before, .pg-promo::after, .pg-promo__shine::before, .pg-promo__shine::after, .pg-promo__dot,
       .pg-promo__cta, .pg-promo__cta::after, .pg-promo__cta-arrow { animation:none; }
       .pg-promo__cta { box-shadow:0 3px 10px rgba(226,120,80,.30); }
     }
