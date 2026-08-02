@@ -231,8 +231,9 @@
       object-fit: cover;
       object-position: center 65%;
       opacity: 0;
-      transform: scale(1.12);
-      transition: opacity 1s ease;
+      transform: scale(1.16);
+      /* 溶けるように入れ替わるよう、クロスフェードは長めかつ両端をなだらかに */
+      transition: opacity 1.4s cubic-bezier(.4,0,.3,1);
     }
     .hero__img-wrap img.is-active { opacity: 1; }
     .hero__float-card {
@@ -792,9 +793,11 @@
   </div>
   <div class="hero__visual">
     <div class="hero__img-wrap" id="hero-slides">
-      <img src="./photos/slide_window_opt.jpg" alt="BLUE MOUSEの活動風景" style="object-position:center 40%;" class="is-active" data-pan-from="0,0%" data-pan-to="0,8%" data-pan-scale="1.15" />
-      <img src="./photos/slide_balloon_opt.jpg" alt="BLUE MOUSEの活動風景" style="object-position:center 45%;" data-pan-from="5%,0%" data-pan-to="5%,-8%" data-pan-scale="1.5" />
-      <img src="./photos/slide_block_opt.jpg" alt="BLUE MOUSEの活動風景" style="object-position:center 12%;" data-pan-from="-3%,0" data-pan-to="-11%,0" />
+      <!-- 移動量は全カット統一（scale1.16 × 往復9% ＝ はみ出し余裕の65%）。向きだけ変えて単調さを避ける -->
+      <img src="./photos/slide_window_opt.jpg" alt="BLUE MOUSEの活動風景" style="object-position:center 40%;" class="is-active" data-pan-from="0,-4.5%" data-pan-to="0,4.5%" data-pan-scale="1.16" />
+      <img src="./photos/slide_balloon_opt.jpg" alt="BLUE MOUSEの活動風景" style="object-position:center 45%;" data-pan-from="0,4.5%" data-pan-to="0,-4.5%" data-pan-scale="1.16" />
+      <!-- 横方向は枠が横長な分、%を高さ比(11/16)で割り戻して実移動pxを縦カットと揃える -->
+      <img src="./photos/slide_block_opt.jpg" alt="BLUE MOUSEの活動風景" style="object-position:center 12%;" data-pan-from="3.09%,0" data-pan-to="-3.09%,0" data-pan-scale="1.16" />
     </div>
   </div>
 </section>
@@ -943,30 +946,37 @@
   document.documentElement.classList.add('js-ready');
 
   // スライドショー共通処理
-  function panImage(img) {
+  // CSSのクロスフェード時間と一致させる（.hero__img-wrap img の transition）
+  var SLIDE_FADE = 1400;
+
+  function panImage(img, duration) {
     var from = img.getAttribute('data-pan-from'), to = img.getAttribute('data-pan-to');
     if (!from || !to || !img.animate) return;
-    var scale = img.getAttribute('data-pan-scale') || '1.12';
+    var scale = img.getAttribute('data-pan-scale') || '1.16';
+    // 退場中の画像のアニメーションは止めない。止めると余韻が消える
     img.getAnimations().forEach(function(a) { a.cancel(); });
     img.animate(
       [{ transform: 'scale(' + scale + ') translate(' + from + ')' }, { transform: 'scale(' + scale + ') translate(' + to + ')' }],
-      { duration: 5000, easing: 'linear', fill: 'forwards' }
+      // 終盤ほど遅くなるイージング。いちばん遅い区間が退場のフェードと重なり、余韻になる
+      { duration: duration, easing: 'cubic-bezier(.25,.5,.45,1)', fill: 'forwards' }
     );
   }
   function startSlideshow(id, interval) {
     var imgs = document.querySelectorAll('#' + id + ' img');
     if (!imgs.length) return;
+    // パンの寿命を表示時間より意図的に長く取り、終点に到達させない。
+    // 退場フェード中もまだ動き続けている状態になり、これが余韻になる
+    var life = (interval + SLIDE_FADE) * 1.57;
     var cur = 0;
-    panImage(imgs[cur]);
+    panImage(imgs[cur], life);
     setInterval(function() {
       imgs[cur].classList.remove('is-active');
       cur = (cur + 1) % imgs.length;
       imgs[cur].classList.add('is-active');
-      panImage(imgs[cur]);
+      panImage(imgs[cur], life);
     }, interval);
   }
-  startSlideshow('hero-slides', 4000);
-  startSlideshow('child-slides', 3000);
+  startSlideshow('hero-slides', 5600);
 
   var burger = document.getElementById('burger');
   var mobileNav = document.getElementById('mobile-nav');
