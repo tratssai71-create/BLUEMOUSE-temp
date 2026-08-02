@@ -78,19 +78,50 @@
     /* Content */
     .pg-content { max-width:820px; margin:0 auto; padding:48px 32px 80px; }
 
-    /* Campaign banner */
-    .pg-promo { position:relative; display:flex; align-items:center; gap:16px; background:linear-gradient(135deg, var(--yellow-light) 0%, #fff 100%); border:1px solid rgba(217,165,32,.18); border-radius:18px; padding:18px 24px; margin-bottom:40px; overflow:hidden; transition:transform .25s, box-shadow .25s; }
-    .pg-promo::before { content:''; position:absolute; top:-20px; right:-20px; width:130px; height:130px; border-radius:50%; background:radial-gradient(circle, rgba(245,210,74,.4) 0%, rgba(245,210,74,0) 70%); pointer-events:none; }
-    .pg-promo:hover { transform:translateY(-2px); box-shadow:0 12px 30px rgba(217,165,32,.16); }
-    .pg-promo__icon { position:relative; z-index:1; flex-shrink:0; width:46px; height:46px; border-radius:50%; background:var(--yellow); display:flex; align-items:center; justify-content:center; color:#fff; box-shadow:0 6px 16px rgba(245,210,74,.4); }
-    .pg-promo__icon svg { width:20px; height:20px; }
+    /* Campaign promo card */
+    .pg-promo { position:relative; display:flex; align-items:center; gap:20px; padding:22px 26px; margin-bottom:44px; border-radius:20px; overflow:hidden; isolation:isolate;
+      background:linear-gradient(120deg, #fffdf4 0%, #fff 42%, #fff8f4 100%);
+      box-shadow:0 2px 6px rgba(217,165,32,.07), 0 14px 34px rgba(217,165,32,.10);
+      transition:transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s; }
+    /* 流れるグラデーションの縁 */
+    .pg-promo::before { content:''; position:absolute; inset:0; border-radius:inherit; padding:1.5px; z-index:2; pointer-events:none;
+      background:linear-gradient(90deg, var(--yellow) 0%, var(--coral) 25%, var(--yellow) 50%, var(--coral) 75%, var(--yellow) 100%);
+      background-size:300% 100%;
+      -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite:xor; mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite:exclude;
+      animation:promoEdge 9s linear infinite; }
+    /* ゆっくり漂う光のにじみ */
+    .pg-promo::after { content:''; position:absolute; top:50%; right:4%; width:190px; height:190px; border-radius:50%; pointer-events:none;
+      background:radial-gradient(circle, rgba(245,210,74,.34) 0%, rgba(242,144,108,.14) 45%, rgba(255,255,255,0) 72%);
+      animation:promoOrb 11s linear infinite; }
+    /* 斜めに走る光のスイープ */
+    .pg-promo__shine { position:absolute; inset:0; border-radius:inherit; overflow:hidden; pointer-events:none; }
+    .pg-promo__shine::before { content:''; position:absolute; top:-60%; left:-70%; width:32%; height:220%; transform:rotate(14deg);
+      background:linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.9) 50%, rgba(255,255,255,0) 100%);
+      animation:promoShine 6s ease-in-out infinite; }
+    .pg-promo:hover { transform:translateY(-3px); box-shadow:0 4px 10px rgba(217,165,32,.10), 0 20px 44px rgba(217,165,32,.18); }
+
     .pg-promo__body { position:relative; z-index:1; flex:1; min-width:0; }
-    .pg-promo__badge { display:inline-block; background:var(--coral); color:#fff; font-size:11px; font-weight:700; letter-spacing:.03em; padding:3px 11px; border-radius:100px; margin-bottom:7px; }
-    .pg-promo__text { font-size:14px; font-weight:600; color:var(--ink); line-height:1.5; }
-    .pg-promo__cta { position:relative; z-index:1; flex-shrink:0; display:inline-flex; align-items:center; gap:4px; font-size:13px; font-weight:700; color:var(--yellow-dark); white-space:nowrap; transition:gap .2s; }
-    .pg-promo__cta-arrow { width:14px; height:14px; transition:transform .2s; }
-    .pg-promo:hover .pg-promo__cta { gap:8px; }
-    .pg-promo:hover .pg-promo__cta-arrow { transform:translateX(2px); }
+    .pg-promo__badge { display:inline-flex; align-items:center; gap:7px; background:linear-gradient(135deg, #f79e78 0%, var(--coral) 100%); color:#fff; font-size:11px; font-weight:700; letter-spacing:.06em; padding:5px 13px; border-radius:100px; margin-bottom:9px; box-shadow:0 4px 12px rgba(242,144,108,.34); }
+    .pg-promo__dot { width:6px; height:6px; border-radius:50%; background:#fff; animation:promoPulse 2s ease-out infinite; }
+    .pg-promo__text { font-size:15px; font-weight:700; color:var(--ink); line-height:1.55; letter-spacing:.01em; }
+    .pg-promo__cta { position:relative; z-index:1; flex-shrink:0; display:inline-flex; align-items:center; gap:7px; padding:10px 20px; border-radius:100px; background:var(--yellow); color:#6b4f08; font-size:13px; font-weight:700; letter-spacing:.02em; white-space:nowrap; box-shadow:0 5px 16px rgba(245,210,74,.45); transition:transform .25s, box-shadow .25s; }
+    .pg-promo__cta-arrow { width:14px; height:14px; animation:promoArrow 1.8s ease-in-out infinite; }
+    .pg-promo:hover .pg-promo__cta { transform:translateX(3px); box-shadow:0 8px 22px rgba(245,210,74,.6); }
+
+    @keyframes promoEdge  { from { background-position:0% 0; } to { background-position:300% 0; } }
+    @keyframes promoShine { 0% { left:-70%; } 45%, 100% { left:135%; } }
+    @keyframes promoOrb {
+      0%   { transform:translate(0, -50%) scale(1); opacity:.85; }
+      33%  { transform:translate(-26px, -56%) scale(1.12); opacity:1; }
+      66%  { transform:translate(14px, -45%) scale(.94); opacity:.9; }
+      100% { transform:translate(0, -50%) scale(1); opacity:.85; }
+    }
+    @keyframes promoPulse { 0% { box-shadow:0 0 0 0 rgba(255,255,255,.85); } 70% { box-shadow:0 0 0 8px rgba(255,255,255,0); } 100% { box-shadow:0 0 0 0 rgba(255,255,255,0); } }
+    @keyframes promoArrow { 0%, 100% { transform:translateX(0); } 50% { transform:translateX(4px); } }
+    @media (prefers-reduced-motion:reduce) {
+      .pg-promo::before, .pg-promo::after, .pg-promo__shine::before, .pg-promo__dot, .pg-promo__cta-arrow { animation:none; }
+    }
 
     /* Intro */
     .pg-intro { margin-bottom:48px; }
@@ -261,7 +292,8 @@
       .pg-promo { flex-wrap:wrap; padding:16px 18px; }
       .pg-worry-list li { max-width:90%; }
       .pg-worry-bubble { padding:12px 20px; font-size:14.5px; }
-      .pg-promo__cta { width:100%; justify-content:flex-end; }
+      .pg-promo__cta { width:100%; justify-content:center; margin-top:4px; }
+      .pg-promo::after { right:-30px; width:150px; height:150px; }
       .footer { padding: 32px 16px 16px; }
       .footer__inner { grid-template-columns: 1fr; gap: 20px; }
     }
@@ -316,8 +348,9 @@
 <div class="pg-content">
 
   <a href="./flyer260805/" class="pg-promo fade-in">
+    <span class="pg-promo__shine"></span>
     <span class="pg-promo__body">
-      <span class="pg-promo__badge">9月末まで限定</span>
+      <span class="pg-promo__badge"><i class="pg-promo__dot"></i>9月末まで限定</span>
       <p class="pg-promo__text">辰巳教室で子育て相談を受付中です</p>
     </span>
     <span class="pg-promo__cta">詳しく見る
