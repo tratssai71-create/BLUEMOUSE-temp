@@ -27,8 +27,9 @@
     body { font-family: "Zen Maru Gothic", sans-serif; background: #FFFEFB; color: #33251a; line-height: 1.75; -webkit-font-smoothing: antialiased; }
     a { text-decoration: none; color: inherit; }
     img { display: block; max-width: 100%; }
-    /* --teal-text は本文中の重要語専用。放デイの --teal-dark(#3a9095) より濃くして役割と可読性を分ける */
-    :root { --coral:#f2906c; --coral-light:#fdf0eb; --teal:#5fc1c7; --teal-dark:#3a9095; --teal-text:#317a7f; --teal-light:#e8f6f7; --yellow:#f5d24a; --yellow-dark:#d9a520; --yellow-light:#fef9e7; --ink:#33251a; --green:#3a6b5e; --bg:#faf8f5; }
+    /* 児発ページでは濃いティール(#3a9095=放デイのカラー)は使わない。ティールはロゴと同じ --teal:#5fc1c7 のみ。
+       ただし #5fc1c7 は白背景でコントラスト2.1:1のため文字色には使わず、下線などのアクセントとして使う */
+    :root { --coral:#f2906c; --coral-light:#fdf0eb; --teal:#5fc1c7; --teal-light:#e8f6f7; --yellow:#f5d24a; --yellow-dark:#d9a520; --yellow-light:#fef9e7; --ink:#33251a; --green:#3a6b5e; --bg:#faf8f5; }
 
     /* Header */
     .header { position: fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 32px; height:60px; background: transparent; backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid rgba(0,0,0,.05); }
@@ -154,7 +155,7 @@
     /* Intro */
     .pg-intro { margin-bottom:48px; }
     .pg-intro__lead { font-size:clamp(1.2rem,2.2vw,1.6rem); font-weight:700; color:var(--ink); line-height:1.5; margin-bottom:16px; }
-    .pg-intro__lead em { font-style:normal; color:var(--teal-text); }
+    .pg-intro__lead em { font-style:normal; color:var(--ink); background:linear-gradient(transparent 84%, rgba(95,193,199,.85) 84%); }
     .pg-intro__body { font-size:15px; color:#6b5a4c; line-height:2; }
 
     /* Worry section */
@@ -208,14 +209,14 @@
       .pg-worry-cloud::before { animation:none; }
     }
     .pg-worry__body { font-size:15px; color:#6b5a4c; line-height:2; }
-    .pg-worry__body em { font-style:normal; font-weight:700; color:var(--teal-text); }
+    .pg-worry__body em { font-style:normal; font-weight:700; color:var(--ink); background:linear-gradient(transparent 86%, rgba(95,193,199,.85) 86%); }
     .pg-worry__body strong { font-weight:700; color:var(--ink); background:linear-gradient(transparent 62%, rgba(245,210,74,.5) 62%); }
 
     /* Stance section */
     .pg-stance { background:var(--bg); border-radius:20px; padding:36px 32px; margin-bottom:56px; border-left:4px solid var(--yellow); }
-    .pg-stance__sub { font-size:14px; font-weight:600; color:var(--teal-text); text-align:center; margin:4px 0 20px; letter-spacing:.02em; }
+    .pg-stance__sub { font-size:14px; font-weight:700; color:var(--ink); text-align:center; margin:4px 0 20px; letter-spacing:.04em; }
     .pg-stance__body { font-size:15px; color:#6b5a4c; line-height:2; }
-    .pg-stance__body em { font-style:normal; font-weight:700; color:var(--teal-text); }
+    .pg-stance__body em { font-style:normal; font-weight:700; color:var(--ink); background:linear-gradient(transparent 86%, rgba(95,193,199,.85) 86%); }
     .pg-stance__body strong { font-weight:700; color:var(--ink); background:linear-gradient(transparent 62%, rgba(245,210,74,.5) 62%); }
 
     /* 3 Kodawari */
@@ -252,7 +253,7 @@
     /* Future benefits */
     .pg-future { margin-bottom:56px; }
     .pg-future__intro { font-size:15px; color:#6b5a4c; line-height:2; margin:16px 0 28px; }
-    .pg-future__intro em { font-style:normal; font-weight:700; color:var(--teal-text); }
+    .pg-future__intro em { font-style:normal; font-weight:700; color:var(--ink); background:linear-gradient(transparent 86%, rgba(95,193,199,.85) 86%); }
     .pg-future-list { display:flex; flex-direction:column; gap:24px; }
     .pg-future-item { text-align:center; }
     .pg-future-item__body h3 { font-size:16px; font-weight:700; color:var(--ink); margin-bottom:8px; line-height:1.5; }
@@ -261,7 +262,7 @@
     /* Quote */
     .pg-quote { background:var(--bg); border-radius:20px; padding:36px 32px; margin-bottom:56px; text-align:center; border-left:4px solid var(--yellow); }
     .pg-quote__text { font-size:clamp(1.1rem,2vw,1.4rem); font-weight:700; color:var(--ink); line-height:1.55; }
-    .pg-quote__text em { font-style:normal; color:var(--teal-text); }
+    .pg-quote__text em { font-style:normal; color:var(--ink); background:linear-gradient(transparent 84%, rgba(95,193,199,.85) 84%); }
 
     /* Info table */
     .pg-info { margin-bottom:56px; }
@@ -283,7 +284,7 @@
     .pg-cta__btn:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(242,144,108,.3); }
     .pg-cta__btns { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; }
     .pg-cta__btn--teal { background:var(--teal); }
-    .pg-cta__btn--teal:hover { box-shadow:0 8px 24px rgba(58,144,149,.3); }
+    .pg-cta__btn--teal:hover { box-shadow:0 8px 24px rgba(95,193,199,.35); }
     .pg-cta__btn--green { background:var(--green); }
     .pg-cta__btn--green:hover { box-shadow:0 8px 24px rgba(58,107,94,.3); }
 
