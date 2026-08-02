@@ -27,7 +27,8 @@
     body { font-family: "Zen Maru Gothic", sans-serif; background: #FFFEFB; color: #33251a; line-height: 1.75; -webkit-font-smoothing: antialiased; }
     a { text-decoration: none; color: inherit; }
     img { display: block; max-width: 100%; }
-    :root { --coral:#f2906c; --coral-light:#fdf0eb; --teal:#5fc1c7; --teal-dark:#3a9095; --teal-light:#e8f6f7; --yellow:#f5d24a; --yellow-dark:#d9a520; --yellow-light:#fef9e7; --ink:#33251a; --green:#3a6b5e; --bg:#faf8f5; }
+    /* --teal-text は本文中の重要語専用。放デイの --teal-dark(#3a9095) より濃くして役割と可読性を分ける */
+    :root { --coral:#f2906c; --coral-light:#fdf0eb; --teal:#5fc1c7; --teal-dark:#3a9095; --teal-text:#317a7f; --teal-light:#e8f6f7; --yellow:#f5d24a; --yellow-dark:#d9a520; --yellow-light:#fef9e7; --ink:#33251a; --green:#3a6b5e; --bg:#faf8f5; }
 
     /* Header */
     .header { position: fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 32px; height:60px; background: transparent; backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid rgba(0,0,0,.05); }
@@ -153,20 +154,21 @@
     /* Intro */
     .pg-intro { margin-bottom:48px; }
     .pg-intro__lead { font-size:clamp(1.2rem,2.2vw,1.6rem); font-weight:700; color:var(--ink); line-height:1.5; margin-bottom:16px; }
-    .pg-intro__lead em { font-style:normal; color:var(--coral); }
+    .pg-intro__lead em { font-style:normal; color:var(--teal-text); }
     .pg-intro__body { font-size:15px; color:#6b5a4c; line-height:2; }
 
     /* Worry section */
     .pg-worry { margin-bottom:48px; }
     .pg-worry-cloud { position:relative; margin:28px 0 34px; padding:8px 0; }
-    .pg-worry-cloud::before { content:''; position:absolute; top:50%; left:50%; width:min(560px,92%); height:280px; transform:translate(-50%,-50%); border-radius:50%; background:radial-gradient(ellipse at center, rgba(242,144,108,.11) 0%, rgba(245,210,74,.07) 45%, rgba(255,255,255,0) 72%); filter:blur(6px); pointer-events:none; animation:worryAura 18s linear infinite; }
+    .pg-worry-cloud::before { content:''; position:absolute; top:50%; left:50%; width:min(560px,92%); height:280px; transform:translate(-50%,-50%); border-radius:50%; background:radial-gradient(ellipse at center, rgba(245,210,74,.13) 0%, rgba(95,193,199,.08) 48%, rgba(255,255,255,0) 74%); filter:blur(6px); pointer-events:none; animation:worryAura 18s linear infinite; }
     .pg-worry-list { position:relative; list-style:none; display:flex; flex-direction:column; gap:16px; }
     .pg-worry-list li { align-self:flex-start; max-width:82%; }
     .pg-worry-list li:nth-child(even) { align-self:flex-end; }
-    .pg-worry-bubble { position:relative; display:inline-block; padding:14px 26px; border-radius:22px 22px 22px 6px; background:linear-gradient(140deg, #fff 0%, #fffdfa 100%); border:1.5px solid rgba(242,144,108,.26); font-size:15.5px; font-weight:600; letter-spacing:.02em; color:var(--ink); box-shadow:0 8px 22px rgba(242,144,108,.13), 0 1px 2px rgba(0,0,0,.03); will-change:transform; }
-    .pg-worry-list li:nth-child(even) .pg-worry-bubble { border-radius:22px 22px 6px 22px; background:linear-gradient(140deg, var(--coral-light) 0%, #fff6f2 100%); border-color:rgba(242,144,108,.2); }
-    .pg-worry-bubble::after { content:''; position:absolute; bottom:-1.5px; left:-1.5px; width:16px; height:16px; background:inherit; border-left:1.5px solid rgba(242,144,108,.26); border-bottom:1.5px solid rgba(242,144,108,.26); border-radius:0 0 0 6px; transform:skewX(24deg); }
-    .pg-worry-list li:nth-child(even) .pg-worry-bubble::after { left:auto; right:-1.5px; border-left:none; border-right:1.5px solid rgba(242,144,108,.2); border-bottom-color:rgba(242,144,108,.2); border-radius:0 0 6px 0; transform:skewX(-24deg); }
+    /* 「悩み」は装飾でありアクションではないので、コーラルを使わず中立の暖色グレーに */
+    .pg-worry-bubble { position:relative; display:inline-block; padding:14px 26px; border-radius:22px 22px 22px 6px; background:linear-gradient(140deg, #fff 0%, #fffdf8 100%); border:1.5px solid rgba(120,102,82,.20); font-size:15.5px; font-weight:600; letter-spacing:.02em; color:var(--ink); box-shadow:0 8px 22px rgba(120,102,82,.10), 0 1px 2px rgba(0,0,0,.03); will-change:transform; }
+    .pg-worry-list li:nth-child(even) .pg-worry-bubble { border-radius:22px 22px 6px 22px; background:linear-gradient(140deg, #f7f4ee 0%, #fdfbf7 100%); border-color:rgba(120,102,82,.16); }
+    .pg-worry-bubble::after { content:''; position:absolute; bottom:-1.5px; left:-1.5px; width:16px; height:16px; background:inherit; border-left:1.5px solid rgba(120,102,82,.20); border-bottom:1.5px solid rgba(120,102,82,.20); border-radius:0 0 0 6px; transform:skewX(24deg); }
+    .pg-worry-list li:nth-child(even) .pg-worry-bubble::after { left:auto; right:-1.5px; border-left:none; border-right:1.5px solid rgba(120,102,82,.16); border-bottom-color:rgba(120,102,82,.16); border-radius:0 0 6px 0; transform:skewX(-24deg); }
 
     /* 登場（stagger）は li、漂いは bubble に。漂いはページ読み込み時から止まらず動き続ける */
     .js-ready .pg-worry-list li { opacity:0; }
@@ -206,15 +208,15 @@
       .pg-worry-cloud::before { animation:none; }
     }
     .pg-worry__body { font-size:15px; color:#6b5a4c; line-height:2; }
-    .pg-worry__body em { font-style:normal; font-weight:700; color:var(--coral); }
-    .pg-worry__body strong { font-weight:700; color:var(--yellow); }
+    .pg-worry__body em { font-style:normal; font-weight:700; color:var(--teal-text); }
+    .pg-worry__body strong { font-weight:700; color:var(--ink); background:linear-gradient(transparent 62%, rgba(245,210,74,.5) 62%); }
 
     /* Stance section */
     .pg-stance { background:var(--bg); border-radius:20px; padding:36px 32px; margin-bottom:56px; border-left:4px solid var(--yellow); }
-    .pg-stance__sub { font-size:14px; font-weight:600; color:var(--yellow); text-align:center; margin:4px 0 20px; letter-spacing:.02em; }
+    .pg-stance__sub { font-size:14px; font-weight:600; color:var(--teal-text); text-align:center; margin:4px 0 20px; letter-spacing:.02em; }
     .pg-stance__body { font-size:15px; color:#6b5a4c; line-height:2; }
-    .pg-stance__body em { font-style:normal; font-weight:700; color:var(--coral); }
-    .pg-stance__body strong { font-weight:700; color:var(--yellow); }
+    .pg-stance__body em { font-style:normal; font-weight:700; color:var(--teal-text); }
+    .pg-stance__body strong { font-weight:700; color:var(--ink); background:linear-gradient(transparent 62%, rgba(245,210,74,.5) 62%); }
 
     /* 3 Kodawari */
     .pg-kodawari { margin-bottom:56px; }
@@ -236,7 +238,7 @@
     .pg-schedule { margin-bottom:56px; }
     .pg-schedule-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:20px; }
     .pg-schedule-card { background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:16px; padding:24px 22px; }
-    .pg-schedule-card__label { display:inline-block; font-family:"Inter",sans-serif; font-size:12px; font-weight:700; letter-spacing:.1em; color:#fff; background:var(--yellow); padding:4px 14px; border-radius:100px; margin-bottom:14px; }
+    .pg-schedule-card__label { display:inline-block; font-family:"Inter",sans-serif; font-size:12px; font-weight:700; letter-spacing:.1em; color:#6b4f08; background:var(--yellow); padding:4px 14px; border-radius:100px; margin-bottom:14px; }
     .pg-schedule-list { list-style:none; display:flex; flex-direction:column; }
     .pg-schedule-list li { display:flex; gap:14px; padding:10px 0; border-top:1px solid rgba(0,0,0,.05); font-size:13.5px; }
     .pg-schedule-list li:first-child { border-top:none; padding-top:0; }
@@ -250,7 +252,7 @@
     /* Future benefits */
     .pg-future { margin-bottom:56px; }
     .pg-future__intro { font-size:15px; color:#6b5a4c; line-height:2; margin:16px 0 28px; }
-    .pg-future__intro em { font-style:normal; font-weight:700; color:var(--coral); }
+    .pg-future__intro em { font-style:normal; font-weight:700; color:var(--teal-text); }
     .pg-future-list { display:flex; flex-direction:column; gap:24px; }
     .pg-future-item { text-align:center; }
     .pg-future-item__body h3 { font-size:16px; font-weight:700; color:var(--ink); margin-bottom:8px; line-height:1.5; }
@@ -259,7 +261,7 @@
     /* Quote */
     .pg-quote { background:var(--bg); border-radius:20px; padding:36px 32px; margin-bottom:56px; text-align:center; border-left:4px solid var(--yellow); }
     .pg-quote__text { font-size:clamp(1.1rem,2vw,1.4rem); font-weight:700; color:var(--ink); line-height:1.55; }
-    .pg-quote__text em { font-style:normal; color:var(--coral); }
+    .pg-quote__text em { font-style:normal; color:var(--teal-text); }
 
     /* Info table */
     .pg-info { margin-bottom:56px; }
