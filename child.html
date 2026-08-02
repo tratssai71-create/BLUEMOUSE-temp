@@ -32,6 +32,8 @@
     :root { --coral:#f2906c; --coral-light:#fdf0eb; --teal:#5fc1c7; --teal-light:#e8f6f7; --yellow:#f5d24a; --yellow-dark:#d9a520; --yellow-light:#fef9e7; --ink:#33251a; --green:#3a6b5e; --bg:#faf8f5;
       /* 余白スケール（4px基準）。セクション間とカード内側はこの2つが唯一の基準値 */
       --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:24px; --sp-6:32px; --sp-7:48px; --sp-8:64px;
+      /* イージングはこの2種類だけを使い回す */
+      --ease-out:cubic-bezier(.22,1,.36,1); --ease-io:cubic-bezier(.65,0,.35,1);
       --section-gap:var(--sp-8); --card-pad:var(--sp-6); }
 
     /* Header */
@@ -307,9 +309,132 @@
     .footer__fac + .footer__fac { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.06); }
     .footer__bottom { max-width: 1000px; margin: 0 auto; text-align: center; padding-top: 16px; font-family: "Inter", sans-serif; font-size: 11px; color: #5a6a6c; }
 
-    /* Fade */
-    .js-ready .fade-in { opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s cubic-bezier(.22,1,.36,1); }
+    /* =========================================================
+       Motion
+       設計方針：
+       - イージングは2種類に絞る（--ease-out=減速 / --ease-io=溜めて放つ）
+       - 移動距離は要素の大きさに比例させる（小さい要素ほど動かさない）
+       - 並んだ要素は必ず stagger で順に読ませる
+       - 「大胆に」動かすのは ヒーロー / こだわり番号 / CTA の3箇所のみ。
+         他を抑えるほど、この3つが効く
+       ========================================================= */
+
+    /* ---- 基本のスクロール登場 ---- */
+    .js-ready .fade-in { opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s var(--ease-out); }
     .fade-in.is-visible { opacity:1; transform:none; }
+
+    /* ---- ① ヒーロー（大胆）：画像を下から拭い上げ、文字が順に立ち上がる ---- */
+    .js-ready .pg-hero__img-wrap { clip-path:inset(0 0 100% 0); }
+    .js-ready .pg-hero__img-wrap img { transform:scale(1.14); }
+    .bm-ready .pg-hero__img-wrap { animation:heroWipe 1.15s var(--ease-io) .1s forwards; }
+    .bm-ready .pg-hero__img-wrap img { animation:heroSettle 1.6s var(--ease-out) .1s forwards; }
+    @keyframes heroWipe   { to { clip-path:inset(0 0 0 0); } }
+    @keyframes heroSettle { to { transform:scale(1); } }
+
+    .js-ready .pg-hero__tag,
+    .js-ready .pg-hero__title,
+    .js-ready .pg-hero__sub { opacity:0; transform:translateY(20px); }
+    .bm-ready .pg-hero__tag   { animation:heroRise .85s var(--ease-out) .34s forwards; }
+    .bm-ready .pg-hero__title { animation:heroRise .85s var(--ease-out) .44s forwards; }
+    .bm-ready .pg-hero__sub   { animation:heroRise .85s var(--ease-out) .56s forwards; }
+    @keyframes heroRise { to { opacity:1; transform:none; } }
+    .js-ready .pg-hero__tag::before { transform:scaleX(0); transform-origin:left center; }
+    .bm-ready .pg-hero__tag::before { animation:tagLine .7s var(--ease-io) .5s forwards; }
+    @keyframes tagLine { to { transform:scaleX(1); } }
+
+    /* ---- ② 見出しの共通シグネチャ：縦バーが引かれてから文字が寄る ---- */
+    .js-ready .pg-info__title::before { transform:scaleY(0); transform-origin:top center; }
+    .js-ready .pg-info__title { opacity:0; transform:translateX(-8px); }
+    .is-visible .pg-info__title { animation:titleIn .6s var(--ease-out) .1s forwards; }
+    .is-visible .pg-info__title::before { animation:barDraw .5s var(--ease-io) forwards; }
+    @keyframes titleIn { to { opacity:1; transform:none; } }
+    @keyframes barDraw { to { transform:scaleY(1); } }
+
+    /* ---- ③ こだわり01/02/03（大胆）：番号が弾んで出て、本文が続く ---- */
+    .js-ready .pg-kodawari-num { opacity:0; transform:scale(.4) rotate(-12deg); }
+    .js-ready .pg-kodawari-item__head h3,
+    .js-ready .pg-kodawari-body { opacity:0; transform:translateY(14px); }
+    .is-visible .pg-kodawari-num { animation:numPop .7s cubic-bezier(.34,1.56,.64,1) forwards; }
+    .is-visible .pg-kodawari-item__head h3,
+    .is-visible .pg-kodawari-body { animation:softRise .65s var(--ease-out) forwards; }
+    .is-visible .pg-kodawari-item:nth-child(1) .pg-kodawari-num { animation-delay:.15s; }
+    .is-visible .pg-kodawari-item:nth-child(2) .pg-kodawari-num { animation-delay:.30s; }
+    .is-visible .pg-kodawari-item:nth-child(3) .pg-kodawari-num { animation-delay:.45s; }
+    .is-visible .pg-kodawari-item:nth-child(1) .pg-kodawari-item__head h3 { animation-delay:.26s; }
+    .is-visible .pg-kodawari-item:nth-child(2) .pg-kodawari-item__head h3 { animation-delay:.41s; }
+    .is-visible .pg-kodawari-item:nth-child(3) .pg-kodawari-item__head h3 { animation-delay:.56s; }
+    .is-visible .pg-kodawari-item:nth-child(1) .pg-kodawari-body { animation-delay:.34s; }
+    .is-visible .pg-kodawari-item:nth-child(2) .pg-kodawari-body { animation-delay:.49s; }
+    .is-visible .pg-kodawari-item:nth-child(3) .pg-kodawari-body { animation-delay:.64s; }
+    @keyframes numPop   { to { opacity:1; transform:scale(1) rotate(0); } }
+    @keyframes softRise { to { opacity:1; transform:none; } }
+
+    /* ---- ④ 1日の流れ：カードが起き、行が上から順に流れる ---- */
+    .js-ready .pg-schedule-card { opacity:0; transform:translateY(18px); }
+    .is-visible .pg-schedule-card { animation:softRise .7s var(--ease-out) forwards; }
+    .is-visible .pg-schedule-card:nth-child(2) { animation-delay:.12s; }
+    .js-ready .pg-schedule-list li { opacity:0; transform:translateX(-10px); }
+    .is-visible .pg-schedule-list li { animation:rowIn .5s var(--ease-out) forwards; }
+    .is-visible .pg-schedule-card:nth-child(1) .pg-schedule-list li:nth-child(1) { animation-delay:.24s; }
+    .is-visible .pg-schedule-card:nth-child(1) .pg-schedule-list li:nth-child(2) { animation-delay:.30s; }
+    .is-visible .pg-schedule-card:nth-child(1) .pg-schedule-list li:nth-child(3) { animation-delay:.36s; }
+    .is-visible .pg-schedule-card:nth-child(1) .pg-schedule-list li:nth-child(4) { animation-delay:.42s; }
+    .is-visible .pg-schedule-card:nth-child(1) .pg-schedule-list li:nth-child(5) { animation-delay:.48s; }
+    .is-visible .pg-schedule-card:nth-child(1) .pg-schedule-list li:nth-child(6) { animation-delay:.54s; }
+    .is-visible .pg-schedule-card:nth-child(1) .pg-schedule-list li:nth-child(7) { animation-delay:.60s; }
+    .is-visible .pg-schedule-card:nth-child(2) .pg-schedule-list li:nth-child(1) { animation-delay:.36s; }
+    .is-visible .pg-schedule-card:nth-child(2) .pg-schedule-list li:nth-child(2) { animation-delay:.42s; }
+    .is-visible .pg-schedule-card:nth-child(2) .pg-schedule-list li:nth-child(3) { animation-delay:.48s; }
+    .is-visible .pg-schedule-card:nth-child(2) .pg-schedule-list li:nth-child(4) { animation-delay:.54s; }
+    .is-visible .pg-schedule-card:nth-child(2) .pg-schedule-list li:nth-child(5) { animation-delay:.60s; }
+    .is-visible .pg-schedule-card:nth-child(2) .pg-schedule-list li:nth-child(6) { animation-delay:.66s; }
+    .is-visible .pg-schedule-card:nth-child(2) .pg-schedule-list li:nth-child(7) { animation-delay:.72s; }
+    @keyframes rowIn { to { opacity:1; transform:none; } }
+
+    /* ---- ⑤ 療育の先にある未来：順に立ち上がる ---- */
+    .js-ready .pg-future-item { opacity:0; transform:translateY(16px); }
+    .is-visible .pg-future-item { animation:softRise .7s var(--ease-out) forwards; }
+    .is-visible .pg-future-item:nth-child(1) { animation-delay:.15s; }
+    .is-visible .pg-future-item:nth-child(2) { animation-delay:.30s; }
+
+    /* ---- ⑥ 引用：ローディングと同じ“ピントが合う”言語で揃える ---- */
+    .js-ready .pg-quote__text { opacity:0; filter:blur(5px); transform:translateY(8px); }
+    .is-visible .pg-quote__text { animation:focusIn .95s var(--ease-out) .1s forwards; }
+    @keyframes focusIn { to { opacity:1; filter:blur(0); transform:none; } }
+
+    /* ---- ⑦ 概要テーブル：行が順に現れる ---- */
+    .js-ready .pg-table tr { opacity:0; transform:translateY(8px); }
+    .is-visible .pg-table tr { animation:softRise .5s var(--ease-out) forwards; }
+    .is-visible .pg-table tr:nth-child(1) { animation-delay:.10s; }
+    .is-visible .pg-table tr:nth-child(2) { animation-delay:.16s; }
+    .is-visible .pg-table tr:nth-child(3) { animation-delay:.22s; }
+    .is-visible .pg-table tr:nth-child(4) { animation-delay:.28s; }
+    .is-visible .pg-table tr:nth-child(5) { animation-delay:.34s; }
+    .is-visible .pg-table tr:nth-child(6) { animation-delay:.40s; }
+    .is-visible .pg-table tr:nth-child(7) { animation-delay:.46s; }
+    .is-visible .pg-table tr:nth-child(8) { animation-delay:.52s; }
+
+    /* ---- ⑧ CTA（大胆）：わずかに迫り出して“目的地”を主張する ---- */
+    .js-ready .pg-cta.fade-in { transform:translateY(28px) scale(.96); }
+    .pg-cta.fade-in.is-visible { transition:opacity .8s ease, transform .9s var(--ease-out); transform:none; }
+
+    /* ---- 動きを減らす設定では、すべて静止した完成形で見せる ---- */
+    @media (prefers-reduced-motion:reduce) {
+      .js-ready .fade-in, .js-ready .pg-hero__tag, .js-ready .pg-hero__title, .js-ready .pg-hero__sub,
+      .js-ready .pg-kodawari-num, .js-ready .pg-kodawari-item__head h3, .js-ready .pg-kodawari-body,
+      .js-ready .pg-schedule-card, .js-ready .pg-schedule-list li, .js-ready .pg-future-item,
+      .js-ready .pg-quote__text, .js-ready .pg-table tr, .js-ready .pg-cta.fade-in, .js-ready .pg-info__title {
+        opacity:1 !important; transform:none !important; filter:none !important;
+      }
+      .js-ready .pg-hero__img-wrap { clip-path:none !important; }
+      .js-ready .pg-hero__img-wrap img { transform:none !important; }
+      .js-ready .pg-info__title::before, .js-ready .pg-hero__tag::before { transform:none !important; }
+      .bm-ready .pg-hero__img-wrap, .bm-ready .pg-hero__img-wrap img,
+      .bm-ready .pg-hero__tag, .bm-ready .pg-hero__title, .bm-ready .pg-hero__sub,
+      .is-visible .pg-info__title, .is-visible .pg-kodawari-num, .is-visible .pg-schedule-card,
+      .is-visible .pg-schedule-list li, .is-visible .pg-future-item, .is-visible .pg-quote__text,
+      .is-visible .pg-table tr { animation:none !important; }
+    }
 
     @media (max-width:780px) {
       .header { padding:0 16px; height:56px; }
@@ -395,6 +520,7 @@
 
   if (reduce || isInternalNav) {
     if (el.parentNode) el.parentNode.removeChild(el);
+    root.classList.add('bm-ready'); // ローダーを出さない場合はすぐヒーローを動かす
     return;
   }
   root.classList.add('bm-loading');
@@ -405,6 +531,8 @@
     removed = true;
     el.classList.add('is-done');
     root.classList.remove('bm-loading');
+    // 幕が引ききる前にヒーローを動かし始め、ローダーから流れるように繋ぐ
+    setTimeout(function () { root.classList.add('bm-ready'); }, 350);
     setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 900);
   }
   var start = Date.now(), MIN = 1500;
