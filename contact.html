@@ -780,11 +780,48 @@
 
   document.documentElement.classList.add('js-ready');
 
-  var els = document.querySelectorAll('.fade-in');
-  var obs = new IntersectionObserver(function (entries) { entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); } }); }, { threshold: 0.05 });
-  els.forEach(function (el) { obs.observe(el); });
-  setTimeout(function () { els.forEach(function (el) { if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('is-visible'); }); }, 100);
-  setTimeout(function () { els.forEach(function (el) { el.classList.add('is-visible'); }); }, 2000);
+  var els = Array.prototype.slice.call(document.querySelectorAll('.fade-in'));
+  function reveal(el) { el.classList.add('is-visible'); }
+
+  // 発火線＝画面下端から22%上。要素が「読む位置」に入ってから動き出すので、
+  // スクロールしてきた人の視界の中でアニメーションが起きる
+  var LINE = 0.78;
+
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(reveal);
+  } else {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { reveal(e.target); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0, rootMargin: '0px 0px -22% 0px' });
+    els.forEach(function (el) { obs.observe(el); });
+
+    // 保険：IOが発火しない状況（裏タブでの読み込み等）でも本文が消えたままにならないよう、
+    // スクロール/リサイズで同じ判定を回す。全部出たら自分でリスナーを外す
+    var ticking = false;
+    function sweep() {
+      var pending = 0;
+      for (var i = 0; i < els.length; i++) {
+        var el = els[i];
+        if (el.classList.contains('is-visible')) continue;
+        if (el.getBoundingClientRect().top < window.innerHeight * LINE) reveal(el);
+        else pending++;
+      }
+      if (!pending) {
+        window.removeEventListener('scroll', onScroll);
+        window.removeEventListener('resize', onScroll);
+      }
+    }
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () { ticking = false; sweep(); });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    sweep();
+  }
 
   function showError(el, errId) { el.classList.add('is-error'); var e = document.getElementById(errId); if (e) e.classList.add('is-show'); }
   function clearError(el, errId) { el.classList.remove('is-error'); var e = document.getElementById(errId); if (e) e.classList.remove('is-show'); }

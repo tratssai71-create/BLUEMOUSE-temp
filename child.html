@@ -320,8 +320,12 @@
        ========================================================= */
 
     /* ---- 基本のスクロール登場 ---- */
-    .js-ready .fade-in { opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s var(--ease-out); }
+    .js-ready .fade-in { opacity:0; transform:translateY(28px); transition:opacity .85s ease, transform .85s var(--ease-out); }
     .fade-in.is-visible { opacity:1; transform:none; }
+    /* 個別アニメを持つ要素では、fade-in は「発火のきっかけ」専用にして動きを二重化させない */
+    .js-ready .pg-kodawari-item.fade-in,
+    .js-ready .pg-schedule-card.fade-in,
+    .js-ready .pg-future-item.fade-in { transition:none; }
 
     /* ---- ① ヒーロー（大胆）：画像を下から拭い上げ、文字が順に立ち上がる ---- */
     .js-ready .pg-hero__img-wrap { clip-path:inset(0 0 100% 0); }
@@ -354,9 +358,9 @@
     .js-ready .pg-kodawari-num { opacity:0; transform:scale(.4) rotate(-12deg); }
     .js-ready .pg-kodawari-item__head h3,
     .js-ready .pg-kodawari-body { opacity:0; transform:translateY(14px); }
-    .is-visible .pg-kodawari-num { animation:numPop .7s cubic-bezier(.34,1.56,.64,1) forwards; }
-    .is-visible .pg-kodawari-item__head h3,
-    .is-visible .pg-kodawari-body { animation:softRise .65s var(--ease-out) forwards; }
+    .pg-kodawari-item.is-visible .pg-kodawari-num { animation:numPop .7s cubic-bezier(.34,1.56,.64,1) forwards; }
+    .pg-kodawari-item.is-visible .pg-kodawari-item__head h3 { animation:softRise .65s var(--ease-out) .10s forwards; }
+    .pg-kodawari-item.is-visible .pg-kodawari-body { animation:softRise .65s var(--ease-out) .18s forwards; }
     .is-visible .pg-kodawari-item:nth-child(1) .pg-kodawari-num { animation-delay:.15s; }
     .is-visible .pg-kodawari-item:nth-child(2) .pg-kodawari-num { animation-delay:.30s; }
     .is-visible .pg-kodawari-item:nth-child(3) .pg-kodawari-num { animation-delay:.45s; }
@@ -371,31 +375,22 @@
 
     /* ---- ④ 1日の流れ：カードが起き、行が上から順に流れる ---- */
     .js-ready .pg-schedule-card { opacity:0; transform:translateY(18px); }
-    .is-visible .pg-schedule-card { animation:softRise .7s var(--ease-out) forwards; }
-    .is-visible .pg-schedule-card:nth-child(2) { animation-delay:.12s; }
+    .pg-schedule-card.is-visible { animation:softRise .7s var(--ease-out) forwards; }
     .js-ready .pg-schedule-list li { opacity:0; transform:translateX(-10px); }
-    .is-visible .pg-schedule-list li { animation:rowIn .5s var(--ease-out) forwards; }
-    .is-visible .pg-schedule-card:nth-child(1) .pg-schedule-list li:nth-child(1) { animation-delay:.24s; }
-    .is-visible .pg-schedule-card:nth-child(1) .pg-schedule-list li:nth-child(2) { animation-delay:.30s; }
-    .is-visible .pg-schedule-card:nth-child(1) .pg-schedule-list li:nth-child(3) { animation-delay:.36s; }
-    .is-visible .pg-schedule-card:nth-child(1) .pg-schedule-list li:nth-child(4) { animation-delay:.42s; }
-    .is-visible .pg-schedule-card:nth-child(1) .pg-schedule-list li:nth-child(5) { animation-delay:.48s; }
-    .is-visible .pg-schedule-card:nth-child(1) .pg-schedule-list li:nth-child(6) { animation-delay:.54s; }
-    .is-visible .pg-schedule-card:nth-child(1) .pg-schedule-list li:nth-child(7) { animation-delay:.60s; }
-    .is-visible .pg-schedule-card:nth-child(2) .pg-schedule-list li:nth-child(1) { animation-delay:.36s; }
-    .is-visible .pg-schedule-card:nth-child(2) .pg-schedule-list li:nth-child(2) { animation-delay:.42s; }
-    .is-visible .pg-schedule-card:nth-child(2) .pg-schedule-list li:nth-child(3) { animation-delay:.48s; }
-    .is-visible .pg-schedule-card:nth-child(2) .pg-schedule-list li:nth-child(4) { animation-delay:.54s; }
-    .is-visible .pg-schedule-card:nth-child(2) .pg-schedule-list li:nth-child(5) { animation-delay:.60s; }
-    .is-visible .pg-schedule-card:nth-child(2) .pg-schedule-list li:nth-child(6) { animation-delay:.66s; }
-    .is-visible .pg-schedule-card:nth-child(2) .pg-schedule-list li:nth-child(7) { animation-delay:.72s; }
+    .pg-schedule-card.is-visible .pg-schedule-list li { animation:rowIn .5s var(--ease-out) forwards; }
+    .pg-schedule-card.is-visible .pg-schedule-list li:nth-child(1) { animation-delay:0.12s; }
+    .pg-schedule-card.is-visible .pg-schedule-list li:nth-child(2) { animation-delay:0.18s; }
+    .pg-schedule-card.is-visible .pg-schedule-list li:nth-child(3) { animation-delay:0.24s; }
+    .pg-schedule-card.is-visible .pg-schedule-list li:nth-child(4) { animation-delay:0.30s; }
+    .pg-schedule-card.is-visible .pg-schedule-list li:nth-child(5) { animation-delay:0.36s; }
+    .pg-schedule-card.is-visible .pg-schedule-list li:nth-child(6) { animation-delay:0.42s; }
+    .pg-schedule-card.is-visible .pg-schedule-list li:nth-child(7) { animation-delay:0.48s; }
+    .pg-schedule-card.is-visible .pg-schedule-list li:nth-child(8) { animation-delay:0.54s; }
     @keyframes rowIn { to { opacity:1; transform:none; } }
 
     /* ---- ⑤ 療育の先にある未来：順に立ち上がる ---- */
     .js-ready .pg-future-item { opacity:0; transform:translateY(16px); }
-    .is-visible .pg-future-item { animation:softRise .7s var(--ease-out) forwards; }
-    .is-visible .pg-future-item:nth-child(1) { animation-delay:.15s; }
-    .is-visible .pg-future-item:nth-child(2) { animation-delay:.30s; }
+    .pg-future-item.is-visible { animation:softRise .7s var(--ease-out) forwards; }
 
     /* ---- ⑥ 引用：ローディングと同じ“ピントが合う”言語で揃える ---- */
     .js-ready .pg-quote__text { opacity:0; filter:blur(5px); transform:translateY(8px); }
@@ -615,7 +610,7 @@
         <li><span class="pg-worry-bubble">活動に参加しない</span></li>
       </ul>
     </div>
-    <p class="pg-worry__body">
+    <p class="pg-worry__body fade-in">
       これらは、毎日子育てを頑張っているからこそ生まれる、保護者の方の「あるある」なお悩みです。<br>
       しかし、これらは決してただの「困った行動」や「ワガママ」ではありません。実は、こうした行動の裏には<em>「こどもなりの切実な理由」</em>が隠れているんです。<br><br>
       だからこそ、私たちが目指すのは、こどもを叱って無理やりルールに合わせることではありません。<strong>「その子が一番生きやすい環境とやり方」</strong>を、大人が一緒に見つけ出すことです。
@@ -636,7 +631,7 @@
   <div class="pg-kodawari fade-in" id="kodawari">
     <h2 class="pg-info__title">主体性療育の「3つのこだわり」</h2>
     <div class="pg-kodawari-list">
-      <div class="pg-kodawari-item">
+      <div class="pg-kodawari-item fade-in">
         <div class="pg-kodawari-item__head">
           <div class="pg-kodawari-num pg-kodawari-num--yellow">01</div>
           <h3>「叱る」ではなく<br>環境設定で解決する</h3>
@@ -646,7 +641,7 @@
           <p>だからこそ、私たちは「無理に枠にはめる」「頭ごなしに否定する」ことはしません。徹底的な「観察」から専門的な視点で仮説を立て、環境を変える。この「仮説と検証」の繰り返しによって不快感を取り除き、大切な療育が届くための「心の余裕」を生み出します。</p>
         </div>
       </div>
-      <div class="pg-kodawari-item">
+      <div class="pg-kodawari-item fade-in">
         <div class="pg-kodawari-item__head">
           <div class="pg-kodawari-num pg-kodawari-num--yellow">02</div>
           <h3>こども「中心」の<br>秩序ある環境</h3>
@@ -656,7 +651,7 @@
           <p>大人の手を借りずとも、「出す→遊ぶ→片付ける」を自分一人で完結できる「こどもサイズ」の環境設定。この環境の中で自ら選び、試行錯誤し、「自分で決めた」「できた」という小さな成功体験を積み重ねます。</p>
         </div>
       </div>
-      <div class="pg-kodawari-item">
+      <div class="pg-kodawari-item fade-in">
         <div class="pg-kodawari-item__head">
           <div class="pg-kodawari-num pg-kodawari-num--yellow">03</div>
           <h3>むやみに「干渉しない」<br>という支援</h3>
@@ -672,7 +667,7 @@
   <div class="pg-schedule fade-in" id="schedule">
     <h2 class="pg-info__title">具体的な活動と1日の流れ</h2>
     <div class="pg-schedule-grid">
-      <div class="pg-schedule-card">
+      <div class="pg-schedule-card fade-in">
         <p class="pg-schedule-card__label">1部</p>
         <ul class="pg-schedule-list">
           <li><span class="pg-schedule-list__time">14:00</span><span class="pg-schedule-list__desc">来所</span></li>
@@ -681,7 +676,7 @@
           <li><span class="pg-schedule-list__time">15:35</span><span class="pg-schedule-list__desc">降所</span></li>
         </ul>
       </div>
-      <div class="pg-schedule-card">
+      <div class="pg-schedule-card fade-in">
         <p class="pg-schedule-card__label">2部</p>
         <ul class="pg-schedule-list">
           <li><span class="pg-schedule-list__time">15:50</span><span class="pg-schedule-list__desc">来所</span></li>
@@ -701,13 +696,13 @@
       自分を認められた安心感の中で育つ<em>「自分の気持ちを伝える力（言語化）」</em>や<em>「何度でも試せる折れない心」</em>。この目に見えない「心の根っこ」こそが、将来子どもを守る最大の武器になります。
     </p>
     <div class="pg-future-list">
-      <div class="pg-future-item">
+      <div class="pg-future-item fade-in">
         <div class="pg-future-item__body">
           <h3>対人トラブルを防ぐ「最大の防御」</h3>
           <p>自分の気持ちやSOSを正しく言葉で伝えられる力は、小学校やその先の社会で直面する対人トラブルを防ぐ最大の防御になります。</p>
         </div>
       </div>
-      <div class="pg-future-item">
+      <div class="pg-future-item fade-in">
         <div class="pg-future-item__body">
           <h3>一生折れない「自分基準の自信」</h3>
           <p>「失敗しても大丈夫」「自分ならなんとかできる」という体験ベースの自信は、誰かと比べられることで崩れることがありません。これが10年後の社会的な自立を支える確かな土台になります。</p>
@@ -785,11 +780,48 @@
   document.querySelectorAll('.mn-accordion__toggle').forEach(function (btn) { btn.addEventListener('click', function () { btn.closest('.mn-accordion').classList.toggle('is-open'); }); });
   document.documentElement.classList.add('js-ready');
 
-  var els = document.querySelectorAll('.fade-in');
-  var obs = new IntersectionObserver(function (entries) { entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); } }); }, { threshold: 0.05 });
-  els.forEach(function (el) { obs.observe(el); });
-  setTimeout(function () { els.forEach(function (el) { if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('is-visible'); }); }, 100);
-  setTimeout(function () { els.forEach(function (el) { el.classList.add('is-visible'); }); }, 2000);
+  var els = Array.prototype.slice.call(document.querySelectorAll('.fade-in'));
+  function reveal(el) { el.classList.add('is-visible'); }
+
+  // 発火線＝画面下端から22%上。要素が「読む位置」に入ってから動き出すので、
+  // スクロールしてきた人の視界の中でアニメーションが起きる
+  var LINE = 0.78;
+
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(reveal);
+  } else {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { reveal(e.target); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0, rootMargin: '0px 0px -22% 0px' });
+    els.forEach(function (el) { obs.observe(el); });
+
+    // 保険：IOが発火しない状況（裏タブでの読み込み等）でも本文が消えたままにならないよう、
+    // スクロール/リサイズで同じ判定を回す。全部出たら自分でリスナーを外す
+    var ticking = false;
+    function sweep() {
+      var pending = 0;
+      for (var i = 0; i < els.length; i++) {
+        var el = els[i];
+        if (el.classList.contains('is-visible')) continue;
+        if (el.getBoundingClientRect().top < window.innerHeight * LINE) reveal(el);
+        else pending++;
+      }
+      if (!pending) {
+        window.removeEventListener('scroll', onScroll);
+        window.removeEventListener('resize', onScroll);
+      }
+    }
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () { ticking = false; sweep(); });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    sweep();
+  }
 })();
 </script>
 <style>
