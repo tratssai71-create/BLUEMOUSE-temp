@@ -100,20 +100,39 @@
 
     /* Worry section */
     .pg-worry { margin-bottom:48px; }
-    .pg-worry-list { list-style:none; display:flex; flex-direction:column; gap:14px; margin:24px 0 32px; }
-    .pg-worry-list li { position:relative; align-self:flex-start; max-width:78%; background:#fff; border:1.5px solid rgba(242,144,108,.28); border-radius:18px 18px 18px 4px; padding:13px 22px; font-size:15px; font-weight:600; color:var(--ink); box-shadow:0 4px 14px rgba(242,144,108,.09); }
-    .pg-worry-list li:nth-child(even) { align-self:flex-end; border-radius:18px 18px 4px 18px; background:var(--coral-light); border-color:rgba(242,144,108,.2); }
-    .js-ready .pg-worry-list li { opacity:0; transform:translateY(14px) scale(.96); }
-    .pg-worry.is-visible .pg-worry-list li { animation:worryPop .55s cubic-bezier(.22,1.2,.36,1) forwards; }
-    .pg-worry.is-visible .pg-worry-list li:nth-child(1) { animation-delay:.05s; }
-    .pg-worry.is-visible .pg-worry-list li:nth-child(2) { animation-delay:.20s; }
-    .pg-worry.is-visible .pg-worry-list li:nth-child(3) { animation-delay:.35s; }
-    .pg-worry.is-visible .pg-worry-list li:nth-child(4) { animation-delay:.50s; }
-    .pg-worry.is-visible .pg-worry-list li:nth-child(5) { animation-delay:.65s; }
-    @keyframes worryPop { to { opacity:1; transform:translateY(0) scale(1); } }
+    .pg-worry-cloud { position:relative; margin:28px 0 34px; padding:8px 0; }
+    .pg-worry-cloud::before { content:''; position:absolute; top:50%; left:50%; width:min(560px,92%); height:280px; transform:translate(-50%,-50%); border-radius:50%; background:radial-gradient(ellipse at center, rgba(242,144,108,.11) 0%, rgba(245,210,74,.07) 45%, rgba(255,255,255,0) 72%); filter:blur(6px); pointer-events:none; animation:worryAura 14s ease-in-out infinite; }
+    .pg-worry-list { position:relative; list-style:none; display:flex; flex-direction:column; gap:16px; }
+    .pg-worry-list li { align-self:flex-start; max-width:82%; }
+    .pg-worry-list li:nth-child(even) { align-self:flex-end; }
+    .pg-worry-bubble { position:relative; display:inline-block; padding:14px 26px; border-radius:22px 22px 22px 6px; background:linear-gradient(140deg, #fff 0%, #fffdfa 100%); border:1.5px solid rgba(242,144,108,.26); font-size:15.5px; font-weight:600; letter-spacing:.02em; color:var(--ink); box-shadow:0 8px 22px rgba(242,144,108,.13), 0 1px 2px rgba(0,0,0,.03); will-change:transform; }
+    .pg-worry-list li:nth-child(even) .pg-worry-bubble { border-radius:22px 22px 6px 22px; background:linear-gradient(140deg, var(--coral-light) 0%, #fff6f2 100%); border-color:rgba(242,144,108,.2); }
+    .pg-worry-bubble::after { content:''; position:absolute; bottom:-1.5px; left:-1.5px; width:16px; height:16px; background:inherit; border-left:1.5px solid rgba(242,144,108,.26); border-bottom:1.5px solid rgba(242,144,108,.26); border-radius:0 0 0 6px; transform:skewX(24deg); }
+    .pg-worry-list li:nth-child(even) .pg-worry-bubble::after { left:auto; right:-1.5px; border-left:none; border-right:1.5px solid rgba(242,144,108,.2); border-bottom-color:rgba(242,144,108,.2); border-radius:0 0 6px 0; transform:skewX(-24deg); }
+
+    /* 登場（stagger）→ そのままゆっくり漂い続ける */
+    .js-ready .pg-worry-list li { opacity:0; }
+    .pg-worry.is-visible .pg-worry-list li { animation:worryRise .7s cubic-bezier(.22,1,.36,1) forwards; }
+    .pg-worry.is-visible .pg-worry-bubble { animation:worryDrift 6s ease-in-out infinite; }
+    .pg-worry.is-visible .pg-worry-list li:nth-child(1), .pg-worry.is-visible li:nth-child(1) .pg-worry-bubble { animation-delay:.05s; }
+    .pg-worry.is-visible .pg-worry-list li:nth-child(2), .pg-worry.is-visible li:nth-child(2) .pg-worry-bubble { animation-delay:.22s; }
+    .pg-worry.is-visible .pg-worry-list li:nth-child(3), .pg-worry.is-visible li:nth-child(3) .pg-worry-bubble { animation-delay:.39s; }
+    .pg-worry.is-visible .pg-worry-list li:nth-child(4), .pg-worry.is-visible li:nth-child(4) .pg-worry-bubble { animation-delay:.56s; }
+    .pg-worry.is-visible .pg-worry-list li:nth-child(5), .pg-worry.is-visible li:nth-child(5) .pg-worry-bubble { animation-delay:.73s; }
+    @keyframes worryRise { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes worryDrift {
+      0%, 100% { transform:translate3d(0, 0, 0) rotate(-.5deg); }
+      50%      { transform:translate3d(0, -7px, 0) rotate(.5deg); }
+    }
+    @keyframes worryAura {
+      0%, 100% { transform:translate(-50%,-50%) scale(1); opacity:.9; }
+      50%      { transform:translate(-50%,-52%) scale(1.08); opacity:1; }
+    }
     @media (prefers-reduced-motion:reduce) {
-      .js-ready .pg-worry-list li { opacity:1; transform:none; }
-      .pg-worry.is-visible .pg-worry-list li { animation:none; }
+      .js-ready .pg-worry-list li { opacity:1; }
+      .pg-worry.is-visible .pg-worry-list li,
+      .pg-worry.is-visible .pg-worry-bubble,
+      .pg-worry-cloud::before { animation:none; }
     }
     .pg-worry__body { font-size:15px; color:#6b5a4c; line-height:2; }
     .pg-worry__body em { font-style:normal; font-weight:700; color:var(--coral); }
@@ -227,7 +246,8 @@
       .pg-hero__title { font-size:clamp(1.5rem,6vw,2rem); }
       .pg-content { padding:32px 20px 60px; }
       .pg-promo { flex-wrap:wrap; padding:16px 18px; }
-      .pg-worry-list li { max-width:88%; padding:12px 18px; font-size:14.5px; }
+      .pg-worry-list li { max-width:90%; }
+      .pg-worry-bubble { padding:12px 20px; font-size:14.5px; }
       .pg-promo__cta { width:100%; justify-content:flex-end; }
       .footer { padding: 32px 16px 16px; }
       .footer__inner { grid-template-columns: 1fr; gap: 20px; }
@@ -298,13 +318,15 @@
   </div>
 
   <div class="pg-worry fade-in">
-    <ul class="pg-worry-list">
-      <li>座っていられない</li>
-      <li>切り替えができない</li>
-      <li>すぐ諦める</li>
-      <li>話を聞かない</li>
-      <li>活動に参加しない</li>
-    </ul>
+    <div class="pg-worry-cloud">
+      <ul class="pg-worry-list">
+        <li><span class="pg-worry-bubble">座っていられない</span></li>
+        <li><span class="pg-worry-bubble">切り替えができない</span></li>
+        <li><span class="pg-worry-bubble">すぐ諦める</span></li>
+        <li><span class="pg-worry-bubble">話を聞かない</span></li>
+        <li><span class="pg-worry-bubble">活動に参加しない</span></li>
+      </ul>
+    </div>
     <p class="pg-worry__body">
       これらは、毎日子育てを頑張っているからこそ生まれる、保護者の方の「あるある」なお悩みです。<br>
       しかし、これらは決してただの「困った行動」や「ワガママ」ではありません。実は、こうした行動の裏には<em>「こどもなりの切実な理由」</em>が隠れているんです。<br><br>
