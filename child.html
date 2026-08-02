@@ -101,7 +101,7 @@
     /* Worry section */
     .pg-worry { margin-bottom:48px; }
     .pg-worry-cloud { position:relative; margin:28px 0 34px; padding:8px 0; }
-    .pg-worry-cloud::before { content:''; position:absolute; top:50%; left:50%; width:min(560px,92%); height:280px; transform:translate(-50%,-50%); border-radius:50%; background:radial-gradient(ellipse at center, rgba(242,144,108,.11) 0%, rgba(245,210,74,.07) 45%, rgba(255,255,255,0) 72%); filter:blur(6px); pointer-events:none; animation:worryAura 14s ease-in-out infinite; }
+    .pg-worry-cloud::before { content:''; position:absolute; top:50%; left:50%; width:min(560px,92%); height:280px; transform:translate(-50%,-50%); border-radius:50%; background:radial-gradient(ellipse at center, rgba(242,144,108,.11) 0%, rgba(245,210,74,.07) 45%, rgba(255,255,255,0) 72%); filter:blur(6px); pointer-events:none; animation:worryAura 18s linear infinite; }
     .pg-worry-list { position:relative; list-style:none; display:flex; flex-direction:column; gap:16px; }
     .pg-worry-list li { align-self:flex-start; max-width:82%; }
     .pg-worry-list li:nth-child(even) { align-self:flex-end; }
@@ -110,28 +110,41 @@
     .pg-worry-bubble::after { content:''; position:absolute; bottom:-1.5px; left:-1.5px; width:16px; height:16px; background:inherit; border-left:1.5px solid rgba(242,144,108,.26); border-bottom:1.5px solid rgba(242,144,108,.26); border-radius:0 0 0 6px; transform:skewX(24deg); }
     .pg-worry-list li:nth-child(even) .pg-worry-bubble::after { left:auto; right:-1.5px; border-left:none; border-right:1.5px solid rgba(242,144,108,.2); border-bottom-color:rgba(242,144,108,.2); border-radius:0 0 6px 0; transform:skewX(-24deg); }
 
-    /* 登場（stagger）→ そのままゆっくり漂い続ける */
+    /* 登場（stagger）は li、漂いは bubble に。漂いはページ読み込み時から止まらず動き続ける */
     .js-ready .pg-worry-list li { opacity:0; }
     .pg-worry.is-visible .pg-worry-list li { animation:worryRise .7s cubic-bezier(.22,1,.36,1) forwards; }
-    .pg-worry.is-visible .pg-worry-bubble { animation:worryDrift 6s ease-in-out infinite; }
-    .pg-worry.is-visible .pg-worry-list li:nth-child(1), .pg-worry.is-visible li:nth-child(1) .pg-worry-bubble { animation-delay:.05s; }
-    .pg-worry.is-visible .pg-worry-list li:nth-child(2), .pg-worry.is-visible li:nth-child(2) .pg-worry-bubble { animation-delay:.22s; }
-    .pg-worry.is-visible .pg-worry-list li:nth-child(3), .pg-worry.is-visible li:nth-child(3) .pg-worry-bubble { animation-delay:.39s; }
-    .pg-worry.is-visible .pg-worry-list li:nth-child(4), .pg-worry.is-visible li:nth-child(4) .pg-worry-bubble { animation-delay:.56s; }
-    .pg-worry.is-visible .pg-worry-list li:nth-child(5), .pg-worry.is-visible li:nth-child(5) .pg-worry-bubble { animation-delay:.73s; }
+    .pg-worry.is-visible .pg-worry-list li:nth-child(1) { animation-delay:.05s; }
+    .pg-worry.is-visible .pg-worry-list li:nth-child(2) { animation-delay:.22s; }
+    .pg-worry.is-visible .pg-worry-list li:nth-child(3) { animation-delay:.39s; }
+    .pg-worry.is-visible .pg-worry-list li:nth-child(4) { animation-delay:.56s; }
+    .pg-worry.is-visible .pg-worry-list li:nth-child(5) { animation-delay:.73s; }
     @keyframes worryRise { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+
+    /* 常時ドリフト：linear + バブルごとに周期をずらして、止まって見える瞬間をなくす */
+    .pg-worry-bubble { animation:worryDrift 9s linear infinite; }
+    .pg-worry-list li:nth-child(1) .pg-worry-bubble { animation-duration:9s;    animation-delay:-0.0s; }
+    .pg-worry-list li:nth-child(2) .pg-worry-bubble { animation-duration:11s;   animation-delay:-2.4s; }
+    .pg-worry-list li:nth-child(3) .pg-worry-bubble { animation-duration:8s;    animation-delay:-4.1s; }
+    .pg-worry-list li:nth-child(4) .pg-worry-bubble { animation-duration:12.5s; animation-delay:-6.3s; }
+    .pg-worry-list li:nth-child(5) .pg-worry-bubble { animation-duration:10s;   animation-delay:-1.7s; }
     @keyframes worryDrift {
-      0%, 100% { transform:translate3d(0, 0, 0) rotate(-.5deg); }
-      50%      { transform:translate3d(0, -7px, 0) rotate(.5deg); }
+      0%   { transform:translate3d(0, 0, 0)      rotate(0deg); }
+      20%  { transform:translate3d(5px, -6px, 0) rotate(.8deg); }
+      40%  { transform:translate3d(2px, -11px, 0) rotate(.2deg); }
+      60%  { transform:translate3d(-4px, -8px, 0) rotate(-.7deg); }
+      80%  { transform:translate3d(-5px, -3px, 0) rotate(-.4deg); }
+      100% { transform:translate3d(0, 0, 0)      rotate(0deg); }
     }
     @keyframes worryAura {
-      0%, 100% { transform:translate(-50%,-50%) scale(1); opacity:.9; }
-      50%      { transform:translate(-50%,-52%) scale(1.08); opacity:1; }
+      0%   { transform:translate(-50%,-50%) scale(1);    opacity:.85; }
+      33%  { transform:translate(-52%,-52%) scale(1.07); opacity:1; }
+      66%  { transform:translate(-48%,-49%) scale(1.03); opacity:.92; }
+      100% { transform:translate(-50%,-50%) scale(1);    opacity:.85; }
     }
     @media (prefers-reduced-motion:reduce) {
       .js-ready .pg-worry-list li { opacity:1; }
       .pg-worry.is-visible .pg-worry-list li,
-      .pg-worry.is-visible .pg-worry-bubble,
+      .pg-worry-bubble,
       .pg-worry-cloud::before { animation:none; }
     }
     .pg-worry__body { font-size:15px; color:#6b5a4c; line-height:2; }
