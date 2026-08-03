@@ -158,6 +158,8 @@
     }
     .ct-textarea { resize:vertical; min-height:120px; }
     .ct-error { display:none; font-size:12px; color:#d94f4f; margin-top:2px; }
+    /* 選択肢に無い理由を伝えるための補足。#a89583等では白地4:1未満なので #7d6d60（4.9:1）を使う */
+    .ct-note { font-size:12px; color:#7d6d60; line-height:1.7; margin-top:2px; }
     .ct-error.is-show { display:block; }
     .ct-input.is-error, .ct-select.is-error, .ct-textarea.is-error { border-color:#d94f4f; background:#fff8f8; }
 
@@ -431,6 +433,7 @@
             <option value="4年生">4年生</option>
             <option value="5年生">5年生</option>
           </select>
+          <span class="ct-note">※ 新規のご利用開始は5年生までを対象としています。</span>
           <span class="ct-error" id="err-grade">学年を選択してください。</span>
         </div>
         <div class="ct-field" id="field-gender" style="display:none;">
