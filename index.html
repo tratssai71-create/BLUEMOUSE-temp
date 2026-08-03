@@ -248,7 +248,7 @@
       opacity: 1; z-index: 2;
       /* 中間で一気に進む曲線だと時間が長くても「切り替わった」と感じるため、
          ほぼ等速（中間の傾き1.25倍）で両端だけ和らげた曲線にする */
-      transition: opacity 2.2s cubic-bezier(.4,.25,.6,.75);
+      transition: opacity 3s cubic-bezier(.4,.25,.6,.75);
     }
     @media (prefers-reduced-motion: reduce) {
       .hero__img-wrap img.is-active { transition: none; }
@@ -965,7 +965,7 @@
 
   // スライドショー共通処理
   // CSSのクロスフェード時間と一致させる（.hero__img-wrap img.is-active の transition）
-  var SLIDE_FADE = 2200;
+  var SLIDE_FADE = 3000;
 
   function panImage(img, duration) {
     var from = img.getAttribute('data-pan-from'), to = img.getAttribute('data-pan-to');
@@ -1000,7 +1000,7 @@
       setTimeout(function() { prev.classList.remove('is-leaving'); }, SLIDE_FADE + 120);
     }, interval);
   }
-  startSlideshow('hero-slides', 6400);
+  startSlideshow('hero-slides', 7200);
 
   var burger = document.getElementById('burger');
   var mobileNav = document.getElementById('mobile-nav');
