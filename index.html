@@ -196,15 +196,36 @@
     }
     .hero__title .ht-yellow { color: var(--yellow); }
     .hero__title .ht-teal { color: var(--teal-dark); }
+    /* 段落に役割を与えて、同じ文章量でも「読む量」を減らして見せる。
+       1文目＝問いかけ（大きく濃く）／中の2段落＝背景（小さく淡く）／最後＝結論（濃く） */
     .hero__sub {
-      font-size: 15px;
-      color: #8a7a6e;
-      line-height: 1.9;
-      margin-bottom: 16px;
+      font-size: 14px;
+      color: #9c8d80;
+      line-height: 1.95;
+      margin-bottom: 14px;
+      max-width: 30em;   /* 行が長くなりすぎて視線が迷うのを防ぐ */
       /* PCでは見出しが左揃えなので本文も左に揃える。
          中央揃えのままだと行頭が揃わず、段落の塊が崩れて見える。
          1カラムになるスマホ側では下のメディアクエリで中央に戻す */
       text-align: left;
+    }
+    .hero__sub--lead {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.75;
+      margin-bottom: 18px;
+    }
+    .hero__sub--close {
+      color: #6b5a4c;
+      font-weight: 500;
+      margin-bottom: 22px;
+    }
+    /* 手動の改行は、行が短くなるスマホでは語のまとまりとして効くが、
+       横幅のあるPCでは1行が細切れになり、段落が実際の文字数以上に長く見える。
+       PCでは改行を無効化して自然に流す（文章は一切削っていない） */
+    @media (min-width: 781px) {
+      .hero__sub br { display: none; }
     }
     .hero__btns { display: flex; gap: 12px; flex-wrap: wrap; }
     .btn {
@@ -430,16 +451,18 @@
       overflow: hidden;
       position: relative;
     }
-    /* 事業の色はここ1本だけ。写真と本文の境目に置くと、面積が小さくても効く */
+    /* 囲いをやめた分、事業の見分けは「境目の色罫」と「本文の極薄の色地」で作る。
+       枠で囲うより主張は弱いが、面が色づくので3枚を並べたときの識別は落ちない */
     .svc__img::after {
       content: '';
       position: absolute; left: 0; right: 0; bottom: 0;
-      height: 3px;
+      height: 5px;
       background: var(--svc-accent, var(--teal));
     }
-    .svc--yellow { --svc-accent: var(--yellow); }
-    .svc--teal   { --svc-accent: var(--teal-dark); }
-    .svc--ink    { --svc-accent: #c9c2ba; }
+    .svc__body { background: var(--svc-tint, transparent); }
+    .svc--yellow { --svc-accent: var(--yellow);     --svc-tint: #fffdf4; }
+    .svc--teal   { --svc-accent: var(--teal-dark);  --svc-tint: #f4fbfb; }
+    .svc--ink    { --svc-accent: #c9c2ba;           --svc-tint: #faf9f7; }
     .svc__img img {
       width: 100%; height: 100%;
       object-fit: cover;
@@ -462,12 +485,18 @@
     .svc--ink .svc__img-tag { color: #8a7a6e; }
     /* 施設名（英字）と種別（和文）を分ける。括弧書きだと「デイサービ／ス）」のように
        途中で折り返してしまい、行末が汚れる */
+    /* 種別は文字だけより、塗りのピルにしたほうが並べたときに拾いやすい */
     .svc__cat {
-      font-size: 11.5px; font-weight: 700; letter-spacing: .08em;
-      color: var(--svc-accent, var(--teal)); margin: 0 0 8px;
+      display: inline-block;
+      font-size: 11.5px; font-weight: 700; letter-spacing: .06em;
+      color: #fff; background: var(--svc-accent, var(--teal));
+      padding: 3px 11px; border-radius: 100px;
+      margin: 0 0 10px;
     }
-    .svc--yellow .svc__cat { color: #d9a520; }
-    .svc--ink .svc__cat { color: #8a7a6e; }
+    /* イエロー地に白は2.0:1で読めないため、この1枚だけ濃い文字に落とす（濃茶で5.2:1） */
+    .svc--yellow .svc__cat { color: #6b4f08; }
+    /* 罫と同じ #3a9095 のままだと白文字が3.8:1でAAに届かないので、ピルだけ一段暗く（5.9:1） */
+    .svc--teal .svc__cat { background: #2c6e72; }
     .svc__body { padding: 20px 22px 24px; }
     .svc__title {
       font-family: "Zen Maru Gothic", sans-serif;
@@ -1022,10 +1051,10 @@
 <section class="hero">
   <div class="hero__text">
     <h1 class="hero__title"><span class="ht-yellow">主体性療育</span>から<br><span class="ht-teal">IT療育</span>へ。</h1>
-    <p class="hero__sub">「このこは将来、自分の力で生きていけるのか」</p>
+    <p class="hero__sub hero__sub--lead">「このこは将来、自分の力で生きていけるのか」</p>
     <p class="hero__sub">特性を持つおこさんの保護者に共通する、<br>切実な不安です。<br>事実、強い特性を持つ成人は<br>収入に約50%もの差が生じるという<br>データもあります。</p>
     <p class="hero__sub">主体性療育で「見えない力」を育み、<br>IT療育で社会を生き抜く「見える力」へ。<br>苦手の克服だけでなく、強みを武器に変える。</p>
-    <p class="hero__sub">私たちが描く、経済的自立から逆算した<br>10年間のロードマップです。</p>
+    <p class="hero__sub hero__sub--close">私たちが描く、経済的自立から逆算した<br>10年間のロードマップです。</p>
     <div class="hero__btns">
       <a href="./philosophy.html" class="svc__link">MORE <i class="svc__arrow">→</i></a>
     </div>
