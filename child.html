@@ -259,9 +259,15 @@
     .pg-future { margin-bottom:var(--section-gap); }
     .pg-future__intro { font-size:15px; color:#6b5a4c; line-height:2; margin:var(--sp-4) 0 var(--sp-5); }
     .pg-future__intro em { font-style:normal; font-weight:700; color:var(--ink); background:linear-gradient(transparent 86%, rgba(95,193,199,.85) 86%); }
-    .pg-future-list { display:flex; flex-direction:column; gap:24px; }
-    .pg-future-item { text-align:center; }
-    .pg-future-item__body h3 { font-size:16px; font-weight:700; color:var(--ink); margin-bottom:8px; line-height:1.5; }
+    /* ページの結論にあたる2項目。並べて「2本の柱」として見せ、白いカードで地から持ち上げる */
+    .pg-future-list { display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-5); }
+    .pg-future-item { position:relative; text-align:center; background:#fff;
+      border:1px solid rgba(217,165,32,.16); border-radius:18px; padding:var(--sp-6) var(--sp-5);
+      box-shadow:0 2px 4px rgba(217,165,32,.04), 0 14px 34px rgba(217,165,32,.10); }
+    /* 見出しの上に短い罫。ヒーローのタグ罫・見出しの縦バーと同じ「線を引く」言語で揃える */
+    .pg-future-item__body h3::before { content:''; display:block; width:30px; height:2px;
+      margin:0 auto var(--sp-4); background:var(--yellow); border-radius:2px; }
+    .pg-future-item__body h3 { font-size:17px; font-weight:700; color:var(--ink); margin-bottom:var(--sp-3); line-height:1.6; letter-spacing:.01em; }
     .pg-future-item__body p { font-size:14px; color:#6b5a4c; line-height:1.9; }
 
     /* Quote */
@@ -388,9 +394,13 @@
     .pg-schedule-card.is-visible .pg-schedule-list li:nth-child(8) { animation-delay:0.54s; }
     @keyframes rowIn { to { opacity:1; transform:none; } }
 
-    /* ---- ⑤ 療育の先にある未来：順に立ち上がる ---- */
-    .js-ready .pg-future-item { opacity:0; transform:translateY(16px); }
-    .pg-future-item.is-visible { animation:softRise .7s var(--ease-out) forwards; }
+    /* ---- ⑤ 療育の先にある未来（強調）：柱が立ち上がり、上の罫が引かれる ---- */
+    .js-ready .pg-future-item { opacity:0; transform:translateY(22px) scale(.985); }
+    .pg-future-item.is-visible { animation:futureRise .8s var(--ease-out) forwards; }
+    @keyframes futureRise { to { opacity:1; transform:none; } }
+    .js-ready .pg-future-item__body h3::before { transform:scaleX(0); transform-origin:center; }
+    .pg-future-item.is-visible .pg-future-item__body h3::before { animation:futureRule .55s cubic-bezier(.45,.25,.4,1) .38s forwards; }
+    @keyframes futureRule { to { transform:scaleX(1); } }
 
     /* ---- ⑥ 引用：ローディングと同じ“ピントが合う”言語で揃える ---- */
     .js-ready .pg-quote__text { opacity:0; filter:blur(5px); transform:translateY(8px); }
@@ -460,11 +470,12 @@
       }
       .js-ready .pg-hero__img-wrap { clip-path:none !important; }
       .js-ready .pg-hero__img-wrap img { transform:none !important; }
-      .js-ready .pg-info__title::before, .js-ready .pg-hero__tag::before { transform:none !important; }
+      .js-ready .pg-info__title::before, .js-ready .pg-hero__tag::before,
+      .js-ready .pg-future-item__body h3::before { transform:none !important; }
       .bm-ready .pg-hero__img-wrap, .bm-ready .pg-hero__img-wrap img,
       .bm-ready .pg-hero__tag, .bm-ready .pg-hero__title, .bm-ready .pg-hero__sub,
       .is-visible .pg-info__title, .is-visible .pg-kodawari-num, .is-visible .pg-schedule-card,
-      .is-visible .pg-schedule-list li, .is-visible .pg-future-item, .is-visible .pg-quote__text,
+      .is-visible .pg-schedule-list li, .pg-future-item.is-visible, .pg-future-item.is-visible .pg-future-item__body h3::before, .is-visible .pg-quote__text,
       .is-visible .pg-table tr { animation:none !important; }
     }
 
@@ -481,6 +492,7 @@
       .pg-hero__title { font-size:clamp(1.5rem,6vw,2rem); }
       .pg-content { padding:0 20px 60px; }
       .pg-promo { flex-wrap:wrap; padding:var(--sp-5); }
+      .pg-future-list { grid-template-columns:1fr; }
       .pg-worry-list li { max-width:90%; }
       .pg-worry-bubble { padding:12px 20px; font-size:14.5px; }
       .pg-promo__cta { width:100%; justify-content:center; margin-top:4px; }
