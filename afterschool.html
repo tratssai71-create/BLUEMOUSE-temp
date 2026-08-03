@@ -30,7 +30,8 @@
     /* 放デイのテーマカラーは濃いティール #3a9095。イエロー(=児発のカラー)はこのページでは使わない。
        ロゴティール #5fc1c7 は薄いので文字には使わず、マーカーなどの面で使う。
        フッターだけはサイト共通のロゴティールに固定する（--footer-teal） */
-    :root { --coral:#f2906c; --coral-light:#fdf0eb;
+    /* --coral は白地で2.3:1しかなく文字には使えないので、文字用に暗くしたコーラルを別に持つ（白地4.9:1） */
+    :root { --coral:#f2906c; --coral-light:#fdf0eb; --coral-deep:#b85233; --coral-tint:#fff6f2;
       --theme:#3a9095; --theme-dark:#2c6e72; --theme-light:#e8f6f7;
       --teal:#5fc1c7; --footer-teal:#5fc1c7;
       --ink:#33251a; --green:#3a6b5e; --bg:#faf8f5;
@@ -119,26 +120,34 @@
     .pg-kodawari-lead { font-size:14.5px; font-weight:700; color:var(--ink); line-height:1.85; }
     .pg-kodawari-body .pg-kodawari-lead + p { margin-top:var(--sp-3); }
 
-    /* 折りたたみ（具体的な取り組み）。JS不要の <details> を使う */
+    /* 折りたたみ（具体的な取り組み）。JS不要の <details> を使う。
+       これは押して開く操作なので、サイト共通のルール通りコーラルで示す。
+       ただし塗りつぶすとCTAボタンと同じ強さになるため、白地＋細い枠の控えめな形にする */
     .pg-more { margin-top:var(--sp-4); }
     .pg-more__btn { display:inline-flex; align-items:center; gap:8px; cursor:pointer; list-style:none;
-      padding:9px 16px; border-radius:100px; border:1.5px solid rgba(58,144,149,.35);
-      background:#fff; color:var(--theme-dark); font-size:13px; font-weight:700; letter-spacing:.02em;
+      padding:9px 16px; border-radius:100px; border:1.5px solid rgba(242,144,108,.5);
+      background:#fff; color:var(--coral-deep); font-size:13px; font-weight:700; letter-spacing:.02em;
       transition:background .2s, border-color .2s; }
     .pg-more__btn::-webkit-details-marker { display:none; }
     .pg-more__btn::before { content:''; width:9px; height:9px; flex-shrink:0;
       border-right:2px solid currentColor; border-bottom:2px solid currentColor;
       transform:rotate(45deg) translate(-2px,-2px); transition:transform .3s var(--ease-out); }
     .pg-more[open] .pg-more__btn::before { transform:rotate(-135deg) translate(-2px,-2px); }
-    .pg-more__btn:hover { background:var(--theme-light); border-color:var(--theme); }
+    /* ホバーの塗りは --coral-light まで濃くすると文字が4.4:1に落ちるので、一段淡い --coral-tint にする */
+    .pg-more__btn:hover { background:var(--coral-tint); border-color:var(--coral); }
     .pg-more__label--close { display:none; }
     .pg-more[open] .pg-more__label--open { display:none; }
     .pg-more[open] .pg-more__label--close { display:inline; }
+    /* 開いた中身はボタンの続きなので、面もコーラル側に寄せる。
+       ページ内で最も面積の大きい色地がティールだと青が勝ちすぎるため、ここを暖色に振る */
     .pg-more__body { margin-top:var(--sp-4); padding:var(--sp-5); border-radius:14px;
-      background:var(--theme-light); animation:moreOpen .45s var(--ease-out); }
-    .pg-more__body p { font-size:14px; color:#5c6f70; line-height:2; }
+      background:var(--coral-light); animation:moreOpen .45s var(--ease-out); }
+    /* 本文の文字色はサイト共通の暖色グレー。ここだけ寒色グレーだった */
+    .pg-more__body p { font-size:14px; color:#6b5a4c; line-height:2; }
     .pg-more__body p + p { margin-top:var(--sp-4); }
-    .pg-more__body em { font-style:normal; font-weight:700; color:var(--theme-dark); }
+    /* em は小見出し、strong は文中の一言。コーラルは操作の色なので文字強調には使わず、
+       どちらも濃いインクの太字にして、色ではなく置かれ方で役割を分ける */
+    .pg-more__body em { font-style:normal; font-weight:700; color:var(--ink); }
     .pg-more__body strong { font-weight:700; color:var(--ink); }
     @keyframes moreOpen { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:none; } }
     .pg-kodawari-body { padding-left:60px; }
@@ -682,11 +691,11 @@
       <div class="pg-schedule-card fade-in">
         <p class="pg-schedule-card__label">平日</p>
         <ul class="pg-schedule-list">
-          <li><span class="pg-schedule-time">15:40</span><span>来所・スケジュール確認</span></li>
-          <li><span class="pg-schedule-time">15:50〜16:20</span><span>個別課題（IT療育）</span></li>
-          <li><span class="pg-schedule-time">16:20〜16:50</span><span>デスク（ゲーミングPC）</span></li>
-          <li><span class="pg-schedule-time">16:50〜17:30</span><span>余暇時間（宿題・交流）</span></li>
-          <li><span class="pg-schedule-time">17:30</span><span>送迎出発</span></li>
+          <li><span class="pg-schedule-list__time">15:40</span><span class="pg-schedule-list__desc">来所・スケジュール確認</span></li>
+          <li><span class="pg-schedule-list__time">15:50〜16:20</span><span class="pg-schedule-list__desc">個別課題（IT療育）</span></li>
+          <li><span class="pg-schedule-list__time">16:20〜16:50</span><span class="pg-schedule-list__desc">デスク（ゲーミングPC）</span></li>
+          <li><span class="pg-schedule-list__time">16:50〜17:30</span><span class="pg-schedule-list__desc">余暇時間（宿題・交流）</span></li>
+          <li><span class="pg-schedule-list__time">17:30</span><span class="pg-schedule-list__desc">送迎出発</span></li>
         </ul>
       </div>
     </div>
