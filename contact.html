@@ -100,6 +100,10 @@
     .ct-tabs-lv3-wrap .ct-tabs { padding:0; background:transparent; gap:18px; }
     .ct-tabs-lv3-wrap .ct-tab { flex:none; font-size:12px; padding:4px 2px 6px; border-radius:0; border-bottom:2px solid transparent; color:#a89583; }
     .ct-tabs-lv3-wrap .ct-tab.is-active { background:transparent; color:var(--ink); border-bottom-color:var(--ink); font-weight:700; }
+    /* 期間限定の窓口。イエロー＝情報ラベル（コーラルは送信ボタン＝行動色なので使わない） */
+    .ct-tabs-lv3-wrap .ct-tabs { flex-wrap:wrap; row-gap:6px; }
+    .ct-tab-badge { font-size:9.5px; font-weight:700; letter-spacing:.02em; line-height:1.4;
+      color:#6b4f08; background:var(--yellow); padding:2px 6px; border-radius:100px; white-space:nowrap; }
 
     /* Form */
     .ct-form { background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:20px; padding:36px 32px; transition:background .3s ease; }
@@ -370,6 +374,7 @@
       <div class="ct-tabs" id="ct-tabs-lv3">
         <button type="button" class="ct-tab" data-choice="trial">体験</button>
         <button type="button" class="ct-tab" data-choice="general">お問い合わせ</button>
+        <button type="button" class="ct-tab" data-choice="soudan">子育て相談<span class="ct-tab-badge">9月末まで</span></button>
       </div>
     </div>
   </div>
@@ -711,7 +716,9 @@
   };
 
   var FACILITY_NAME = { child: '児童発達支援', afterschool: '放課後等デイサービス' };
-  var CHOICE_NAME = { trial: '体験', general: 'お問い合わせ' };
+  var CHOICE_NAME = { trial: '体験', general: 'お問い合わせ', soudan: '子育て相談' };
+  // 児発の専用フォームは体験と子育て相談で共用する。件名の出し分けに使う
+  var childFormMode = 'trial';
 
   function updateSummary(text, isChild, isRecruit) {
     summaryEls.forEach(function (el) { el.textContent = text || ''; });
@@ -830,7 +837,12 @@
       if (state.role === 'recruit') { showForm('recruit'); showAccess(null); updateSummary('採用について', false, true); return; }
       showAccess(state.facility);
       updateSummary(FACILITY_NAME[state.facility] + '・' + CHOICE_NAME[state.choice], state.facility === 'child');
-      if (state.facility === 'child' && state.choice === 'trial') { showForm('child'); return; }
+      // 子育て相談は児発だけの窓口。設問は体験と同じなので専用フォームを使い回す
+      if (state.facility === 'child' && (state.choice === 'trial' || state.choice === 'soudan')) {
+        childFormMode = state.choice;
+        showForm('child');
+        return;
+      }
 
       showForm('general');
       document.getElementById('facility-select').value = FACILITY_LABEL[state.facility];
@@ -846,6 +858,8 @@
       lv1Buttons.forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-role') === state.role); });
       var showLower = state.role === 'user';
       ctSubsteps.classList.toggle('is-collapsed', !showLower);
+      var soudanTab = lv3Wrap.querySelector('[data-choice="soudan"]');
+      if (soudanTab) soudanTab.style.display = (state.facility === 'child') ? '' : 'none';
       if (showLower) {
         lv2Buttons.forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-facility') === state.facility); });
         lv3Buttons.forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-choice') === state.choice); });
@@ -857,7 +871,13 @@
       btn.addEventListener('click', function () { revealed = true; state.role = btn.getAttribute('data-role'); render(); });
     });
     lv2Buttons.forEach(function (btn) {
-      btn.addEventListener('click', function () { revealed = true; state.facility = btn.getAttribute('data-facility'); render(); });
+      btn.addEventListener('click', function () {
+        revealed = true;
+        state.facility = btn.getAttribute('data-facility');
+        // 子育て相談は放デイには無い窓口なので、切り替えたら体験へ戻す
+        if (state.facility !== 'child' && state.choice === 'soudan') state.choice = 'trial';
+        render();
+      });
     });
     lv3Buttons.forEach(function (btn) {
       btn.addEventListener('click', function () { revealed = true; state.choice = btn.getAttribute('data-choice'); render(); });
@@ -1036,7 +1056,9 @@
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({
           access_key: '4fa56afb-03c9-4795-8e00-0d2c8e7b00b6',
-          subject: '【LITTLE BLUE MOUSE】児童発達支援 体験お申し込み',
+          subject: childFormMode === 'soudan'
+            ? '【LITTLE BLUE MOUSE】子育て相談のお申し込み'
+            : '【LITTLE BLUE MOUSE】児童発達支援 体験お申し込み',
           from_name: 'BLUE MOUSE お問い合わせフォーム',
           child_age: ageEl.value,
           gender: genEl.value,
@@ -1044,7 +1066,7 @@
           email: emailEl.value,
           phone: telEl.value,
           facility: 'LITTLE BLUE MOUSE（児童発達支援事業）',
-          inquiry_type: '体験のご希望',
+          inquiry_type: childFormMode === 'soudan' ? '子育て相談（9月末まで限定）' : '体験のご希望',
           message: document.getElementById('c-message').value
         })
       })
