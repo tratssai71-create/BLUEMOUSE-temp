@@ -213,6 +213,13 @@
     .hero__title .ht-yellow { background-image: linear-gradient(rgba(245,210,74,.62), rgba(245,210,74,.62)); }
     .hero__title .ht-teal   { background-image: linear-gradient(rgba(95,193,199,.62), rgba(95,193,199,.62)); }
     /* 「から」「へ。」は繋ぎ語。小さく淡くして、2つの語だけを立たせる */
+    /* 行ごとに窓を作り、その裏から文字がせり上がる（マスクリビール）。
+       overflow:hidden がマーカーの帯や下端を切らないよう、下に余白を足して同量ぶん詰める */
+    .hero__title .ht-line {
+      display: block; overflow: hidden;
+      padding-bottom: .14em; margin-bottom: -.14em;
+    }
+    .hero__title .ht-in { display: inline-block; }
     .hero__title .ht-join {
       font-size: .62em; font-weight: 700; color: #9c8d80;
       letter-spacing: .06em; margin: 0 .1em;
@@ -734,10 +741,15 @@
     @keyframes heroWipe { to { clip-path: inset(0 0 0 0); } }
     /* 写真の transform はスライドショーのパンが持っているので触らない */
 
-    .js-ready .hero__title,
     .js-ready .hero__sub,
     .js-ready .hero__btns { opacity: 0; transform: translateY(20px); }
-    .bm-ready .hero__title            { animation: heroRise .9s var(--ease-out) .30s forwards; }
+    /* 見出しはこのページで唯一「大胆に」動かす担当。細かい登場が続くので、
+       ここだけ強い動きを置いてメリハリをつくる。
+       h1自体は動かさず、2行がそれぞれ窓の裏からせり上がる */
+    .js-ready .hero__title .ht-in { transform: translateY(110%); }
+    .bm-ready .hero__title .ht-line:nth-child(1) .ht-in { animation: lineReveal 1.05s var(--ease-io) .28s forwards; }
+    .bm-ready .hero__title .ht-line:nth-child(2) .ht-in { animation: lineReveal 1.05s var(--ease-io) .46s forwards; }
+    @keyframes lineReveal { to { transform: translateY(0); } }
     .bm-ready .hero__sub:nth-of-type(1) { animation: heroRise .8s var(--ease-out) .52s forwards; }
     .bm-ready .hero__sub:nth-of-type(2) { animation: heroRise .8s var(--ease-out) .62s forwards; }
     .bm-ready .hero__sub:nth-of-type(3) { animation: heroRise .8s var(--ease-out) .72s forwards; }
@@ -836,7 +848,7 @@
     /* ---- 動きを減らす設定では、すべて静止した完成形で見せる ---- */
     @media (prefers-reduced-motion: reduce) {
       .js-ready .fade-in,
-      .js-ready .hero__title, .js-ready .hero__sub, .js-ready .hero__btns,
+      .js-ready .hero__title .ht-in, .js-ready .hero__sub, .js-ready .hero__btns,
       .js-ready .section-tag, .js-ready .section-title,
       .js-ready .svc.fade-in, .js-ready .svc__img-tag, .js-ready .svc__body,
       .js-ready .fac__type, .js-ready .fac__name, .js-ready .fac__row,
@@ -848,7 +860,7 @@
       .js-ready .hero__title .ht-yellow, .js-ready .hero__title .ht-teal { background-size: 100% 32% !important; }
       .js-ready .svc__img img { transform: none !important; }
       .js-ready .section-tag::before, .js-ready .section-tag::after { transform: none !important; }
-      .bm-ready .hero__img-wrap, .bm-ready .hero__title, .bm-ready .hero__sub, .bm-ready .hero__btns,
+      .bm-ready .hero__img-wrap, .bm-ready .hero__title .ht-in, .bm-ready .hero__sub, .bm-ready .hero__btns,
       .bm-ready .hero__title .ht-yellow, .bm-ready .hero__title .ht-teal,
       .is-visible .section-tag, .is-visible .section-tag::before, .is-visible .section-tag::after,
       .is-visible .section-title, .js-ready .svc.fade-in.is-visible,
@@ -1019,7 +1031,7 @@
 <!-- ===== Hero ===== -->
 <section class="hero">
   <div class="hero__text">
-    <h1 class="hero__title"><span class="ht-yellow">主体性療育</span><span class="ht-join">から</span><br><span class="ht-teal">IT療育</span><span class="ht-join">へ。</span></h1>
+    <h1 class="hero__title"><span class="ht-line"><span class="ht-in"><span class="ht-yellow">主体性療育</span><span class="ht-join">から</span></span></span><span class="ht-line"><span class="ht-in"><span class="ht-teal">IT療育</span><span class="ht-join">へ。</span></span></span></h1>
     <p class="hero__sub hero__sub--lead">「このこは将来、<br>自分の力で生きていけるのか」</p>
     <p class="hero__sub">特性を持つおこさんの保護者に共通する、<br>切実な不安です。<br>事実、強い特性を持つ成人は<br>収入に約50%もの差が生じるという<br>データもあります。</p>
     <p class="hero__sub">主体性療育で「見えない力」を育み、<br>IT療育で社会を生き抜く「見える力」へ。<br>苦手の克服だけでなく、強みを武器に変える。</p>
