@@ -5,19 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#FFFEFB" />
   <title>放課後等デイサービス｜BLUE MOUSE（岡山市中区）</title>
-  <meta name="description" content="BLUE MOUSEの放課後等デイサービス。小学生〜高校生対象のIT療育で、プログラミング・PCスキル・SSTなど「見える力」を育て、収入格差に立ち向かいます。岡山市中区徳吉町。" />
+  <meta name="description" content="BLUE MOUSEの放課後等デイサービス。パソコン教室ではありません。PCやゲームを通して「人に頼る力」「交渉する力」を育て、10年後の経済的自立と社会で生き抜く力を見据えたIT療育を行います。岡山市中区徳吉町。" />
   <link rel="canonical" href="https://bluemouse.blue/afterschool.html" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://bluemouse.blue/afterschool.html" />
   <meta property="og:title" content="放課後等デイサービス｜BLUE MOUSE" />
-  <meta property="og:description" content="BLUE MOUSEの放課後等デイサービス。小学生〜高校生対象のIT療育で、プログラミング・PCスキル・SSTなど「見える力」を育て、収入格差に立ち向かいます。岡山市中区徳吉町。" />
-  <meta property="og:image" content="https://bluemouse.blue/3.webp" />
+  <meta property="og:description" content="BLUE MOUSEの放課後等デイサービス。パソコン教室ではありません。PCやゲームを通して「人に頼る力」「交渉する力」を育て、10年後の経済的自立と社会で生き抜く力を見据えたIT療育を行います。岡山市中区徳吉町。" />
+  <meta property="og:image" content="https://bluemouse.blue/2.webp" />
   <meta property="og:site_name" content="BLUE MOUSE" />
   <meta property="og:locale" content="ja_JP" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="放課後等デイサービス｜BLUE MOUSE" />
-  <meta name="twitter:description" content="BLUE MOUSEの放課後等デイサービス。小学生〜高校生対象のIT療育で、プログラミング・PCスキル・SSTなど「見える力」を育て、収入格差に立ち向かいます。岡山市中区徳吉町。" />
-  <meta name="twitter:image" content="https://bluemouse.blue/3.webp" />
+  <meta name="twitter:description" content="BLUE MOUSEの放課後等デイサービス。パソコン教室ではありません。PCやゲームを通して「人に頼る力」「交渉する力」を育て、10年後の経済的自立と社会で生き抜く力を見据えたIT療育を行います。岡山市中区徳吉町。" />
+  <meta name="twitter:image" content="https://bluemouse.blue/2.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -27,13 +27,26 @@
     body { font-family: "Zen Maru Gothic", sans-serif; background: #FFFEFB; color: #33251a; line-height: 1.75; -webkit-font-smoothing: antialiased; }
     a { text-decoration: none; color: inherit; }
     img { display: block; max-width: 100%; }
-    :root { --coral:#f2906c; --coral-light:#fdf0eb; --teal:#3a9095; --teal-dark:#2c6e72; --teal-light:#e8f6f7; --yellow:#f5d24a; --yellow-light:#fef9e7; --ink:#33251a; --green:#3a6b5e; --bg:#faf8f5; --footer-teal:#5fc1c7; }
+    /* 放デイのテーマカラーは濃いティール #3a9095。イエロー(=児発のカラー)はこのページでは使わない。
+       ロゴティール #5fc1c7 は薄いので文字には使わず、マーカーなどの面で使う。
+       フッターだけはサイト共通のロゴティールに固定する（--footer-teal） */
+    :root { --coral:#f2906c; --coral-light:#fdf0eb;
+      --theme:#3a9095; --theme-dark:#2c6e72; --theme-light:#e8f6f7;
+      --teal:#5fc1c7; --footer-teal:#5fc1c7;
+      --ink:#33251a; --green:#3a6b5e; --bg:#faf8f5;
+      /* 余白スケール（4px基準）。セクション間とカード内側はこの2つが唯一の基準値 */
+      --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:24px; --sp-6:32px; --sp-7:48px; --sp-8:64px;
+      --gutter:32px;   /* 本文の左右余白。帯を画面端まで伸ばす計算にも使う */
+      /* イージングはこの2種類だけを使い回す */
+      --ease-out:cubic-bezier(.22,1,.36,1); --ease-io:cubic-bezier(.65,0,.35,1);
+      --section-gap:var(--sp-8); --card-pad:var(--sp-6); }
 
-    .header { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 32px; height:60px; background: transparent; backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid rgba(0,0,0,.05); }
+    /* Header */
+    .header { position: fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 32px; height:60px; background: transparent; backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid rgba(0,0,0,.05); }
     .header__logo img { height:32px; width:auto; }
     .header__nav { display:flex; align-items:center; gap:28px; }
     .header__link { font-size:13px; font-weight:500; letter-spacing:.06em; color:#8a7a6e; transition:color .2s; }
-    .header__link:hover { color:var(--teal); }
+    .header__link:hover { color:var(--theme); }
         .header__cta { display:inline-flex; align-items:center; padding:8px 20px; background:var(--coral); color:#fff; font-size:13px; font-weight:600; border-radius:100px; transition:background .2s; cursor:pointer; }
     .header__cta:hover { background:#e87e59; }
     .header__cta-wrap { position:relative; }
@@ -42,7 +55,7 @@
     .header__cta-wrap:hover .header__cta-drop { display:flex; }
     .header__cta-drop a { padding:10px 14px; font-size:13px; font-weight:600; border-radius:8px; color:var(--ink); white-space:nowrap; transition:background .15s; }
     .header__cta-drop a:nth-child(1):hover { background:var(--coral-light); color:var(--coral); }
-    .header__cta-drop a:nth-child(2):hover { background:var(--teal-light); color:var(--teal); }
+    .header__cta-drop a:nth-child(2):hover { background:var(--theme-light); color:var(--theme); }
     .header__cta-drop a:nth-child(3):hover { background:#e8f0ee; color:var(--green); }
     .header__burger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:8px; }
     .header__burger span { display:block; width:20px; height:1.5px; background:var(--ink); border-radius:2px; transition:transform .3s, opacity .3s; }
@@ -54,101 +67,383 @@
     .mobile-nav a { font-size:17px; color:#8a7a6e; letter-spacing:.08em; }
     .mn-accordion { width: 100%; text-align: center; }
     .mn-accordion__toggle { background: none; border: none; cursor: pointer; font-family: inherit; font-size: 17px; color: #8a7a6e; letter-spacing: .08em; display: inline-flex; align-items: center; gap: 8px; padding: 0; }
-    .mn-accordion__toggle:hover { color: var(--teal); }
+    .mn-accordion__toggle:hover { color: var(--theme); }
     .mn-caret { font-size: 10px; display: inline-block; transition: transform .25s ease; }
     .mn-accordion.is-open .mn-caret { transform: rotate(90deg); }
     .mn-accordion__panel { max-height: 0; overflow: hidden; transition: max-height .3s ease; display: flex; flex-direction: column; gap: 14px; align-items: center; }
     .mn-accordion.is-open .mn-accordion__panel { max-height: 160px; margin-top: 14px; }
     .mobile-nav a.mn-sublink { font-size: 14px; color: #a89583; }
     .mn-insta { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1.5px solid rgba(0,0,0,.15); border-radius: 12px; color: var(--ink); margin-top: 8px; }
-    .mn-insta:hover { border-color: var(--teal); color: var(--teal); }
+    .mn-insta:hover { border-color: var(--theme); color: var(--theme); }
 
-    .pg-page-header { padding:100px 32px 40px; text-align:center; background:var(--bg); border-bottom:1px solid rgba(0,0,0,.04); }
-    .pg-page-tag { font-family:"Inter",sans-serif; font-size:11px; font-weight:600; letter-spacing:.3em; text-transform:uppercase; color:var(--teal); margin-bottom:10px; }
-    .pg-page-title { font-family:"Zen Maru Gothic",sans-serif; font-size:clamp(1.5rem,3vw,2.2rem); font-weight:700; color:var(--ink); line-height:1.4; margin-bottom:10px; }
-    .pg-page-sub { font-size:14px; color:#8a7a6e; }
+    /* Page hero (split text + image, matches homepage hero format) */
+    .pg-hero { padding:100px 32px var(--section-gap); max-width:1240px; margin:0 auto; display:grid; grid-template-columns:0.9fr 1.2fr; gap:var(--sp-7); align-items:center; }
+    .pg-hero__text { order:1; }
+    .pg-hero__tag { display:inline-flex; align-items:center; gap:6px; font-family:"Inter",sans-serif; font-size:11px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--theme-dark); margin-bottom:10px; }
+    .pg-hero__tag::before { content:''; width:20px; height:1px; background:var(--theme-dark); opacity:.5; }
+    .pg-hero__title { font-family:"Zen Maru Gothic",sans-serif; font-size:clamp(1.8rem,3.5vw,2.6rem); font-weight:700; line-height:1.35; color:var(--ink); margin-bottom:12px; }
+    .pg-hero__sub { font-size:15px; color:#8a7a6e; line-height:1.9; }
+    .pg-hero__visual { order:2; position:relative; }
+    .pg-hero__img-wrap { position:relative; border-radius:24px; overflow:hidden; aspect-ratio:16/11; box-shadow:0 12px 40px rgba(0,0,0,.08); }
+    .pg-hero__img-wrap img { width:100%; height:100%; object-fit:cover; }
 
-    .pg-content { max-width:820px; margin:0 auto; padding:48px 32px 80px; }
+    /* Content */
+    .pg-content { max-width:820px; margin:0 auto; padding:0 var(--gutter) 80px; }
 
-    .pg-intro { margin-bottom:48px; }
-    .pg-intro__lead { font-size:clamp(1.2rem,2.2vw,1.6rem); font-weight:700; color:var(--ink); line-height:1.5; margin-bottom:16px; }
-    .pg-intro__lead em { font-style:normal; color:var(--coral); }
+    /* Intro */
+    .pg-intro { margin-bottom:var(--section-gap); }
+    .pg-intro__lead { font-size:clamp(1.2rem,2.2vw,1.6rem); font-weight:700; color:var(--ink); line-height:1.5; margin-bottom:var(--sp-4); }
+    .pg-intro__lead em { font-style:normal; color:var(--ink); background:linear-gradient(transparent 84%, rgba(95,193,199,.85) 84%); }
     .pg-intro__body { font-size:15px; color:#6b5a4c; line-height:2; }
 
-    .pg-features { display:flex; flex-direction:column; gap:40px; margin-bottom:56px; }
-    .pg-feat { display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:center; }
-    .pg-feat:nth-child(even) .pg-feat__img { order:2; }
-    .pg-feat:nth-child(even) .pg-feat__text { order:1; }
-    .pg-feat__img { border-radius:16px; overflow:hidden; aspect-ratio:16/10; }
-    .pg-feat__img img { width:100%; height:100%; object-fit:cover; object-position:center 30%; }
-    .pg-feat__tag { font-family:"Inter",sans-serif; font-size:10px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--teal); margin-bottom:6px; }
-    .pg-feat__title { font-size:18px; font-weight:700; color:var(--ink); margin-bottom:10px; line-height:1.45; }
-    .pg-feat__desc { font-size:14px; color:#6b5a4c; line-height:1.9; }
+    /* Stance section */
+    /* 塗りも囲いも持たせず、細い罫線2本だけで区切る。
+       スマホで本文幅が1pxも削られず、色の面積で主張しすぎることもない */
+    .pg-stance { border-top:1px solid rgba(51,37,26,.14); border-bottom:1px solid rgba(51,37,26,.14);
+      padding:var(--sp-6) 0; margin-bottom:var(--section-gap); }
+    /* サブコピーはこのセクションの主張なので、本文より一段大きく */
+    .pg-stance__sub { font-size:15px; font-weight:600; color:#7d6d60; text-align:center; margin:var(--sp-4) 0 var(--sp-5); letter-spacing:.06em; line-height:1.9; }
+    .pg-stance__body { font-size:15px; color:#6b5a4c; line-height:2; }
+    .pg-stance__body em { font-style:normal; font-weight:700; color:var(--ink); background:linear-gradient(transparent 86%, rgba(95,193,199,.85) 86%); }
+    .pg-stance__body strong { font-weight:700; color:var(--ink); background:linear-gradient(transparent 62%, rgba(95,193,199,.42) 62%); }
 
-    .pg-quote { background:var(--bg); border-radius:20px; padding:36px 32px; margin-bottom:56px; text-align:center; border-left:4px solid var(--coral); }
-    .pg-quote__text { font-size:clamp(1.1rem,2vw,1.4rem); font-weight:700; color:var(--ink); line-height:1.55; }
-    .pg-quote__text em { font-style:normal; color:var(--coral); }
+    /* 3 Kodawari */
+    .pg-kodawari { margin-bottom:var(--section-gap); }
+    .pg-kodawari-list { display:flex; flex-direction:column; gap:var(--sp-6); margin-top:var(--sp-4); }
+    .pg-kodawari-item { display:block; }
+    .pg-kodawari-item__head { display:flex; align-items:center; gap:var(--sp-4); margin-bottom:var(--sp-4); }
+    .pg-kodawari-item__head h3 { font-size:17px; font-weight:700; color:var(--ink); line-height:1.5; margin:0; }
+    .pg-kodawari-num { width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:"Inter",sans-serif; font-size:16px; font-weight:700; flex-shrink:0; }
+    .pg-kodawari-num--theme { background:var(--theme); color:#fff; }
+    /* こだわり冒頭の一文。要約なので本文より強く */
+    .pg-kodawari-lead { font-size:14.5px; font-weight:700; color:var(--ink); line-height:1.85; }
+    .pg-kodawari-body .pg-kodawari-lead + p { margin-top:var(--sp-3); }
 
-    .pg-info { margin-bottom:56px; }
-    .pg-info__title { font-size:16px; font-weight:700; color:var(--ink); margin-bottom:16px; display:flex; align-items:center; gap:8px; }
-    .pg-info__title::before { content:''; width:3px; height:18px; background:var(--coral); border-radius:2px; }
+    /* 折りたたみ（具体的な取り組み）。JS不要の <details> を使う */
+    .pg-more { margin-top:var(--sp-4); }
+    .pg-more__btn { display:inline-flex; align-items:center; gap:8px; cursor:pointer; list-style:none;
+      padding:9px 16px; border-radius:100px; border:1.5px solid rgba(58,144,149,.35);
+      background:#fff; color:var(--theme-dark); font-size:13px; font-weight:700; letter-spacing:.02em;
+      transition:background .2s, border-color .2s; }
+    .pg-more__btn::-webkit-details-marker { display:none; }
+    .pg-more__btn::before { content:''; width:9px; height:9px; flex-shrink:0;
+      border-right:2px solid currentColor; border-bottom:2px solid currentColor;
+      transform:rotate(45deg) translate(-2px,-2px); transition:transform .3s var(--ease-out); }
+    .pg-more[open] .pg-more__btn::before { transform:rotate(-135deg) translate(-2px,-2px); }
+    .pg-more__btn:hover { background:var(--theme-light); border-color:var(--theme); }
+    .pg-more__label--close { display:none; }
+    .pg-more[open] .pg-more__label--open { display:none; }
+    .pg-more[open] .pg-more__label--close { display:inline; }
+    .pg-more__body { margin-top:var(--sp-4); padding:var(--sp-5); border-radius:14px;
+      background:var(--theme-light); animation:moreOpen .45s var(--ease-out); }
+    .pg-more__body p { font-size:14px; color:#5c6f70; line-height:2; }
+    .pg-more__body p + p { margin-top:var(--sp-4); }
+    .pg-more__body em { font-style:normal; font-weight:700; color:var(--theme-dark); }
+    .pg-more__body strong { font-weight:700; color:var(--ink); }
+    @keyframes moreOpen { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:none; } }
+    .pg-kodawari-body { padding-left:60px; }
+    .pg-kodawari-body p { font-size:14px; color:#6b5a4c; line-height:1.9; }
+    .pg-kodawari-body p + p { margin-top:var(--sp-3); }
+
+    @media (max-width:780px) {
+      .pg-kodawari-body { padding-left:0; }
+    }
+
+    /* Daily schedule */
+    .pg-schedule { margin-bottom:var(--section-gap); }
+    .pg-schedule-grid { display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-5); margin-top:var(--sp-4); }
+    .pg-schedule-card { background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:16px; padding:var(--sp-5); }
+    .pg-schedule-card__label { display:inline-block; font-family:"Inter",sans-serif; font-size:12px; font-weight:700; letter-spacing:.1em; color:#fff; background:var(--theme); padding:var(--sp-1) var(--sp-3); border-radius:100px; margin-bottom:var(--sp-4); }
+    .pg-schedule-list { list-style:none; display:flex; flex-direction:column; }
+    .pg-schedule-list li { display:flex; gap:var(--sp-4); padding:var(--sp-3) 0; border-top:1px solid rgba(0,0,0,.05); font-size:13.5px; }
+    .pg-schedule-list li:first-child { border-top:none; padding-top:0; }
+    .pg-schedule-list__time { flex-shrink:0; width:100px; color:#8a7a6e; font-weight:600; font-family:"Inter",sans-serif; font-size:12.5px; }
+    .pg-schedule-list__desc { color:#6b5a4c; line-height:1.6; }
+
+    @media (max-width:780px) {
+      .pg-schedule-grid { grid-template-columns:1fr; }
+    }
+
+    /* Future benefits */
+    .pg-future { margin-bottom:var(--section-gap); }
+    .pg-future__intro { font-size:15px; color:#6b5a4c; line-height:2; margin:var(--sp-4) 0 var(--sp-5); }
+    /* 2項目のあとを受ける段落。前を項目群が占めるので上の余白を広く取る */
+    .pg-future__outro { margin:var(--sp-6) 0 0; }
+    .pg-future__intro em { font-style:normal; font-weight:700; color:var(--ink); background:linear-gradient(transparent 86%, rgba(95,193,199,.85) 86%); }
+    /* ページの結論。装飾を足すのではなく外す方向で強調する（案A）。
+       カードも枠も持たせず、大きな文字・広い余白・細い罫だけで見せる。
+       ページ内で唯一の23px見出しになるので、飾らなくても確実に目に留まる */
+    .pg-future-list { display:flex; flex-direction:column; }
+    .pg-future-item { display:grid; grid-template-columns:auto 1fr; gap:26px; align-items:start;
+      padding:var(--sp-6) 0; text-align:left; }
+    .pg-future-item + .pg-future-item { border-top:1px solid rgba(51,37,26,.10); }
+    /* 目印はイエローの小さな菱形ひとつだけ */
+    .pg-future-item::before { content:''; width:10px; height:10px; margin-top:17px;
+      background:var(--theme); border-radius:2px; transform:rotate(45deg); }
+    .pg-future-item__body h3 { font-size:23px; font-weight:700; color:var(--ink);
+      margin-bottom:var(--sp-3); line-height:1.55; letter-spacing:.01em;
+      word-break:keep-all; overflow-wrap:anywhere; }
+    .pg-future-item__body p { font-size:14.5px; color:#6b5a4c; line-height:2; }
+
+    /* Quote */
+    /* ページの締めの一行。箱に入れるとスタンスカードと同じ扱いになり、
+       左ボーダーと中央揃えも矛盾するため、囲いを全て外して余白と文字の大きさだけで見せる。
+       ページ本文で最大の文字にすることが、そのまま強調になる */
+    /* ページの締めの一行。記号は置かず、余白と文字の大きさ、そして「現れ方」だけで特別にする */
+    /* 余白は padding を使わず margin だけで作る。前セクションの margin と相殺されるので
+       「セクション間(--section-gap)のちょうど2倍」が上下対称で確実に確保できる */
+    .pg-quote { position:relative; text-align:center; padding:0;
+      margin:calc(var(--section-gap) * 2) 0; }
+    /* 背後の淡い光。輪郭を持たないので装飾に見えず、ここだけ空気が変わる */
+    .pg-quote::before { content:''; position:absolute; left:50%; top:50%;
+      /* 116%だと枠より広くなり、狭い画面で横スクロールが出る。100%に収める */
+      width:min(760px,100%); height:300px; transform:translate(-50%,-50%); border-radius:50%;
+      background:radial-gradient(ellipse at center, rgba(58,144,149,.13) 0%, rgba(95,193,199,.05) 46%, rgba(255,255,255,0) 73%);
+      filter:blur(10px); pointer-events:none; animation:quoteAura 16s linear infinite; }
+    .pg-quote__text { position:relative; font-size:clamp(1.7rem,3.9vw,2.35rem); font-weight:700; color:var(--ink);
+      line-height:1.7; letter-spacing:.03em; word-break:keep-all; overflow-wrap:anywhere; }
+    /* 「このこが、」は前置き。小さく落として、後半の一言を立たせる */
+    .pg-quote__lead { display:block; font-size:15px; font-weight:600; color:#6b5a4c;
+      letter-spacing:.1em; margin-bottom:var(--sp-4); }
+    .pg-quote__char { display:inline-block; white-space:pre; }
+    @keyframes quoteAura {
+      0%   { transform:translate(-50%,-50%) scale(1);    opacity:.85; }
+      33%  { transform:translate(-51%,-52%) scale(1.06); opacity:1; }
+      66%  { transform:translate(-49%,-49%) scale(.97);  opacity:.9; }
+      100% { transform:translate(-50%,-50%) scale(1);    opacity:.85; }
+    }
+
+    /* Info table */
+    .pg-info { margin-bottom:var(--section-gap); }
+    .pg-info__title { font-size:21px; font-weight:700; color:var(--ink); margin-bottom:var(--sp-4); display:flex; align-items:center; gap:var(--sp-3); letter-spacing:.02em; }
+    .pg-info__title::before { content:''; width:4px; height:24px; background:var(--theme); border-radius:2px; flex-shrink:0; }
     .pg-table { width:100%; border-collapse:collapse; background:#fff; border-radius:12px; overflow:hidden; border:1px solid rgba(0,0,0,.06); }
-    .pg-table th, .pg-table td { padding:14px 18px; text-align:left; border-bottom:1px solid rgba(0,0,0,.05); font-size:14px; }
+    .pg-table th, .pg-table td { padding:var(--sp-4); text-align:left; border-bottom:1px solid rgba(0,0,0,.05); font-size:14px; }
     .pg-table th { background:var(--bg); color:#8a7a6e; font-weight:500; width:8em; }
     .pg-table td { color:#6b5a4c; line-height:1.7; }
     .pg-table tr:last-child th, .pg-table tr:last-child td { border-bottom:none; }
 
-    /* Programs */
-    .pg-programs { margin-bottom:56px; }
-    .pg-programs__title { font-size:16px; font-weight:700; color:var(--ink); margin-bottom:20px; display:flex; align-items:center; gap:8px; }
-    .pg-programs__title::before { content:''; width:3px; height:18px; background:var(--coral); border-radius:2px; }
-    .pg-programs__grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-    .pg-prog { background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:14px; padding:22px 20px; }
-    .pg-prog__name { font-size:15px; font-weight:700; color:var(--ink); margin-bottom:6px; }
-    .pg-prog__desc { font-size:13px; color:#8a7a6e; line-height:1.8; }
-
-    .pg-cta { text-align:center; padding:48px 32px; background:linear-gradient(135deg, var(--teal-light) 0%, var(--coral-light) 100%); border-radius:24px; margin-bottom:56px; }
+    /* CTA */
+    .pg-cta { text-align:center; padding:var(--sp-7) var(--sp-6); background:linear-gradient(135deg, var(--theme-light) 0%, var(--coral-light) 100%); border-radius:24px; margin-bottom:var(--section-gap); }
     .pg-cta__title { font-size:clamp(1.2rem,2.2vw,1.5rem); font-weight:700; color:var(--ink); margin-bottom:8px; }
-    .pg-cta__sub { font-size:14px; color:#8a7a6e; margin-bottom:20px; }
-    .pg-cta__phone { margin-top:20px; font-size:13px; color:#8a7a6e; }
+    .pg-cta__sub { font-size:14px; color:#8a7a6e; margin-bottom:var(--sp-5); }
+    .pg-cta__phone { margin-top:var(--sp-5); font-size:13px; color:#8a7a6e; }
     .pg-cta__phone strong { font-size:22px; font-weight:700; color:var(--ink); letter-spacing:.02em; }
     .pg-cta__btn { display:inline-flex; align-items:center; gap:6px; padding:12px 32px; background:var(--coral); color:#fff; font-size:14px; font-weight:600; border-radius:100px; transition:transform .2s, box-shadow .2s; }
     .pg-cta__btn:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(242,144,108,.3); }
     .pg-cta__btns { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; }
     .pg-cta__btn--teal { background:var(--teal); }
-    .pg-cta__btn--teal:hover { box-shadow:0 8px 24px rgba(58,144,149,.3); }
+    .pg-cta__btn--teal:hover { box-shadow:0 8px 24px rgba(95,193,199,.35); }
     .pg-cta__btn--green { background:var(--green); }
     .pg-cta__btn--green:hover { box-shadow:0 8px 24px rgba(58,107,94,.3); }
 
+    /* Footer */
     .footer { background: #1e2a2c; color: #aaa; padding: 44px 32px 20px; }
     .footer__inner { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1.2fr; gap: 32px; padding-bottom: 28px; border-bottom: 1px solid rgba(255,255,255,.08); }
     .footer__logo img { width: 120px; margin-bottom: 12px; }
     .footer__tagline { font-size: 13px; color: #7a8a8c; line-height: 1.9; }
     .footer__insta { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; font-size: 13px; color: #7a8a8c; transition: color .2s; }
-    .footer__insta:hover { color: var(--footer-teal); }
-    .footer__col-title { font-family: "Inter", sans-serif; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--footer-teal); margin-bottom: 14px; font-weight: 600; }
+    .footer__insta:hover { color: var(--teal); }
+    .footer__col-title { font-family: "Inter", sans-serif; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--teal); margin-bottom: 14px; font-weight: 600; }
     .footer__nav { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     .footer__nav a { font-size: 13px; color: #7a8a8c; transition: color .15s; }
-    .footer__nav a:hover { color: var(--footer-teal); }
+    .footer__nav a:hover { color: var(--teal); }
     .footer__fac-name { font-size: 13px; font-weight: 500; color: #ccc; margin-bottom: 2px; }
     .footer__fac-info { font-size: 12px; color: #6a7a7c; line-height: 1.8; }
     .footer__fac + .footer__fac { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.06); }
     .footer__bottom { max-width: 1000px; margin: 0 auto; text-align: center; padding-top: 16px; font-family: "Inter", sans-serif; font-size: 11px; color: #5a6a6c; }
 
-    .js-ready .fade-in { opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s cubic-bezier(.22,1,.36,1); }
+    /* =========================================================
+       Motion
+       設計方針：
+       - イージングは2種類に絞る（--ease-out=減速 / --ease-io=溜めて放つ）
+       - 移動距離は要素の大きさに比例させる（小さい要素ほど動かさない）
+       - 並んだ要素は必ず stagger で順に読ませる
+       - 「大胆に」動かすのは ヒーロー / こだわり番号 / CTA の3箇所のみ。
+         他を抑えるほど、この3つが効く
+       ========================================================= */
+
+    /* ---- 基本のスクロール登場 ---- */
+    .js-ready .fade-in { opacity:0; transform:translateY(28px); transition:opacity .85s ease, transform .85s var(--ease-out); }
     .fade-in.is-visible { opacity:1; transform:none; }
+    /* 個別アニメを持つ要素では、fade-in は「発火のきっかけ」専用にして動きを二重化させない */
+    .js-ready .pg-kodawari-item.fade-in,
+    .js-ready .pg-schedule-card.fade-in,
+    .js-ready .pg-future-item.fade-in { transition:none; }
+
+    /* ---- ① ヒーロー（大胆）：画像を下から拭い上げ、文字が順に立ち上がる ---- */
+    .js-ready .pg-hero__img-wrap { clip-path:inset(0 0 100% 0); }
+    .js-ready .pg-hero__img-wrap img { transform:scale(1.14); }
+    .bm-ready .pg-hero__img-wrap { animation:heroWipe 1.15s var(--ease-io) .1s forwards; }
+    .bm-ready .pg-hero__img-wrap img { animation:heroSettle 1.6s var(--ease-out) .1s forwards; }
+    @keyframes heroWipe   { to { clip-path:inset(0 0 0 0); } }
+    @keyframes heroSettle { to { transform:scale(1); } }
+
+    .js-ready .pg-hero__tag,
+    .js-ready .pg-hero__title,
+    .js-ready .pg-hero__sub { opacity:0; transform:translateY(20px); }
+    .bm-ready .pg-hero__tag   { animation:heroRise .85s var(--ease-out) .34s forwards; }
+    .bm-ready .pg-hero__title { animation:heroRise .85s var(--ease-out) .44s forwards; }
+    .bm-ready .pg-hero__sub   { animation:heroRise .85s var(--ease-out) .56s forwards; }
+    @keyframes heroRise { to { opacity:1; transform:none; } }
+    .js-ready .pg-hero__tag::before { transform:scaleX(0); transform-origin:left center; }
+    .bm-ready .pg-hero__tag::before { animation:tagLine .7s var(--ease-io) .5s forwards; }
+    @keyframes tagLine { to { transform:scaleX(1); } }
+
+    /* ---- ② 見出しの共通シグネチャ：縦バーが引かれてから文字が寄る ---- */
+    .js-ready .pg-info__title::before { transform:scaleY(0); transform-origin:top center; }
+    .js-ready .pg-info__title { opacity:0; transform:translateX(-8px); }
+    .is-visible .pg-info__title { animation:titleIn .6s var(--ease-out) .1s forwards; }
+    .is-visible .pg-info__title::before { animation:barDraw .5s var(--ease-io) forwards; }
+    @keyframes titleIn { to { opacity:1; transform:none; } }
+    @keyframes barDraw { to { transform:scaleY(1); } }
+
+    /* ---- ③ こだわり01/02/03（大胆）：番号が弾んで出て、本文が続く ---- */
+    .js-ready .pg-kodawari-num { opacity:0; transform:scale(.4) rotate(-12deg); }
+    .js-ready .pg-kodawari-item__head h3,
+    .js-ready .pg-kodawari-body { opacity:0; transform:translateY(14px); }
+    .pg-kodawari-item.is-visible .pg-kodawari-num { animation:numPop .7s cubic-bezier(.34,1.56,.64,1) forwards; }
+    .pg-kodawari-item.is-visible .pg-kodawari-item__head h3 { animation:softRise .65s var(--ease-out) .10s forwards; }
+    .pg-kodawari-item.is-visible .pg-kodawari-body { animation:softRise .65s var(--ease-out) .18s forwards; }
+    .is-visible .pg-kodawari-item:nth-child(1) .pg-kodawari-num { animation-delay:.15s; }
+    .is-visible .pg-kodawari-item:nth-child(2) .pg-kodawari-num { animation-delay:.30s; }
+    .is-visible .pg-kodawari-item:nth-child(3) .pg-kodawari-num { animation-delay:.45s; }
+    .is-visible .pg-kodawari-item:nth-child(1) .pg-kodawari-item__head h3 { animation-delay:.26s; }
+    .is-visible .pg-kodawari-item:nth-child(2) .pg-kodawari-item__head h3 { animation-delay:.41s; }
+    .is-visible .pg-kodawari-item:nth-child(3) .pg-kodawari-item__head h3 { animation-delay:.56s; }
+    .is-visible .pg-kodawari-item:nth-child(1) .pg-kodawari-body { animation-delay:.34s; }
+    .is-visible .pg-kodawari-item:nth-child(2) .pg-kodawari-body { animation-delay:.49s; }
+    .is-visible .pg-kodawari-item:nth-child(3) .pg-kodawari-body { animation-delay:.64s; }
+    @keyframes numPop   { to { opacity:1; transform:scale(1) rotate(0); } }
+    @keyframes softRise { to { opacity:1; transform:none; } }
+
+    /* ---- ④ 1日の流れ：カードが起き、行が上から順に流れる ---- */
+    .js-ready .pg-schedule-card { opacity:0; transform:translateY(18px); }
+    .pg-schedule-card.is-visible { animation:softRise .7s var(--ease-out) forwards; }
+    .js-ready .pg-schedule-list li { opacity:0; transform:translateX(-10px); }
+    .pg-schedule-card.is-visible .pg-schedule-list li { animation:rowIn .5s var(--ease-out) forwards; }
+    .pg-schedule-card.is-visible .pg-schedule-list li:nth-child(1) { animation-delay:0.12s; }
+    .pg-schedule-card.is-visible .pg-schedule-list li:nth-child(2) { animation-delay:0.18s; }
+    .pg-schedule-card.is-visible .pg-schedule-list li:nth-child(3) { animation-delay:0.24s; }
+    .pg-schedule-card.is-visible .pg-schedule-list li:nth-child(4) { animation-delay:0.30s; }
+    .pg-schedule-card.is-visible .pg-schedule-list li:nth-child(5) { animation-delay:0.36s; }
+    .pg-schedule-card.is-visible .pg-schedule-list li:nth-child(6) { animation-delay:0.42s; }
+    .pg-schedule-card.is-visible .pg-schedule-list li:nth-child(7) { animation-delay:0.48s; }
+    .pg-schedule-card.is-visible .pg-schedule-list li:nth-child(8) { animation-delay:0.54s; }
+    @keyframes rowIn { to { opacity:1; transform:none; } }
+
+    /* ---- ⑤ 療育の先にある未来（強調）：菱形→見出し→本文の順に静かに現れる ---- */
+    .js-ready .pg-future-item::before { opacity:0; transform:rotate(45deg) scale(.35); }
+    .js-ready .pg-future-item__body h3,
+    .js-ready .pg-future-item__body p { opacity:0; transform:translateY(16px); }
+    .pg-future-item.is-visible::before { animation:diamondIn .6s cubic-bezier(.34,1.56,.64,1) .05s forwards; }
+    .pg-future-item.is-visible .pg-future-item__body h3 { animation:softRise .8s var(--ease-out) .16s forwards; }
+    .pg-future-item.is-visible .pg-future-item__body p  { animation:softRise .8s var(--ease-out) .28s forwards; }
+    @keyframes diamondIn { to { opacity:1; transform:rotate(45deg) scale(1); } }
+    /* 区切りの罫は、その項目が現れるのに合わせて静かに濃くなる */
+    .js-ready .pg-future-item + .pg-future-item { border-top-color:transparent; transition:border-top-color 1s ease .1s; }
+    .js-ready .pg-future-item.is-visible { border-top-color:rgba(51,37,26,.10); }
+
+    /* ---- スタンス：区切りの罫線が静かに濃くなる ---- */
+    .js-ready .pg-stance { border-top-color:transparent; border-bottom-color:transparent;
+      transition:border-top-color 1s ease .15s, border-bottom-color 1s ease .15s; }
+    .js-ready .pg-stance.is-visible { border-top-color:rgba(51,37,26,.14); border-bottom-color:rgba(51,37,26,.14); }
+
+    /* ---- ⑥ 締めの一行：1文字ずつピントが合うように現れる ----
+       ローディングのロゴと同じ“焦点が合う”動きを、文字単位まで細かくしたもの。
+       装飾を足さずに「時間」で特別さを出す */
+    .js-ready .pg-quote__lead { opacity:0; transform:translateY(10px); }
+    .is-visible .pg-quote__lead { animation:softRise .9s var(--ease-out) .2s forwards; }
+    /* 1文字ずつ包めた場合のみ隠す（JSが動かなければ通常表示のまま） */
+    .js-ready .pg-quote__char { opacity:0; filter:blur(8px); transform:translateY(14px); }
+    .is-visible .pg-quote__char { animation:focusIn 1.2s var(--ease-out) forwards; }
+    @keyframes focusIn { to { opacity:1; filter:blur(0); transform:none; } }
+
+    /* ---- ⑦ 概要テーブル：行が順に現れる ---- */
+    .js-ready .pg-table tr { opacity:0; transform:translateY(8px); }
+    .is-visible .pg-table tr { animation:softRise .5s var(--ease-out) forwards; }
+    .is-visible .pg-table tr:nth-child(1) { animation-delay:.10s; }
+    .is-visible .pg-table tr:nth-child(2) { animation-delay:.16s; }
+    .is-visible .pg-table tr:nth-child(3) { animation-delay:.22s; }
+    .is-visible .pg-table tr:nth-child(4) { animation-delay:.28s; }
+    .is-visible .pg-table tr:nth-child(5) { animation-delay:.34s; }
+    .is-visible .pg-table tr:nth-child(6) { animation-delay:.40s; }
+    .is-visible .pg-table tr:nth-child(7) { animation-delay:.46s; }
+    .is-visible .pg-table tr:nth-child(8) { animation-delay:.52s; }
+
+    /* ---- ⑧ CTA（大胆）：わずかに迫り出して“目的地”を主張する ---- */
+    .js-ready .pg-cta.fade-in { transform:translateY(28px) scale(.96); }
+    .pg-cta.fade-in.is-visible { transition:opacity .8s ease, transform .9s var(--ease-out); transform:none; }
+
+
+    /* ---- ⑨ マーカー：文字が着地してから、少し遅れて線を引く ----
+       行をまたぐ場合も各行が同じ長さ比で引かれるよう box-decoration-break:clone を指定 */
+    .pg-stance__body em, .pg-stance__body strong,
+    .pg-future__intro em {
+      background-repeat:no-repeat;
+      -webkit-box-decoration-break:clone; box-decoration-break:clone;
+    }
+    .js-ready .pg-stance__body em, .js-ready .pg-stance__body strong,
+    .js-ready .pg-future__intro em {
+      background-size:0 100%;
+      /* --ease-out は序盤で一気に伸びる曲線（20%の時間で67%描画）で「速い」と感じるため、
+         ペンで引くような等速寄りの曲線に変更。遅延はショートハンドに含める
+         （別指定すると shorthand に 0s へ戻される） */
+      transition:background-size 1.5s cubic-bezier(.45,.25,.4,1) 1.15s;
+    }
+    .is-visible .pg-intro__lead em,
+    .is-visible .pg-stance__body em, .is-visible .pg-stance__body strong,
+    .js-ready .pg-future__intro.is-visible em {
+      background-size:100% 100%;
+    }
+    /* 同じ段落内で em → strong の順に引かれるよう、strong だけ少し後ろにずらす */
+    .js-ready .pg-stance__body strong { transition-delay:1.7s; }
+    @media (prefers-reduced-motion:reduce) {
+      .js-ready .pg-intro__lead em,
+      .js-ready .pg-stance__body em, .js-ready .pg-stance__body strong,
+      .js-ready .pg-future__intro em {
+        background-size:100% 100% !important; transition:none !important;
+      }
+    }
+
+    /* ---- 動きを減らす設定では、すべて静止した完成形で見せる ---- */
+    @media (prefers-reduced-motion:reduce) {
+      .js-ready .fade-in, .js-ready .pg-hero__tag, .js-ready .pg-hero__title, .js-ready .pg-hero__sub,
+      .js-ready .pg-kodawari-num, .js-ready .pg-kodawari-item__head h3, .js-ready .pg-kodawari-body,
+      .js-ready .pg-schedule-card, .js-ready .pg-schedule-list li,
+      .js-ready .pg-future-item__body h3, .js-ready .pg-future-item__body p, .js-ready .pg-future-item::before,
+      .js-ready .pg-quote__lead, .js-ready .pg-quote__char, .js-ready .pg-table tr, .js-ready .pg-cta.fade-in, .js-ready .pg-info__title {
+        opacity:1 !important; transform:none !important; filter:none !important;
+      }
+      .js-ready .pg-hero__img-wrap { clip-path:none !important; }
+      .js-ready .pg-hero__img-wrap img { transform:none !important; }
+      .js-ready .pg-info__title::before, .js-ready .pg-hero__tag::before,
+
+      .bm-ready .pg-hero__img-wrap, .bm-ready .pg-hero__img-wrap img,
+      .bm-ready .pg-hero__tag, .bm-ready .pg-hero__title, .bm-ready .pg-hero__sub,
+      .is-visible .pg-info__title, .is-visible .pg-kodawari-num, .is-visible .pg-schedule-card,
+      .is-visible .pg-schedule-list li, .pg-future-item.is-visible .pg-future-item__body h3,
+      .pg-future-item.is-visible .pg-future-item__body p, .pg-future-item.is-visible::before,
+      .is-visible .pg-quote__lead, .is-visible .pg-quote__char,
+      .pg-quote::before, .is-visible .pg-table tr { animation:none !important; }
+    }
 
     @media (max-width:780px) {
       .header { padding:0 16px; height:56px; }
       .header__nav { display:none; }
       .header__burger { display:flex; }
       .mobile-nav { top:56px; }
-      .pg-page-header { padding:80px 20px 32px; }
-      .pg-content { padding:32px 20px 60px; }
-      .pg-feat { grid-template-columns:1fr; }
-      .pg-feat:nth-child(even) .pg-feat__img { order:1; }
-      .pg-feat:nth-child(even) .pg-feat__text { order:2; }
-      .pg-programs__grid { grid-template-columns:1fr; }
+      :root { --section-gap:var(--sp-7); --card-pad:var(--sp-5); }
+      .pg-hero { grid-template-columns:1fr; padding:84px 20px var(--section-gap); gap:var(--sp-5); }
+      .pg-hero__text { order:2; text-align:center; }
+      .pg-hero__tag { justify-content:center; }
+      .pg-hero__visual { order:1; }
+      .pg-hero__title { font-size:clamp(1.5rem,6vw,2rem); }
+      :root { --gutter:20px; }
+      .pg-content { padding:0 var(--gutter) 60px; }
+      .pg-future-item { gap:16px; padding:var(--sp-5) 0; }
+      .pg-future-item::before { margin-top:13px; }
+      .pg-future-item__body h3 { font-size:19px; }
       .footer { padding: 32px 16px 16px; }
       .footer__inner { grid-template-columns: 1fr; gap: 20px; }
     }
@@ -216,6 +511,7 @@
 
   if (reduce || isInternalNav) {
     if (el.parentNode) el.parentNode.removeChild(el);
+    root.classList.add('bm-ready'); // ローダーを出さない場合はすぐヒーローを動かす
     return;
   }
   root.classList.add('bm-loading');
@@ -226,6 +522,8 @@
     removed = true;
     el.classList.add('is-done');
     root.classList.remove('bm-loading');
+    // 幕が引ききる前にヒーローを動かし始め、ローダーから流れるように繋ぐ
+    setTimeout(function () { root.classList.add('bm-ready'); }, 350);
     setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 900);
   }
   var start = Date.now(), MIN = 1500;
@@ -246,7 +544,7 @@
       <span class="header__cta">お問い合わせ ›</span>
       <div class="header__cta-drop">
         <a href="./contact.html">お問い合わせ</a>
-        <a href="./contact.html?type=child">児童発達支援 体験</a>
+        <a href="./contact.html?type=afterschool">児童発達支援 体験</a>
         <a href="./contact.html?type=afterschool">放課後等デイサービス 体験</a>
       </div>
     </div>
@@ -265,78 +563,168 @@
   </a>
 </nav>
 
-<!-- Hero -->
-<div class="pg-page-header">
-  <p class="pg-page-tag">After School</p>
-  <h1 class="pg-page-title">放課後等デイサービス</h1>
-  <p class="pg-page-sub">強みとなる「見える力」を、武器に。</p>
-</div>
+<!-- Page Hero -->
+<section class="pg-hero">
+  <div class="pg-hero__text">
+    <p class="pg-hero__tag">After School</p>
+    <h1 class="pg-hero__title">放課後等デイサービス</h1>
+    <p class="pg-hero__sub">強みを、社会で使える武器に。</p>
+  </div>
+  <div class="pg-hero__visual">
+    <div class="pg-hero__img-wrap">
+      <img src="./3.webp" alt="ノートPCでプログラミングに取り組むこども" style="object-position:center 55%;" />
+    </div>
+  </div>
+</section>
 
 <!-- Content -->
 <div class="pg-content">
 
   <div class="pg-intro fade-in">
-    <p class="pg-intro__lead"><em>IT療育</em>で、<br>収入格差に立ち向かう。</p>
-    <p class="pg-intro__body">BLUE MOUSEの放課後等デイサービスは、小学生〜高校生を対象に、ITスキルを中心とした「見える力」を育てます。将来の経済的自立を見据え、プログラミング・PCスキル・SSTなど、社会で武器になる力を伴走者と共に伸ばします。</p>
+    <p class="pg-intro__lead">パソコン教室では、ない。<br>私たちが<em>IT療育</em>をする本当の理由。</p>
   </div>
 
-  <div class="pg-features">
-    <div class="pg-feat fade-in">
-      <div class="pg-feat__img">
-        <img src="./2.webp" alt="IT療育" />
+  <div class="pg-stance fade-in" id="stance">
+    <h2 class="pg-info__title">10年後を見据えて</h2>
+    <p class="pg-stance__sub">〜「経済的自立」と「社会で生き抜く力」へ〜</p>
+    <p class="pg-stance__body">
+      BLUE MOUSEの目標は、タイピングやプログラミングを覚えること（スキル習得）そのものではありません。<br><br>
+      PCやゲームという「こどもが大好きなツール」を通して、<em>人に頼る力・自分の気持ちをコントロールする力・言葉で交渉する力</em>を育むこと。<br><br>
+      10年後、こどもたちが社会に出たときに自分を守り、周囲と心地よく関わっていくための<strong>「本当の強さ」</strong>を育てます。
+    </p>
+  </div>
+
+  <div class="pg-kodawari fade-in" id="kodawari">
+    <h2 class="pg-info__title">放デイ療育「4つのこだわり」</h2>
+    <div class="pg-kodawari-list">
+      <div class="pg-kodawari-item fade-in">
+        <div class="pg-kodawari-item__head">
+          <div class="pg-kodawari-num pg-kodawari-num--theme">01</div>
+          <h3>独自ノウハウとスモールステップで<br>着実に身につくITスキル</h3>
+        </div>
+        <div class="pg-kodawari-body">
+          <p class="pg-kodawari-lead">苦痛を感じさせない緻密なステップで、将来の土台となるスキルをサポートします。</p>
+          <p>ノートPCでのタイピング習得から、本格的なプログラミングやツール学習まで。スタッフが一人ひとりの特性や習熟度を見極めて最適な教材を選定し、ゲーム感覚で無理なく上達できる環境を作ります。</p>
+          <details class="pg-more">
+            <summary class="pg-more__btn"><span class="pg-more__label pg-more__label--open">具体的な取り組みを見る</span><span class="pg-more__label pg-more__label--close">閉じる</span></summary>
+            <div class="pg-more__body">
+          <p><em>「指を置く」ことから始める、挫折させないタイピング習得</em><br>ノートPCを使ったタイピングは、まず両手の人差し指を「F」と「J」に置く（ホームポジション）ことからスタートします。そこから「打って、戻る」という基本動作を少しずつ体に覚えさせます。</p>
+          <p>スタッフは、こどもたち一人ひとりのタイピングの癖やつまずきやすさを丁寧に見極め、その状況に最も適した学習ソフトや課題を選択します。こどもたちはゲーム感覚で無理なく練習に取り組めるため、<strong>「少しずつできることが増え、気づいた時にはタッチタイピングができていた」</strong>というBLUE MOUSE独自のアプローチで、着実なスキルの定着を促します。</p>
+          <p><em>基礎のプログラミングから、実践的な本格ツールへ</em><br>プログラミング（Scratch）は、論理的思考やPC操作の基礎を養うための重要な課題として、教科書に沿って全員がゲーム制作に取り組みます。さらに、本人の「やってみたい！」という意欲や、学年・理解度に合わせて、ExcelやWord、Illustratorといったより実践的で本格的なツール学習へと個別にステップアップし、将来の選択肢と可能性を広げていきます。</p>
+            </div>
+          </details>
+        </div>
       </div>
-      <div class="pg-feat__text">
-        <p class="pg-feat__tag">IT Skills</p>
-        <h3 class="pg-feat__title">PCスキルから<br>プログラミングまで。</h3>
-        <p class="pg-feat__desc">タッチタイピング、Office操作、Webデザイン、プログラミングなど、段階的にスキルを積み上げます。「できる」を実感する体験が自信につながります。</p>
+      <div class="pg-kodawari-item fade-in">
+        <div class="pg-kodawari-item__head">
+          <div class="pg-kodawari-num pg-kodawari-num--theme">02</div>
+          <h3>つまずきを最大のチャンスに変える<br>「HELPを出す力」</h3>
+        </div>
+        <div class="pg-kodawari-body">
+          <p class="pg-kodawari-lead">私たちが本当に育てたいのは、PCスキルの先にある「気持ちよく人に頼るコミュニケーション」です。</p>
+          <p>学習中にぶつかる「エラー」や「分からない」を最高のチャンスと捉え、一人で抱え込まずに周囲へ適切にHELPを出せる力（気持ちよく助けてもらう力）を実践的に育みます。</p>
+          <details class="pg-more">
+            <summary class="pg-more__btn"><span class="pg-more__label pg-more__label--open">具体的な取り組みを見る</span><span class="pg-more__label pg-more__label--close">閉じる</span></summary>
+            <div class="pg-more__body">
+          <p>プログラミングやタイピングを進める中で、「エラー」や「分からない」という壁には必ずぶつかります。ただ答えを教えるのではなく、以下のプロセスを反復することで<em>「自分で考え、最後までやり切る力」</em>を促します。</p>
+          <p><em>「助けて」を自分から発信する</em><br>分からない時に誰かが気づいてくれるのを待つのではなく、自らスタッフに声をかける練習をします。社会で生きていくための重要な第一歩です。</p>
+          <p><em>「何が分からないか」を言葉にして整理する</em><br>「全部むり！」と感情的になるのではなく、「ここからエラーになる」と、自分の状況を正確に相手に伝えるスキルを身につけます。</p>
+          <p><em>「教えてもらう姿勢」と、自分で答えに辿り着く力</em><br>説明を受けるときは、PCから手を止め相手を見る。自分が教えてもらう時に真摯に聞くことができると、教えてくれる側も嬉しくなります。私たちはこうした「人として大切にしたい姿勢」を育てます。また、スタッフはすぐ正解を教えるのではなく、ヒントを伝えながら自分で答えに辿り着けるようサポートします。拗ねたり投げ出したりせず、「もう一回教えて」と聞き直しながら最後までやり切る力を育みます。</p>
+          <p><em>「ありがとう」で関係性を築く</em><br>教えてもらった後には、しっかりお礼を伝える。この当たり前の積み重ねが、将来周囲に「助けてあげたい」と思わせる愛される力へ繋がります。</p>
+          <p>ここで培う<strong>「周囲の支援を適切に受ける力（＝HELPが出せる力）」</strong>は、将来社会に出たとき、自分自身を守り生き抜くための最大の武器になります。</p>
+            </div>
+          </details>
+        </div>
       </div>
-    </div>
-    <div class="pg-feat fade-in">
-      <div class="pg-feat__img">
-        <img src="./1.webp" alt="SST" />
+      <div class="pg-kodawari-item fade-in">
+        <div class="pg-kodawari-item__head">
+          <div class="pg-kodawari-num pg-kodawari-num--theme">03</div>
+          <h3>「我慢」一択にしない。<br>自分の思いと環境をすり合わせる「交渉スキル」</h3>
+        </div>
+        <div class="pg-kodawari-body">
+          <p class="pg-kodawari-lead">自分の思いも相手の都合も大切にする。リアルな他者との関わり方を学びます。</p>
+          <p>自分の思い通りにならない場面で、ただ「我慢しなさい」と感情を押さえつけるのではなく、BLUE MOUSEでは「言葉で交渉する」という主体的な選択肢を教え、社会で役立つ対人スキルを育てます。</p>
+          <details class="pg-more">
+            <summary class="pg-more__btn"><span class="pg-more__label pg-more__label--open">具体的な取り組みを見る</span><span class="pg-more__label pg-more__label--close">閉じる</span></summary>
+            <div class="pg-more__body">
+          <p><em>「したい！」を叶えるための、順序立てたお願い</em><br>例えば「あの子と同じデスク（PC）で遊びたい！」と思った時、ただ主張するだけでは叶いません。①一緒にしたい友達に一緒に遊んでくれるか聞く ➔ ②交代してほしい子に相談に行く ➔ ③スタッフに報告し、ホワイトボードを書き換える。この「踏むべき順序」を実践します。</p>
+          <p><em>相手の「断る権利」と、断られる経験</em><br>お願いされた側には当然「断る権利」があります。スタッフが無理にイヤイヤ譲らせるような介入はしません。だからこそ、断られて思い通りにならないこともあります。その時のモヤモヤした気持ちや悔しさも、非常に大切な経験です。自分の思いと相手の都合のバランスを学ぶことが、本当の対人スキルになります。</p>
+          <p><em>課題を投げ出さないための「強度の調整」</em><br>学校帰りで疲れていて「課題をやりたくない」日もあります。そんな時、不機嫌になって投げ出すのではなく、周囲に働きかけて「これくらいなら頑張れる」というラインに調整する交渉を促します。「全くやらなくていいよ」というわけではありません。自分の状態とすべきこと（課題）をすり合わせ、言葉で折り合いをつける立派な交渉スキルの一つです。</p>
+            </div>
+          </details>
+        </div>
       </div>
-      <div class="pg-feat__text">
-        <p class="pg-feat__tag">Social Skills</p>
-        <h3 class="pg-feat__title">社会で生きる力を、<br>日常の中で。</h3>
-        <p class="pg-feat__desc">SST（ソーシャルスキルトレーニング）を通じて、コミュニケーション力や自己表現力を育てます。実際の場面に即した実践的なプログラムです。</p>
-      </div>
-    </div>
-    <div class="pg-feat fade-in">
-      <div class="pg-feat__img">
-        <img src="./photos/IMG_8852.jpg" alt="伴走者" />
-      </div>
-      <div class="pg-feat__text">
-        <p class="pg-feat__tag">Companion</p>
-        <h3 class="pg-feat__title">伴走者として、<br>一緒に歩む。</h3>
-        <p class="pg-feat__desc">スタッフは「教える人」ではなく「伴走者」。一人ひとりの強みを見つけ、そのこのペースで成長できるよう寄り添います。</p>
+      <div class="pg-kodawari-item fade-in">
+        <div class="pg-kodawari-item__head">
+          <div class="pg-kodawari-num pg-kodawari-num--theme">04</div>
+          <h3>社会で生きる力を育む<br>「実践的SST」</h3>
+        </div>
+        <div class="pg-kodawari-body">
+          <p class="pg-kodawari-lead">こどもたちが夢中になれる「遊び」の中で、総合的なコミュニケーション力を丁寧に育みます。</p>
+          <p>専門的支援（ソーシャルスキルトレーニング）として、相手の立場に立つ思いやり、具体的な説明力、聞く力、感情のコントロールなど、社会で生きる多様なスキルを明確な意図を持ってアプローチします。</p>
+          <details class="pg-more">
+            <summary class="pg-more__btn"><span class="pg-more__label pg-more__label--open">具体的な取り組みを見る</span><span class="pg-more__label pg-more__label--close">閉じる</span></summary>
+            <div class="pg-more__body">
+          <p>ただ机に向かって勉強するのではなく、カードゲームや集団プログラムといった「楽しい遊び」を教材にすることで、こどもたちは主体的に楽しみながら参加することができます。その中で私たちは、以下のような遊び（プログラム）を通して、総合的なコミュニケーション力を高めていきます。</p>
+          <p><em>「伝える力・相手を思いやる力」を高めるプログラム</em><br>言葉だけで自分のイメージを伝える活動などを通して、「自分の言葉が足りなかった」と自ら気づく経験を積みます。思い通りに伝わらないイライラを態度に出すのではなく、相手の様子を読み取って伝える言葉や行動を柔軟に変えていく姿勢を育てます。</p>
+          <p><em>「聞く力・ターンテイキング」を身につけるプログラム</em><br>一方的に話してしまう子には、「交互に話す」ルールを設けたプログラムを実施します。話したい衝動をグッと堪え、「あ、今は相手が話す番だ」と自分自身で気づく（ハッとする）経験を繰り返すことで、相手の話を最後まで落ち着いて聞く姿勢を育みます。</p>
+          <p><em>「感情のコントロール・切り替え」を学ぶ勝敗のあるプログラム</em><br>勝ち負けのある遊びを通して、「負けても終わりではないこと」を体感します。負けて怒ったり投げ出したりするのではなく、「まぁいいか」と気持ちを切り替えたり、一旦その場を離れてクールダウンしたりする「適切な悔しがり方」を身につけていきます。</p>
+            </div>
+          </details>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="pg-quote fade-in">
-    <p class="pg-quote__text">10年間、<em>自分の力で生きていく。</em></p>
-  </div>
-
-  <div class="pg-programs fade-in" id="program">
-    <h2 class="pg-programs__title">プログラム内容</h2>
-    <div class="pg-programs__grid">
-      <div class="pg-prog">
-        <p class="pg-prog__name">PCスキル</p>
-        <p class="pg-prog__desc">タッチタイピング・Word・Excel・PowerPointなどの基本操作を習得します。</p>
-      </div>
-      <div class="pg-prog">
-        <p class="pg-prog__name">プログラミング</p>
-        <p class="pg-prog__desc">Scratch・HTML/CSSなどを使い、論理的思考力と創造力を養います。</p>
-      </div>
-      <div class="pg-prog">
-        <p class="pg-prog__name">SST</p>
-        <p class="pg-prog__desc">ロールプレイやグループワークを通じて、社会的スキルを実践的に学びます。</p>
-      </div>
-      <div class="pg-prog">
-        <p class="pg-prog__name">創作活動</p>
-        <p class="pg-prog__desc">動画制作・デザイン・3Dモデリングなど、表現力を伸ばす活動も行います。</p>
+  <div class="pg-schedule fade-in" id="schedule">
+    <h2 class="pg-info__title">具体的な活動と1日の流れ</h2>
+    <div class="pg-schedule-grid">
+      <div class="pg-schedule-card fade-in">
+        <p class="pg-schedule-card__label">平日</p>
+        <ul class="pg-schedule-list">
+          <li><span class="pg-schedule-time">15:40</span><span>来所・スケジュール確認</span></li>
+          <li><span class="pg-schedule-time">15:50〜16:20</span><span>個別課題（IT療育）</span></li>
+          <li><span class="pg-schedule-time">16:20〜16:50</span><span>デスク（ゲーミングPC）</span></li>
+          <li><span class="pg-schedule-time">16:50〜17:30</span><span>余暇時間（宿題・交流）</span></li>
+          <li><span class="pg-schedule-time">17:30</span><span>送迎出発</span></li>
+        </ul>
       </div>
     </div>
+  </div>
+
+  <div class="pg-future fade-in" id="future">
+    <h2 class="pg-info__title">その先にある未来</h2>
+    <p class="pg-stance__sub">〜BLUE MOUSEが目指す姿〜</p>
+    <p class="pg-future__intro fade-in">
+      PCスキル×コミュニケーション力が、将来こどもを守る「武器」になる。BLUE MOUSEでの日々の積み重ねは、こどもたちが将来社会に出たときの確かな土台となります。
+    </p>
+    <div class="pg-future-list">
+      <div class="pg-future-item fade-in">
+        <div class="pg-future-item__body">
+          <h3>「頼れる大人」を<br>見つけられる子に</h3>
+          <p>困ったときに一人で抱え込まず、周囲に「助けて」と言える力は、将来の職場や社会生活で自分自身を守る一番のセーフティーネットになります。</p>
+        </div>
+      </div>
+      <div class="pg-future-item fade-in">
+        <div class="pg-future-item__body">
+          <h3>自分の「得意」を<br>仕事や居場所につなげる</h3>
+          <p>タイピングやOffice操作、プログラミングなどの基礎スキルを身につけることで、将来の選択肢や就職の可能性が大きく広がります。</p>
+        </div>
+      </div>
+      <div class="pg-future-item fade-in">
+        <div class="pg-future-item__body">
+          <h3>人と心地よい距離感で<br>付き合っていける</h3>
+          <p>感情を無理に抑え込む「我慢」ではなく、言葉で「交渉」し、ルールを守り守られる心地よさを知った子は、どんなコミュニティでも周囲と良好な関係を築いていくことができます。</p>
+        </div>
+      </div>
+    </div>
+    <p class="pg-future__intro pg-future__outro fade-in">
+      BLUE MOUSEは、こどもたちが元々持っている強みを引き出し、将来の<em>「経済的自立」</em>と<em>「豊かな人生」</em>へつながる支援を行っていきます。
+    </p>
+  </div>
+
+  <div class="pg-quote fade-in" data-reveal="late">
+    <p class="pg-quote__text"><span class="pg-quote__lead">10年後、</span><span class="pg-quote__main">自分の力で立つ。</span></p>
   </div>
 
   <div class="pg-info fade-in" id="overview">
@@ -344,8 +732,9 @@
     <table class="pg-table">
       <tr><th>対象</th><td>小学生〜高校生</td></tr>
       <tr><th>定員</th><td>10名 / 日</td></tr>
-      <tr><th>営業時間</th><td>月〜土 放課後〜18:00 / 長期休暇中 10:00〜18:00</td></tr>
+      <tr><th>営業時間</th><td>月〜土 放課後〜18:00<br>長期休暇中 10:00〜18:00</td></tr>
       <tr><th>所在地</th><td>岡山市中区徳吉町2丁目11-25</td></tr>
+      <tr><th>電話</th><td>086-273-3880</td></tr>
     </table>
   </div>
 
@@ -402,22 +791,46 @@
   document.querySelectorAll('.mn-accordion__toggle').forEach(function (btn) { btn.addEventListener('click', function () { btn.closest('.mn-accordion').classList.toggle('is-open'); }); });
   document.documentElement.classList.add('js-ready');
 
+  // 締めの一行を1文字ずつに分解する（失敗しても元の文字列がそのまま残る）
+  (function () {
+    var main = document.querySelector('.pg-quote__main');
+    if (!main || !main.textContent) return;
+    var chars = Array.prototype.slice.call(main.textContent);
+    var frag = document.createDocumentFragment();
+    chars.forEach(function (ch, i) {
+      var sp = document.createElement('span');
+      sp.className = 'pg-quote__char';
+      sp.textContent = ch;
+      // 前置き「このこが、」が出たあとから、1文字ずつ間を置いて焦点を結ばせる
+      sp.style.animationDelay = (0.6 + i * 0.11).toFixed(3) + 's';
+      frag.appendChild(sp);
+    });
+    main.textContent = '';
+    main.appendChild(frag);
+  })();
+
   var els = Array.prototype.slice.call(document.querySelectorAll('.fade-in'));
   function reveal(el) { el.classList.add('is-visible'); }
 
   // 発火線＝画面下端から22%上。要素が「読む位置」に入ってから動き出すので、
-  // スクロールしてきた人の視界の中でアニメーションが起きる
-  var LINE = 0.78;
+  // スクロールしてきた人の視界の中でアニメーションが起きる。
+  // data-reveal="late" の要素は画面中央まで来てから発火させる（見落とさせたくない一行用）
+  var LINE = 0.78, LINE_LATE = 0.55;
+  function lineOf(el) { return el.getAttribute('data-reveal') === 'late' ? LINE_LATE : LINE; }
 
   if (!('IntersectionObserver' in window)) {
     els.forEach(reveal);
   } else {
-    var obs = new IntersectionObserver(function (entries) {
+    function onIntersect(entries, observer) {
       entries.forEach(function (e) {
-        if (e.isIntersecting) { reveal(e.target); obs.unobserve(e.target); }
+        if (e.isIntersecting) { reveal(e.target); observer.unobserve(e.target); }
       });
-    }, { threshold: 0, rootMargin: '0px 0px -22% 0px' });
-    els.forEach(function (el) { obs.observe(el); });
+    }
+    var obs = new IntersectionObserver(onIntersect, { threshold: 0, rootMargin: '0px 0px -22% 0px' });
+    var obsLate = new IntersectionObserver(onIntersect, { threshold: 0, rootMargin: '0px 0px -45% 0px' });
+    els.forEach(function (el) {
+      (el.getAttribute('data-reveal') === 'late' ? obsLate : obs).observe(el);
+    });
 
     // 保険：IOが発火しない状況（裏タブでの読み込み等）でも本文が消えたままにならないよう、
     // スクロール/リサイズで同じ判定を回す。全部出たら自分でリスナーを外す
@@ -427,13 +840,12 @@
       for (var i = 0; i < els.length; i++) {
         var el = els[i];
         if (el.classList.contains('is-visible')) continue;
-        if (el.getBoundingClientRect().top < window.innerHeight * LINE) reveal(el);
+        if (el.getBoundingClientRect().top < window.innerHeight * lineOf(el)) reveal(el);
         else pending++;
       }
       if (!pending) {
         window.removeEventListener('scroll', onScroll);
         window.removeEventListener('resize', onScroll);
-      }
     }
     function onScroll() {
       if (ticking) return;
@@ -449,7 +861,6 @@
 <style>
   @keyframes ctaPulse {
     0%   { transform: scale(.92); opacity: .55; }
-    100% { transform: scale(1.28); opacity: 0; }
   }
   .floating-cta {
     position: fixed;
