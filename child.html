@@ -278,14 +278,25 @@
     /* ページの締めの一行。箱に入れるとスタンスカードと同じ扱いになり、
        左ボーダーと中央揃えも矛盾するため、囲いを全て外して余白と文字の大きさだけで見せる。
        ページ本文で最大の文字にすることが、そのまま強調になる */
-    .pg-quote { text-align:center; padding:var(--sp-8) 0; margin-bottom:var(--section-gap); }
-    .pg-quote__mark { display:block; width:10px; height:10px; margin:0 auto var(--sp-6);
-      background:var(--yellow); border-radius:2px; transform:rotate(45deg); }
-    .pg-quote__text { font-size:clamp(1.6rem,3.6vw,2.15rem); font-weight:700; color:var(--ink);
-      line-height:1.65; letter-spacing:.02em; word-break:keep-all; overflow-wrap:anywhere; }
+    /* ページの締めの一行。記号は置かず、余白と文字の大きさ、そして「現れ方」だけで特別にする */
+    .pg-quote { position:relative; text-align:center; padding:96px 0 104px; margin-bottom:var(--section-gap); }
+    /* 背後の淡い光。輪郭を持たないので装飾に見えず、ここだけ空気が変わる */
+    .pg-quote::before { content:''; position:absolute; left:50%; top:50%;
+      width:min(760px,116%); height:300px; transform:translate(-50%,-50%); border-radius:50%;
+      background:radial-gradient(ellipse at center, rgba(245,210,74,.15) 0%, rgba(242,144,108,.06) 46%, rgba(255,255,255,0) 73%);
+      filter:blur(10px); pointer-events:none; animation:quoteAura 16s linear infinite; }
+    .pg-quote__text { position:relative; font-size:clamp(1.7rem,3.9vw,2.35rem); font-weight:700; color:var(--ink);
+      line-height:1.7; letter-spacing:.03em; word-break:keep-all; overflow-wrap:anywhere; }
     /* 「この子が、」は前置き。小さく落として、後半の一言を立たせる */
     .pg-quote__lead { display:block; font-size:15px; font-weight:600; color:#6b5a4c;
-      letter-spacing:.08em; margin-bottom:var(--sp-3); }
+      letter-spacing:.1em; margin-bottom:var(--sp-4); }
+    .pg-quote__char { display:inline-block; white-space:pre; }
+    @keyframes quoteAura {
+      0%   { transform:translate(-50%,-50%) scale(1);    opacity:.85; }
+      33%  { transform:translate(-51%,-52%) scale(1.06); opacity:1; }
+      66%  { transform:translate(-49%,-49%) scale(.97);  opacity:.9; }
+      100% { transform:translate(-50%,-50%) scale(1);    opacity:.85; }
+    }
 
     /* Info table */
     .pg-info { margin-bottom:var(--section-gap); }
@@ -418,13 +429,14 @@
     .js-ready .pg-future-item + .pg-future-item { border-top-color:transparent; transition:border-top-color 1s ease .1s; }
     .js-ready .pg-future-item.is-visible { border-top-color:rgba(51,37,26,.10); }
 
-    /* ---- ⑥ 締めの一行：ローディングと同じ“ピントが合う”言語で締める ---- */
-    .js-ready .pg-quote__mark { opacity:0; transform:rotate(45deg) scale(.35); }
-    .is-visible .pg-quote__mark { animation:diamondIn .6s cubic-bezier(.34,1.56,.64,1) .05s forwards; }
+    /* ---- ⑥ 締めの一行：1文字ずつピントが合うように現れる ----
+       ローディングのロゴと同じ“焦点が合う”動きを、文字単位まで細かくしたもの。
+       装飾を足さずに「時間」で特別さを出す */
     .js-ready .pg-quote__lead { opacity:0; transform:translateY(10px); }
-    .is-visible .pg-quote__lead { animation:softRise .7s var(--ease-out) .2s forwards; }
-    .js-ready .pg-quote__text { opacity:0; filter:blur(6px); transform:translateY(10px); }
-    .is-visible .pg-quote__text { animation:focusIn 1.1s var(--ease-out) .38s forwards; }
+    .is-visible .pg-quote__lead { animation:softRise .8s var(--ease-out) .15s forwards; }
+    /* 1文字ずつ包めた場合のみ隠す（JSが動かなければ通常表示のまま） */
+    .js-ready .pg-quote__char { opacity:0; filter:blur(8px); transform:translateY(14px); }
+    .is-visible .pg-quote__char { animation:focusIn .95s var(--ease-out) forwards; }
     @keyframes focusIn { to { opacity:1; filter:blur(0); transform:none; } }
 
     /* ---- ⑦ 概要テーブル：行が順に現れる ---- */
@@ -486,7 +498,7 @@
       .js-ready .pg-kodawari-num, .js-ready .pg-kodawari-item__head h3, .js-ready .pg-kodawari-body,
       .js-ready .pg-schedule-card, .js-ready .pg-schedule-list li,
       .js-ready .pg-future-item__body h3, .js-ready .pg-future-item__body p, .js-ready .pg-future-item::before,
-      .js-ready .pg-quote__text, .js-ready .pg-quote__lead, .js-ready .pg-quote__mark, .js-ready .pg-table tr, .js-ready .pg-cta.fade-in, .js-ready .pg-info__title {
+      .js-ready .pg-quote__lead, .js-ready .pg-quote__char, .js-ready .pg-table tr, .js-ready .pg-cta.fade-in, .js-ready .pg-info__title {
         opacity:1 !important; transform:none !important; filter:none !important;
       }
       .js-ready .pg-hero__img-wrap { clip-path:none !important; }
@@ -498,8 +510,8 @@
       .is-visible .pg-info__title, .is-visible .pg-kodawari-num, .is-visible .pg-schedule-card,
       .is-visible .pg-schedule-list li, .pg-future-item.is-visible .pg-future-item__body h3,
       .pg-future-item.is-visible .pg-future-item__body p, .pg-future-item.is-visible::before,
-      .is-visible .pg-quote__text, .is-visible .pg-quote__lead,
-      .is-visible .pg-quote__mark, .is-visible .pg-table tr { animation:none !important; }
+      .is-visible .pg-quote__lead, .is-visible .pg-quote__char,
+      .pg-quote::before, .is-visible .pg-table tr { animation:none !important; }
     }
 
     @media (max-width:780px) {
@@ -786,8 +798,7 @@
   </div>
 
   <div class="pg-quote fade-in">
-    <span class="pg-quote__mark"></span>
-    <p class="pg-quote__text"><span class="pg-quote__lead">この子が、</span>自分で自分を育てる。</p>
+    <p class="pg-quote__text"><span class="pg-quote__lead">この子が、</span><span class="pg-quote__main">自分で自分を育てる。</span></p>
   </div>
 
   <div class="pg-info fade-in" id="overview">
@@ -854,6 +865,24 @@
   document.querySelectorAll('.mn-link').forEach(function (a) { a.addEventListener('click', function () { burger.classList.remove('is-open'); mobileNav.classList.remove('is-open'); }); });
   document.querySelectorAll('.mn-accordion__toggle').forEach(function (btn) { btn.addEventListener('click', function () { btn.closest('.mn-accordion').classList.toggle('is-open'); }); });
   document.documentElement.classList.add('js-ready');
+
+  // 締めの一行を1文字ずつに分解する（失敗しても元の文字列がそのまま残る）
+  (function () {
+    var main = document.querySelector('.pg-quote__main');
+    if (!main || !main.textContent) return;
+    var chars = Array.prototype.slice.call(main.textContent);
+    var frag = document.createDocumentFragment();
+    chars.forEach(function (ch, i) {
+      var sp = document.createElement('span');
+      sp.className = 'pg-quote__char';
+      sp.textContent = ch;
+      // 前置き「この子が、」が出たあとから、1文字ずつ間を置いて焦点を結ばせる
+      sp.style.animationDelay = (0.55 + i * 0.075).toFixed(3) + 's';
+      frag.appendChild(sp);
+    });
+    main.textContent = '';
+    main.appendChild(frag);
+  })();
 
   var els = Array.prototype.slice.call(document.querySelectorAll('.fade-in'));
   function reveal(el) { el.classList.add('is-visible'); }
