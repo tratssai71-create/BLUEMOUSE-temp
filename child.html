@@ -413,6 +413,39 @@
     .js-ready .pg-cta.fade-in { transform:translateY(28px) scale(.96); }
     .pg-cta.fade-in.is-visible { transition:opacity .8s ease, transform .9s var(--ease-out); transform:none; }
 
+
+    /* ---- ⑨ マーカー：文字が着地してから、少し遅れて線を引く ----
+       行をまたぐ場合も各行が同じ長さ比で引かれるよう box-decoration-break:clone を指定 */
+    .pg-intro__lead em, .pg-worry__body em, .pg-worry__body strong,
+    .pg-stance__body em, .pg-stance__body strong,
+    .pg-future__intro em, .pg-quote__text em {
+      background-repeat:no-repeat;
+      -webkit-box-decoration-break:clone; box-decoration-break:clone;
+    }
+    .js-ready .pg-intro__lead em, .js-ready .pg-worry__body em, .js-ready .pg-worry__body strong,
+    .js-ready .pg-stance__body em, .js-ready .pg-stance__body strong,
+    .js-ready .pg-future__intro em, .js-ready .pg-quote__text em {
+      background-size:0 100%;
+      /* 遅延はショートハンドに含める（別指定すると shorthand に 0s へ戻される） */
+      transition:background-size .5s var(--ease-out) .28s;
+    }
+    .is-visible .pg-intro__lead em, .is-visible.pg-intro__lead em,
+    .is-visible .pg-worry__body em, .is-visible.pg-worry__body em,
+    .is-visible .pg-worry__body strong, .is-visible.pg-worry__body strong,
+    .is-visible .pg-stance__body em, .is-visible .pg-stance__body strong,
+    .is-visible .pg-future__intro em, .is-visible .pg-quote__text em {
+      background-size:100% 100%;
+    }
+    /* 同じ段落内で em → strong の順に引かれるよう、strong だけ少し後ろにずらす */
+    .js-ready .pg-worry__body strong, .js-ready .pg-stance__body strong { transition-delay:.42s; }
+    @media (prefers-reduced-motion:reduce) {
+      .js-ready .pg-intro__lead em, .js-ready .pg-worry__body em, .js-ready .pg-worry__body strong,
+      .js-ready .pg-stance__body em, .js-ready .pg-stance__body strong,
+      .js-ready .pg-future__intro em, .js-ready .pg-quote__text em {
+        background-size:100% 100% !important; transition:none !important;
+      }
+    }
+
     /* ---- 動きを減らす設定では、すべて静止した完成形で見せる ---- */
     @media (prefers-reduced-motion:reduce) {
       .js-ready .fade-in, .js-ready .pg-hero__tag, .js-ready .pg-hero__title, .js-ready .pg-hero__sub,
