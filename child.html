@@ -279,7 +279,10 @@
        左ボーダーと中央揃えも矛盾するため、囲いを全て外して余白と文字の大きさだけで見せる。
        ページ本文で最大の文字にすることが、そのまま強調になる */
     /* ページの締めの一行。記号は置かず、余白と文字の大きさ、そして「現れ方」だけで特別にする */
-    .pg-quote { position:relative; text-align:center; padding:96px 0 104px; margin-bottom:var(--section-gap); }
+    /* 余白は padding を使わず margin だけで作る。前セクションの margin と相殺されるので
+       「セクション間(--section-gap)のちょうど2倍」が上下対称で確実に確保できる */
+    .pg-quote { position:relative; text-align:center; padding:0;
+      margin:calc(var(--section-gap) * 2) 0; }
     /* 背後の淡い光。輪郭を持たないので装飾に見えず、ここだけ空気が変わる */
     .pg-quote::before { content:''; position:absolute; left:50%; top:50%;
       width:min(760px,116%); height:300px; transform:translate(-50%,-50%); border-radius:50%;
@@ -433,10 +436,10 @@
        ローディングのロゴと同じ“焦点が合う”動きを、文字単位まで細かくしたもの。
        装飾を足さずに「時間」で特別さを出す */
     .js-ready .pg-quote__lead { opacity:0; transform:translateY(10px); }
-    .is-visible .pg-quote__lead { animation:softRise .8s var(--ease-out) .15s forwards; }
+    .is-visible .pg-quote__lead { animation:softRise .9s var(--ease-out) .2s forwards; }
     /* 1文字ずつ包めた場合のみ隠す（JSが動かなければ通常表示のまま） */
     .js-ready .pg-quote__char { opacity:0; filter:blur(8px); transform:translateY(14px); }
-    .is-visible .pg-quote__char { animation:focusIn .95s var(--ease-out) forwards; }
+    .is-visible .pg-quote__char { animation:focusIn 1.2s var(--ease-out) forwards; }
     @keyframes focusIn { to { opacity:1; filter:blur(0); transform:none; } }
 
     /* ---- ⑦ 概要テーブル：行が順に現れる ---- */
@@ -797,7 +800,7 @@
     </div>
   </div>
 
-  <div class="pg-quote fade-in">
+  <div class="pg-quote fade-in" data-reveal="late">
     <p class="pg-quote__text"><span class="pg-quote__lead">この子が、</span><span class="pg-quote__main">自分で自分を育てる。</span></p>
   </div>
 
@@ -877,7 +880,7 @@
       sp.className = 'pg-quote__char';
       sp.textContent = ch;
       // 前置き「この子が、」が出たあとから、1文字ずつ間を置いて焦点を結ばせる
-      sp.style.animationDelay = (0.55 + i * 0.075).toFixed(3) + 's';
+      sp.style.animationDelay = (0.6 + i * 0.11).toFixed(3) + 's';
       frag.appendChild(sp);
     });
     main.textContent = '';
@@ -888,18 +891,24 @@
   function reveal(el) { el.classList.add('is-visible'); }
 
   // 発火線＝画面下端から22%上。要素が「読む位置」に入ってから動き出すので、
-  // スクロールしてきた人の視界の中でアニメーションが起きる
-  var LINE = 0.78;
+  // スクロールしてきた人の視界の中でアニメーションが起きる。
+  // data-reveal="late" の要素は画面中央まで来てから発火させる（見落とさせたくない一行用）
+  var LINE = 0.78, LINE_LATE = 0.55;
+  function lineOf(el) { return el.getAttribute('data-reveal') === 'late' ? LINE_LATE : LINE; }
 
   if (!('IntersectionObserver' in window)) {
     els.forEach(reveal);
   } else {
-    var obs = new IntersectionObserver(function (entries) {
+    function onIntersect(entries, observer) {
       entries.forEach(function (e) {
-        if (e.isIntersecting) { reveal(e.target); obs.unobserve(e.target); }
+        if (e.isIntersecting) { reveal(e.target); observer.unobserve(e.target); }
       });
-    }, { threshold: 0, rootMargin: '0px 0px -22% 0px' });
-    els.forEach(function (el) { obs.observe(el); });
+    }
+    var obs = new IntersectionObserver(onIntersect, { threshold: 0, rootMargin: '0px 0px -22% 0px' });
+    var obsLate = new IntersectionObserver(onIntersect, { threshold: 0, rootMargin: '0px 0px -45% 0px' });
+    els.forEach(function (el) {
+      (el.getAttribute('data-reveal') === 'late' ? obsLate : obs).observe(el);
+    });
 
     // 保険：IOが発火しない状況（裏タブでの読み込み等）でも本文が消えたままにならないよう、
     // スクロール/リサイズで同じ判定を回す。全部出たら自分でリスナーを外す
@@ -909,7 +918,7 @@
       for (var i = 0; i < els.length; i++) {
         var el = els[i];
         if (el.classList.contains('is-visible')) continue;
-        if (el.getBoundingClientRect().top < window.innerHeight * LINE) reveal(el);
+        if (el.getBoundingClientRect().top < window.innerHeight * lineOf(el)) reveal(el);
         else pending++;
       }
       if (!pending) {
