@@ -279,19 +279,20 @@
       padding:var(--sp-6); margin-bottom:var(--section-gap); }
     .pg-form__title { font-size:17px; font-weight:700; color:var(--ink); margin-bottom:var(--sp-1); text-align:center; }
     .pg-form__sub { font-size:13px; color:#8a7a6e; text-align:center; margin-bottom:var(--sp-5); }
-    .pg-field { margin-bottom:var(--sp-4); }
-    .pg-label { display:block; font-size:13px; font-weight:500; color:#6b5a4c; margin-bottom:var(--sp-2); }
+    /* 設問は contact.html の児童発達支援フォームと同じ構成・同じ並びにする */
+    .pg-form__grid { display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-4); margin-bottom:var(--sp-4); }
+    .pg-field { display:flex; flex-direction:column; gap:var(--sp-2); min-width:0; }
+    .pg-field--full { grid-column:1 / -1; }
+    .pg-label { font-size:13px; font-weight:500; color:#6b5a4c; }
     .pg-req { color:var(--coral-deep); margin-left:3px; font-size:11px; }
-    .pg-opt { color:var(--muted); margin-left:4px; font-size:11px; }
-    .pg-input, .pg-textarea { width:100%; min-width:0; border:1.5px solid rgba(0,0,0,.1); border-radius:10px;
+    .pg-input, .pg-select, .pg-textarea { width:100%; min-width:0; border:1.5px solid rgba(0,0,0,.1); border-radius:10px;
       padding:11px 14px; font-size:16px; font-family:inherit; background:var(--bg); color:var(--ink);
       outline:none; transition:border-color .2s, background .2s; }
-    .pg-input:focus, .pg-textarea:focus { border-color:var(--yellow-dark); background:#fff; }
-    .pg-textarea { resize:vertical; min-height:90px; line-height:1.8; }
-    .pg-contact-row { display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-3); }
-    .pg-error { display:none; font-size:12px; color:#c0392b; margin-top:5px; }
+    .pg-input:focus, .pg-select:focus, .pg-textarea:focus { border-color:var(--yellow-dark); background:#fff; }
+    .pg-textarea { resize:vertical; min-height:110px; line-height:1.8; }
+    .pg-error { display:none; font-size:12px; color:#c0392b; }
     .pg-error.is-show { display:block; }
-    .pg-input.is-error, .pg-textarea.is-error { border-color:#c0392b; background:#fff8f8; }
+    .pg-input.is-error, .pg-select.is-error, .pg-textarea.is-error { border-color:#c0392b; background:#fff8f8; }
     .pg-submit { display:block; width:100%; padding:14px; background:var(--coral); color:#fff; font-size:15px;
       font-weight:700; font-family:inherit; border:none; border-radius:100px; cursor:pointer;
       transition:transform .2s, box-shadow .2s, opacity .2s; margin-top:var(--sp-2); }
@@ -488,7 +489,7 @@
       .pg-flow-item + .pg-flow-item::before { top:-48px; height:32px; }
       .pg-flow-item + .pg-flow-item::after { top:-20px; }
       .pg-form { padding:var(--sp-5) var(--sp-4); }
-      .pg-contact-row { grid-template-columns:1fr; }
+      .pg-form__grid { grid-template-columns:1fr; }
       .footer { padding:32px 16px 16px; }
       .footer__inner { grid-template-columns:1fr; gap:20px; }
     }
@@ -733,40 +734,46 @@
     <p class="pg-form__sub">まずはお気軽にご相談ください。</p>
 
     <form id="tatsumi-form" novalidate>
-      <div class="pg-field">
-        <label class="pg-label" for="t-name">お名前<span class="pg-req">*</span></label>
-        <input class="pg-input" id="t-name" name="name" type="text" placeholder="山田 太郎（保護者）" autocomplete="name" />
-        <span class="pg-error" id="terr-name">お名前を入力してください。</span>
-      </div>
-
-      <div class="pg-field">
-        <div class="pg-contact-row">
-          <div>
-            <label class="pg-label" for="t-tel">電話番号<span class="pg-opt">任意</span></label>
-            <input class="pg-input" id="t-tel" name="phone" type="tel" placeholder="000-0000-0000" autocomplete="tel" />
-          </div>
-          <div>
-            <label class="pg-label" for="t-email">メールアドレス<span class="pg-opt">任意</span></label>
-            <input class="pg-input" id="t-email" name="email" type="email" placeholder="example@mail.com" autocomplete="email" />
-          </div>
+      <div class="pg-form__grid">
+        <div class="pg-field pg-field--full">
+          <label class="pg-label" for="t-child-name">おこさまのおなまえ<span class="pg-req">*</span></label>
+          <input class="pg-input" id="t-child-name" name="child_name" type="text" placeholder="山田 花子" />
+          <span class="pg-error" id="terr-child-name">おこさまのお名前を入力してください。</span>
         </div>
-        <span class="pg-error" id="terr-contact">電話番号かメールアドレス、いずれか一方をご入力ください。</span>
-      </div>
-
-      <div class="pg-field">
-        <label class="pg-label" for="t-age">おこさまの年齢<span class="pg-req">*</span></label>
-        <input class="pg-input" id="t-age" name="child_age" type="text" placeholder="例：3歳（年少）" />
-        <span class="pg-error" id="terr-age">おこさまの年齢を入力してください。</span>
-      </div>
-
-      <div class="pg-field">
-        <label class="pg-label" for="t-preference">ご希望の連絡方法・時間帯<span class="pg-opt">任意</span></label>
-        <input class="pg-input" id="t-preference" name="contact_preference" type="text" placeholder="例：夕方以降にお電話で" />
-      </div>
-
-      <div class="pg-field">
-        <label class="pg-label" for="t-concern">気になっていること<span class="pg-opt">任意</span></label>
-        <textarea class="pg-textarea" id="t-concern" name="concern" placeholder="気になっていることがあれば、簡単で構いません"></textarea>
+        <div class="pg-field">
+          <label class="pg-label" for="t-age">おこさまのねんれい<span class="pg-req">*</span></label>
+          <select class="pg-select" id="t-age" name="child_age">
+            <option value="">選択してください</option>
+            <option value="3歳">3歳</option>
+            <option value="4歳">4歳</option>
+            <option value="5歳">5歳</option>
+            <option value="6歳">6歳</option>
+          </select>
+          <span class="pg-error" id="terr-age">年齢を選択してください。</span>
+        </div>
+        <div class="pg-field">
+          <label class="pg-label" for="t-gender">性別<span class="pg-req">*</span></label>
+          <select class="pg-select" id="t-gender" name="gender">
+            <option value="">選択してください</option>
+            <option value="男のこ">男のこ</option>
+            <option value="女のこ">女のこ</option>
+          </select>
+          <span class="pg-error" id="terr-gender">性別を選択してください。</span>
+        </div>
+        <div class="pg-field">
+          <label class="pg-label" for="t-email">メールアドレス<span class="pg-req">*</span></label>
+          <input class="pg-input" id="t-email" name="email" type="email" placeholder="example@mail.com" autocomplete="email" />
+          <span class="pg-error" id="terr-email">有効なメールアドレスを入力してください。</span>
+        </div>
+        <div class="pg-field">
+          <label class="pg-label" for="t-tel">電話番号<span class="pg-req">*</span></label>
+          <input class="pg-input" id="t-tel" name="phone" type="tel" placeholder="000-0000-0000" autocomplete="tel" />
+          <span class="pg-error" id="terr-tel">電話番号を入力してください。</span>
+        </div>
+        <div class="pg-field pg-field--full">
+          <label class="pg-label" for="t-message">ご質問</label>
+          <textarea class="pg-textarea" id="t-message" name="message" placeholder="気になること・困っていることをご記入ください"></textarea>
+        </div>
       </div>
 
       <input type="hidden" name="utm_source" id="t-utm-source" value="" />
@@ -774,7 +781,7 @@
       <input type="hidden" name="utm_campaign" id="t-utm-campaign" value="" />
 
       <button class="pg-submit" id="t-submit-btn" type="submit">送信する</button>
-      <p class="pg-submit-note">無理に詳しく書いていただく必要はありません。</p>
+      <p class="pg-submit-note">ご質問欄は空欄のままでも構いません。</p>
     </form>
 
     <div class="pg-thanks" id="t-thanks">
@@ -1062,19 +1069,19 @@
   function clearError(el, errId) { if (el) el.classList.remove('is-error'); var e = document.getElementById(errId); if (e) e.classList.remove('is-show'); }
 
   var form = document.getElementById('tatsumi-form');
-  var nameEl = document.getElementById('t-name');
-  var telEl = document.getElementById('t-tel');
+  var childNameEl = document.getElementById('t-child-name');
+  var ageEl   = document.getElementById('t-age');
+  var genEl   = document.getElementById('t-gender');
   var emailEl = document.getElementById('t-email');
-  var ageEl = document.getElementById('t-age');
+  var telEl   = document.getElementById('t-tel');
 
-  [['t-name','terr-name'],['t-age','terr-age']].forEach(function (pair) {
+  // 入力し直したらその場でエラー表示を消す（select は change でも拾う）
+  [['t-child-name','terr-child-name'],['t-age','terr-age'],['t-gender','terr-gender'],
+   ['t-email','terr-email'],['t-tel','terr-tel']].forEach(function (pair) {
     var el = document.getElementById(pair[0]);
-    el.addEventListener('input', function () { clearError(el, pair[1]); });
-  });
-  [telEl, emailEl].forEach(function (el) {
-    el.addEventListener('input', function () {
-      clearError(telEl, 'terr-contact');
-      clearError(emailEl, 'terr-contact');
+    if (!el) return;
+    ['input','change'].forEach(function (ev) {
+      el.addEventListener(ev, function () { clearError(el, pair[1]); });
     });
   });
 
@@ -1082,18 +1089,15 @@
     e.preventDefault();
     var valid = true;
 
-    if (!nameEl.value.trim()) { showError(nameEl, 'terr-name'); valid = false; } else clearError(nameEl, 'terr-name');
-    if (!ageEl.value.trim()) { showError(ageEl, 'terr-age'); valid = false; } else clearError(ageEl, 'terr-age');
-
-    if (!telEl.value.trim() && !emailEl.value.trim()) {
-      showError(telEl, 'terr-contact'); showError(emailEl, 'terr-contact');
-      valid = false;
-    } else {
-      clearError(telEl, 'terr-contact'); clearError(emailEl, 'terr-contact');
-    }
+    // 判定内容も contact.html の児童発達支援フォームと揃える
+    if (!childNameEl.value.trim()) { showError(childNameEl, 'terr-child-name'); valid = false; } else clearError(childNameEl, 'terr-child-name');
+    if (!ageEl.value)              { showError(ageEl,   'terr-age');    valid = false; } else clearError(ageEl,   'terr-age');
+    if (!genEl.value)              { showError(genEl,   'terr-gender'); valid = false; } else clearError(genEl,   'terr-gender');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value)) { showError(emailEl, 'terr-email'); valid = false; } else clearError(emailEl, 'terr-email');
+    if (!telEl.value.trim())       { showError(telEl,   'terr-tel');    valid = false; } else clearError(telEl,   'terr-tel');
 
     if (!valid) {
-      var first = document.querySelector('.pg-input.is-error, .pg-textarea.is-error');
+      var first = document.querySelector('.pg-input.is-error, .pg-select.is-error, .pg-textarea.is-error');
       if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
@@ -1108,14 +1112,16 @@
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({
         access_key: '4fa56afb-03c9-4795-8e00-0d2c8e7b00b6',
-        subject: '【BLUE MOUSE】辰巳教室・子育て相談のお申し込み',
-        from_name: 'BLUE MOUSE 辰巳教室LP',
-        name: nameEl.value,
-        phone: telEl.value,
-        email: emailEl.value,
+        subject: '【LITTLE BLUE MOUSE】辰巳教室・子育て相談のお申し込み',
+        from_name: 'BLUE MOUSE お問い合わせフォーム',
+        child_name: childNameEl.value,
         child_age: ageEl.value,
-        contact_preference: document.getElementById('t-preference').value,
-        concern: document.getElementById('t-concern').value,
+        gender: genEl.value,
+        email: emailEl.value,
+        phone: telEl.value,
+        facility: 'LITTLE BLUE MOUSE（児童発達支援事業）',
+        inquiry_type: '子育て相談（9月末まで限定）',
+        message: document.getElementById('t-message').value,
         utm_source: document.getElementById('t-utm-source').value,
         utm_medium: document.getElementById('t-utm-medium').value,
         utm_campaign: document.getElementById('t-utm-campaign').value
