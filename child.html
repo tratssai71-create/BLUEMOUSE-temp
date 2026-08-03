@@ -219,17 +219,12 @@
     .pg-worry__body strong { font-weight:700; color:var(--ink); background:linear-gradient(transparent 62%, rgba(245,210,74,.5) 62%); }
 
     /* Stance section */
-    /* 見出しに既にイエローの縦バーがあるため、カードの左ボーダーは記号の重複だった。
-       角丸に削られて「ずれて」見える原因でもあったので廃止。
-       代わりに左右の余白ぶん外へ広げ、狭い画面では画面端まで届く淡いイエローの帯にする。
-       箱にしないので、モバイルで本文の幅が削られない */
-    .pg-stance { background:var(--yellow-light);
-      margin:0 calc(-1 * var(--gutter)) var(--section-gap);
-      padding:var(--sp-7) var(--gutter); }
-    /* 帯の上ではイエローの細バーが沈むので、見出しのバーだけ濃くする */
-    .pg-stance .pg-info__title::before { background:var(--yellow-dark); }
+    /* 塗りも囲いも持たせず、細い罫線2本だけで区切る。
+       スマホで本文幅が1pxも削られず、色の面積で主張しすぎることもない */
+    .pg-stance { border-top:1px solid rgba(51,37,26,.14); border-bottom:1px solid rgba(51,37,26,.14);
+      padding:var(--sp-6) 0; margin-bottom:var(--section-gap); }
     /* サブコピーはこのセクションの主張なので、本文より一段大きく */
-    .pg-stance__sub { font-size:17px; font-weight:700; color:var(--ink); text-align:center; margin:var(--sp-2) 0 var(--sp-5); letter-spacing:.04em; line-height:1.7; }
+    .pg-stance__sub { font-size:19px; font-weight:700; color:var(--ink); text-align:center; margin:var(--sp-4) 0 var(--sp-5); letter-spacing:.04em; line-height:1.7; }
     .pg-stance__body { font-size:15px; color:#6b5a4c; line-height:2; }
     .pg-stance__body em { font-style:normal; font-weight:700; color:var(--ink); background:linear-gradient(transparent 86%, rgba(95,193,199,.85) 86%); }
     .pg-stance__body strong { font-weight:700; color:var(--ink); background:linear-gradient(transparent 62%, rgba(245,210,74,.5) 62%); }
@@ -442,6 +437,11 @@
     /* 区切りの罫は、その項目が現れるのに合わせて静かに濃くなる */
     .js-ready .pg-future-item + .pg-future-item { border-top-color:transparent; transition:border-top-color 1s ease .1s; }
     .js-ready .pg-future-item.is-visible { border-top-color:rgba(51,37,26,.10); }
+
+    /* ---- スタンス：区切りの罫線が静かに濃くなる ---- */
+    .js-ready .pg-stance { border-top-color:transparent; border-bottom-color:transparent;
+      transition:border-top-color 1s ease .15s, border-bottom-color 1s ease .15s; }
+    .js-ready .pg-stance.is-visible { border-top-color:rgba(51,37,26,.14); border-bottom-color:rgba(51,37,26,.14); }
 
     /* ---- ⑥ 締めの一行：1文字ずつピントが合うように現れる ----
        ローディングのロゴと同じ“焦点が合う”動きを、文字単位まで細かくしたもの。
