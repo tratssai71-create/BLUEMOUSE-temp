@@ -160,7 +160,9 @@
 
     /* Daily schedule */
     .pg-schedule { margin-bottom:var(--section-gap); }
-    .pg-schedule-grid { display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-5); margin-top:var(--sp-4); }
+    /* 児発は平日/長期休暇の2枚だが放デイは平日の1枚。1fr 1fr のままだと
+       PCで右半分に空の列を確保してしまうため、枚数に追従する auto-fit にする */
+    .pg-schedule-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:var(--sp-5); margin-top:var(--sp-4); }
     .pg-schedule-card { background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:16px; padding:var(--sp-5); }
     .pg-schedule-card__label { display:inline-block; font-family:"Inter",sans-serif; font-size:12px; font-weight:700; letter-spacing:.1em; color:#fff; background:var(--theme); padding:var(--sp-1) var(--sp-3); border-radius:100px; margin-bottom:var(--sp-4); }
     .pg-schedule-list { list-style:none; display:flex; flex-direction:column; }
