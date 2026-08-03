@@ -210,13 +210,22 @@
     .pg-future__body { font-size:15px; color:#6b5a4c; line-height:2; }
     .pg-future__body em { font-style:normal; font-weight:700; color:var(--ink); background:linear-gradient(transparent 86%, rgba(95,193,199,.85) 86%); }
     .pg-future__body strong { font-weight:700; color:var(--ink); background:linear-gradient(transparent 62%, rgba(245,210,74,.5) 62%); }
-    /* 「トリセツ」が実際どんな言葉になるのかの実例。本文ではなく引用として立てる */
-    .pg-torisetsu { position:relative; margin:var(--sp-5) 0; padding:var(--sp-5) var(--sp-5) var(--sp-5) calc(var(--sp-5) + 17px);
-      background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:16px; box-shadow:0 10px 26px rgba(51,37,26,.06); }
-    .pg-torisetsu::before { content:''; position:absolute; left:var(--sp-5); top:var(--sp-5); bottom:var(--sp-5);
-      width:3px; background:var(--yellow); border-radius:2px; }
-    .pg-torisetsu__label { display:block; font-size:11px; font-weight:700; letter-spacing:.14em; color:var(--muted); margin-bottom:var(--sp-2); }
-    .pg-torisetsu p { font-size:15.5px; font-weight:700; color:var(--ink); line-height:1.95; }
+    /* 紙の取扱説明書を配るわけではないので、書類の体裁（囲み枠＋縦罫）にはしない。
+       「保護者の方が言えるようになる言葉」なので、悩みバブルと同じ吹き出しの形で示す */
+    .pg-torisetsu { margin:var(--sp-5) 0; }
+    .pg-torisetsu__label { display:block; font-size:13px; font-weight:700; color:var(--muted);
+      letter-spacing:.03em; line-height:1.8; margin-bottom:var(--sp-3); }
+    .pg-torisetsu__say { position:relative; display:block; padding:var(--sp-5);
+      border-radius:22px 22px 22px 6px;
+      background:linear-gradient(140deg, #fff 0%, #fffdf8 100%);
+      border:1.5px solid rgba(217,165,32,.30);
+      box-shadow:0 8px 22px rgba(120,102,82,.10), 0 1px 2px rgba(0,0,0,.03);
+      font-size:15.5px; font-weight:700; color:var(--ink); line-height:1.95; }
+    .pg-torisetsu__say::after { content:''; position:absolute; bottom:-1.5px; left:-1.5px; width:16px; height:16px;
+      background:inherit; border-left:1.5px solid rgba(217,165,32,.30); border-bottom:1.5px solid rgba(217,165,32,.30);
+      border-radius:0 0 0 6px; transform:skewX(24deg); }
+    /* 「その日に冊子をもらえる」という誤解が起きないよう、但し書きを本文と同じ強さで置く */
+    .pg-torisetsu__note { display:block; margin-top:var(--sp-3); font-size:12.5px; color:var(--muted); line-height:1.95; }
 
     /* Quote（締めの一行） */
     .pg-quote { position:relative; text-align:center; padding:0; margin:calc(var(--section-gap) * 2) 0; }
@@ -365,9 +374,14 @@
     @keyframes lineDraw { to { transform:translateX(-50%) scaleY(1); } }
     @keyframes arrowIn  { to { opacity:1; } }
 
-    /* ---- ④ トリセツの実例：カードが起き、罫が引かれる ---- */
-    .js-ready .pg-torisetsu::before { transform:scaleY(0); transform-origin:top center; }
-    .is-visible .pg-torisetsu::before { animation:barDraw .7s var(--ease-io) .25s forwards; }
+    /* ---- ④ トリセツの実例：見出し→吹き出し→但し書きの順に静かに現れる ---- */
+    .js-ready .pg-torisetsu.fade-in { transition:none; }
+    .js-ready .pg-torisetsu__label,
+    .js-ready .pg-torisetsu__say,
+    .js-ready .pg-torisetsu__note { opacity:0; transform:translateY(12px); }
+    .pg-torisetsu.is-visible .pg-torisetsu__label { animation:softRise .65s var(--ease-out) .05s forwards; }
+    .pg-torisetsu.is-visible .pg-torisetsu__say   { animation:softRise .70s var(--ease-out) .18s forwards; }
+    .pg-torisetsu.is-visible .pg-torisetsu__note  { animation:softRise .65s var(--ease-out) .34s forwards; }
 
     /* ---- ⑤ 締めの一行：1文字ずつピントが合うように現れる ---- */
     .js-ready .pg-quote__lead { opacity:0; transform:translateY(10px); }
@@ -429,7 +443,9 @@
       }
       .js-ready .lp-hero__img { transform:none !important; }
       .js-ready .pg-info__title::before, .js-ready .lp-hero__tag::before,
-      .js-ready .pg-torisetsu::before, .js-ready .pg-flow-item + .pg-flow-item::before { transform:none !important; }
+      .js-ready .pg-flow-item + .pg-flow-item::before { transform:none !important; }
+      .js-ready .pg-torisetsu__label, .js-ready .pg-torisetsu__say, .js-ready .pg-torisetsu__note {
+        opacity:1 !important; transform:none !important; }
       .js-ready .pg-flow-item + .pg-flow-item::after { opacity:1 !important; }
       .js-ready .pg-intro__lead em, .js-ready .pg-worry__body em, .js-ready .pg-worry__body strong,
       .js-ready .pg-stance__body em, .js-ready .pg-stance__body strong,
@@ -444,7 +460,9 @@
       .pg-flow-item.is-visible .pg-flow__loop,
       .pg-flow-item.is-visible + .pg-flow-item::before, .pg-flow-item + .pg-flow-item.is-visible::before,
       .pg-flow-item + .pg-flow-item.is-visible::after,
-      .is-visible .pg-torisetsu::before, .is-visible .pg-quote__lead, .is-visible .pg-quote__char,
+      .pg-torisetsu.is-visible .pg-torisetsu__label, .pg-torisetsu.is-visible .pg-torisetsu__say,
+      .pg-torisetsu.is-visible .pg-torisetsu__note,
+      .is-visible .pg-quote__lead, .is-visible .pg-quote__char,
       .is-visible .pg-table tr { animation:none !important; }
     }
 
@@ -678,8 +696,9 @@
   <div class="pg-future fade-in" id="future">
     <h2 class="pg-info__title pg-info__title--multi">家の中だけじゃない。<br>最適解（トリセツ）が就学後の未来も守る。</h2>
     <div class="pg-torisetsu fade-in">
-      <span class="pg-torisetsu__label">トリセツは、たとえばこんな言葉になります</span>
-      <p>「こういう理由で不安になりやすいですが、こう環境を整えれば落ち着いて行動できます」</p>
+      <span class="pg-torisetsu__label">通い続けるなかで、保護者の方が園や学校の先生へこう伝えられるようになります</span>
+      <p class="pg-torisetsu__say">「こういう理由で不安になりやすいですが、こう環境を整えれば落ち着いて行動できます」</p>
+      <span class="pg-torisetsu__note">冊子やシートとしてお渡しするものではありません。LITTLE BLUE MOUSEに通いながら観察と検証を一緒に重ねるなかで、少しずつ見えてくる「そのこだけの理解」です。</span>
     </div>
     <p class="pg-future__body fade-in">
       このトリセツは、小学校へ進学した際にも、<em>新しい環境の先生たちへ的確に伝えるための大きな手助け</em>になります。<br><br>
