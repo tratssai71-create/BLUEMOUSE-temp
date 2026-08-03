@@ -50,6 +50,12 @@
          --ease-out=減速して着地 / --ease-io=溜めて放つ */
       --ease-out: cubic-bezier(.22,1,.36,1);
       --ease-io: cubic-bezier(.65,0,.35,1);
+      /* 余白スケール（4px基準・児童発達支援ページと共通）。
+         セクション間とカード内側は下の2つが唯一の基準値 */
+      --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px;
+      --sp-5:24px; --sp-6:32px; --sp-7:48px; --sp-8:64px;
+      --gutter:32px;
+      --section-gap:var(--sp-8); --card-pad:var(--sp-6);
     }
 
     /* ===== Header ===== */
@@ -176,12 +182,12 @@
 
     /* ===== Hero ===== */
     .hero {
-      padding: 100px 32px 60px;
+      padding: 100px var(--gutter) var(--section-gap);
       max-width: 1240px;
       margin: 0 auto;
       display: grid;
       grid-template-columns: 0.9fr 1.2fr;
-      gap: 48px;
+      gap: var(--sp-7);
       align-items: center;
     }
     .hero__text { order: 1; }
@@ -192,7 +198,7 @@
       font-weight: 700;
       line-height: 1.35;
       color: var(--ink);
-      margin-bottom: 16px;
+      margin-bottom: var(--sp-4);
     }
     /* 文字そのものを黄色にすると生成り地で1.7:1しか出ず、かすれて野暮ったく見える。
        文字はインク(13:1)のまま、色はサイト共通のマーカーとして下に敷く */
@@ -217,7 +223,7 @@
       font-size: 14px;
       color: #9c8d80;
       line-height: 1.95;
-      margin-bottom: 14px;
+      margin-bottom: var(--sp-3);
       max-width: 30em;   /* 行が長くなりすぎて視線が迷うのを防ぐ */
       /* PCでは見出しが左揃えなので本文も左に揃える。
          中央揃えのままだと行頭が揃わず、段落の塊が崩れて見える。
@@ -229,12 +235,12 @@
       font-weight: 700;
       color: var(--ink);
       line-height: 1.75;
-      margin-bottom: 18px;
+      margin-bottom: var(--sp-4);
     }
     .hero__sub--close {
       color: #6b5a4c;
       font-weight: 500;
-      margin-bottom: 22px;
+      margin-bottom: var(--sp-5);
     }
     /* 手動の改行は、行が短くなるスマホでは語のまとまりとして効くが、
        横幅のあるPCでは1行が細切れになり、段落が実際の文字数以上に長く見える。
@@ -359,76 +365,27 @@
       font-size: 18px;
     }
 
-    /* ===== Stats ===== */
-    .stats {
-      background: var(--bg);
-      padding: 48px 32px;
-      border-top: 1px solid rgba(0,0,0,.04);
-      border-bottom: 1px solid rgba(0,0,0,.04);
-    }
-    .stats__inner {
-      max-width: 900px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-    .stat {
-      background: #fff;
-      border-radius: 16px;
-      padding: 24px 20px;
-      text-align: center;
-      border: 1px solid rgba(0,0,0,.04);
-    }
-    .stat__icon {
-      width: 44px; height: 44px;
-      border-radius: 12px;
-      margin: 0 auto 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .08em;
-      color: #fff;
-    }
-    .stat__icon--teal { background: var(--teal); }
-    .stat__icon--coral { background: var(--coral); }
-    .stat__icon--yellow { background: var(--yellow); color: var(--ink); }
-    .stat__label {
-      font-size: 11px;
-      font-weight: 600;
-      color: #aaa;
-      letter-spacing: .1em;
-      margin-bottom: 4px;
-    }
-    .stat__value {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--ink);
-    }
-
     /* ===== Services ===== */
     .services {
-      padding: 72px 32px;
+      padding: var(--section-gap) var(--gutter);
       max-width: 1100px;
       margin: 0 auto;
     }
     .section-header {
       text-align: center;
-      margin-bottom: 40px;
+      margin-bottom: var(--sp-6);
     }
     .section-tag {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: var(--sp-2);
       font-family: "Inter", sans-serif;
       font-size: 11px;
       font-weight: 600;
       letter-spacing: .2em;
       text-transform: uppercase;
       color: var(--teal);
-      margin-bottom: 8px;
+      margin-bottom: var(--sp-2);
     }
     .section-tag::before, .section-tag::after {
       content: '';
@@ -445,7 +402,7 @@
     .service-cards {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+      gap: var(--sp-5);
     }
     /* 4pxの色枠でカードを囲うと、額縁のように写真から浮いて古く見える。
        枠は極細の中立色にして、事業の色は写真の下の罫とタグだけで示す */
@@ -474,7 +431,7 @@
       height: 5px;
       background: var(--svc-accent, var(--teal));
     }
-    .svc__body { background: var(--svc-tint, transparent); }
+    .svc__body { background: var(--svc-tint, transparent); padding: var(--sp-5); }
     .svc--yellow { --svc-accent: var(--yellow);     --svc-tint: #fffdf4; }
     .svc--teal   { --svc-accent: var(--teal-dark);  --svc-tint: #f4fbfb; }
     .svc--ink    { --svc-accent: #c9c2ba;           --svc-tint: #faf9f7; }
@@ -505,20 +462,19 @@
       display: inline-block;
       font-size: 11.5px; font-weight: 700; letter-spacing: .06em;
       color: #fff; background: var(--svc-accent, var(--teal));
-      padding: 3px 11px; border-radius: 100px;
-      margin: 0 0 10px;
+      padding: var(--sp-1) var(--sp-3); border-radius: 100px;
+      margin: 0 0 var(--sp-3);
     }
     /* イエロー地に白は2.0:1で読めないため、この1枚だけ濃い文字に落とす（濃茶で5.2:1） */
     .svc--yellow .svc__cat { color: #6b4f08; }
     /* 罫と同じ #3a9095 のままだと白文字が3.8:1でAAに届かないので、ピルだけ一段暗く（5.9:1） */
     .svc--teal .svc__cat { background: #2c6e72; }
-    .svc__body { padding: 20px 22px 24px; }
     .svc__title {
       font-family: "Zen Maru Gothic", sans-serif;
       font-size: 17px;
       font-weight: 700;
       color: var(--ink);
-      margin-bottom: 2px;
+      margin-bottom: var(--sp-1);
       letter-spacing: .01em;
       word-break: keep-all;
       overflow-wrap: anywhere;
@@ -527,7 +483,7 @@
       font-size: 13px;
       color: #8a7a6e;
       line-height: 1.8;
-      margin-bottom: 16px;
+      margin-bottom: var(--sp-4);
     }
     .svc__link {
       display: inline-flex;
@@ -544,7 +500,7 @@
     /* ===== Facilities ===== */
     .facilities {
       background: var(--bg);
-      padding: 72px 32px;
+      padding: var(--section-gap) var(--gutter);
       border-top: 1px solid rgba(0,0,0,.04);
     }
     .facilities__inner {
@@ -554,7 +510,7 @@
     .fac-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 24px;
+      gap: var(--sp-5);
     }
     .fac {
       background: #fff;
@@ -567,7 +523,7 @@
       overflow: hidden;
     }
     .fac__img img { width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
-    .fac__body { padding: 22px 24px 26px; }
+    .fac__body { padding: var(--sp-5); }
     .fac__type {
       display: inline-block;
       font-size: 10px;
@@ -634,7 +590,7 @@
 
     /* ===== CTA ===== */
     .cta {
-      padding: 72px 32px;
+      padding: var(--section-gap) var(--gutter);
       text-align: center;
       position: relative;
     }
@@ -662,19 +618,19 @@
       margin: 0 auto;
       background: linear-gradient(135deg, var(--teal-light) 0%, var(--coral-light) 100%);
       border-radius: 28px;
-      padding: 52px 40px;
+      padding: var(--sp-7) var(--sp-6);
     }
     .cta__title {
       font-family: "Zen Maru Gothic", sans-serif;
       font-size: clamp(1.3rem, 2.5vw, 1.7rem);
       font-weight: 700;
       color: var(--ink);
-      margin-bottom: 8px;
+      margin-bottom: var(--sp-2);
     }
     .cta__sub {
       font-size: 14px;
       color: #8a7a6e;
-      margin-bottom: 24px;
+      margin-bottom: var(--sp-5);
     }
     .cta__btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
     .cta__phones {
@@ -906,6 +862,8 @@
 
     /* ===== Mobile ===== */
     @media (max-width: 780px) {
+      /* 児童発達支援ページと同じ切り替え。個別のpx指定ではなく基準値だけを差し替える */
+      :root { --section-gap:var(--sp-7); --card-pad:var(--sp-5); --gutter:20px; }
       .header { padding: 0 16px; height: 56px; }
       .header__nav { display: none; }
       .header__burger { display: flex; }
@@ -913,8 +871,8 @@
 
       .hero {
         grid-template-columns: 1fr;
-        padding: 84px 20px 40px;
-        gap: 28px;
+        padding: 84px var(--gutter) var(--section-gap);
+        gap: var(--sp-5);
       }
       .hero__text { order: 2; text-align: center; }
       .hero__sub { text-align: center; }
@@ -923,19 +881,12 @@
       .hero__float-card { bottom: 12px; right: 12px; padding: 8px 14px; font-size: 12px; }
       .hero__title { font-size: clamp(1.5rem, 6vw, 2rem); }
 
-      .stats { padding: 36px 16px; }
-      .stats__inner { grid-template-columns: 1fr; gap: 12px; }
-      .stat { display: flex; align-items: center; gap: 14px; text-align: left; padding: 16px 20px; }
-      .stat__icon { margin: 0; flex-shrink: 0; }
 
-      .services { padding: 48px 16px; }
       .service-cards { grid-template-columns: 1fr; }
 
-      .facilities { padding: 48px 16px; }
       .fac-grid { grid-template-columns: 1fr; }
 
-      .cta { padding: 48px 16px; }
-      .cta__card { padding: 36px 24px; border-radius: 20px; }
+      .cta__card { border-radius: 20px; }
 
       .footer { padding: 32px 16px 16px; }
       .footer__inner { grid-template-columns: 1fr; gap: 20px; }
