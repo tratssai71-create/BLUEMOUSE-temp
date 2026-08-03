@@ -405,14 +405,6 @@
       width: 100%; height: 100%;
       object-fit: cover;
     }
-    /* スライドショー */
-    .svc__slides { position: relative; width: 100%; height: 100%; }
-    .svc__slides img {
-      position: absolute; top: 0; left: 0;
-      width: 100%; height: 100%; object-fit: cover;
-      opacity: 0; transition: opacity .8s ease;
-    }
-    .svc__slides img.is-active { opacity: 1; }
     .svc__img-tag {
       position: absolute;
       top: 12px; left: 12px;
@@ -978,54 +970,64 @@
 (function () {
   document.documentElement.classList.add('js-ready');
 
-  // スライドショー共通処理
-  // 光が満ちて引くまでの時間。CSSの heroBloom と一致させる
-  var SLIDE_FADE = 3000;
-  // 写真の入れ替えが終わる時刻（CSSの transition: 1s delay + 1s duration）＋余白
-  var SWAP_DONE = 2120;
+  /* ===== ヒーローのスライドショー（ホワイトディゾルブ） =====
+     3秒で ①光が満ちる(0〜0.9s) → ②光の頂点で写真を入れ替える(1.0〜2.0s) → ③光が引く(2.1〜3.0s)。
+     入れ替えを光の中に隠すので、2枚が二重写しになる瞬間が見えない。
+     下の2つの数値は CSS の heroBloom / .hero__img-wrap img.is-active と対で管理する */
+  var BLOOM_MS = 3000;   // 光が満ちて引くまで（heroBloom の duration）
+  var SWAP_END = 2000;   // 写真の入れ替えが終わる時刻（transition の delay 1s ＋ duration 1s）
 
+  // ケンバーンズ。止めるのは自分が張ったパンだけにする。
+  // getAnimations() をまとめて cancel すると、直前に始まった opacity のトランジションまで
+  // 打ち切られ、フェードせずいきなり切り替わってしまう
   function panImage(img, duration) {
-    var from = img.getAttribute('data-pan-from'), to = img.getAttribute('data-pan-to');
+    var from = img.getAttribute('data-pan-from');
+    var to = img.getAttribute('data-pan-to');
     if (!from || !to || !img.animate) return;
     var scale = img.getAttribute('data-pan-scale') || '1.16';
-    // 退場中の画像のアニメーションは止めない。止めると余韻が消える
-    img.getAnimations().forEach(function(a) { a.cancel(); });
-    img.animate(
-      [{ transform: 'scale(' + scale + ') translate(' + from + ')' }, { transform: 'scale(' + scale + ') translate(' + to + ')' }],
-      // 終盤ほど遅くなるイージング。いちばん遅い区間が退場のフェードと重なり、余韻になる
+    if (img._pan) img._pan.cancel();
+    img._pan = img.animate(
+      [{ transform: 'scale(' + scale + ') translate(' + from + ')' },
+       { transform: 'scale(' + scale + ') translate(' + to + ')' }],
+      // 終盤ほど遅くなる曲線。いちばん遅い区間が入れ替えと重なり、余韻になる
       { duration: duration, easing: 'cubic-bezier(.25,.5,.45,1)', fill: 'forwards' }
     );
   }
-  // 光の膜を頭から再生し直す（クラスを外して強制リフロー、が唯一確実な再スタート方法）
-  var flashEl = document.getElementById('hero-flash');
-  function bloom() {
-    if (!flashEl) return;
-    flashEl.classList.remove('is-run');
-    void flashEl.offsetWidth;
-    flashEl.classList.add('is-run');
-  }
 
   function startSlideshow(id, interval) {
-    var imgs = document.querySelectorAll('#' + id + ' img');
-    if (!imgs.length) return;
-    // パンの寿命を表示時間より意図的に長く取り、終点に到達させない。
-    // 退場フェード中もまだ動き続けている状態になり、これが余韻になる
-    var life = (interval + SLIDE_FADE) * 1.57;
+    var root = document.getElementById(id);
+    if (!root) return;
+    var imgs = root.querySelectorAll('img');
+    var flash = root.querySelector('.hero__flash');
+    if (imgs.length < 2) return;
+
+    // パンの寿命を表示時間より長く取り、終点に到達させない。
+    // 止まって見える瞬間がなくなり、常に動き続けているように見える
+    var life = (interval + BLOOM_MS) * 1.57;
     var cur = 0;
     panImage(imgs[cur], life);
-    setInterval(function() {
+
+    setInterval(function () {
       var prev = imgs[cur];
       cur = (cur + 1) % imgs.length;
       var next = imgs[cur];
-      // 前の画像は消さずに下の層で不透明のまま待たせる。
-      // 上に重なった新しい画像が完全に覆ってから、見えない状態で降ろす
+
+      // 前の写真は消さず、不透明のまま下の層で待たせる。
+      // 2枚とも半透明にすると下地の生成り色が透けて明るさが暴れる
       prev.classList.add('is-leaving');
       prev.classList.remove('is-active');
       next.classList.add('is-active');
       panImage(next, life);
-      bloom();
-      // 新しい画像が完全に覆ってから、見えない状態で前の画像を降ろす
-      setTimeout(function() { prev.classList.remove('is-leaving'); }, SWAP_DONE);
+
+      // 光の膜を頭から再生し直す（クラスを外して強制リフロー、が唯一確実な再スタート）
+      if (flash) {
+        flash.classList.remove('is-run');
+        void flash.offsetWidth;
+        flash.classList.add('is-run');
+      }
+
+      // 新しい写真が覆い終わってから、見えない状態で前の写真を降ろす
+      setTimeout(function () { prev.classList.remove('is-leaving'); }, SWAP_END + 120);
     }, interval);
   }
   startSlideshow('hero-slides', 7200);
