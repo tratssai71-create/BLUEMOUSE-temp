@@ -259,23 +259,20 @@
     .pg-future { margin-bottom:var(--section-gap); }
     .pg-future__intro { font-size:15px; color:#6b5a4c; line-height:2; margin:var(--sp-4) 0 var(--sp-5); }
     .pg-future__intro em { font-style:normal; font-weight:700; color:var(--ink); background:linear-gradient(transparent 86%, rgba(95,193,199,.85) 86%); }
-    /* ページの結論。ページ唯一の濃色ブロックにして「ここが答え」と示しつつ、
-       中は箱を作らず、余白・大きな文字・細い罫だけで見せる（案A×案C） */
-    .pg-future-list { position:relative; display:grid; grid-template-columns:1fr 1fr; gap:0;
-      background:linear-gradient(150deg, #24363d 0%, #1d2b31 100%);
-      border-radius:24px; padding:var(--sp-7) var(--sp-6); overflow:hidden;
-      box-shadow:0 18px 44px rgba(30,44,50,.18); }
-    /* 冷たくなりすぎないよう、隅にイエローの光をひとつ置く */
-    .pg-future-list::before { content:''; position:absolute; top:-80px; right:-60px; width:320px; height:320px;
-      border-radius:50%; pointer-events:none;
-      background:radial-gradient(circle, rgba(245,210,74,.16) 0%, rgba(245,210,74,0) 70%); }
-    .pg-future-item { position:relative; text-align:left; padding:0 var(--sp-6); }
-    .pg-future-item + .pg-future-item { border-left:1px solid rgba(255,255,255,.10); }
-    /* 見出しの上の短い罫。ページ全体で繰り返している「線を引く」言語をここでも使う */
-    .pg-future-item__body h3::before { content:''; display:block; width:26px; height:2px;
-      margin:0 0 var(--sp-4); background:var(--yellow); border-radius:2px; }
-    .pg-future-item__body h3 { font-size:20px; font-weight:700; color:#fff; margin-bottom:var(--sp-4); line-height:1.6; letter-spacing:.01em; word-break:keep-all; overflow-wrap:anywhere; }
-    .pg-future-item__body p { font-size:13.5px; color:rgba(255,255,255,.74); line-height:2.05; }
+    /* ページの結論。装飾を足すのではなく外す方向で強調する（案A）。
+       カードも枠も持たせず、大きな文字・広い余白・細い罫だけで見せる。
+       ページ内で唯一の23px見出しになるので、飾らなくても確実に目に留まる */
+    .pg-future-list { display:flex; flex-direction:column; }
+    .pg-future-item { display:grid; grid-template-columns:auto 1fr; gap:26px; align-items:start;
+      padding:var(--sp-6) 0; text-align:left; }
+    .pg-future-item + .pg-future-item { border-top:1px solid rgba(51,37,26,.10); }
+    /* 目印はイエローの小さな菱形ひとつだけ */
+    .pg-future-item::before { content:''; width:10px; height:10px; margin-top:17px;
+      background:var(--yellow); border-radius:2px; transform:rotate(45deg); }
+    .pg-future-item__body h3 { font-size:23px; font-weight:700; color:var(--ink);
+      margin-bottom:var(--sp-3); line-height:1.55; letter-spacing:.01em;
+      word-break:keep-all; overflow-wrap:anywhere; }
+    .pg-future-item__body p { font-size:14.5px; color:#6b5a4c; line-height:2; }
 
     /* Quote */
     .pg-quote { background:var(--bg); border-radius:20px; padding:var(--card-pad); margin-bottom:var(--section-gap); text-align:center; border-left:4px solid var(--yellow); }
@@ -338,7 +335,7 @@
     /* 個別アニメを持つ要素では、fade-in は「発火のきっかけ」専用にして動きを二重化させない */
     .js-ready .pg-kodawari-item.fade-in,
     .js-ready .pg-schedule-card.fade-in,
-    .js-ready .pg-future-list.fade-in { transition:opacity .9s ease, transform 1s var(--ease-out); }
+    .js-ready .pg-future-item.fade-in { transition:none; }
 
     /* ---- ① ヒーロー（大胆）：画像を下から拭い上げ、文字が順に立ち上がる ---- */
     .js-ready .pg-hero__img-wrap { clip-path:inset(0 0 100% 0); }
@@ -401,25 +398,17 @@
     .pg-schedule-card.is-visible .pg-schedule-list li:nth-child(8) { animation-delay:0.54s; }
     @keyframes rowIn { to { opacity:1; transform:none; } }
 
-    /* ---- ⑤ 療育の先にある未来（強調）：濃色ブロックが立ち上がり、中身が順に現れる ---- */
-    .js-ready .pg-future-list.fade-in { transform:translateY(26px) scale(.985); }
-    .pg-future-list.fade-in.is-visible { transition:opacity .9s ease, transform 1s var(--ease-out); transform:none; }
+    /* ---- ⑤ 療育の先にある未来（強調）：菱形→見出し→本文の順に静かに現れる ---- */
+    .js-ready .pg-future-item::before { opacity:0; transform:rotate(45deg) scale(.35); }
     .js-ready .pg-future-item__body h3,
-    .js-ready .pg-future-item__body p { opacity:0; transform:translateY(14px); }
-    .pg-future-list.is-visible .pg-future-item__body h3,
-    .pg-future-list.is-visible .pg-future-item__body p { animation:softRise .7s var(--ease-out) forwards; }
-    .pg-future-list.is-visible .pg-future-item:nth-child(1) .pg-future-item__body h3 { animation-delay:.34s; }
-    .pg-future-list.is-visible .pg-future-item:nth-child(1) .pg-future-item__body p  { animation-delay:.44s; }
-    .pg-future-list.is-visible .pg-future-item:nth-child(2) .pg-future-item__body h3 { animation-delay:.52s; }
-    .pg-future-list.is-visible .pg-future-item:nth-child(2) .pg-future-item__body p  { animation-delay:.62s; }
-    /* 罫は見出しが着地してから引く */
-    .js-ready .pg-future-item__body h3::before { transform:scaleX(0); transform-origin:left center; }
-    .pg-future-list.is-visible .pg-future-item:nth-child(1) .pg-future-item__body h3::before { animation:futureRule .6s cubic-bezier(.45,.25,.4,1) .62s forwards; }
-    .pg-future-list.is-visible .pg-future-item:nth-child(2) .pg-future-item__body h3::before { animation:futureRule .6s cubic-bezier(.45,.25,.4,1) .80s forwards; }
-    @keyframes futureRule { to { transform:scaleX(1); } }
-    /* 縦の仕切りも上から引かれる */
-    .js-ready .pg-future-item + .pg-future-item { border-left-color:transparent; transition:border-left-color .8s ease .5s; }
-    .pg-future-list.is-visible .pg-future-item + .pg-future-item { border-left-color:rgba(255,255,255,.10); }
+    .js-ready .pg-future-item__body p { opacity:0; transform:translateY(16px); }
+    .pg-future-item.is-visible::before { animation:diamondIn .6s cubic-bezier(.34,1.56,.64,1) .05s forwards; }
+    .pg-future-item.is-visible .pg-future-item__body h3 { animation:softRise .8s var(--ease-out) .16s forwards; }
+    .pg-future-item.is-visible .pg-future-item__body p  { animation:softRise .8s var(--ease-out) .28s forwards; }
+    @keyframes diamondIn { to { opacity:1; transform:rotate(45deg) scale(1); } }
+    /* 区切りの罫は、その項目が現れるのに合わせて静かに濃くなる */
+    .js-ready .pg-future-item + .pg-future-item { border-top-color:transparent; transition:border-top-color 1s ease .1s; }
+    .js-ready .pg-future-item.is-visible { border-top-color:rgba(51,37,26,.10); }
 
     /* ---- ⑥ 引用：ローディングと同じ“ピントが合う”言語で揃える ---- */
     .js-ready .pg-quote__text { opacity:0; filter:blur(5px); transform:translateY(8px); }
@@ -483,8 +472,8 @@
     @media (prefers-reduced-motion:reduce) {
       .js-ready .fade-in, .js-ready .pg-hero__tag, .js-ready .pg-hero__title, .js-ready .pg-hero__sub,
       .js-ready .pg-kodawari-num, .js-ready .pg-kodawari-item__head h3, .js-ready .pg-kodawari-body,
-      .js-ready .pg-schedule-card, .js-ready .pg-schedule-list li, .js-ready .pg-future-list.fade-in,
-      .js-ready .pg-future-item__body h3, .js-ready .pg-future-item__body p,
+      .js-ready .pg-schedule-card, .js-ready .pg-schedule-list li,
+      .js-ready .pg-future-item__body h3, .js-ready .pg-future-item__body p, .js-ready .pg-future-item::before,
       .js-ready .pg-quote__text, .js-ready .pg-table tr, .js-ready .pg-cta.fade-in, .js-ready .pg-info__title {
         opacity:1 !important; transform:none !important; filter:none !important;
       }
@@ -495,9 +484,9 @@
       .bm-ready .pg-hero__img-wrap, .bm-ready .pg-hero__img-wrap img,
       .bm-ready .pg-hero__tag, .bm-ready .pg-hero__title, .bm-ready .pg-hero__sub,
       .is-visible .pg-info__title, .is-visible .pg-kodawari-num, .is-visible .pg-schedule-card,
-      .is-visible .pg-schedule-list li, .pg-future-list.is-visible .pg-future-item__body h3,
-      .pg-future-list.is-visible .pg-future-item__body p,
-      .pg-future-list.is-visible .pg-future-item__body h3::before, .is-visible .pg-quote__text,
+      .is-visible .pg-schedule-list li, .pg-future-item.is-visible .pg-future-item__body h3,
+      .pg-future-item.is-visible .pg-future-item__body p, .pg-future-item.is-visible::before,
+      .is-visible .pg-quote__text,
       .is-visible .pg-table tr { animation:none !important; }
     }
 
@@ -514,12 +503,9 @@
       .pg-hero__title { font-size:clamp(1.5rem,6vw,2rem); }
       .pg-content { padding:0 20px 60px; }
       .pg-promo { flex-wrap:wrap; padding:var(--sp-5); }
-      .pg-future-list { grid-template-columns:1fr; padding:var(--sp-6) var(--sp-5); }
-      .pg-future-item { padding:0; }
-      .pg-future-item + .pg-future-item { border-left:none; border-top:1px solid rgba(255,255,255,.10); margin-top:var(--sp-6); padding-top:var(--sp-6); }
-      .js-ready .pg-future-item + .pg-future-item { border-left-color:transparent; border-top-color:transparent; transition:border-top-color .8s ease .5s; }
-      .pg-future-list.is-visible .pg-future-item + .pg-future-item { border-top-color:rgba(255,255,255,.10); }
-      .pg-future-item__body h3 { font-size:18px; }
+      .pg-future-item { gap:16px; padding:var(--sp-5) 0; }
+      .pg-future-item::before { margin-top:13px; }
+      .pg-future-item__body h3 { font-size:19px; }
       .pg-worry-list li { max-width:90%; }
       .pg-worry-bubble { padding:12px 20px; font-size:14.5px; }
       .pg-promo__cta { width:100%; justify-content:center; margin-top:4px; }
@@ -771,14 +757,14 @@
       私たちが目指すのは、目先の「文字が書けた」「静かに座れた」といった表面上のスキルだけではありません。<br><br>
       自分を認められた安心感の中で育つ<em>「自分の気持ちを伝える力（言語化）」</em>や<em>「何度でも試せる折れない心」</em>。この目に見えない「心の根っこ」こそが、将来子どもを守る最大の武器になります。
     </p>
-    <div class="pg-future-list fade-in">
-      <div class="pg-future-item">
+    <div class="pg-future-list">
+      <div class="pg-future-item fade-in">
         <div class="pg-future-item__body">
           <h3>対人トラブルを防ぐ<br>「最大の防御」</h3>
           <p>自分の気持ちやSOSを正しく言葉で伝えられる力は、小学校やその先の社会で直面する対人トラブルを防ぐ最大の防御になります。</p>
         </div>
       </div>
-      <div class="pg-future-item">
+      <div class="pg-future-item fade-in">
         <div class="pg-future-item__body">
           <h3>一生折れない<br>「自分基準の自信」</h3>
           <p>「失敗しても大丈夫」「自分ならなんとかできる」という体験ベースの自信は、誰かと比べられることで崩れることがありません。これが10年後の社会的な自立を支える確かな土台になります。</p>
