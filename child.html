@@ -987,7 +987,10 @@
     margin: 28px 0 4px;
   }
   .floating-cta.is-docked {
-    position: static;
+    /* static にすると ::before のパルス輪の包含ブロックが祖先まで抜け、
+       ページ全体を覆う巨大な楕円として描画されてしまう。
+       relative なら配置は静的のまま、輪の基準はボタン自身に留まる */
+    position: relative;
     bottom: auto;
     right: auto;
     margin: 0 auto;

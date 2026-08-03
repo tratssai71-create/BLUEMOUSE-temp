@@ -4,19 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#FFFEFB" />
-  <title>子育て相談会｜LITTLE BLUE MOUSE 辰巳教室（岡山市北区）</title>
-  <meta name="description" content="岡山市北区辰巳のLITTLE BLUE MOUSE（児童発達支援）。おうちでの関わり方や園への伝え方にお悩みの保護者の方へ、お子さまの「トリセツ」を一緒に考える子育て相談を受け付けています。" />
+  <title>こどもの「トリセツ」を一緒に｜LITTLE BLUE MOUSE 辰巳教室（岡山市北区）</title>
+  <meta name="description" content="「どうしてこれを嫌がるの？」その行動には、こどもなりの切実な理由があります。岡山市北区辰巳のLITTLE BLUE MOUSE（児童発達支援）が、観察・仮説と検証を重ねて『そのこだけのトリセツ』を一緒に探します。9月末まで無料の子育て相談会を受付中。" />
   <link rel="canonical" href="https://bluemouse.blue/flyer260805/" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://bluemouse.blue/flyer260805/" />
-  <meta property="og:title" content="子育て相談会｜LITTLE BLUE MOUSE 辰巳教室" />
-  <meta property="og:description" content="おうちでの関わり方や園への伝え方にお悩みの保護者の方へ、お子さまの「トリセツ」を一緒に考える子育て相談を受け付けています。" />
+  <meta property="og:title" content="こどもの「トリセツ」を一緒に｜LITTLE BLUE MOUSE 辰巳教室" />
+  <meta property="og:description" content="「どうしてこれを嫌がるの？」その行動には、こどもなりの切実な理由があります。観察と仮説・検証を重ねて『そのこだけのトリセツ』を一緒に探します。9月末まで無料の子育て相談会を受付中。" />
   <meta property="og:image" content="https://bluemouse.blue/2.webp" />
   <meta property="og:site_name" content="BLUE MOUSE" />
   <meta property="og:locale" content="ja_JP" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="子育て相談会｜LITTLE BLUE MOUSE 辰巳教室" />
-  <meta name="twitter:description" content="おうちでの関わり方や園への伝え方にお悩みの保護者の方へ、お子さまの「トリセツ」を一緒に考える子育て相談を受け付けています。" />
+  <meta name="twitter:title" content="こどもの「トリセツ」を一緒に｜LITTLE BLUE MOUSE 辰巳教室" />
+  <meta name="twitter:description" content="「どうしてこれを嫌がるの？」その行動には、こどもなりの切実な理由があります。観察と仮説・検証を重ねて『そのこだけのトリセツ』を一緒に探します。" />
   <meta name="twitter:image" content="https://bluemouse.blue/2.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -27,9 +27,22 @@
     body { font-family: "Zen Maru Gothic", sans-serif; background: #FFFEFB; color: #33251a; line-height: 1.75; -webkit-font-smoothing: antialiased; }
     a { text-decoration: none; color: inherit; }
     img { display: block; max-width: 100%; }
-    :root { --coral:#f2906c; --coral-light:#fdf0eb; --yellow:#f5d24a; --yellow-dark:#d9a520; --yellow-light:#fef9e7; --ink:#33251a; --bg:#faf8f5; --cream:#fffdf7; --teal:#5fc1c7; }
+    /* 辰巳教室＝児童発達支援なので、テーマカラーは child.html と同じイエロー。
+       濃いティール(#3a9095=放デイのカラー)は使わない。ティールはロゴと同じ #5fc1c7 のみで、
+       白背景で2.1:1と薄いため文字色には使わずマーカーとして使う */
+    :root { --coral:#f2906c; --coral-light:#fdf0eb; --coral-deep:#b85233; --teal:#5fc1c7; --teal-light:#e8f6f7;
+      --yellow:#f5d24a; --yellow-dark:#d9a520; --yellow-light:#fef9e7; --yellow-ink:#6b4f08;
+      --ink:#33251a; --green:#3a6b5e; --bg:#faf8f5;
+      /* 補助文字用のグレー。白地4.9:1。これより薄い色は小さい文字に使わない */
+      --muted:#7d6d60;
+      /* 余白スケール（4px基準）。セクション間とカード内側はこの2つが唯一の基準値 */
+      --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:24px; --sp-6:32px; --sp-7:48px; --sp-8:64px;
+      --gutter:32px;   /* 本文の左右余白 */
+      /* イージングはこの2種類だけを使い回す */
+      --ease-out:cubic-bezier(.22,1,.36,1); --ease-io:cubic-bezier(.65,0,.35,1);
+      --section-gap:var(--sp-8); --card-pad:var(--sp-6); }
 
-    /* Header (reused from child.html) */
+    /* Header */
     .header { position: fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 32px; height:60px; background: transparent; backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid rgba(0,0,0,.05); }
     .header__logo img { height:32px; width:auto; }
     .header__nav { display:flex; align-items:center; gap:28px; }
@@ -42,130 +55,506 @@
     .header__cta-drop::before { content:''; position:absolute; top:10px; left:0; right:0; bottom:0; background:#fff; border-radius:14px; box-shadow:0 8px 32px rgba(0,0,0,.12); z-index:-1; }
     .header__cta-wrap:hover .header__cta-drop { display:flex; }
     .header__cta-drop a { padding:10px 14px; font-size:13px; font-weight:600; border-radius:8px; color:var(--ink); white-space:nowrap; transition:background .15s; }
-    .header__cta-drop a:nth-child(1):hover { background:var(--coral-light); color:var(--coral); }
+    .header__cta-drop a:nth-child(1):hover { background:var(--coral-light); color:var(--coral-deep); }
     .header__cta-drop a:nth-child(2):hover { background:var(--yellow-light); color:var(--yellow-dark); }
-    .header__cta-drop a:nth-child(3):hover { background:#e8f0ee; color:#3a6b5e; }
+    .header__cta-drop a:nth-child(3):hover { background:#e8f0ee; color:var(--green); }
     .header__burger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:8px; }
     .header__burger span { display:block; width:20px; height:1.5px; background:var(--ink); border-radius:2px; transition:transform .3s, opacity .3s; }
     .header__burger.is-open span:nth-child(1) { transform:translateY(6.5px) rotate(45deg); }
     .header__burger.is-open span:nth-child(2) { opacity:0; }
     .header__burger.is-open span:nth-child(3) { transform:translateY(-6.5px) rotate(-45deg); }
-    .mobile-nav { display:none; position:fixed; top:60px; left:0; right:0; bottom:0; background:rgba(255,254,251,.98); backdrop-filter:blur(16px); z-index:200; flex-direction:column; align-items:center; justify-content:center; gap:24px; }
-    .mobile-nav.is-open { display:flex; }
+    .mobile-nav { display:flex; position:fixed; top:60px; left:0; right:0; bottom:0; background:rgba(255,254,251,.98); backdrop-filter:blur(16px); z-index:200; flex-direction:column; align-items:center; justify-content:center; gap:24px; opacity:0; visibility:hidden; transform:translateY(-8px); pointer-events:none; transition:opacity .4s ease, transform .4s ease, visibility 0s linear .4s; }
+    .mobile-nav.is-open { opacity:1; visibility:visible; transform:translateY(0); pointer-events:auto; transition:opacity .4s ease, transform .4s ease, visibility 0s linear 0s; }
     .mobile-nav a { font-size:17px; color:#8a7a6e; letter-spacing:.08em; }
-    .mn-insta { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1.5px solid rgba(0,0,0,.15); border-radius: 12px; color: var(--ink); margin-top: 8px; }
-    .mn-insta:hover { border-color: var(--yellow-dark); color: var(--yellow-dark); }
+    .mn-insta { display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border:1.5px solid rgba(0,0,0,.15); border-radius:12px; color:var(--ink); margin-top:8px; }
+    .mn-insta:hover { border-color:var(--yellow-dark); color:var(--yellow-dark); }
 
-    /* Landing page content */
-    .lp-page { max-width:640px; margin:0 auto; padding:40px 24px 64px; }
+    /* ===== Hero =====
+       チラシから来た人がひと目で「あの紙と同じだ」と分かる必要があるので、
+       他ページの分割ヒーローではなく写真いっぱいの形を保つ。
+       ただしタグ／見出し／余白のスケールと動きは他ページと共通にする */
+    .lp-hero { position:relative; width:100%; height:clamp(460px,78vh,680px); overflow:hidden; }
+    .lp-hero__img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 40%; }
+    .lp-hero::before { content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
+      background:linear-gradient(180deg, rgba(20,16,10,.55) 0%, rgba(20,16,10,0) 24%, rgba(20,16,10,0) 52%, rgba(20,16,10,.80) 100%); }
+    .lp-hero__badge { position:absolute; top:76px; right:20px; z-index:3;
+      width:clamp(92px,14vw,120px); height:clamp(92px,14vw,120px); border-radius:50%;
+      background:var(--yellow); color:var(--yellow-ink); display:flex; flex-direction:column;
+      align-items:center; justify-content:center; text-align:center; line-height:1.25;
+      box-shadow:0 6px 18px rgba(0,0,0,.28); }
+    .lp-hero__badge span { display:block; }
+    .lp-hero__badge-l1, .lp-hero__badge-l2 { font-size:clamp(9.5px,1.7vw,11.5px); font-weight:700; }
+    .lp-hero__badge-l3 { font-size:clamp(15px,2.8vw,19px); font-weight:700; margin-top:3px; }
+    .lp-hero__content { position:absolute; left:0; bottom:0; z-index:2; padding:0 var(--gutter) var(--sp-7); max-width:620px; }
+    .lp-hero__tag { display:inline-flex; align-items:center; gap:6px; font-size:11.5px; font-weight:600;
+      letter-spacing:.14em; color:#ffe9a8; margin-bottom:10px; }
+    .lp-hero__tag::before { content:''; width:20px; height:1px; background:#ffe9a8; opacity:.7; }
+    .lp-hero__title { font-size:clamp(1.6rem,5vw,2.4rem); font-weight:700; line-height:1.45; color:#fff;
+      text-shadow:0 2px 16px rgba(0,0,0,.35); margin-bottom:var(--sp-3); }
+    .lp-hero__sub { font-size:15px; color:rgba(255,255,255,.92); line-height:1.9; }
 
-    /* Photo hero (matches the printed flyer's cover for instant recognition) */
-    .lp-photo-hero { position:relative; width:100%; height:clamp(460px, 78vh, 680px); overflow:hidden; margin-bottom:40px; }
-    .lp-photo-hero__img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 40%; }
-    .lp-photo-hero::before { content:''; position:absolute; inset:0; background:linear-gradient(180deg, rgba(20,16,10,.55) 0%, rgba(20,16,10,0) 24%, rgba(20,16,10,0) 55%, rgba(20,16,10,.78) 100%); z-index:1; }
+    /* Content */
+    .pg-content { max-width:820px; margin:0 auto; padding:var(--section-gap) var(--gutter) 80px; }
 
-    .lp-hero-badge { position:absolute; top:76px; right:20px; z-index:3; width:clamp(92px,14vw,120px); height:clamp(92px,14vw,120px); border-radius:50%; background:var(--yellow); color:var(--ink); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; line-height:1.25; box-shadow:0 6px 18px rgba(0,0,0,.28); }
-    .lp-hero-badge span { display:block; }
-    .lp-hero-badge__l1, .lp-hero-badge__l2 { font-size:clamp(9.5px,1.7vw,11.5px); font-weight:700; }
-    .lp-hero-badge__l3 { font-size:clamp(15px,2.8vw,19px); font-weight:800; margin-top:3px; }
+    /* 見出しの共通形（他ページと同じ：縦バー＋21px） */
+    .pg-info__title { font-size:21px; font-weight:700; color:var(--ink); margin-bottom:var(--sp-4);
+      display:flex; align-items:center; gap:var(--sp-3); letter-spacing:.02em; line-height:1.5; }
+    .pg-info__title::before { content:''; width:4px; height:24px; background:var(--yellow); border-radius:2px; flex-shrink:0; }
+    /* 2行以上に折り返す見出しでは、バーを中央ではなく1行目に合わせる */
+    .pg-info__title--multi { align-items:flex-start; }
+    .pg-info__title--multi::before { margin-top:5px; }
+    /* セクションの主張を置く小見出し。見出しより控えめに */
+    .pg-sub { font-size:15px; font-weight:600; color:#7d6d60; text-align:center;
+      margin:var(--sp-4) 0 var(--sp-5); letter-spacing:.06em; line-height:1.9; }
 
-    .lp-photo-hero__content { position:absolute; left:0; bottom:0; z-index:2; padding:0 24px 32px; max-width:520px; text-align:left; }
-    .lp-photo-hero .lp-facility-label { color:#ffe9a8; }
-    .lp-photo-hero .lp-hero__title { color:#fff; text-shadow:0 2px 16px rgba(0,0,0,.35); text-align:left; }
-    .lp-photo-hero .lp-hero__sub { color:rgba(255,255,255,.92); text-align:left; }
+    /* Intro */
+    .pg-intro { margin-bottom:var(--section-gap); }
+    .pg-intro__lead { font-size:clamp(1.2rem,2.2vw,1.6rem); font-weight:700; color:var(--ink); line-height:1.5; margin-bottom:var(--sp-4); }
+    .pg-intro__lead em { font-style:normal; color:var(--ink); background:linear-gradient(transparent 84%, rgba(95,193,199,.85) 84%); }
+    .pg-intro__body { font-size:15px; color:#6b5a4c; line-height:2; }
 
-    .lp-facility-label { font-family:"Inter",sans-serif; font-size:11px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--yellow-dark); margin-bottom:12px; }
-    .lp-hero__title { font-size:clamp(1.6rem,5vw,2.3rem); font-weight:700; color:var(--ink); line-height:1.45; margin-bottom:12px; }
-    .lp-hero__sub { font-size:15px; color:#6b5a4c; }
+    /* Worry bubbles */
+    .pg-worry { margin-bottom:var(--section-gap); }
+    .pg-worry-cloud { position:relative; margin:var(--sp-5) 0 var(--sp-6); padding:var(--sp-2) 0; }
+    .pg-worry-cloud::before { content:''; position:absolute; top:50%; left:50%; width:min(560px,92%); height:280px;
+      transform:translate(-50%,-50%); border-radius:50%;
+      background:radial-gradient(ellipse at center, rgba(245,210,74,.13) 0%, rgba(95,193,199,.08) 48%, rgba(255,255,255,0) 74%);
+      filter:blur(6px); pointer-events:none; animation:worryAura 18s linear infinite; }
+    .pg-worry-list { position:relative; list-style:none; display:flex; flex-direction:column; gap:16px; }
+    .pg-worry-list li { align-self:flex-start; max-width:82%; }
+    .pg-worry-list li:nth-child(even) { align-self:flex-end; }
+    /* 「悩み」は装飾でありアクションではないので、コーラルを使わず中立の暖色グレーに */
+    .pg-worry-bubble { position:relative; display:inline-block; padding:14px 26px; border-radius:22px 22px 22px 6px;
+      background:linear-gradient(140deg, #fff 0%, #fffdf8 100%); border:1.5px solid rgba(120,102,82,.20);
+      font-size:15.5px; font-weight:600; letter-spacing:.02em; color:var(--ink); line-height:1.7;
+      box-shadow:0 8px 22px rgba(120,102,82,.10), 0 1px 2px rgba(0,0,0,.03); will-change:transform; }
+    .pg-worry-list li:nth-child(even) .pg-worry-bubble { border-radius:22px 22px 6px 22px;
+      background:linear-gradient(140deg, #f7f4ee 0%, #fdfbf7 100%); border-color:rgba(120,102,82,.16); }
+    .pg-worry-bubble::after { content:''; position:absolute; bottom:-1.5px; left:-1.5px; width:16px; height:16px;
+      background:inherit; border-left:1.5px solid rgba(120,102,82,.20); border-bottom:1.5px solid rgba(120,102,82,.20);
+      border-radius:0 0 0 6px; transform:skewX(24deg); }
+    .pg-worry-list li:nth-child(even) .pg-worry-bubble::after { left:auto; right:-1.5px; border-left:none;
+      border-right:1.5px solid rgba(120,102,82,.16); border-bottom-color:rgba(120,102,82,.16);
+      border-radius:0 0 6px 0; transform:skewX(-24deg); }
+    /* 登場（stagger）は li、漂いは bubble に。漂いは読み込み時から止まらず動き続ける */
+    .js-ready .pg-worry-list li { opacity:0; }
+    .pg-worry.is-visible .pg-worry-list li { animation:worryRise .7s cubic-bezier(.22,1,.36,1) forwards; }
+    .pg-worry.is-visible .pg-worry-list li:nth-child(1) { animation-delay:.05s; }
+    .pg-worry.is-visible .pg-worry-list li:nth-child(2) { animation-delay:.22s; }
+    .pg-worry.is-visible .pg-worry-list li:nth-child(3) { animation-delay:.39s; }
+    @keyframes worryRise { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+    .pg-worry-bubble { animation:worryDrift 9s linear infinite; }
+    .pg-worry-list li:nth-child(1) .pg-worry-bubble { animation-duration:9s;  animation-delay:-0.0s; }
+    .pg-worry-list li:nth-child(2) .pg-worry-bubble { animation-duration:11s; animation-delay:-2.4s; }
+    .pg-worry-list li:nth-child(3) .pg-worry-bubble { animation-duration:8s;  animation-delay:-4.1s; }
+    @keyframes worryDrift {
+      0%   { transform:translate3d(0, 0, 0)       rotate(0deg); }
+      20%  { transform:translate3d(5px, -6px, 0)  rotate(.8deg); }
+      40%  { transform:translate3d(2px, -11px, 0) rotate(.2deg); }
+      60%  { transform:translate3d(-4px, -8px, 0) rotate(-.7deg); }
+      80%  { transform:translate3d(-5px, -3px, 0) rotate(-.4deg); }
+      100% { transform:translate3d(0, 0, 0)       rotate(0deg); }
+    }
+    @keyframes worryAura {
+      0%   { transform:translate(-50%,-50%) scale(1);    opacity:.85; }
+      33%  { transform:translate(-52%,-52%) scale(1.07); opacity:1; }
+      66%  { transform:translate(-48%,-49%) scale(1.03); opacity:.92; }
+      100% { transform:translate(-50%,-50%) scale(1);    opacity:.85; }
+    }
+    .pg-worry__body { font-size:15px; color:#6b5a4c; line-height:2; }
+    .pg-worry__body em { font-style:normal; font-weight:700; color:var(--ink); background:linear-gradient(transparent 86%, rgba(95,193,199,.85) 86%); }
+    .pg-worry__body strong { font-weight:700; color:var(--ink); background:linear-gradient(transparent 62%, rgba(245,210,74,.5) 62%); }
 
-    /* Problem section: speech-bubble callouts, matching the flyer's back page */
-    .lp-problem { background:var(--bg); border-radius:20px; padding:32px 28px; margin-bottom:32px; }
-    .lp-bubble { background:#fff; border-radius:18px; box-shadow:0 4px 18px rgba(0,0,0,.07); }
-    .lp-problem__title-bubble { padding:20px 24px; margin-bottom:20px; }
-    .lp-problem__title { font-size:17px; font-weight:700; color:var(--ink); line-height:1.6; }
-    .lp-problem__list { list-style:none; display:flex; flex-direction:column; align-items:flex-end; gap:10px; margin-bottom:20px; }
-    .lp-problem__list li { padding:10px 20px; font-size:14px; font-weight:500; color:#6b5a4c; line-height:1.6; }
-    .lp-problem__reframe-bubble { padding:22px 24px; }
-    .lp-problem__reframe { font-size:14.5px; color:var(--ink); line-height:1.9; text-align:center; }
+    /* Stance */
+    /* 塗りも囲いも持たせず、細い罫線2本だけで区切る（他ページと同じ） */
+    .pg-stance { border-top:1px solid rgba(51,37,26,.14); border-bottom:1px solid rgba(51,37,26,.14);
+      padding:var(--sp-6) 0; margin-bottom:var(--section-gap); }
+    .pg-stance__body { font-size:15px; color:#6b5a4c; line-height:2; }
+    .pg-stance__body + .pg-stance__body { margin-top:var(--sp-5); }
+    .pg-stance__body em { font-style:normal; font-weight:700; color:var(--ink); background:linear-gradient(transparent 86%, rgba(95,193,199,.85) 86%); }
+    .pg-stance__body strong { font-weight:700; color:var(--ink); background:linear-gradient(transparent 62%, rgba(245,210,74,.5) 62%); }
 
-    /* Teal statement band, matching the flyer's back page banner */
-    .lp-teal-band { background:var(--teal); border-radius:20px; padding:28px 24px; margin-bottom:32px; text-align:center; }
-    .lp-teal-band p { font-size:clamp(1.05rem,3vw,1.3rem); font-weight:700; color:#fff; line-height:1.6; }
+    /* ===== Flow chart（3つのステップ）=====
+       手順そのものが主役なので、番号付きの箇条書きではなく
+       「上から下へ流れて、STEP2で観察へ戻る」形を図として持たせる */
+    .pg-flow { margin-bottom:var(--section-gap); }
+    .pg-flow__intro { font-size:15px; color:#6b5a4c; line-height:2; margin-bottom:var(--sp-6); }
+    .pg-flow__intro em { font-style:normal; font-weight:700; color:var(--ink); background:linear-gradient(transparent 86%, rgba(95,193,199,.85) 86%); }
+    .pg-flow-list { display:flex; flex-direction:column; }
+    .pg-flow-item { position:relative; background:#fff; border:1px solid rgba(217,165,32,.22); border-radius:18px;
+      padding:var(--sp-5); box-shadow:0 2px 4px rgba(217,165,32,.05), 0 12px 28px rgba(217,165,32,.08); }
+    /* 次のステップへ下りる導線。カード間に56pxの間を作り、そこへ線と矢じりを置く */
+    .pg-flow-item + .pg-flow-item { margin-top:56px; }
+    .pg-flow-item + .pg-flow-item::before { content:''; position:absolute; left:50%; top:-56px; width:2px; height:38px;
+      background:var(--yellow); border-radius:2px; transform:translateX(-50%) scaleY(1); transform-origin:top center; }
+    .pg-flow-item + .pg-flow-item::after { content:''; position:absolute; left:50%; top:-22px; width:11px; height:11px;
+      border-right:2.5px solid var(--yellow); border-bottom:2.5px solid var(--yellow); border-radius:1px;
+      transform:translateX(-50%) rotate(45deg); }
+    .pg-flow-item__head { display:flex; align-items:center; gap:var(--sp-3); margin-bottom:var(--sp-3); flex-wrap:wrap; }
+    .pg-flow-item__num { flex-shrink:0; font-family:"Inter",sans-serif; font-size:11px; font-weight:700; letter-spacing:.16em;
+      color:var(--yellow-ink); background:var(--yellow); padding:5px 12px; border-radius:100px; }
+    .pg-flow-item__head h3 { font-size:17px; font-weight:700; color:var(--ink); line-height:1.5; margin:0; }
+    .pg-flow-item__body { font-size:14.5px; color:#6b5a4c; line-height:2; }
+    /* STEP3は「療育のスタートラインに立てた」地点なので、ここだけ地を暖かくして到達を示す */
+    .pg-flow-item--arrive { background:linear-gradient(140deg, var(--yellow-light) 0%, #fff 72%); border-color:rgba(217,165,32,.34); }
+    /* STEP2の分岐：うまくいかなければ観察へ戻る、という繰り返しを図として出す */
+    .pg-flow__loop { display:inline-flex; align-items:center; gap:8px; margin-top:var(--sp-4);
+      padding:7px 15px; border-radius:100px; border:1.5px dashed rgba(217,165,32,.55);
+      background:var(--yellow-light); font-size:12.5px; font-weight:700; color:#8a6408; letter-spacing:.02em;
+      line-height:1.5; }
+    .pg-flow__loop svg { width:15px; height:15px; flex-shrink:0; animation:loopSpin 5s var(--ease-io) infinite; }
+    @keyframes loopSpin { 0%, 55% { transform:rotate(0); } 85%, 100% { transform:rotate(-360deg); } }
 
-    .lp-info { margin-bottom:32px; }
-    .lp-info__title { font-size:15px; font-weight:700; color:var(--ink); margin-bottom:14px; display:flex; align-items:center; gap:8px; }
-    .lp-info__title::before { content:''; width:3px; height:16px; background:var(--yellow); border-radius:2px; }
-    .lp-info__card { background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:16px; padding:6px 20px; }
-    .lp-info__row { display:flex; align-items:center; gap:14px; padding:14px 0; }
-    .lp-info__row + .lp-info__row { border-top:1px solid rgba(0,0,0,.05); }
-    .lp-info__icon { flex-shrink:0; display:flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:50%; background:var(--yellow-light); color:var(--yellow-dark); }
-    .lp-info__label { font-size:11px; color:#a89583; margin-bottom:2px; }
-    .lp-info__value { font-size:14.5px; color:var(--ink); font-weight:500; line-height:1.6; }
-    .lp-info__value a { color:var(--ink); }
+    /* Future */
+    .pg-future { margin-bottom:var(--section-gap); }
+    .pg-future__body { font-size:15px; color:#6b5a4c; line-height:2; }
+    .pg-future__body em { font-style:normal; font-weight:700; color:var(--ink); background:linear-gradient(transparent 86%, rgba(95,193,199,.85) 86%); }
+    .pg-future__body strong { font-weight:700; color:var(--ink); background:linear-gradient(transparent 62%, rgba(245,210,74,.5) 62%); }
+    /* 「トリセツ」が実際どんな言葉になるのかの実例。本文ではなく引用として立てる */
+    .pg-torisetsu { position:relative; margin:var(--sp-5) 0; padding:var(--sp-5) var(--sp-5) var(--sp-5) calc(var(--sp-5) + 17px);
+      background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:16px; box-shadow:0 10px 26px rgba(51,37,26,.06); }
+    .pg-torisetsu::before { content:''; position:absolute; left:var(--sp-5); top:var(--sp-5); bottom:var(--sp-5);
+      width:3px; background:var(--yellow); border-radius:2px; }
+    .pg-torisetsu__label { display:block; font-size:11px; font-weight:700; letter-spacing:.14em; color:var(--muted); margin-bottom:var(--sp-2); }
+    .pg-torisetsu p { font-size:15.5px; font-weight:700; color:var(--ink); line-height:1.95; }
 
-    .lp-form { background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:20px; padding:32px 28px; margin-bottom:28px; }
-    .lp-form__title { font-size:17px; font-weight:700; color:var(--ink); margin-bottom:6px; text-align:center; }
-    .lp-form__sub { font-size:13px; color:#8a7a6e; text-align:center; margin-bottom:24px; }
-    .lp-field { margin-bottom:18px; }
-    .lp-label { display:block; font-size:13px; font-weight:500; color:#6b5a4c; margin-bottom:6px; }
-    .lp-req { color:var(--coral); margin-left:2px; font-size:11px; }
-    .lp-opt { color:#aaa; margin-left:4px; font-size:11px; }
-    .lp-input, .lp-textarea { width:100%; min-width:0; border:1.5px solid rgba(0,0,0,.1); border-radius:10px; padding:11px 14px; font-size:16px; font-family:inherit; background:var(--bg); color:var(--ink); outline:none; transition:border-color .2s, background .2s; }
-    .lp-input:focus, .lp-textarea:focus { border-color:var(--yellow-dark); background:#fff; }
-    .lp-textarea { resize:vertical; min-height:90px; }
-    .lp-contact-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-    .lp-error { display:none; font-size:12px; color:#d94f4f; margin-top:5px; }
-    .lp-error.is-show { display:block; }
-    .lp-input.is-error, .lp-textarea.is-error { border-color:#d94f4f; background:#fff8f8; }
-    .lp-submit { display:block; width:100%; padding:14px; background:var(--coral); color:#fff; font-size:15px; font-weight:700; border:none; border-radius:100px; cursor:pointer; transition:transform .2s, box-shadow .2s, opacity .2s; margin-top:6px; }
-    .lp-submit:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(242,144,108,.3); }
-    .lp-submit:disabled { opacity:.6; cursor:default; transform:none; box-shadow:none; }
-    .lp-submit-note { text-align:center; font-size:12px; color:#a89583; margin-top:12px; }
+    /* Quote（締めの一行） */
+    .pg-quote { position:relative; text-align:center; padding:0; margin:calc(var(--section-gap) * 2) 0; }
+    .pg-quote::before { content:''; position:absolute; left:50%; top:50%;
+      width:min(760px,100%); height:300px; transform:translate(-50%,-50%); border-radius:50%;
+      background:radial-gradient(ellipse at center, rgba(245,210,74,.15) 0%, rgba(242,144,108,.06) 46%, rgba(255,255,255,0) 73%);
+      filter:blur(10px); pointer-events:none; animation:quoteAura 16s linear infinite; }
+    .pg-quote__text { position:relative; font-size:clamp(1.7rem,3.9vw,2.35rem); font-weight:700; color:var(--ink);
+      line-height:1.7; letter-spacing:.03em; word-break:keep-all; overflow-wrap:anywhere; }
+    .pg-quote__lead { display:block; font-size:15px; font-weight:600; color:#6b5a4c; letter-spacing:.1em; margin-bottom:var(--sp-4); }
+    .pg-quote__char { display:inline-block; white-space:pre; }
+    @keyframes quoteAura {
+      0%   { transform:translate(-50%,-50%) scale(1);    opacity:.85; }
+      33%  { transform:translate(-51%,-52%) scale(1.06); opacity:1; }
+      66%  { transform:translate(-49%,-49%) scale(.97);  opacity:.9; }
+      100% { transform:translate(-50%,-50%) scale(1);    opacity:.85; }
+    }
 
-    .lp-thanks { display:none; text-align:center; padding:24px 4px; }
-    .lp-thanks.is-show { display:block; }
-    .lp-thanks__title { font-size:18px; font-weight:700; color:var(--ink); margin-bottom:10px; }
-    .lp-thanks__body { font-size:14px; color:#6b5a4c; line-height:1.9; }
+    /* Info table */
+    .pg-info { margin-bottom:var(--section-gap); }
+    .pg-table { width:100%; border-collapse:collapse; background:#fff; border-radius:12px; overflow:hidden; border:1px solid rgba(0,0,0,.06); }
+    .pg-table th, .pg-table td { padding:var(--sp-4); text-align:left; border-bottom:1px solid rgba(0,0,0,.05); font-size:14px; }
+    .pg-table th { background:var(--bg); color:#8a7a6e; font-weight:500; width:8em; }
+    .pg-table td { color:#6b5a4c; line-height:1.7; }
+    .pg-table tr:last-child th, .pg-table tr:last-child td { border-bottom:none; }
 
-    .lp-bottom { text-align:center; padding-top:8px; }
-    .lp-bottom a { font-size:13px; color:#8a7a6e; border-bottom:1px solid rgba(0,0,0,.15); padding-bottom:2px; }
-    .lp-bottom a:hover { color:var(--yellow-dark); border-color:var(--yellow-dark); }
+    /* CTA */
+    .pg-cta { text-align:center; padding:var(--sp-7) var(--sp-6);
+      background:linear-gradient(135deg, var(--yellow-light) 0%, var(--coral-light) 100%);
+      border-radius:24px; margin-bottom:var(--section-gap); }
+    .pg-cta__badge { display:inline-flex; align-items:center; gap:7px; margin-bottom:var(--sp-3);
+      background:linear-gradient(135deg, #f8db63 0%, var(--yellow) 100%); color:var(--yellow-ink);
+      font-size:11.5px; font-weight:700; letter-spacing:.06em; padding:6px 14px; border-radius:100px;
+      box-shadow:0 4px 12px rgba(217,165,32,.28); }
+    .pg-cta__dot { width:6px; height:6px; border-radius:50%; background:#8a6408; animation:ctaDot 2s ease-out infinite; }
+    @keyframes ctaDot { 0% { box-shadow:0 0 0 0 rgba(138,100,8,.6); } 70% { box-shadow:0 0 0 8px rgba(138,100,8,0); } 100% { box-shadow:0 0 0 0 rgba(138,100,8,0); } }
+    .pg-cta__title { font-size:clamp(1.2rem,2.2vw,1.5rem); font-weight:700; color:var(--ink); margin-bottom:var(--sp-3); line-height:1.55; }
+    .pg-cta__voice { list-style:none; display:flex; flex-direction:column; gap:var(--sp-2); margin-bottom:var(--sp-4); }
+    .pg-cta__voice li { font-size:14px; font-weight:600; color:#6b5a4c; }
+    .pg-cta__sub { font-size:14px; color:#6b5a4c; line-height:1.95; margin-bottom:var(--sp-5); }
+    .pg-cta__phone { margin-top:var(--sp-5); font-size:13px; color:#8a7a6e; }
+    .pg-cta__phone strong { font-size:22px; font-weight:700; color:var(--ink); letter-spacing:.02em; }
 
-    /* Footer (reused from child.html) */
-    .footer { background: #1e2a2c; color: #aaa; padding: 44px 32px 20px; }
-    .footer__inner { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1.2fr; gap: 32px; padding-bottom: 28px; border-bottom: 1px solid rgba(255,255,255,.08); }
-    .footer__logo img { width: 120px; margin-bottom: 12px; }
-    .footer__tagline { font-size: 13px; color: #7a8a8c; line-height: 1.9; }
-    .footer__insta { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; font-size: 13px; color: #7a8a8c; transition: color .2s; }
-    .footer__insta:hover { color: var(--teal); }
-    .footer__col-title { font-family: "Inter", sans-serif; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--teal); margin-bottom: 14px; font-weight: 600; }
-    .footer__nav { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .footer__nav a { font-size: 13px; color: #7a8a8c; transition: color .15s; }
-    .footer__nav a:hover { color: var(--teal); }
-    .footer__fac-name { font-size: 13px; font-weight: 500; color: #ccc; margin-bottom: 2px; }
-    .footer__fac-info { font-size: 12px; color: #6a7a7c; line-height: 1.8; }
-    .footer__fac + .footer__fac { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.06); }
-    .footer__bottom { max-width: 1000px; margin: 0 auto; text-align: center; padding-top: 16px; font-family: "Inter", sans-serif; font-size: 11px; color: #5a6a6c; }
+    /* ===== Form ===== */
+    .pg-form { background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:20px;
+      padding:var(--sp-6); margin-bottom:var(--section-gap); }
+    .pg-form__title { font-size:17px; font-weight:700; color:var(--ink); margin-bottom:var(--sp-1); text-align:center; }
+    .pg-form__sub { font-size:13px; color:#8a7a6e; text-align:center; margin-bottom:var(--sp-5); }
+    .pg-field { margin-bottom:var(--sp-4); }
+    .pg-label { display:block; font-size:13px; font-weight:500; color:#6b5a4c; margin-bottom:var(--sp-2); }
+    .pg-req { color:var(--coral-deep); margin-left:3px; font-size:11px; }
+    .pg-opt { color:var(--muted); margin-left:4px; font-size:11px; }
+    .pg-input, .pg-textarea { width:100%; min-width:0; border:1.5px solid rgba(0,0,0,.1); border-radius:10px;
+      padding:11px 14px; font-size:16px; font-family:inherit; background:var(--bg); color:var(--ink);
+      outline:none; transition:border-color .2s, background .2s; }
+    .pg-input:focus, .pg-textarea:focus { border-color:var(--yellow-dark); background:#fff; }
+    .pg-textarea { resize:vertical; min-height:90px; line-height:1.8; }
+    .pg-contact-row { display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-3); }
+    .pg-error { display:none; font-size:12px; color:#c0392b; margin-top:5px; }
+    .pg-error.is-show { display:block; }
+    .pg-input.is-error, .pg-textarea.is-error { border-color:#c0392b; background:#fff8f8; }
+    .pg-submit { display:block; width:100%; padding:14px; background:var(--coral); color:#fff; font-size:15px;
+      font-weight:700; font-family:inherit; border:none; border-radius:100px; cursor:pointer;
+      transition:transform .2s, box-shadow .2s, opacity .2s; margin-top:var(--sp-2); }
+    .pg-submit:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(242,144,108,.3); }
+    .pg-submit:disabled { opacity:.6; cursor:default; transform:none; box-shadow:none; }
+    .pg-submit-note { text-align:center; font-size:12px; color:var(--muted); margin-top:var(--sp-3); }
+    .pg-thanks { display:none; text-align:center; padding:var(--sp-5) var(--sp-1); }
+    .pg-thanks.is-show { display:block; }
+    .pg-thanks__title { font-size:18px; font-weight:700; color:var(--ink); margin-bottom:var(--sp-2); }
+    .pg-thanks__body { font-size:14px; color:#6b5a4c; line-height:1.9; }
 
-    .js-ready .fade-in { opacity:0; transform:translateY(20px); transition:opacity .6s ease, transform .6s cubic-bezier(.22,1,.36,1); }
+    .pg-bottom { text-align:center; }
+    .pg-bottom a { font-size:13px; color:#8a7a6e; border-bottom:1px solid rgba(0,0,0,.15); padding-bottom:2px; transition:color .2s, border-color .2s; }
+    .pg-bottom a:hover { color:var(--yellow-dark); border-color:var(--yellow-dark); }
+
+    /* Footer */
+    .footer { background:#1e2a2c; color:#aaa; padding:44px 32px 20px; }
+    .footer__inner { max-width:1000px; margin:0 auto; display:grid; grid-template-columns:1.5fr 1fr 1.2fr; gap:32px; padding-bottom:28px; border-bottom:1px solid rgba(255,255,255,.08); }
+    .footer__logo img { width:120px; margin-bottom:12px; }
+    .footer__tagline { font-size:13px; color:#7a8a8c; line-height:1.9; }
+    .footer__insta { display:inline-flex; align-items:center; gap:6px; margin-top:14px; font-size:13px; color:#7a8a8c; transition:color .2s; }
+    .footer__insta:hover { color:var(--teal); }
+    .footer__col-title { font-family:"Inter",sans-serif; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--teal); margin-bottom:14px; font-weight:600; }
+    .footer__nav { list-style:none; display:flex; flex-direction:column; gap:10px; }
+    .footer__nav a { font-size:13px; color:#7a8a8c; transition:color .15s; }
+    .footer__nav a:hover { color:var(--teal); }
+    .footer__fac-name { font-size:13px; font-weight:500; color:#ccc; margin-bottom:2px; }
+    .footer__fac-info { font-size:12px; color:#6a7a7c; line-height:1.8; }
+    .footer__fac + .footer__fac { margin-top:16px; padding-top:16px; border-top:1px solid rgba(255,255,255,.06); }
+    .footer__bottom { max-width:1000px; margin:0 auto; text-align:center; padding-top:16px; font-family:"Inter",sans-serif; font-size:11px; color:#5a6a6c; }
+
+    /* =========================================================
+       Motion（他ページと同じ設計）
+       - イージングは2種類だけ（--ease-out=減速 / --ease-io=溜めて放つ）
+       - 並んだ要素は必ず stagger で順に読ませる
+       - 大胆に動かすのは ヒーロー / フロー図 / CTA の3箇所だけ
+       ========================================================= */
+    .js-ready .fade-in { opacity:0; transform:translateY(28px); transition:opacity .85s ease, transform .85s var(--ease-out); }
     .fade-in.is-visible { opacity:1; transform:none; }
+    /* 個別アニメを持つ要素では fade-in は「発火のきっかけ」専用にして動きを二重化させない */
+    .js-ready .pg-flow-item.fade-in { transition:none; }
+
+    /* ---- ① ヒーロー（大胆）：写真が静かに寄り、文字が順に立ち上がる ---- */
+    .js-ready .lp-hero__img { transform:scale(1.12); }
+    .bm-ready .lp-hero__img { animation:heroSettle 2.2s var(--ease-out) .1s forwards; }
+    @keyframes heroSettle { to { transform:scale(1); } }
+    .js-ready .lp-hero__tag, .js-ready .lp-hero__title, .js-ready .lp-hero__sub,
+    .js-ready .lp-hero__badge { opacity:0; transform:translateY(20px); }
+    .js-ready .lp-hero__badge { transform:scale(.6) rotate(-14deg); }
+    .bm-ready .lp-hero__tag   { animation:heroRise .85s var(--ease-out) .34s forwards; }
+    .bm-ready .lp-hero__title { animation:heroRise .85s var(--ease-out) .44s forwards; }
+    .bm-ready .lp-hero__sub   { animation:heroRise .85s var(--ease-out) .56s forwards; }
+    .bm-ready .lp-hero__badge { animation:badgePop .8s cubic-bezier(.34,1.56,.64,1) .7s forwards; }
+    @keyframes heroRise { to { opacity:1; transform:none; } }
+    @keyframes badgePop { to { opacity:1; transform:scale(1) rotate(0); } }
+    .js-ready .lp-hero__tag::before { transform:scaleX(0); transform-origin:left center; }
+    .bm-ready .lp-hero__tag::before { animation:tagLine .7s var(--ease-io) .5s forwards; }
+    @keyframes tagLine { to { transform:scaleX(1); } }
+
+    /* ---- ② 見出しの共通シグネチャ：縦バーが引かれてから文字が寄る ---- */
+    .js-ready .pg-info__title::before { transform:scaleY(0); transform-origin:top center; }
+    .js-ready .pg-info__title { opacity:0; transform:translateX(-8px); }
+    .is-visible .pg-info__title { animation:titleIn .6s var(--ease-out) .1s forwards; }
+    .is-visible .pg-info__title::before { animation:barDraw .5s var(--ease-io) forwards; }
+    @keyframes titleIn { to { opacity:1; transform:none; } }
+    @keyframes barDraw { to { transform:scaleY(1); } }
+
+    /* ---- ③ フロー図（大胆）：STEPラベルが弾み、線が上から下へ引かれて次のカードへ渡す ---- */
+    .js-ready .pg-flow-item__num { opacity:0; transform:scale(.4) rotate(-10deg); }
+    .js-ready .pg-flow-item__head h3, .js-ready .pg-flow-item__body, .js-ready .pg-flow__loop { opacity:0; transform:translateY(14px); }
+    .js-ready .pg-flow-item { opacity:0; transform:translateY(20px); }
+    .pg-flow-item.is-visible { animation:softRise .75s var(--ease-out) forwards; }
+    .pg-flow-item.is-visible .pg-flow-item__num { animation:numPop .7s cubic-bezier(.34,1.56,.64,1) .12s forwards; }
+    .pg-flow-item.is-visible .pg-flow-item__head h3 { animation:softRise .65s var(--ease-out) .22s forwards; }
+    .pg-flow-item.is-visible .pg-flow-item__body  { animation:softRise .65s var(--ease-out) .30s forwards; }
+    .pg-flow-item.is-visible .pg-flow__loop       { animation:softRise .65s var(--ease-out) .44s forwards; }
+    @keyframes numPop   { to { opacity:1; transform:scale(1) rotate(0); } }
+    @keyframes softRise { to { opacity:1; transform:none; } }
+    /* 導線は「そのカードが現れる直前」に引き終わるよう、カード自身の is-visible で動かす */
+    .js-ready .pg-flow-item + .pg-flow-item::before { transform:translateX(-50%) scaleY(0); }
+    .js-ready .pg-flow-item + .pg-flow-item::after  { opacity:0; }
+    .pg-flow-item.is-visible + .pg-flow-item::before,
+    .pg-flow-item + .pg-flow-item.is-visible::before { animation:lineDraw .55s var(--ease-io) forwards; }
+    .pg-flow-item + .pg-flow-item.is-visible::after  { animation:arrowIn .4s var(--ease-out) .5s forwards; }
+    @keyframes lineDraw { to { transform:translateX(-50%) scaleY(1); } }
+    @keyframes arrowIn  { to { opacity:1; } }
+
+    /* ---- ④ トリセツの実例：カードが起き、罫が引かれる ---- */
+    .js-ready .pg-torisetsu::before { transform:scaleY(0); transform-origin:top center; }
+    .is-visible .pg-torisetsu::before { animation:barDraw .7s var(--ease-io) .25s forwards; }
+
+    /* ---- ⑤ 締めの一行：1文字ずつピントが合うように現れる ---- */
+    .js-ready .pg-quote__lead { opacity:0; transform:translateY(10px); }
+    .is-visible .pg-quote__lead { animation:softRise .9s var(--ease-out) .2s forwards; }
+    /* 1文字ずつ包めた場合のみ隠す（JSが動かなければ通常表示のまま） */
+    .js-ready .pg-quote__char { opacity:0; filter:blur(8px); transform:translateY(14px); }
+    .is-visible .pg-quote__char { animation:focusIn 1.2s var(--ease-out) forwards; }
+    @keyframes focusIn { to { opacity:1; filter:blur(0); transform:none; } }
+
+    /* ---- ⑥ 概要テーブル：行が順に現れる ---- */
+    .js-ready .pg-table tr { opacity:0; transform:translateY(8px); }
+    .is-visible .pg-table tr { animation:softRise .5s var(--ease-out) forwards; }
+    .is-visible .pg-table tr:nth-child(1) { animation-delay:.10s; }
+    .is-visible .pg-table tr:nth-child(2) { animation-delay:.16s; }
+    .is-visible .pg-table tr:nth-child(3) { animation-delay:.22s; }
+    .is-visible .pg-table tr:nth-child(4) { animation-delay:.28s; }
+    .is-visible .pg-table tr:nth-child(5) { animation-delay:.34s; }
+
+    /* ---- ⑦ CTA（大胆）：わずかに迫り出して“目的地”を主張する ---- */
+    .js-ready .pg-cta.fade-in { transform:translateY(28px) scale(.96); }
+    .pg-cta.fade-in.is-visible { transition:opacity .8s ease, transform .9s var(--ease-out); transform:none; }
+
+    /* ---- ⑧ マーカー：文字が着地してから、少し遅れて線を引く ---- */
+    .pg-intro__lead em, .pg-worry__body em, .pg-worry__body strong,
+    .pg-stance__body em, .pg-stance__body strong,
+    .pg-flow__intro em, .pg-future__body em, .pg-future__body strong {
+      background-repeat:no-repeat;
+      -webkit-box-decoration-break:clone; box-decoration-break:clone;
+    }
+    .js-ready .pg-intro__lead em, .js-ready .pg-worry__body em, .js-ready .pg-worry__body strong,
+    .js-ready .pg-stance__body em, .js-ready .pg-stance__body strong,
+    .js-ready .pg-flow__intro em, .js-ready .pg-future__body em, .js-ready .pg-future__body strong {
+      background-size:0 100%;
+      /* --ease-out は序盤で一気に伸びる曲線で「速い」と感じるため、ペンで引くような等速寄りに。
+         遅延はショートハンドに含める（別指定すると shorthand に 0s へ戻される） */
+      transition:background-size 1.5s cubic-bezier(.45,.25,.4,1) 1.15s;
+    }
+    /* .pg-worry__body / .pg-future__body は自前の fade-in を持つので「自分自身が is-visible」で発火させる。
+       祖先で発火させると、はるか上のバブル群が見えた時点で線が引き終わってしまう */
+    .js-ready .pg-worry__body.is-visible em, .js-ready .pg-worry__body.is-visible strong,
+    .js-ready .pg-future__body.is-visible em, .js-ready .pg-future__body.is-visible strong,
+    .js-ready .pg-flow__intro.is-visible em,
+    .is-visible .pg-intro__lead em,
+    .is-visible .pg-stance__body em, .is-visible .pg-stance__body strong {
+      background-size:100% 100%;
+    }
+    /* 同じ段落内で em → strong の順に引かれるよう、strong だけ少し後ろにずらす */
+    .js-ready .pg-worry__body strong, .js-ready .pg-stance__body strong, .js-ready .pg-future__body strong { transition-delay:1.7s; }
+
+    /* ---- 動きを減らす設定では、すべて静止した完成形で見せる ---- */
+    @media (prefers-reduced-motion:reduce) {
+      .js-ready .fade-in, .js-ready .lp-hero__tag, .js-ready .lp-hero__title, .js-ready .lp-hero__sub,
+      .js-ready .lp-hero__badge, .js-ready .pg-info__title,
+      .js-ready .pg-flow-item, .js-ready .pg-flow-item__num, .js-ready .pg-flow-item__head h3,
+      .js-ready .pg-flow-item__body, .js-ready .pg-flow__loop,
+      .js-ready .pg-quote__lead, .js-ready .pg-quote__char, .js-ready .pg-table tr, .js-ready .pg-cta.fade-in,
+      .js-ready .pg-worry-list li {
+        opacity:1 !important; transform:none !important; filter:none !important;
+      }
+      .js-ready .lp-hero__img { transform:none !important; }
+      .js-ready .pg-info__title::before, .js-ready .lp-hero__tag::before,
+      .js-ready .pg-torisetsu::before, .js-ready .pg-flow-item + .pg-flow-item::before { transform:none !important; }
+      .js-ready .pg-flow-item + .pg-flow-item::after { opacity:1 !important; }
+      .js-ready .pg-intro__lead em, .js-ready .pg-worry__body em, .js-ready .pg-worry__body strong,
+      .js-ready .pg-stance__body em, .js-ready .pg-stance__body strong,
+      .js-ready .pg-flow__intro em, .js-ready .pg-future__body em, .js-ready .pg-future__body strong {
+        background-size:100% 100% !important; transition:none !important;
+      }
+      .lp-hero__img, .pg-worry-bubble, .pg-worry-cloud::before, .pg-quote::before,
+      .pg-flow__loop svg, .pg-cta__dot, .pg-worry.is-visible .pg-worry-list li,
+      .is-visible .pg-info__title, .is-visible .pg-info__title::before,
+      .pg-flow-item.is-visible, .pg-flow-item.is-visible .pg-flow-item__num,
+      .pg-flow-item.is-visible .pg-flow-item__head h3, .pg-flow-item.is-visible .pg-flow-item__body,
+      .pg-flow-item.is-visible .pg-flow__loop,
+      .pg-flow-item.is-visible + .pg-flow-item::before, .pg-flow-item + .pg-flow-item.is-visible::before,
+      .pg-flow-item + .pg-flow-item.is-visible::after,
+      .is-visible .pg-torisetsu::before, .is-visible .pg-quote__lead, .is-visible .pg-quote__char,
+      .is-visible .pg-table tr { animation:none !important; }
+    }
 
     @media (max-width:780px) {
       .header { padding:0 16px; height:56px; }
       .header__nav { display:none; }
       .header__burger { display:flex; }
       .mobile-nav { top:56px; }
-      .lp-page { padding:32px 18px 56px; }
-      .lp-photo-hero { height:clamp(420px, 68vh, 560px); }
-      .lp-problem { padding:26px 20px; }
-      .lp-form { padding:26px 20px; }
-      .lp-contact-row { grid-template-columns:1fr; }
-      .footer { padding: 32px 16px 16px; }
-      .footer__inner { grid-template-columns: 1fr; gap: 20px; }
+      :root { --section-gap:var(--sp-7); --card-pad:var(--sp-5); --gutter:20px; }
+      .lp-hero { height:clamp(420px,68vh,560px); }
+      .lp-hero__content { padding:0 var(--gutter) var(--sp-6); }
+      .lp-hero__title { font-size:clamp(1.5rem,6.4vw,2rem); }
+      .pg-content { padding:var(--section-gap) var(--gutter) 60px; }
+      .pg-worry-list li { max-width:92%; }
+      .pg-worry-bubble { padding:12px 20px; font-size:14.5px; }
+      .pg-flow-item { padding:var(--sp-5) var(--sp-4); }
+      .pg-flow-item + .pg-flow-item { margin-top:48px; }
+      .pg-flow-item + .pg-flow-item::before { top:-48px; height:32px; }
+      .pg-flow-item + .pg-flow-item::after { top:-20px; }
+      .pg-form { padding:var(--sp-5) var(--sp-4); }
+      .pg-contact-row { grid-template-columns:1fr; }
+      .footer { padding:32px 16px 16px; }
+      .footer__inner { grid-template-columns:1fr; gap:20px; }
     }
   </style>
 </head>
 <body>
+
+<!-- ===== Loading ===== -->
+<style>
+  .bm-loading, .bm-loading body { overflow: hidden; }
+  .bm-loader {
+    position: fixed; inset: 0; z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+    background: #FFFEFB;
+    transition: opacity .8s cubic-bezier(.22,1,.36,1), visibility .8s;
+  }
+  .bm-loader.is-done { opacity: 0; visibility: hidden; }
+  .bm-loader__inner { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+  .bm-loader__logo {
+    width: min(220px, 54vw); height: auto;
+    opacity: 0; transform: translateY(8px) scale(.97); filter: blur(7px);
+    animation: bmLogoIn 1.15s cubic-bezier(.22,1,.36,1) .08s forwards;
+  }
+  .bm-loader__rule {
+    position: relative; width: min(220px, 54vw); height: 1px;
+    background: rgba(51,37,26,.09); overflow: hidden;
+  }
+  .bm-loader__rule::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(90deg, #f5d24a 0%, #f2906c 50%, #5fc1c7 100%);
+    transform: scaleX(0); transform-origin: left center;
+    animation: bmRuleIn 1.25s cubic-bezier(.65,0,.35,1) .3s forwards;
+  }
+  @keyframes bmLogoIn { to { opacity: 1; transform: none; filter: blur(0); } }
+  @keyframes bmRuleIn { to { transform: scaleX(1); } }
+  @media (prefers-reduced-motion: reduce) {
+    .bm-loader__logo, .bm-loader__rule::after { animation: none; opacity: 1; transform: none; filter: none; }
+  }
+</style>
+<div class="bm-loader" id="bmLoader" aria-hidden="true">
+  <div class="bm-loader__inner">
+    <img src="../logo.png" alt="" class="bm-loader__logo" />
+    <span class="bm-loader__rule"></span>
+  </div>
+</div>
+<script>
+(function () {
+  var el = document.getElementById('bmLoader');
+  if (!el) return;
+  var root = document.documentElement;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // サイト内リンクでの遷移・ブラウザの戻る/進むでは出さない。
+  // 直接訪問・外部からの流入・リロードなど「読み込み」のときは初回に限らず毎回出す。
+  var navType = '';
+  try {
+    var navEntry = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+    if (navEntry) navType = navEntry.type;
+  } catch (e) {}
+  var fromSameSite = false;
+  try {
+    fromSameSite = !!document.referrer && new URL(document.referrer).origin === location.origin;
+  } catch (e) {}
+  var isInternalNav = (fromSameSite && navType !== 'reload') || navType === 'back_forward';
+
+  if (reduce || isInternalNav) {
+    if (el.parentNode) el.parentNode.removeChild(el);
+    root.classList.add('bm-ready'); // ローダーを出さない場合はすぐヒーローを動かす
+    return;
+  }
+  root.classList.add('bm-loading');
+
+  var removed = false;
+  function done() {
+    if (removed) return;
+    removed = true;
+    el.classList.add('is-done');
+    root.classList.remove('bm-loading');
+    // 幕が引ききる前にヒーローを動かし始め、ローダーから流れるように繋ぐ
+    setTimeout(function () { root.classList.add('bm-ready'); }, 350);
+    setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 900);
+  }
+  var start = Date.now(), MIN = 1500;
+  function finish() { setTimeout(done, Math.max(0, MIN - (Date.now() - start))); }
+  if (document.readyState === 'complete') finish();
+  else window.addEventListener('load', finish);
+  setTimeout(done, 4500); // 画像等が失敗しても必ず解除する保険
+})();
+</script>
 
 <header class="header">
   <a href="../index.html" class="header__logo"><img src="../logo.png" alt="BLUE MOUSE" /></a>
@@ -196,139 +585,192 @@
   </a>
 </nav>
 
-<div class="lp-photo-hero">
-  <img src="./hero_sunflower.jpg" alt="ひまわり畑を笑顔で走るこども" class="lp-photo-hero__img" />
-  <div class="lp-hero-badge">
-    <span class="lp-hero-badge__l1">9月末まで限定！</span>
-    <span class="lp-hero-badge__l2">子育て相談</span>
-    <span class="lp-hero-badge__l3">受付中</span>
+<!-- ===== Hero ===== -->
+<section class="lp-hero">
+  <img src="./hero_sunflower.jpg" alt="ひまわり畑を笑顔で走るこども" class="lp-hero__img" />
+  <div class="lp-hero__badge">
+    <span class="lp-hero__badge-l1">9月末まで限定！</span>
+    <span class="lp-hero__badge-l2">子育て相談</span>
+    <span class="lp-hero__badge-l3">受付中</span>
   </div>
-  <div class="lp-photo-hero__content">
-    <p class="lp-facility-label">LITTLE BLUE MOUSE 児童発達支援 辰巳教室</p>
+  <div class="lp-hero__content">
+    <p class="lp-hero__tag">LITTLE BLUE MOUSE 児童発達支援 辰巳教室</p>
     <h1 class="lp-hero__title">こどもの「トリセツ」を、<br>一緒につくりませんか？</h1>
     <p class="lp-hero__sub">おうちでの関わり方も、園への伝え方も。</p>
   </div>
-</div>
+</section>
 
-<div class="lp-page">
+<!-- ===== Content ===== -->
+<div class="pg-content">
 
-  <div class="lp-problem fade-in">
-    <div class="lp-bubble lp-problem__title-bubble">
-      <h2 class="lp-problem__title">なぜうちのこは<br>みんなと同じようにできないんだろう？</h2>
+  <div class="pg-intro fade-in">
+    <p class="pg-intro__lead">「どうしてこれを嫌がるの？」と、<br><em>毎日疲れ果てていませんか？</em></p>
+  </div>
+
+  <div class="pg-worry fade-in">
+    <div class="pg-worry-cloud">
+      <ul class="pg-worry-list">
+        <li><span class="pg-worry-bubble">こだわりの強さが<br>少し気になる</span></li>
+        <li><span class="pg-worry-bubble">良かれと思ってやった対応が裏目に出て、ついイライラしてしまう</span></li>
+        <li><span class="pg-worry-bubble">ルールを守らせようとすると、こどもがパニックになる</span></li>
+      </ul>
     </div>
-    <ul class="lp-problem__list">
-      <li class="lp-bubble">保育園での集団活動に入れない。</li>
-      <li class="lp-bubble">遊びから切り替えるのが苦手。</li>
-      <li class="lp-bubble">思い通りにならないと気持ちが崩れる。</li>
+    <p class="pg-worry__body fade-in">
+      わからないから、不安になる。わからないから、苛立ってしまう。<br>
+      そう感じてしまうのは、決して<strong>「子育てのやり方」が間違っているからではありません</strong>。<br><br>
+      じつは、これらの行動には<em>「こどもなりの切実な理由」</em>がかくれています。
+    </p>
+  </div>
+
+  <div class="pg-stance fade-in" id="stance">
+    <h2 class="pg-info__title pg-info__title--multi">「どうして？」を「こうすれば！」に変える場所。</h2>
+    <p class="pg-sub">〜「そのこだけのトリセツ」を<br>一緒に作る〜</p>
+    <p class="pg-stance__body">
+      「どうしてこれを嫌がるの？」という日々の疑問に対して、こどもを叱って無理やりルールに合わせるのではなく、専門的な視点で「なぜ？」を紐解き、おこさんに合う環境とやり方を共に見つけ出す。
+    </p>
+    <p class="pg-stance__body">
+      「おこさんの特性」と「大人の思い」。どちらか一方が無理をするのではなく、<em>お互いが心地よく過ごせるバランス</em>が必ずあります。私たちが目指すのは、そのバランスを試行錯誤して一緒に見つけていくプロセスそのものです。
+    </p>
+    <p class="pg-stance__body">
+      どこかにある正解（マニュアル）をもらうのではなく、仮説と検証を繰り返しながら「うちのこにはこれが合っているんだ！」という関わり方の最適解を一緒に探していく。その積み重ねが、結果として見えない<strong>「トリセツ」</strong>となり、日々の子育てに関わる自身の「心の余裕」へとつながっていきます。
+    </p>
+  </div>
+
+  <div class="pg-flow fade-in" id="flow">
+    <h2 class="pg-info__title pg-info__title--multi">どうやって最適解（トリセツ）を見つけるの？</h2>
+    <p class="pg-sub">〜「叱る」ではなく、<br>「環境設定」で解決する3つのステップ〜</p>
+    <p class="pg-flow__intro fade-in">
+      <em>ABA（応用行動分析）</em>などの視点を用いて、こどもの行動の根本（大きな音が苦手、見通しが立たないと不安など）を紐解きます。
+    </p>
+    <div class="pg-flow-list">
+
+      <div class="pg-flow-item fade-in">
+        <div class="pg-flow-item__head">
+          <span class="pg-flow-item__num">STEP 1</span>
+          <h3>徹底的な「観察」</h3>
+        </div>
+        <p class="pg-flow-item__body">無理に押し通すのではなく、まずは「なぜ？」を徹底的に観察し、目に見えないSOSのサインを丁寧に拾い上げます。</p>
+      </div>
+
+      <div class="pg-flow-item fade-in">
+        <div class="pg-flow-item__head">
+          <span class="pg-flow-item__num">STEP 2</span>
+          <h3>「仮説と検証」の繰り返し</h3>
+        </div>
+        <p class="pg-flow-item__body">「もしかしてこれが嫌なのかな？」と仮説を立て、あらかじめ大人や環境の関わり方を変えてみます。うまくいかなければ別の方法を試す。この根気強いプロセスを一緒に繰り返し、そのこだけの正解を探し出します。</p>
+        <span class="pg-flow__loop">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 2.6-6.4"/><path d="M3 4v5h5"/></svg>
+          うまくいかなければ STEP 1 へ戻る
+        </span>
+      </div>
+
+      <div class="pg-flow-item pg-flow-item--arrive fade-in">
+        <div class="pg-flow-item__head">
+          <span class="pg-flow-item__num">STEP 3</span>
+          <h3>心のコップのすき間<br>（療育のスタートライン）</h3>
+        </div>
+        <p class="pg-flow-item__body">環境が整い、不快感が取り除かれると、こどもの「心のコップ」にすき間と安心感が生まれます。心に余裕ができると、大人の思いに歩み寄り、「頑張る」ことができるようになります。無理に指示を聞かせるのではなく、こどもが自ら受け入れてくれる心の土台を作ります。</p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="pg-future fade-in" id="future">
+    <h2 class="pg-info__title pg-info__title--multi">家の中だけじゃない。<br>最適解（トリセツ）が就学後の未来も守る。</h2>
+    <div class="pg-torisetsu fade-in">
+      <span class="pg-torisetsu__label">トリセツは、たとえばこんな言葉になります</span>
+      <p>「こういう理由で不安になりやすいですが、こう環境を整えれば落ち着いて行動できます」</p>
+    </div>
+    <p class="pg-future__body fade-in">
+      このトリセツは、小学校へ進学した際にも、<em>新しい環境の先生たちへ的確に伝えるための大きな手助け</em>になります。<br><br>
+      私たちは、そんな<strong>『そのこだけのトリセツ』</strong>を一緒に探していく伴走者でありたいと願っています。
+    </p>
+  </div>
+
+  <div class="pg-quote fade-in" data-reveal="late">
+    <p class="pg-quote__text"><span class="pg-quote__lead">こどもも大人も助かる、</span><span class="pg-quote__main">嬉しい着地点。</span></p>
+  </div>
+
+  <div class="pg-cta fade-in" id="soudan">
+    <span class="pg-cta__badge"><i class="pg-cta__dot"></i>9月末まで限定</span>
+    <h2 class="pg-cta__title">教室での無料・子育て相談会<br>受付中</h2>
+    <ul class="pg-cta__voice">
+      <li>「最近、こういうことで困っていて…」</li>
+      <li>「うちのこにはどんな関わり方が合っているの？」</li>
     </ul>
-    <div class="lp-bubble lp-problem__reframe-bubble">
-      <p class="lp-problem__reframe">でもじつは、これらの行動には「こどもなりの切実な理由」がかくれているんです！<br>私たちが大切にしているのは、お子さま自身が「やってみたい」を見つけ、育てていく主体性療育です。</p>
-    </div>
+    <p class="pg-cta__sub">ひとりで悩まず、まずはそんな「お困りごと」をお話ししてみませんか？<br>一緒におこさんの「なぜ？」を紐解く第一歩として、ぜひお気軽にご連絡ください。</p>
+    <div class="cta-dock" id="ctaDock"></div>
+    <p class="pg-cta__phone">お電話はこちら<br><strong><a href="tel:0862459880">086-245-9880</a></strong></p>
   </div>
 
-  <div class="lp-teal-band fade-in">
-    <p>おこさんの「トリセツ」を一緒に作りませんか？</p>
-  </div>
-
-  <div class="lp-info fade-in">
-    <h2 class="lp-info__title">施設情報</h2>
-    <div class="lp-info__card">
-      <div class="lp-info__row">
-        <span class="lp-info__icon" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
-        </span>
-        <span>
-          <span class="lp-info__label">対象年齢</span><br>
-          <span class="lp-info__value">3歳半〜5歳</span>
-        </span>
-      </div>
-      <div class="lp-info__row">
-        <span class="lp-info__icon" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-7.58 7-12A7 7 0 1 0 5 10c0 4.42 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>
-        </span>
-        <span>
-          <span class="lp-info__label">住所</span><br>
-          <span class="lp-info__value">岡山市北区辰巳26-102 2F</span>
-        </span>
-      </div>
-      <div class="lp-info__row">
-        <span class="lp-info__icon" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        </span>
-        <span>
-          <span class="lp-info__label">お電話</span><br>
-          <span class="lp-info__value"><a href="tel:0862459880">086-245-9880</a></span>
-        </span>
-      </div>
-      <div class="lp-info__row">
-        <span class="lp-info__icon" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
-        </span>
-        <span>
-          <span class="lp-info__label">営業時間</span><br>
-          <span class="lp-info__value">平日 9:30〜18:30／土 9:00〜18:00</span>
-        </span>
-      </div>
-    </div>
-  </div>
-
-  <div class="lp-form fade-in">
-    <p class="lp-form__title">子育て相談のお申し込み</p>
-    <p class="lp-form__sub">まずはお気軽にご相談ください。</p>
+  <div class="pg-form fade-in" id="form">
+    <p class="pg-form__title">子育て相談のお申し込み</p>
+    <p class="pg-form__sub">まずはお気軽にご相談ください。</p>
 
     <form id="tatsumi-form" novalidate>
-      <div class="lp-field">
-        <label class="lp-label" for="t-name">お名前<span class="lp-req">*</span></label>
-        <input class="lp-input" id="t-name" name="name" type="text" placeholder="山田 太郎（保護者）" autocomplete="name" />
-        <span class="lp-error" id="terr-name">お名前を入力してください。</span>
+      <div class="pg-field">
+        <label class="pg-label" for="t-name">お名前<span class="pg-req">*</span></label>
+        <input class="pg-input" id="t-name" name="name" type="text" placeholder="山田 太郎（保護者）" autocomplete="name" />
+        <span class="pg-error" id="terr-name">お名前を入力してください。</span>
       </div>
 
-      <div class="lp-field">
-        <div class="lp-contact-row">
+      <div class="pg-field">
+        <div class="pg-contact-row">
           <div>
-            <label class="lp-label" for="t-tel">電話番号<span class="lp-opt">任意</span></label>
-            <input class="lp-input" id="t-tel" name="phone" type="tel" placeholder="000-0000-0000" autocomplete="tel" />
+            <label class="pg-label" for="t-tel">電話番号<span class="pg-opt">任意</span></label>
+            <input class="pg-input" id="t-tel" name="phone" type="tel" placeholder="000-0000-0000" autocomplete="tel" />
           </div>
           <div>
-            <label class="lp-label" for="t-email">メールアドレス<span class="lp-opt">任意</span></label>
-            <input class="lp-input" id="t-email" name="email" type="email" placeholder="example@mail.com" autocomplete="email" />
+            <label class="pg-label" for="t-email">メールアドレス<span class="pg-opt">任意</span></label>
+            <input class="pg-input" id="t-email" name="email" type="email" placeholder="example@mail.com" autocomplete="email" />
           </div>
         </div>
-        <span class="lp-error" id="terr-contact">電話番号かメールアドレス、いずれか一方をご入力ください。</span>
+        <span class="pg-error" id="terr-contact">電話番号かメールアドレス、いずれか一方をご入力ください。</span>
       </div>
 
-      <div class="lp-field">
-        <label class="lp-label" for="t-age">お子さまの年齢<span class="lp-req">*</span></label>
-        <input class="lp-input" id="t-age" name="child_age" type="text" placeholder="例：3歳（年少）" />
-        <span class="lp-error" id="terr-age">お子さまの年齢を入力してください。</span>
+      <div class="pg-field">
+        <label class="pg-label" for="t-age">おこさまの年齢<span class="pg-req">*</span></label>
+        <input class="pg-input" id="t-age" name="child_age" type="text" placeholder="例：3歳（年少）" />
+        <span class="pg-error" id="terr-age">おこさまの年齢を入力してください。</span>
       </div>
 
-      <div class="lp-field">
-        <label class="lp-label" for="t-preference">ご希望の連絡方法・時間帯<span class="lp-opt">任意</span></label>
-        <input class="lp-input" id="t-preference" name="contact_preference" type="text" placeholder="例：夕方以降にお電話で" />
+      <div class="pg-field">
+        <label class="pg-label" for="t-preference">ご希望の連絡方法・時間帯<span class="pg-opt">任意</span></label>
+        <input class="pg-input" id="t-preference" name="contact_preference" type="text" placeholder="例：夕方以降にお電話で" />
       </div>
 
-      <div class="lp-field">
-        <label class="lp-label" for="t-concern">気になっていること<span class="lp-opt">任意</span></label>
-        <textarea class="lp-textarea" id="t-concern" name="concern" placeholder="気になっていることがあれば、簡単で構いません"></textarea>
+      <div class="pg-field">
+        <label class="pg-label" for="t-concern">気になっていること<span class="pg-opt">任意</span></label>
+        <textarea class="pg-textarea" id="t-concern" name="concern" placeholder="気になっていることがあれば、簡単で構いません"></textarea>
       </div>
 
       <input type="hidden" name="utm_source" id="t-utm-source" value="" />
       <input type="hidden" name="utm_medium" id="t-utm-medium" value="" />
       <input type="hidden" name="utm_campaign" id="t-utm-campaign" value="" />
 
-      <button class="lp-submit" id="t-submit-btn" type="submit">送信する</button>
-      <p class="lp-submit-note">無理に詳しく書いていただく必要はありません。</p>
+      <button class="pg-submit" id="t-submit-btn" type="submit">送信する</button>
+      <p class="pg-submit-note">無理に詳しく書いていただく必要はありません。</p>
     </form>
 
-    <div class="lp-thanks" id="t-thanks">
-      <p class="lp-thanks__title">ありがとうございます。</p>
-      <p class="lp-thanks__body">内容を確認のうえ、担当者よりご連絡いたします。<br>しばらくお待ちください。</p>
+    <div class="pg-thanks" id="t-thanks">
+      <p class="pg-thanks__title">ありがとうございます。</p>
+      <p class="pg-thanks__body">内容を確認のうえ、担当者よりご連絡いたします。<br>しばらくお待ちください。</p>
     </div>
   </div>
 
-  <div class="lp-bottom fade-in">
-    <a href="https://bluemouse.blue/index.html">サービス全体についてはこちら ›</a>
+  <div class="pg-info fade-in" id="overview">
+    <h2 class="pg-info__title">施設情報</h2>
+    <table class="pg-table">
+      <tr><th>教室</th><td>LITTLE BLUE MOUSE 辰巳教室（児童発達支援）</td></tr>
+      <tr><th>対象年齢</th><td>3歳半〜5歳</td></tr>
+      <tr><th>所在地</th><td>岡山市北区辰巳26-102 2F</td></tr>
+      <tr><th>お電話</th><td><a href="tel:0862459880">086-245-9880</a></td></tr>
+      <tr><th>営業時間</th><td>平日 9:30〜18:30／土 9:00〜18:00</td></tr>
+    </table>
+  </div>
+
+  <div class="pg-bottom fade-in">
+    <a href="../index.html">サービス全体についてはこちら ›</a>
   </div>
 
 </div>
@@ -357,11 +799,11 @@
       <p class="footer__col-title">Access</p>
       <div class="footer__fac">
         <p class="footer__fac-name">LITTLE BLUE MOUSE（児童発達支援）</p>
-        <p class="footer__fac-info">岡山市北区辰巳26-102 2F</p>
+        <p class="footer__fac-info">岡山市北区辰巳26-102 2F<br>TEL 086-245-9880</p>
       </div>
       <div class="footer__fac">
         <p class="footer__fac-name">BLUE MOUSE（放課後等デイサービス）</p>
-        <p class="footer__fac-info">岡山市中区徳吉町2丁目11-25</p>
+        <p class="footer__fac-info">岡山市中区徳吉町2丁目11-25<br>TEL 086-273-3880</p>
       </div>
     </div>
   </div>
@@ -376,11 +818,209 @@
   document.querySelectorAll('.mn-link').forEach(function (a) { a.addEventListener('click', function () { burger.classList.remove('is-open'); mobileNav.classList.remove('is-open'); }); });
   document.documentElement.classList.add('js-ready');
 
-  var els = document.querySelectorAll('.fade-in');
-  var obs = new IntersectionObserver(function (entries) { entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); } }); }, { threshold: 0.05 });
-  els.forEach(function (el) { obs.observe(el); });
-  setTimeout(function () { els.forEach(function (el) { if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('is-visible'); }); }, 100);
-  setTimeout(function () { els.forEach(function (el) { el.classList.add('is-visible'); }); }, 2000);
+  // 締めの一行を1文字ずつに分解する（失敗しても元の文字列がそのまま残る）
+  (function () {
+    var main = document.querySelector('.pg-quote__main');
+    if (!main || !main.textContent) return;
+    var chars = Array.prototype.slice.call(main.textContent);
+    var frag = document.createDocumentFragment();
+    chars.forEach(function (ch, i) {
+      var sp = document.createElement('span');
+      sp.className = 'pg-quote__char';
+      sp.textContent = ch;
+      // 前置きが出たあとから、1文字ずつ間を置いて焦点を結ばせる
+      sp.style.animationDelay = (0.6 + i * 0.11).toFixed(3) + 's';
+      frag.appendChild(sp);
+    });
+    main.textContent = '';
+    main.appendChild(frag);
+  })();
+
+  var els = Array.prototype.slice.call(document.querySelectorAll('.fade-in'));
+  function reveal(el) { el.classList.add('is-visible'); }
+
+  // 発火線＝画面下端から22%上。要素が「読む位置」に入ってから動き出すので、
+  // スクロールしてきた人の視界の中でアニメーションが起きる。
+  // data-reveal="late" の要素は画面中央まで来てから発火させる（見落とさせたくない一行用）
+  var LINE = 0.78, LINE_LATE = 0.55;
+  function lineOf(el) { return el.getAttribute('data-reveal') === 'late' ? LINE_LATE : LINE; }
+
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(reveal);
+  } else {
+    function onIntersect(entries, observer) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { reveal(e.target); observer.unobserve(e.target); }
+      });
+    }
+    var obs = new IntersectionObserver(onIntersect, { threshold: 0, rootMargin: '0px 0px -22% 0px' });
+    var obsLate = new IntersectionObserver(onIntersect, { threshold: 0, rootMargin: '0px 0px -45% 0px' });
+    els.forEach(function (el) {
+      (el.getAttribute('data-reveal') === 'late' ? obsLate : obs).observe(el);
+    });
+
+    // 保険：IOが発火しない状況（裏タブでの読み込み等）でも本文が消えたままにならないよう、
+    // スクロール/リサイズで同じ判定を回す。全部出たら自分でリスナーを外す
+    var ticking = false;
+    function sweep() {
+      var pending = 0;
+      for (var i = 0; i < els.length; i++) {
+        var el = els[i];
+        if (el.classList.contains('is-visible')) continue;
+        if (el.getBoundingClientRect().top < window.innerHeight * lineOf(el)) reveal(el);
+        else pending++;
+      }
+      if (!pending) {
+        window.removeEventListener('scroll', onScroll);
+        window.removeEventListener('resize', onScroll);
+      }
+    }
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () { ticking = false; sweep(); });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    sweep();
+  }
+})();
+</script>
+
+<style>
+  @keyframes ctaPulse {
+    0%   { transform: scale(.92); opacity: .55; }
+    100% { transform: scale(1.28); opacity: 0; }
+  }
+  .floating-cta {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 150;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    width: 92px;
+    height: 92px;
+    border-radius: 50%;
+    background: linear-gradient(155deg, var(--coral), #e8785a);
+    color: #fff;
+    font-family: "Zen Maru Gothic", "Zen Kaku Gothic New", sans-serif;
+    text-align: center;
+    text-decoration: none;
+    box-shadow: 0 10px 26px rgba(242,144,108,.45);
+    transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s, opacity .5s ease;
+  }
+  .cta-dock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 92px;
+    margin: 28px 0 4px;
+  }
+  .floating-cta.is-docked {
+    /* static にすると ::before のパルス輪の包含ブロックが祖先まで抜け、
+       ページ全体を覆う巨大な楕円として描画されてしまう。
+       relative なら配置は静的のまま、輪の基準はボタン自身に留まる */
+    position: relative;
+    bottom: auto;
+    right: auto;
+    margin: 0 auto;
+  }
+  .floating-cta::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 2px solid var(--coral);
+    animation: ctaPulse 2.4s ease-out infinite;
+    pointer-events: none;
+  }
+  .floating-cta__icon { width: 16px; height: 16px; margin-top: 3px; }
+  .floating-cta__main { font-size: 14px; font-weight: 700; letter-spacing: .03em; line-height: 1.15; }
+  .floating-cta__sub { font-size: 11px; font-weight: 600; letter-spacing: .01em; opacity: .95; line-height: 1.2; }
+  .floating-cta:hover { transform: translateY(-4px) scale(1.06); box-shadow: 0 14px 34px rgba(242,144,108,.55); }
+  @media (max-width: 780px) {
+    .floating-cta { bottom: 16px; right: 16px; width: 78px; height: 78px; }
+    .floating-cta__icon { width: 13px; height: 13px; }
+    .floating-cta__main { font-size: 12px; }
+    .floating-cta__sub { font-size: 9.5px; }
+    .cta-dock { min-height: 78px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .floating-cta::before { animation: none; }
+  }
+</style>
+<a href="#form" class="floating-cta">
+  <span class="floating-cta__main">無料</span>
+  <span class="floating-cta__sub">子育て相談</span>
+  <svg class="floating-cta__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+</a>
+<script>
+(function () {
+  var btn = document.querySelector('.floating-cta');
+  var dock = document.getElementById('ctaDock');
+  if (!btn || !dock || !window.IntersectionObserver) return;
+
+  var anchor = document.createComment('floating-cta-anchor');
+  btn.parentNode.insertBefore(anchor, btn);
+
+  var docked = false;
+  var busy = false;
+  var pending = null;
+
+  function move(intoDock) {
+    if (busy) { pending = intoDock; return; }
+    busy = true;
+
+    var startRect = btn.getBoundingClientRect();
+
+    if (intoDock) {
+      dock.appendChild(btn);
+      btn.classList.add('is-docked');
+    } else {
+      anchor.parentNode.insertBefore(btn, anchor);
+      btn.classList.remove('is-docked');
+    }
+
+    var endRect = btn.getBoundingClientRect();
+    var dx = startRect.left - endRect.left;
+    var dy = startRect.top - endRect.top;
+
+    btn.style.transition = 'none';
+    btn.style.transform = 'translate(' + dx + 'px, ' + dy + 'px)';
+    btn.offsetHeight; /* force reflow */
+
+    requestAnimationFrame(function () {
+      btn.style.transition = 'transform 1.3s cubic-bezier(.22,1,.36,1)';
+      btn.style.transform = '';
+      setTimeout(function () {
+        btn.style.transition = '';
+        busy = false;
+        if (pending !== null) {
+          var next = pending;
+          pending = null;
+          move(next);
+        }
+      }, 1320);
+    });
+  }
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting && !docked) {
+        docked = true;
+        move(true);
+      } else if (!entry.isIntersecting && docked) {
+        docked = false;
+        move(false);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  io.observe(dock);
 })();
 </script>
 
@@ -428,7 +1068,7 @@
     }
 
     if (!valid) {
-      var first = document.querySelector('.lp-input.is-error, .lp-textarea.is-error');
+      var first = document.querySelector('.pg-input.is-error, .pg-textarea.is-error');
       if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
@@ -437,14 +1077,14 @@
     btn.disabled = true;
     btn.textContent = '送信中…';
 
-    // TODO: FormspreeまたはGetformの実際のエンドポイントに差し替えてください
-    var FORM_ENDPOINT = 'YOUR_FORMSPREE_ENDPOINT';
-
-    fetch(FORM_ENDPOINT, {
+    // サイト内の他フォーム（contact.html）と同じ Web3Forms へ送る
+    fetch('https://api.web3forms.com/submit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({
-        subject: '【BLUE MOUSE】辰巳教室フライヤーからのご相談',
+        access_key: '4fa56afb-03c9-4795-8e00-0d2c8e7b00b6',
+        subject: '【BLUE MOUSE】辰巳教室・子育て相談のお申し込み',
+        from_name: 'BLUE MOUSE 辰巳教室LP',
         name: nameEl.value,
         phone: telEl.value,
         email: emailEl.value,
@@ -457,14 +1097,18 @@
       })
     })
     .then(function (r) { return r.json(); })
-    .then(function () {
-      form.style.display = 'none';
-      document.getElementById('t-thanks').classList.add('is-show');
+    .then(function (j) {
+      if (j && j.success) {
+        form.style.display = 'none';
+        document.getElementById('t-thanks').classList.add('is-show');
+      } else {
+        throw new Error('failed');
+      }
     })
     .catch(function () {
       btn.disabled = false;
       btn.textContent = '送信する';
-      alert('送信に失敗しました。時間をおいて再度お試しいただくか、お電話にてご連絡ください。');
+      alert('送信に失敗しました。時間をおいて再度お試しいただくか、お電話（086-245-9880）にてご連絡ください。');
     });
   });
 })();
