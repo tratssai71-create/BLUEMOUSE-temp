@@ -263,6 +263,8 @@
     /* Future benefits */
     .pg-future { margin-bottom:var(--section-gap); }
     .pg-future__intro { font-size:15px; color:#6b5a4c; line-height:2; margin:var(--sp-4) 0 var(--sp-5); }
+    /* 2項目のあとを受ける段落。前を項目群が占めるので上の余白を広く取る */
+    .pg-future__outro { margin:var(--sp-6) 0 0; }
     .pg-future__intro em { font-style:normal; font-weight:700; color:var(--ink); background:linear-gradient(transparent 86%, rgba(95,193,199,.85) 86%); }
     /* ページの結論。装飾を足すのではなく外す方向で強調する（案A）。
        カードも枠も持たせず、大きな文字・広い余白・細い罫だけで見せる。
@@ -493,7 +495,7 @@
     .js-ready .pg-worry__body.is-visible strong,
     .is-visible .pg-intro__lead em,
     .is-visible .pg-stance__body em, .is-visible .pg-stance__body strong,
-    .is-visible .pg-future__intro em {
+    .js-ready .pg-future__intro.is-visible em {
       background-size:100% 100%;
     }
     /* 同じ段落内で em → strong の順に引かれるよう、strong だけ少し後ろにずらす */
@@ -792,9 +794,8 @@
   <div class="pg-future fade-in" id="future">
     <h2 class="pg-info__title">療育の先にある未来</h2>
     <p class="pg-stance__sub">〜「見えない力」が、10年後の基盤になる〜</p>
-    <p class="pg-future__intro">
-      私たちが目指すのは、目先の「文字が書けた」「静かに座れた」といった表面上のスキルだけではありません。<br><br>
-      自分を認められた安心感の中で育つ<em>「自分の気持ちを伝える力（言語化）」</em>や<em>「何度でも試せる折れない心」</em>。この目に見えない「心の根っこ」こそが、将来こどもを守る最大の武器になります。
+    <p class="pg-future__intro fade-in">
+      私たちが目指すのは、目先の「文字が書けた」「静かに座れた」といった表面上のスキルだけではありません。
     </p>
     <div class="pg-future-list">
       <div class="pg-future-item fade-in">
@@ -810,6 +811,9 @@
         </div>
       </div>
     </div>
+    <p class="pg-future__intro pg-future__outro fade-in">
+      自分を認められた安心感の中で育つ<em>「自分の気持ちを伝える力（言語化）」</em>や<em>「何度でも試せる折れない心」</em>。この目に見えない「心の根っこ」こそが、将来こどもを守る最大の武器になります。
+    </p>
   </div>
 
   <div class="pg-quote fade-in" data-reveal="late">
