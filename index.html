@@ -46,6 +46,10 @@
       --ink: #33251a;
       --green: #3a6b5e;
       --bg: #faf8f5;
+      /* イージングはこの2種類だけを使い回す（下層ページと共通）
+         --ease-out=減速して着地 / --ease-io=溜めて放つ */
+      --ease-out: cubic-bezier(.22,1,.36,1);
+      --ease-io: cubic-bezier(.65,0,.35,1);
     }
 
     /* ===== Header ===== */
@@ -639,13 +643,147 @@
       color: #5a6a6c;
     }
 
-    /* ===== Animations ===== */
+    /* =========================================================
+       Motion
+       設計方針（下層ページと共通）：
+       - イージングは2種類だけ（--ease-out / --ease-io）
+       - 移動距離は要素の大きさに比例させる（小さい要素ほど動かさない）
+       - 並んだ要素は必ず stagger で順に読ませる
+       - 「大胆に」動かすのは ヒーロー / サービスカード / CTA の3箇所のみ
+       ========================================================= */
+
+    /* ---- 基本のスクロール登場 ---- */
     .js-ready .fade-in {
       opacity: 0;
       transform: translateY(24px);
-      transition: opacity .7s ease, transform .7s cubic-bezier(.22,1,.36,1);
+      transition: opacity .8s ease, transform .8s var(--ease-out);
     }
     .fade-in.is-visible { opacity: 1; transform: none; }
+
+    /* ---- ① ヒーロー（大胆）：写真が下から拭い上がり、文が順に立ち上がる ----
+       ローディングが明けた合図（bm-ready）で動かし、幕からそのまま繋ぐ */
+    .js-ready .hero__img-wrap { clip-path: inset(0 0 100% 0); }
+    .bm-ready .hero__img-wrap { animation: heroWipe 1.15s var(--ease-io) .1s forwards; }
+    @keyframes heroWipe { to { clip-path: inset(0 0 0 0); } }
+    /* 写真の transform はスライドショーのパンが持っているので触らない */
+
+    .js-ready .hero__title,
+    .js-ready .hero__sub,
+    .js-ready .hero__btns { opacity: 0; transform: translateY(20px); }
+    .bm-ready .hero__title            { animation: heroRise .9s var(--ease-out) .30s forwards; }
+    .bm-ready .hero__sub:nth-of-type(1) { animation: heroRise .8s var(--ease-out) .52s forwards; }
+    .bm-ready .hero__sub:nth-of-type(2) { animation: heroRise .8s var(--ease-out) .62s forwards; }
+    .bm-ready .hero__sub:nth-of-type(3) { animation: heroRise .8s var(--ease-out) .72s forwards; }
+    .bm-ready .hero__sub:nth-of-type(4) { animation: heroRise .8s var(--ease-out) .82s forwards; }
+    .bm-ready .hero__btns             { animation: heroRise .8s var(--ease-out) .96s forwards; }
+    @keyframes heroRise { to { opacity: 1; transform: none; } }
+
+    /* 見出しが着地したあと、色のついた2語だけ遅れてピントが合う。
+       「主体性療育から → IT療育へ」という文の骨格を、動きでも読ませる。
+       opacity は親（.hero__title）が持っているので、ここでは触らない */
+    .js-ready .hero__title .ht-yellow,
+    .js-ready .hero__title .ht-teal { filter: blur(7px); }
+    .bm-ready .hero__title .ht-yellow { animation: wordFocus .75s var(--ease-out) .95s forwards; }
+    .bm-ready .hero__title .ht-teal   { animation: wordFocus .75s var(--ease-out) 1.20s forwards; }
+    @keyframes wordFocus { to { filter: blur(0); } }
+
+    /* ---- ② 見出しの共通シグネチャ：ラベルの両脇に線が伸び、続いて表題が上がる ---- */
+    .js-ready .section-tag { opacity: 0; }
+    .js-ready .section-tag::before,
+    .js-ready .section-tag::after { transform: scaleX(0); }
+    .js-ready .section-tag::before { transform-origin: right center; }
+    .js-ready .section-tag::after  { transform-origin: left center; }
+    .js-ready .section-title { opacity: 0; transform: translateY(14px); }
+    .is-visible .section-tag { animation: fadeIn .5s ease forwards; }
+    .is-visible .section-tag::before,
+    .is-visible .section-tag::after { animation: ruleDraw .55s var(--ease-io) .15s forwards; }
+    .is-visible .section-title { animation: softRise .7s var(--ease-out) .28s forwards; }
+    @keyframes fadeIn   { to { opacity: 1; } }
+    @keyframes ruleDraw { to { transform: scaleX(1); } }
+    @keyframes softRise { to { opacity: 1; transform: none; } }
+
+    /* ---- ③ サービスカード（大胆）：3枚が順に立ち上がり、写真が寄りから収まる ----
+       カードは hover で transform を使うので、登場の作り方に制約がある。
+       ・forwards 付きの animation → 終了後も transform が固定され hover が効かなくなる
+       ・共通の fade-in の transition に相乗り → hover まで .8s になり重くなる
+       そこで backwards（＝待ち時間だけ開始状態を保持し、終わったら素に戻る）で出し、
+       transition は hover 用の軽いものを自前で持たせる */
+    .js-ready .svc.fade-in {
+      opacity: 0;
+      transition: transform .25s var(--ease-out), box-shadow .25s;
+    }
+    .js-ready .svc.fade-in.is-visible {
+      opacity: 1;
+      animation: cardRise .85s var(--ease-out) backwards;
+    }
+    @keyframes cardRise { from { opacity: 0; transform: translateY(30px); } }
+    .service-cards .svc.fade-in.is-visible:nth-child(1) { animation-delay: 0s; }
+    .service-cards .svc.fade-in.is-visible:nth-child(2) { animation-delay: .13s; }
+    .service-cards .svc.fade-in.is-visible:nth-child(3) { animation-delay: .26s; }
+    .js-ready .svc__img img { transform: scale(1.08); }
+    .svc.is-visible .svc__img img { animation: imgSettle 1.5s var(--ease-out) .1s forwards; }
+    @keyframes imgSettle { to { transform: scale(1); } }
+    .js-ready .svc__img-tag { opacity: 0; transform: translateY(-6px); }
+    .svc.is-visible .svc__img-tag { animation: softRise .6s var(--ease-out) .35s forwards; }
+    .js-ready .svc__body { opacity: 0; transform: translateY(12px); }
+    .svc.is-visible .svc__body { animation: softRise .7s var(--ease-out) .22s forwards; }
+
+    /* ---- ④ 施設カード：2枚を順に出し、情報の行が上から流れる ---- */
+    .fac-grid .fac.fade-in:nth-child(2) { transition-delay: .14s; }
+    .js-ready .fac__type,
+    .js-ready .fac__name { opacity: 0; transform: translateY(12px); }
+    .fac.is-visible .fac__type { animation: softRise .6s var(--ease-out) .16s forwards; }
+    .fac.is-visible .fac__name { animation: softRise .65s var(--ease-out) .24s forwards; }
+    .js-ready .fac__row { opacity: 0; transform: translateX(-8px); }
+    .fac.is-visible .fac__row { animation: rowIn .5s var(--ease-out) forwards; }
+    .fac.is-visible .fac__row:nth-of-type(1) { animation-delay: .32s; }
+    .fac.is-visible .fac__row:nth-of-type(2) { animation-delay: .39s; }
+    .fac.is-visible .fac__row:nth-of-type(3) { animation-delay: .46s; }
+    .fac.is-visible .fac__row:nth-of-type(4) { animation-delay: .53s; }
+    @keyframes rowIn { to { opacity: 1; transform: none; } }
+    /* 地図（iframe）は重いので動かさない。静かに現れるだけにする */
+    .js-ready .fac__map, .js-ready .fac__map-link { opacity: 0; }
+    .fac.is-visible .fac__map      { animation: fadeIn .8s ease .62s forwards; }
+    .fac.is-visible .fac__map-link { animation: fadeIn .6s ease .74s forwards; }
+
+    /* ---- ⑤ CTA（大胆）：わずかに迫り出して「目的地」を主張する ---- */
+    .js-ready .cta__card.fade-in { transform: translateY(28px) scale(.96); }
+    .cta__card.fade-in.is-visible { transition: opacity .8s ease, transform .9s var(--ease-out); transform: none; }
+    .js-ready .cta__phone-item { opacity: 0; transform: translateY(10px); }
+    .cta__card.is-visible .cta__phone-item:nth-of-type(1) { animation: softRise .7s var(--ease-out) .45s forwards; }
+    .cta__card.is-visible .cta__phone-item:nth-of-type(2) { animation: softRise .7s var(--ease-out) .55s forwards; }
+
+    /* ---- ⑥ フッター：ページの終わりを静かに閉じる ---- */
+    .js-ready .footer__inner > div { opacity: 0; transform: translateY(14px); }
+    .footer__inner.is-visible > div { animation: softRise .8s var(--ease-out) forwards; }
+    .footer__inner.is-visible > div:nth-child(1) { animation-delay: .05s; }
+    .footer__inner.is-visible > div:nth-child(2) { animation-delay: .15s; }
+    .footer__inner.is-visible > div:nth-child(3) { animation-delay: .25s; }
+
+    /* ---- 動きを減らす設定では、すべて静止した完成形で見せる ---- */
+    @media (prefers-reduced-motion: reduce) {
+      .js-ready .fade-in,
+      .js-ready .hero__title, .js-ready .hero__sub, .js-ready .hero__btns,
+      .js-ready .section-tag, .js-ready .section-title,
+      .js-ready .svc.fade-in, .js-ready .svc__img-tag, .js-ready .svc__body,
+      .js-ready .fac__type, .js-ready .fac__name, .js-ready .fac__row,
+      .js-ready .fac__map, .js-ready .fac__map-link,
+      .js-ready .cta__phone-item, .js-ready .footer__inner > div {
+        opacity: 1 !important; transform: none !important; filter: none !important;
+      }
+      .js-ready .hero__img-wrap { clip-path: none !important; }
+      .js-ready .hero__title .ht-yellow, .js-ready .hero__title .ht-teal { filter: none !important; }
+      .js-ready .svc__img img { transform: none !important; }
+      .js-ready .section-tag::before, .js-ready .section-tag::after { transform: none !important; }
+      .bm-ready .hero__img-wrap, .bm-ready .hero__title, .bm-ready .hero__sub, .bm-ready .hero__btns,
+      .bm-ready .hero__title .ht-yellow, .bm-ready .hero__title .ht-teal,
+      .is-visible .section-tag, .is-visible .section-tag::before, .is-visible .section-tag::after,
+      .is-visible .section-title, .js-ready .svc.fade-in.is-visible,
+      .svc.is-visible .svc__img img, .svc.is-visible .svc__img-tag,
+      .svc.is-visible .svc__body, .fac.is-visible .fac__type, .fac.is-visible .fac__name,
+      .fac.is-visible .fac__row, .fac.is-visible .fac__map, .fac.is-visible .fac__map-link,
+      .cta__card.is-visible .cta__phone-item, .footer__inner.is-visible > div { animation: none !important; }
+    }
 
     /* ===== Mobile ===== */
     @media (max-width: 780px) {
@@ -726,9 +864,10 @@
 </div>
 <script>
 (function () {
-  var el = document.getElementById('bmLoader');
-  if (!el) return;
   var root = document.documentElement;
+  var el = document.getElementById('bmLoader');
+  // 幕が無ければ待つものが無い。ヒーローは即座に動かす
+  if (!el) { root.classList.add('bm-ready'); return; }
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // サイト内リンクでの遷移・ブラウザの戻る/進むでは出さない。
@@ -746,6 +885,7 @@
 
   if (reduce || isInternalNav) {
     if (el.parentNode) el.parentNode.removeChild(el);
+    root.classList.add('bm-ready'); // 幕を出さない場合はすぐヒーローを動かす
     return;
   }
   root.classList.add('bm-loading');
@@ -756,6 +896,8 @@
     removed = true;
     el.classList.add('is-done');
     root.classList.remove('bm-loading');
+    // 幕が引ききる前にヒーローを動かし始め、ローダーから流れるように繋ぐ
+    setTimeout(function () { root.classList.add('bm-ready'); }, 350);
     setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 900);
   }
   var start = Date.now(), MIN = 1500;
@@ -932,7 +1074,7 @@
 
 <!-- ===== Footer ===== -->
 <footer class="footer">
-  <div class="footer__inner">
+  <div class="footer__inner fade-in">
     <div>
       <a href="./index.html" class="footer__logo"><img src="./logo.png" alt="BLUE MOUSE" /></a>
       <p class="footer__tagline">主体性療育からIT療育へ。<br>こどもの10年間を見据えた支援。</p>
