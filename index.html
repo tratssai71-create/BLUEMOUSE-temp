@@ -244,28 +244,48 @@
       transform: scale(1.16);
     }
     /* ホワイトディゾルブ：光が満ちて写真が白に溶け、光が引くと次の写真が現れる。
-       手順は 3秒で ①光が満ちる(0〜0.9s) ②光の頂点で写真を入れ替える(0.9〜2.1s)
-       ③光が引く(2.1〜3.0s)。入れ替えを光の中に隠すので、2枚が二重写しになる瞬間が見えない。
        退場する画像は不透明のまま下の層に置き、下地が透けて明るさが暴れるのを防ぐ */
     .hero__img-wrap img.is-leaving { opacity: 1; z-index: 1; }
     .hero__img-wrap img.is-active {
       opacity: 1; z-index: 2;
-      /* 光がいちばん強い区間（0.9〜2.1s）に収まるよう、遅らせてから1秒で入れ替える */
-      transition: opacity 1s cubic-bezier(.4,.25,.6,.75) 1s;
+      /* 光の頂点(1.5s)を中心に、1.05s〜1.95s で入れ替える。
+         二重写しが最も濃くなる中間点と、光が最も強い瞬間をぴったり重ねている。
+         曲線も等速寄りにして、光の下で速度変化を起こさない */
+      transition: opacity .9s cubic-bezier(.45,.3,.55,.7) 1.05s;
     }
     /* 光の膜。純白ではなくサイトの生成り色にして、フラッシュではなく「光が差す」質感にする */
     .hero__flash {
       position: absolute; inset: 0; z-index: 3; pointer-events: none;
       background: #FFFEFB; opacity: 0;
+      will-change: opacity;
     }
-    .hero__flash.is-run { animation: heroBloom 3s cubic-bezier(.4,.25,.6,.75); }
+    /* 頂点で平らに保持すると「上がって・止まって・下がる」の3挙動に割れて見える。
+       sin²カーブを刻んだキーフレームで、山なりのひと息にする。
+       各区間にイージングが掛かって継ぎ目ができないよう、タイミング関数は linear。
+       頂点0.8は「光に溶けた」と分かりつつ写真の輪郭がうっすら残る境目 */
+    .hero__flash.is-run { animation: heroBloom 3s linear; }
     @keyframes heroBloom {
-      0%   { opacity: 0; }
-      /* 0.88まで上げると枠が真っ白になり写真が消えたように見える。
-         0.8は「光に溶けた」と分かりつつ、写真の輪郭がうっすら残る境目 */
-      30%  { opacity: .8; }
-      70%  { opacity: .8; }
-      100% { opacity: 0; }
+      0%   { opacity: 0;    }
+      5%   { opacity: .020; }
+      10%  { opacity: .076; }
+      15%  { opacity: .165; }
+      20%  { opacity: .276; }
+      25%  { opacity: .400; }
+      30%  { opacity: .524; }
+      35%  { opacity: .635; }
+      40%  { opacity: .724; }
+      45%  { opacity: .780; }
+      50%  { opacity: .800; }
+      55%  { opacity: .780; }
+      60%  { opacity: .724; }
+      65%  { opacity: .635; }
+      70%  { opacity: .524; }
+      75%  { opacity: .400; }
+      80%  { opacity: .276; }
+      85%  { opacity: .165; }
+      90%  { opacity: .076; }
+      95%  { opacity: .020; }
+      100% { opacity: 0;    }
     }
     @media (prefers-reduced-motion: reduce) {
       .hero__img-wrap img.is-active { transition: none; }
@@ -1117,7 +1137,7 @@
      入れ替えを光の中に隠すので、2枚が二重写しになる瞬間が見えない。
      下の2つの数値は CSS の heroBloom / .hero__img-wrap img.is-active と対で管理する */
   var BLOOM_MS = 3000;   // 光が満ちて引くまで（heroBloom の duration）
-  var SWAP_END = 2000;   // 写真の入れ替えが終わる時刻（transition の delay 1s ＋ duration 1s）
+  var SWAP_END = 1950;   // 写真の入れ替えが終わる時刻（transition の delay 1.05s ＋ duration .9s）
 
   // ケンバーンズ。止めるのは自分が張ったパンだけにする。
   // getAnimations() をまとめて cancel すると、直前に始まった opacity のトランジションまで
@@ -1169,7 +1189,7 @@
       }
 
       // 新しい写真が覆い終わってから、見えない状態で前の写真を降ろす
-      setTimeout(function () { prev.classList.remove('is-leaving'); }, SWAP_END + 120);
+      setTimeout(function () { prev.classList.remove('is-leaving'); }, SWAP_END + 150);
     }, interval);
   }
   startSlideshow('hero-slides', 7200);
