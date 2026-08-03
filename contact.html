@@ -53,6 +53,11 @@
     .mobile-nav { display:flex; position:fixed; top:60px; left:0; right:0; bottom:0; background:rgba(255,254,251,.98); backdrop-filter:blur(16px); z-index:200; flex-direction:column; align-items:center; justify-content:center; gap:24px; opacity:0; visibility:hidden; transform:translateY(-8px); pointer-events:none; transition:opacity .4s ease, transform .4s ease, visibility 0s linear .4s; }
     .mobile-nav.is-open { opacity:1; visibility:visible; transform:translateY(0); pointer-events:auto; transition:opacity .4s ease, transform .4s ease, visibility 0s linear 0s; }
     .mobile-nav a { font-size:17px; color:#8a7a6e; letter-spacing:.08em; }
+    /* 期間限定の相談会LP。イエロー＝情報ラベル（コーラルはお問い合わせ＝行動色なので使わない）。
+       放デイ・プライバシーのページには --yellow を持たせていないため、ここは直値で指定する */
+    .mobile-nav a.mn-link--campaign { display:inline-flex; align-items:center; gap:9px; color:#33251a; font-weight:600; }
+    .mn-badge { font-size:10.5px; font-weight:700; letter-spacing:.06em; line-height:1.5;
+      color:#6b4f08; background:#f5d24a; padding:3px 9px; border-radius:100px; white-space:nowrap; }
     .mn-accordion { width: 100%; text-align: center; }
     .mn-accordion__toggle { background: none; border: none; cursor: pointer; font-family: inherit; font-size: 17px; color: #8a7a6e; letter-spacing: .08em; display: inline-flex; align-items: center; gap: 8px; padding: 0; }
     .mn-accordion__toggle:hover { color: var(--teal); }
@@ -324,6 +329,7 @@
   <a href="./index.html" class="mn-link">Front</a>
   <a href="./philosophy.html" class="mn-link">BLUE MOUSEの想い</a>
   <a href="./child.html" class="mn-link">児童発達支援</a>
+  <a href="./flyer260805/" class="mn-link mn-link--campaign"><span class="mn-badge">9月末まで</span>子育て相談会</a>
   <a href="./afterschool.html" class="mn-link">放課後等デイサービス</a>
   <a href="./recruit.html" class="mn-link">採用情報</a>
   <a href="./contact.html" class="mn-link" style="color:var(--coral); font-weight:600;">お問い合わせ</a>
