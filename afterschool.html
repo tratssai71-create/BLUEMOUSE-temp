@@ -33,7 +33,7 @@
     /* --coral は白地で2.3:1しかなく文字には使えないので、文字用に暗くしたコーラルを別に持つ（白地4.9:1） */
     :root { --coral:#f2906c; --coral-light:#fdf0eb; --coral-deep:#b85233; --coral-tint:#fff6f2;
       --theme:#3a9095; --theme-dark:#2c6e72; --theme-light:#e8f6f7;
-      --teal:#5fc1c7; --footer-teal:#5fc1c7;
+      --teal:#5fc1c7; --teal-ink:#1d4a4e; --footer-teal:#5fc1c7;
       --ink:#33251a; --green:#3a6b5e; --bg:#faf8f5;
       /* 余白スケール（4px基準）。セクション間とカード内側はこの2つが唯一の基準値 */
       --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:24px; --sp-6:32px; --sp-7:48px; --sp-8:64px;
@@ -115,7 +115,9 @@
     .pg-kodawari-item__head { display:flex; align-items:center; gap:var(--sp-4); margin-bottom:var(--sp-4); }
     .pg-kodawari-item__head h3 { font-size:17px; font-weight:700; color:var(--ink); line-height:1.5; margin:0; }
     .pg-kodawari-num { width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:"Inter",sans-serif; font-size:16px; font-weight:700; flex-shrink:0; }
-    .pg-kodawari-num--theme { background:var(--theme); color:#fff; }
+    /* 地はロゴティール、数字は濃いティール。ただし --theme-dark(#2c6e72) だと 2.78:1 で数字が沈むため、
+       同系のまま一段暗くした --teal-ink を数字に使う（4.6:1） */
+    .pg-kodawari-num--theme { background:var(--teal); color:var(--teal-ink); }
     /* こだわり冒頭の一文。要約なので本文より強く */
     .pg-kodawari-lead { font-size:14.5px; font-weight:700; color:var(--ink); line-height:1.85; }
     .pg-kodawari-body .pg-kodawari-lead + p { margin-top:var(--sp-3); }
