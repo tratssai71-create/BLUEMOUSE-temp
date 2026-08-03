@@ -259,16 +259,23 @@
     .pg-future { margin-bottom:var(--section-gap); }
     .pg-future__intro { font-size:15px; color:#6b5a4c; line-height:2; margin:var(--sp-4) 0 var(--sp-5); }
     .pg-future__intro em { font-style:normal; font-weight:700; color:var(--ink); background:linear-gradient(transparent 86%, rgba(95,193,199,.85) 86%); }
-    /* ページの結論にあたる2項目。並べて「2本の柱」として見せ、白いカードで地から持ち上げる */
-    .pg-future-list { display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-5); }
-    .pg-future-item { position:relative; text-align:center; background:#fff;
-      border:1px solid rgba(217,165,32,.16); border-radius:18px; padding:var(--sp-6) var(--sp-5);
-      box-shadow:0 2px 4px rgba(217,165,32,.04), 0 14px 34px rgba(217,165,32,.10); }
-    /* 見出しの上に短い罫。ヒーローのタグ罫・見出しの縦バーと同じ「線を引く」言語で揃える */
-    .pg-future-item__body h3::before { content:''; display:block; width:30px; height:2px;
-      margin:0 auto var(--sp-4); background:var(--yellow); border-radius:2px; }
-    .pg-future-item__body h3 { font-size:17px; font-weight:700; color:var(--ink); margin-bottom:var(--sp-3); line-height:1.6; letter-spacing:.01em; }
-    .pg-future-item__body p { font-size:14px; color:#6b5a4c; line-height:1.9; }
+    /* ページの結論。ページ唯一の濃色ブロックにして「ここが答え」と示しつつ、
+       中は箱を作らず、余白・大きな文字・細い罫だけで見せる（案A×案C） */
+    .pg-future-list { position:relative; display:grid; grid-template-columns:1fr 1fr; gap:0;
+      background:linear-gradient(150deg, #24363d 0%, #1d2b31 100%);
+      border-radius:24px; padding:var(--sp-7) var(--sp-6); overflow:hidden;
+      box-shadow:0 18px 44px rgba(30,44,50,.18); }
+    /* 冷たくなりすぎないよう、隅にイエローの光をひとつ置く */
+    .pg-future-list::before { content:''; position:absolute; top:-80px; right:-60px; width:320px; height:320px;
+      border-radius:50%; pointer-events:none;
+      background:radial-gradient(circle, rgba(245,210,74,.16) 0%, rgba(245,210,74,0) 70%); }
+    .pg-future-item { position:relative; text-align:left; padding:0 var(--sp-6); }
+    .pg-future-item + .pg-future-item { border-left:1px solid rgba(255,255,255,.10); }
+    /* 見出しの上の短い罫。ページ全体で繰り返している「線を引く」言語をここでも使う */
+    .pg-future-item__body h3::before { content:''; display:block; width:26px; height:2px;
+      margin:0 0 var(--sp-4); background:var(--yellow); border-radius:2px; }
+    .pg-future-item__body h3 { font-size:20px; font-weight:700; color:#fff; margin-bottom:var(--sp-4); line-height:1.6; letter-spacing:.01em; word-break:keep-all; overflow-wrap:anywhere; }
+    .pg-future-item__body p { font-size:13.5px; color:rgba(255,255,255,.74); line-height:2.05; }
 
     /* Quote */
     .pg-quote { background:var(--bg); border-radius:20px; padding:var(--card-pad); margin-bottom:var(--section-gap); text-align:center; border-left:4px solid var(--yellow); }
@@ -331,7 +338,7 @@
     /* 個別アニメを持つ要素では、fade-in は「発火のきっかけ」専用にして動きを二重化させない */
     .js-ready .pg-kodawari-item.fade-in,
     .js-ready .pg-schedule-card.fade-in,
-    .js-ready .pg-future-item.fade-in { transition:none; }
+    .js-ready .pg-future-list.fade-in { transition:opacity .9s ease, transform 1s var(--ease-out); }
 
     /* ---- ① ヒーロー（大胆）：画像を下から拭い上げ、文字が順に立ち上がる ---- */
     .js-ready .pg-hero__img-wrap { clip-path:inset(0 0 100% 0); }
@@ -394,13 +401,25 @@
     .pg-schedule-card.is-visible .pg-schedule-list li:nth-child(8) { animation-delay:0.54s; }
     @keyframes rowIn { to { opacity:1; transform:none; } }
 
-    /* ---- ⑤ 療育の先にある未来（強調）：柱が立ち上がり、上の罫が引かれる ---- */
-    .js-ready .pg-future-item { opacity:0; transform:translateY(22px) scale(.985); }
-    .pg-future-item.is-visible { animation:futureRise .8s var(--ease-out) forwards; }
-    @keyframes futureRise { to { opacity:1; transform:none; } }
-    .js-ready .pg-future-item__body h3::before { transform:scaleX(0); transform-origin:center; }
-    .pg-future-item.is-visible .pg-future-item__body h3::before { animation:futureRule .55s cubic-bezier(.45,.25,.4,1) .38s forwards; }
+    /* ---- ⑤ 療育の先にある未来（強調）：濃色ブロックが立ち上がり、中身が順に現れる ---- */
+    .js-ready .pg-future-list.fade-in { transform:translateY(26px) scale(.985); }
+    .pg-future-list.fade-in.is-visible { transition:opacity .9s ease, transform 1s var(--ease-out); transform:none; }
+    .js-ready .pg-future-item__body h3,
+    .js-ready .pg-future-item__body p { opacity:0; transform:translateY(14px); }
+    .pg-future-list.is-visible .pg-future-item__body h3,
+    .pg-future-list.is-visible .pg-future-item__body p { animation:softRise .7s var(--ease-out) forwards; }
+    .pg-future-list.is-visible .pg-future-item:nth-child(1) .pg-future-item__body h3 { animation-delay:.34s; }
+    .pg-future-list.is-visible .pg-future-item:nth-child(1) .pg-future-item__body p  { animation-delay:.44s; }
+    .pg-future-list.is-visible .pg-future-item:nth-child(2) .pg-future-item__body h3 { animation-delay:.52s; }
+    .pg-future-list.is-visible .pg-future-item:nth-child(2) .pg-future-item__body p  { animation-delay:.62s; }
+    /* 罫は見出しが着地してから引く */
+    .js-ready .pg-future-item__body h3::before { transform:scaleX(0); transform-origin:left center; }
+    .pg-future-list.is-visible .pg-future-item:nth-child(1) .pg-future-item__body h3::before { animation:futureRule .6s cubic-bezier(.45,.25,.4,1) .62s forwards; }
+    .pg-future-list.is-visible .pg-future-item:nth-child(2) .pg-future-item__body h3::before { animation:futureRule .6s cubic-bezier(.45,.25,.4,1) .80s forwards; }
     @keyframes futureRule { to { transform:scaleX(1); } }
+    /* 縦の仕切りも上から引かれる */
+    .js-ready .pg-future-item + .pg-future-item { border-left-color:transparent; transition:border-left-color .8s ease .5s; }
+    .pg-future-list.is-visible .pg-future-item + .pg-future-item { border-left-color:rgba(255,255,255,.10); }
 
     /* ---- ⑥ 引用：ローディングと同じ“ピントが合う”言語で揃える ---- */
     .js-ready .pg-quote__text { opacity:0; filter:blur(5px); transform:translateY(8px); }
@@ -464,18 +483,21 @@
     @media (prefers-reduced-motion:reduce) {
       .js-ready .fade-in, .js-ready .pg-hero__tag, .js-ready .pg-hero__title, .js-ready .pg-hero__sub,
       .js-ready .pg-kodawari-num, .js-ready .pg-kodawari-item__head h3, .js-ready .pg-kodawari-body,
-      .js-ready .pg-schedule-card, .js-ready .pg-schedule-list li, .js-ready .pg-future-item,
+      .js-ready .pg-schedule-card, .js-ready .pg-schedule-list li, .js-ready .pg-future-list.fade-in,
+      .js-ready .pg-future-item__body h3, .js-ready .pg-future-item__body p,
       .js-ready .pg-quote__text, .js-ready .pg-table tr, .js-ready .pg-cta.fade-in, .js-ready .pg-info__title {
         opacity:1 !important; transform:none !important; filter:none !important;
       }
       .js-ready .pg-hero__img-wrap { clip-path:none !important; }
       .js-ready .pg-hero__img-wrap img { transform:none !important; }
       .js-ready .pg-info__title::before, .js-ready .pg-hero__tag::before,
-      .js-ready .pg-future-item__body h3::before { transform:none !important; }
+
       .bm-ready .pg-hero__img-wrap, .bm-ready .pg-hero__img-wrap img,
       .bm-ready .pg-hero__tag, .bm-ready .pg-hero__title, .bm-ready .pg-hero__sub,
       .is-visible .pg-info__title, .is-visible .pg-kodawari-num, .is-visible .pg-schedule-card,
-      .is-visible .pg-schedule-list li, .pg-future-item.is-visible, .pg-future-item.is-visible .pg-future-item__body h3::before, .is-visible .pg-quote__text,
+      .is-visible .pg-schedule-list li, .pg-future-list.is-visible .pg-future-item__body h3,
+      .pg-future-list.is-visible .pg-future-item__body p,
+      .pg-future-list.is-visible .pg-future-item__body h3::before, .is-visible .pg-quote__text,
       .is-visible .pg-table tr { animation:none !important; }
     }
 
@@ -492,7 +514,12 @@
       .pg-hero__title { font-size:clamp(1.5rem,6vw,2rem); }
       .pg-content { padding:0 20px 60px; }
       .pg-promo { flex-wrap:wrap; padding:var(--sp-5); }
-      .pg-future-list { grid-template-columns:1fr; }
+      .pg-future-list { grid-template-columns:1fr; padding:var(--sp-6) var(--sp-5); }
+      .pg-future-item { padding:0; }
+      .pg-future-item + .pg-future-item { border-left:none; border-top:1px solid rgba(255,255,255,.10); margin-top:var(--sp-6); padding-top:var(--sp-6); }
+      .js-ready .pg-future-item + .pg-future-item { border-left-color:transparent; border-top-color:transparent; transition:border-top-color .8s ease .5s; }
+      .pg-future-list.is-visible .pg-future-item + .pg-future-item { border-top-color:rgba(255,255,255,.10); }
+      .pg-future-item__body h3 { font-size:18px; }
       .pg-worry-list li { max-width:90%; }
       .pg-worry-bubble { padding:12px 20px; font-size:14.5px; }
       .pg-promo__cta { width:100%; justify-content:center; margin-top:4px; }
@@ -744,16 +771,16 @@
       私たちが目指すのは、目先の「文字が書けた」「静かに座れた」といった表面上のスキルだけではありません。<br><br>
       自分を認められた安心感の中で育つ<em>「自分の気持ちを伝える力（言語化）」</em>や<em>「何度でも試せる折れない心」</em>。この目に見えない「心の根っこ」こそが、将来子どもを守る最大の武器になります。
     </p>
-    <div class="pg-future-list">
-      <div class="pg-future-item fade-in">
+    <div class="pg-future-list fade-in">
+      <div class="pg-future-item">
         <div class="pg-future-item__body">
-          <h3>対人トラブルを防ぐ「最大の防御」</h3>
+          <h3>対人トラブルを防ぐ<br>「最大の防御」</h3>
           <p>自分の気持ちやSOSを正しく言葉で伝えられる力は、小学校やその先の社会で直面する対人トラブルを防ぐ最大の防御になります。</p>
         </div>
       </div>
-      <div class="pg-future-item fade-in">
+      <div class="pg-future-item">
         <div class="pg-future-item__body">
-          <h3>一生折れない「自分基準の自信」</h3>
+          <h3>一生折れない<br>「自分基準の自信」</h3>
           <p>「失敗しても大丈夫」「自分ならなんとかできる」という体験ベースの自信は、誰かと比べられることで崩れることがありません。これが10年後の社会的な自立を支える確かな土台になります。</p>
         </div>
       </div>
