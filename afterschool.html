@@ -846,6 +846,7 @@
       if (!pending) {
         window.removeEventListener('scroll', onScroll);
         window.removeEventListener('resize', onScroll);
+      }
     }
     function onScroll() {
       if (ticking) return;
@@ -861,6 +862,7 @@
 <style>
   @keyframes ctaPulse {
     0%   { transform: scale(.92); opacity: .55; }
+    100% { transform: scale(1.28); opacity: 0; }
   }
   .floating-cta {
     position: fixed;
