@@ -464,13 +464,14 @@
     .svc__link {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 6px;
       font-size: 13px;
       font-weight: 600;
       color: var(--coral);
-      transition: gap .2s;
     }
-    .svc__link:hover { gap: 8px; }
+    /* gap は中身が単一のテキストノードだと効かない。矢印を要素にして自分で動かす */
+    .svc__arrow { display: inline-block; font-style: normal; transition: transform .25s var(--ease-out); }
+    .svc:hover .svc__arrow, .svc__link:hover .svc__arrow { transform: translateX(4px); }
 
     /* ===== Facilities ===== */
     .facilities {
@@ -567,8 +568,28 @@
     .cta {
       padding: 72px 32px;
       text-align: center;
+      position: relative;
+    }
+    /* ページの終着点。輪郭を持たない光をゆっくり漂わせて、ここだけ空気を変える */
+    .cta::before {
+      content: '';
+      position: absolute; left: 50%; top: 50%;
+      width: min(780px, 92%); height: 340px;
+      transform: translate(-50%,-50%);
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center, rgba(95,193,199,.16) 0%, rgba(242,144,108,.08) 46%, rgba(255,255,255,0) 72%);
+      filter: blur(14px);
+      pointer-events: none;
+      animation: ctaAura 19s linear infinite;
+    }
+    @keyframes ctaAura {
+      0%   { transform: translate(-50%,-50%) scale(1);    opacity: .85; }
+      33%  { transform: translate(-52%,-52%) scale(1.07); opacity: 1;   }
+      66%  { transform: translate(-48%,-49%) scale(.96);  opacity: .9;  }
+      100% { transform: translate(-50%,-50%) scale(1);    opacity: .85; }
     }
     .cta__card {
+      position: relative;
       max-width: 700px;
       margin: 0 auto;
       background: linear-gradient(135deg, var(--teal-light) 0%, var(--coral-light) 100%);
@@ -742,9 +763,12 @@
     .service-cards .svc.fade-in.is-visible:nth-child(1) { animation-delay: 0s; }
     .service-cards .svc.fade-in.is-visible:nth-child(2) { animation-delay: .13s; }
     .service-cards .svc.fade-in.is-visible:nth-child(3) { animation-delay: .26s; }
-    .js-ready .svc__img img { transform: scale(1.08); }
-    .svc.is-visible .svc__img img { animation: imgSettle 1.5s var(--ease-out) .1s forwards; }
-    @keyframes imgSettle { to { transform: scale(1); } }
+    /* forwards だと終了後も transform が固定され hover が効かない。
+       backwards（待ち時間だけ開始状態を保持し、終わったら素に戻る）で出す */
+    .js-ready .svc__img img { transform: scale(1); transition: transform .5s var(--ease-out); }
+    .svc.is-visible .svc__img img { animation: imgSettle 1.5s var(--ease-out) .1s backwards; }
+    @keyframes imgSettle { from { transform: scale(1.08); } }
+    .svc:hover .svc__img img { transform: scale(1.05); }
     .js-ready .svc__img-tag { opacity: 0; transform: translateY(-6px); }
     .svc.is-visible .svc__img-tag { animation: softRise .6s var(--ease-out) .35s forwards; }
     .js-ready .svc__body { opacity: 0; transform: translateY(12px); }
@@ -804,7 +828,9 @@
       .svc.is-visible .svc__img img, .svc.is-visible .svc__img-tag,
       .svc.is-visible .svc__body, .fac.is-visible .fac__type, .fac.is-visible .fac__name,
       .fac.is-visible .fac__row, .fac.is-visible .fac__map, .fac.is-visible .fac__map-link,
-      .cta__card.is-visible .cta__phone-item, .footer__inner.is-visible > div { animation: none !important; }
+      .cta__card.is-visible .cta__phone-item, .footer__inner.is-visible > div,
+      .cta::before { animation: none !important; }
+      .js-ready .svc__img img, .svc__arrow { transition: none !important; }
     }
 
     /* ===== Mobile ===== */
@@ -976,7 +1002,7 @@
     <p class="hero__sub">主体性療育で「見えない力」を育み、<br>IT療育で社会を生き抜く「見える力」へ。<br>苦手の克服だけでなく、強みを武器に変える。</p>
     <p class="hero__sub">私たちが描く、経済的自立から逆算した<br>10年間のロードマップです。</p>
     <div class="hero__btns">
-      <a href="./philosophy.html" class="svc__link">MORE →</a>
+      <a href="./philosophy.html" class="svc__link">MORE <i class="svc__arrow">→</i></a>
     </div>
   </div>
   <div class="hero__visual">
@@ -1008,7 +1034,7 @@
       <div class="svc__body">
         <h3 class="svc__title">LITTLE BLUE MOUSE（児童発達支援）</h3>
         <p class="svc__desc">自分ならできるという「自己効力感」や失敗から立ち上がる「折れない心」といった、すべての土台となる「見えない力」を育みます。</p>
-        <span class="svc__link">MORE →</span>
+        <span class="svc__link">MORE <i class="svc__arrow">→</i></span>
       </div>
     </a>
     <a href="./afterschool.html" class="svc svc--teal fade-in">
@@ -1019,7 +1045,7 @@
       <div class="svc__body">
         <h3 class="svc__title">BLUE MOUSE（放課後等デイサービス）</h3>
         <p class="svc__desc">強み（特性）を生かして「見える力」を武器へ。「IT療育」で、未来の選択肢を広げ、収入格差に立ち向かいます。</p>
-        <span class="svc__link">MORE →</span>
+        <span class="svc__link">MORE <i class="svc__arrow">→</i></span>
       </div>
     </a>
     <a href="https://bouemouse.studio.site" target="_blank" rel="noopener" class="svc svc--ink fade-in">
@@ -1030,7 +1056,7 @@
       <div class="svc__body">
         <h3 class="svc__title">採用情報</h3>
         <p class="svc__desc">自分らしく、働く。<br>岡山で一番働きやすい職場を目指しています。</p>
-        <span class="svc__link">MORE →</span>
+        <span class="svc__link">MORE <i class="svc__arrow">→</i></span>
       </div>
     </a>
   </div>
@@ -1215,6 +1241,33 @@
       btn.closest('.mn-accordion').classList.toggle('is-open');
     });
   });
+
+  /* ヒーローの写真だけ、スクロールより少し遅れて動かす。
+     一度出たら終わりの登場アニメーションと違い、スクロールしている間ずっと効くので、
+     ページ上部が静止画に戻らない。写真の transform はスライドショーのパンが持っているため、
+     外側の .hero__visual を動かす */
+  (function () {
+    var visual = document.querySelector('.hero__visual');
+    var hero = document.querySelector('.hero');
+    if (!visual || !hero) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var ticking = false;
+    function update() {
+      ticking = false;
+      var r = hero.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > window.innerHeight) return; // 画面外なら計算しない
+      var p = Math.min(1, Math.max(0, -r.top / (r.height || 1)));
+      visual.style.transform = 'translate3d(0,' + (p * -24).toFixed(1) + 'px,0)';
+    }
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+  })();
 
   var els = Array.prototype.slice.call(document.querySelectorAll('.fade-in'));
   function reveal(el) { el.classList.add('is-visible'); }
