@@ -1050,11 +1050,24 @@
         docked = true;
         move(true);
       } else if (!entry.isIntersecting && docked) {
-        docked = false;
-        move(false);
+        // 相談会セクションより下にはフォーム・施設情報が続く。
+        // 通り過ぎたあとも浮かせると、入力欄の上に丸ボタンが重なってしまう。
+        // 上へ戻ってドックが画面より下にある時（top >= 0）だけ浮かせ直す
+        if (entry.boundingClientRect.top >= 0) {
+          docked = false;
+          move(false);
+        }
       }
     });
   }, { threshold: 0.5 });
+
+  // 読み込んだ時点ですでに相談会より下にいる場合（丸ボタンから #form へ飛んだ直後、
+  // その位置でのリロード等）も浮かせない。アニメーションなしで最初からCTA内に収める
+  if (dock.getBoundingClientRect().bottom < 0) {
+    docked = true;
+    dock.appendChild(btn);
+    btn.classList.add('is-docked');
+  }
 
   io.observe(dock);
 })();
