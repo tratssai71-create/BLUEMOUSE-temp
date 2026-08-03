@@ -439,7 +439,7 @@
       /* --ease-out は序盤で一気に伸びる曲線（20%の時間で67%描画）で「速い」と感じるため、
          ペンで引くような等速寄りの曲線に変更。遅延はショートハンドに含める
          （別指定すると shorthand に 0s へ戻される） */
-      transition:background-size .9s cubic-bezier(.45,.25,.4,1) .75s;
+      transition:background-size 1.5s cubic-bezier(.45,.25,.4,1) 1.15s;
     }
     /* .pg-worry__body は自前の fade-in を持つので「自分自身が is-visible」で発火させる。
        祖先(.pg-worry)で発火させると、431px 上のバブル群が見えた時点で線が引き終わってしまう */
@@ -451,7 +451,7 @@
       background-size:100% 100%;
     }
     /* 同じ段落内で em → strong の順に引かれるよう、strong だけ少し後ろにずらす */
-    .js-ready .pg-worry__body strong, .js-ready .pg-stance__body strong { transition-delay:1.05s; }
+    .js-ready .pg-worry__body strong, .js-ready .pg-stance__body strong { transition-delay:1.7s; }
     @media (prefers-reduced-motion:reduce) {
       .js-ready .pg-intro__lead em, .js-ready .pg-worry__body em, .js-ready .pg-worry__body strong,
       .js-ready .pg-stance__body em, .js-ready .pg-stance__body strong,
