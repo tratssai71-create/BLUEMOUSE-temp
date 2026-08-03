@@ -201,7 +201,10 @@
       color: #8a7a6e;
       line-height: 1.9;
       margin-bottom: 16px;
-      text-align: center;
+      /* PCでは見出しが左揃えなので本文も左に揃える。
+         中央揃えのままだと行頭が揃わず、段落の塊が崩れて見える。
+         1カラムになるスマホ側では下のメディアクエリで中央に戻す */
+      text-align: left;
     }
     .hero__btns { display: flex; gap: 12px; flex-wrap: wrap; }
     .btn {
@@ -408,25 +411,35 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 20px;
     }
+    /* 4pxの色枠でカードを囲うと、額縁のように写真から浮いて古く見える。
+       枠は極細の中立色にして、事業の色は写真の下の罫とタグだけで示す */
     .svc {
       background: #fff;
       border-radius: 20px;
       overflow: hidden;
-      border: 1px solid rgba(0,0,0,.05);
-      transition: transform .25s, box-shadow .25s;
+      border: 1px solid rgba(51,37,26,.07);
+      box-shadow: 0 1px 2px rgba(51,37,26,.03), 0 10px 28px rgba(51,37,26,.05);
+      transition: transform .25s var(--ease-out), box-shadow .25s;
     }
     .svc:hover {
       transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(0,0,0,.08);
+      box-shadow: 0 2px 4px rgba(51,37,26,.04), 0 18px 40px rgba(51,37,26,.10);
     }
-    .svc--yellow { border: 4px solid var(--yellow); }
-    .svc--teal { border: 4px solid var(--teal-dark); }
-    .svc--ink { border: 4px solid #d8d3ce; }
     .svc__img {
       aspect-ratio: 16 / 9;
       overflow: hidden;
       position: relative;
     }
+    /* 事業の色はここ1本だけ。写真と本文の境目に置くと、面積が小さくても効く */
+    .svc__img::after {
+      content: '';
+      position: absolute; left: 0; right: 0; bottom: 0;
+      height: 3px;
+      background: var(--svc-accent, var(--teal));
+    }
+    .svc--yellow { --svc-accent: var(--yellow); }
+    .svc--teal   { --svc-accent: var(--teal-dark); }
+    .svc--ink    { --svc-accent: #c9c2ba; }
     .svc__img img {
       width: 100%; height: 100%;
       object-fit: cover;
@@ -447,13 +460,24 @@
     .svc--yellow .svc__img-tag { color: #d9a520; }
     .svc--teal .svc__img-tag { color: var(--teal-dark); }
     .svc--ink .svc__img-tag { color: #8a7a6e; }
+    /* 施設名（英字）と種別（和文）を分ける。括弧書きだと「デイサービ／ス）」のように
+       途中で折り返してしまい、行末が汚れる */
+    .svc__cat {
+      font-size: 11.5px; font-weight: 700; letter-spacing: .08em;
+      color: var(--svc-accent, var(--teal)); margin: 0 0 8px;
+    }
+    .svc--yellow .svc__cat { color: #d9a520; }
+    .svc--ink .svc__cat { color: #8a7a6e; }
     .svc__body { padding: 20px 22px 24px; }
     .svc__title {
       font-family: "Zen Maru Gothic", sans-serif;
       font-size: 17px;
       font-weight: 700;
       color: var(--ink);
-      margin-bottom: 8px;
+      margin-bottom: 2px;
+      letter-spacing: .01em;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
     }
     .svc__desc {
       font-size: 13px;
@@ -846,6 +870,7 @@
         gap: 28px;
       }
       .hero__text { order: 2; text-align: center; }
+      .hero__sub { text-align: center; }
       .hero__visual { order: 1; }
       .hero__btns { justify-content: center; }
       .hero__float-card { bottom: 12px; right: 12px; padding: 8px 14px; font-size: 12px; }
@@ -1035,7 +1060,8 @@
         <span class="svc__img-tag">Early Intervention</span>
       </div>
       <div class="svc__body">
-        <h3 class="svc__title">LITTLE BLUE MOUSE（児童発達支援）</h3>
+        <h3 class="svc__title">LITTLE BLUE MOUSE</h3>
+        <p class="svc__cat">児童発達支援</p>
         <p class="svc__desc">自分ならできるという「自己効力感」や失敗から立ち上がる「折れない心」といった、すべての土台となる「見えない力」を育みます。</p>
         <span class="svc__link">MORE <i class="svc__arrow">→</i></span>
       </div>
@@ -1046,7 +1072,8 @@
         <span class="svc__img-tag">After School</span>
       </div>
       <div class="svc__body">
-        <h3 class="svc__title">BLUE MOUSE（放課後等デイサービス）</h3>
+        <h3 class="svc__title">BLUE MOUSE</h3>
+        <p class="svc__cat">放課後等デイサービス</p>
         <p class="svc__desc">強み（特性）を生かして「見える力」を武器へ。「IT療育」で、未来の選択肢を広げ、収入格差に立ち向かいます。</p>
         <span class="svc__link">MORE <i class="svc__arrow">→</i></span>
       </div>
