@@ -413,11 +413,11 @@
           <label class="ct-label" for="f-age"><span id="age-label">おこさまの年齢</span><span class="ct-req">*</span></label>
           <select class="ct-select" id="f-age" name="child_age">
             <option value="">選択してください</option>
-            <option>2〜5歳（未就学）</option>
-            <option>6〜9歳（小学1〜3年）</option>
-            <option>10〜12歳（小学4〜6年）</option>
-            <option>13〜15歳（中学生）</option>
-            <option>16〜18歳（高校生）</option>
+            <option value="3歳半">3歳半</option>
+            <option value="4歳">4歳</option>
+            <option value="4歳半">4歳半</option>
+            <option value="5歳">5歳</option>
+            <option value="5歳半">5歳半</option>
           </select>
           <span class="ct-error" id="err-age">年齢を選択してください。</span>
         </div>
@@ -509,10 +509,11 @@
           <label class="ct-label" for="c-age">おこさまのねんれい<span class="ct-req">*</span></label>
           <select class="ct-select" id="c-age" name="child_age">
             <option value="">選択してください</option>
-            <option value="3歳">3歳</option>
+            <option value="3歳半">3歳半</option>
             <option value="4歳">4歳</option>
+            <option value="4歳半">4歳半</option>
             <option value="5歳">5歳</option>
-            <option value="6歳">6歳</option>
+            <option value="5歳半">5歳半</option>
           </select>
           <span class="ct-error" id="cerr-age">年齢を選択してください。</span>
         </div>
@@ -706,7 +707,7 @@
   // 年齢の選択肢は事業ごとに違う。同じ <select> を使い回しているので中身ごと入れ替える
   var AGE_OPTIONS = {
     afterschool: ['5歳', '6歳', '7歳', '8歳', '9歳', '10歳', '11歳'],
-    child: ['2〜5歳（未就学）', '6〜9歳（小学1〜3年）', '10〜12歳（小学4〜6年）', '13〜15歳（中学生）', '16〜18歳（高校生）']
+    child: ['3歳半', '4歳', '4歳半', '5歳', '5歳半']
   };
   function setAgeOptions(facility) {
     var sel = document.getElementById('f-age');
