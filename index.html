@@ -984,8 +984,10 @@
       <!-- 移動量は全カット統一（scale1.16 × 往復9% ＝ はみ出し余裕の65%）。向きだけ変えて単調さを避ける -->
       <img src="./photos/slide_window_opt.jpg" alt="BLUE MOUSEの活動風景" style="object-position:center 40%;" class="is-active" data-pan-from="0,-4.5%" data-pan-to="0,4.5%" data-pan-scale="1.16" />
       <img src="./photos/slide_balloon_opt.jpg" alt="BLUE MOUSEの活動風景" style="object-position:center 45%;" data-pan-from="0,4.5%" data-pan-to="0,-4.5%" data-pan-scale="1.16" />
-      <!-- 横方向は枠が横長な分、%を高さ比(11/16)で割り戻して実移動pxを縦カットと揃える -->
-      <img src="./photos/slide_block_opt.jpg" alt="BLUE MOUSEの活動風景" style="object-position:center 12%;" data-pan-from="3.09%,0" data-pan-to="-3.09%,0" data-pan-scale="1.16" />
+      <!-- 横方向は枠が横長な分、%を高さ比(11/16)で割り戻して実移動pxを縦カットと揃える。
+           左端に窓枠が入るため、往復幅6.18%は保ったまま範囲全体を写真の右寄りへ2%ずらしている
+           （終点の実移動は 5.09% x 1.16 = 5.9%。scale1.16のはみ出し余裕8%に対して74%で収まる） -->
+      <img src="./photos/slide_block_opt.jpg" alt="BLUE MOUSEの活動風景" style="object-position:center 12%;" data-pan-from="1.09%,0" data-pan-to="-5.09%,0" data-pan-scale="1.16" />
       <span class="hero__flash" id="hero-flash" aria-hidden="true"></span>
     </div>
   </div>
