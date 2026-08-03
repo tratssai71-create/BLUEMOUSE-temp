@@ -490,12 +490,6 @@
       .pg-flow-item + .pg-flow-item::after { top:-20px; }
       .pg-form { padding:var(--sp-5) var(--sp-4); }
       .pg-form__grid { grid-template-columns:1fr; }
-    }
-    /* 320px級の端末では「近い年齢を選択してください」が選択欄の内寸を超えて切れる。
-       文字を16px未満にするとiOSで入力時にズームしてしまうため、縮めるのは余白のほうにする */
-    @media (max-width:360px) {
-      .pg-form { padding:var(--sp-5) var(--sp-3); }
-      .pg-input, .pg-select, .pg-textarea { padding:11px 12px; }
       .footer { padding:32px 16px 16px; }
       .footer__inner { grid-template-columns:1fr; gap:20px; }
     }
@@ -749,7 +743,7 @@
         <div class="pg-field">
           <label class="pg-label" for="t-age">おこさまのねんれい<span class="pg-req">*</span></label>
           <select class="pg-select" id="t-age" name="child_age">
-            <option value="">近い年齢を選択してください</option>
+            <option value="">選択してください</option>
             <option value="3歳半">3歳半</option>
             <option value="4歳">4歳</option>
             <option value="4歳半">4歳半</option>
