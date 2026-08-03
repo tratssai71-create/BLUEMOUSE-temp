@@ -256,6 +256,9 @@
     .pg-table th { background:var(--bg); color:#8a7a6e; font-weight:500; width:8em; }
     .pg-table td { color:#6b5a4c; line-height:1.7; }
     .pg-table tr:last-child th, .pg-table tr:last-child td { border-bottom:none; }
+    /* 制度上の対象と、新規受付の目安は別物なので行内で書き分ける。
+       #8a7a6e は白地4.0:1で基準に届かないため、補助文でも #7d6d60（4.9:1）を使う */
+    .pg-table__note { display:block; margin-top:6px; font-size:12.5px; color:#7d6d60; line-height:1.75; }
 
     /* CTA */
     .pg-cta { text-align:center; padding:var(--sp-7) var(--sp-6);
@@ -795,7 +798,7 @@
     <h2 class="pg-info__title">施設情報</h2>
     <table class="pg-table">
       <tr><th>教室</th><td>LITTLE BLUE MOUSE 辰巳教室（児童発達支援）</td></tr>
-      <tr><th>対象</th><td>未就学児（3歳半〜6歳）</td></tr>
+      <tr><th>対象</th><td>未就学児（3歳半〜6歳）<span class="pg-table__note">※ 新規のご利用開始は5歳半頃までを目安としています。就学までに十分な療育期間を確保するためです。</span></td></tr>
       <tr><th>所在地</th><td>岡山市北区辰巳26-102 2F</td></tr>
       <tr><th>お電話</th><td><a href="tel:0862459880">086-245-9880</a></td></tr>
       <tr><th>営業時間</th><td>平日 9:30〜18:30／土 9:00〜18:00</td></tr>
