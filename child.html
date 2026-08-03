@@ -291,7 +291,7 @@
       filter:blur(10px); pointer-events:none; animation:quoteAura 16s linear infinite; }
     .pg-quote__text { position:relative; font-size:clamp(1.7rem,3.9vw,2.35rem); font-weight:700; color:var(--ink);
       line-height:1.7; letter-spacing:.03em; word-break:keep-all; overflow-wrap:anywhere; }
-    /* 「この子が、」は前置き。小さく落として、後半の一言を立たせる */
+    /* 「このこが、」は前置き。小さく落として、後半の一言を立たせる */
     .pg-quote__lead { display:block; font-size:15px; font-weight:600; color:#6b5a4c;
       letter-spacing:.1em; margin-bottom:var(--sp-4); }
     .pg-quote__char { display:inline-block; white-space:pre; }
@@ -687,7 +687,7 @@
 
   <div class="pg-intro fade-in">
     <p class="pg-intro__lead">「どうして？」を<br>「<em>こうすれば！</em>」に変える場所。</p>
-    <p class="pg-intro__body">「なぜうちの子は、みんなと同じようにできないんだろう…」<br>そんな風に悩み、自分を責めてしまうことはありませんか？</p>
+    <p class="pg-intro__body">「なぜうちのこは、みんなと同じようにできないんだろう…」<br>そんな風に悩み、自分を責めてしまうことはありませんか？</p>
   </div>
 
   <div class="pg-worry fade-in">
@@ -703,18 +703,18 @@
     <p class="pg-worry__body fade-in">
       これらは、毎日子育てを頑張っているからこそ生まれる、保護者の方の「あるある」なお悩みです。<br>
       しかし、これらは決してただの「困った行動」や「ワガママ」ではありません。実は、こうした行動の裏には<em>「こどもなりの切実な理由」</em>が隠れているんです。<br><br>
-      だからこそ、私たちが目指すのは、こどもを叱って無理やりルールに合わせることではありません。<strong>「その子が一番生きやすい環境とやり方」</strong>を、大人が一緒に見つけ出すことです。
+      だからこそ、私たちが目指すのは、こどもを叱って無理やりルールに合わせることではありません。<strong>「そのこが一番生きやすい環境とやり方」</strong>を、大人が一緒に見つけ出すことです。
     </p>
   </div>
 
   <div class="pg-stance fade-in" id="stance">
     <h2 class="pg-info__title">私たちのスタンス</h2>
-    <p class="pg-stance__sub">「その子だけの取扱説明書」を<br>一緒に作る伴走者</p>
+    <p class="pg-stance__sub">「そのこだけの取扱説明書」を<br>一緒に作る伴走者</p>
     <p class="pg-stance__body">
       こどもの特性や「こうしたい！」という気持ちは、とても大切です。しかし同時に、小学校という集団社会に向けたルールや、保護者の方の「こうなってほしい」という思いがあるのも現実です。<br><br>
       私たちが目指すのは、こどもの希望と、社会のルール・大人の思いを<em>「どうすり合わせるか」</em>です。<br>
       どちらかを我慢させるのではなく、お互いにとって一番「心地よいやり方」を、専門的な視点から探り当てていくこと。<br><br>
-      保護者の方もこども本人も、ホッと息をついて笑顔になれる。私たちは、そんな<strong>「その子だけの取扱説明書（トリセツ）」</strong>を一緒に作っていく伴走者でありたいと願っています。
+      保護者の方もこども本人も、ホッと息をついて笑顔になれる。私たちは、そんな<strong>「そのこだけの取扱説明書（トリセツ）」</strong>を一緒に作っていく伴走者でありたいと願っています。
     </p>
   </div>
 
@@ -783,7 +783,7 @@
     <p class="pg-stance__sub">〜「見えない力」が、10年後の基盤になる〜</p>
     <p class="pg-future__intro">
       私たちが目指すのは、目先の「文字が書けた」「静かに座れた」といった表面上のスキルだけではありません。<br><br>
-      自分を認められた安心感の中で育つ<em>「自分の気持ちを伝える力（言語化）」</em>や<em>「何度でも試せる折れない心」</em>。この目に見えない「心の根っこ」こそが、将来子どもを守る最大の武器になります。
+      自分を認められた安心感の中で育つ<em>「自分の気持ちを伝える力（言語化）」</em>や<em>「何度でも試せる折れない心」</em>。この目に見えない「心の根っこ」こそが、将来こどもを守る最大の武器になります。
     </p>
     <div class="pg-future-list">
       <div class="pg-future-item fade-in">
@@ -802,7 +802,7 @@
   </div>
 
   <div class="pg-quote fade-in" data-reveal="late">
-    <p class="pg-quote__text"><span class="pg-quote__lead">この子が、</span><span class="pg-quote__main">自分で自分を育てる。</span></p>
+    <p class="pg-quote__text"><span class="pg-quote__lead">このこが、</span><span class="pg-quote__main">自分で自分を育てる。</span></p>
   </div>
 
   <div class="pg-info fade-in" id="overview">
@@ -880,7 +880,7 @@
       var sp = document.createElement('span');
       sp.className = 'pg-quote__char';
       sp.textContent = ch;
-      // 前置き「この子が、」が出たあとから、1文字ずつ間を置いて焦点を結ばせる
+      // 前置き「このこが、」が出たあとから、1文字ずつ間を置いて焦点を結ばせる
       sp.style.animationDelay = (0.6 + i * 0.11).toFixed(3) + 's';
       frag.appendChild(sp);
     });
