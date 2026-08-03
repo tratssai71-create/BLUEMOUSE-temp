@@ -236,11 +236,23 @@
       object-fit: cover;
       object-position: center 65%;
       opacity: 0;
+      z-index: 0;
       transform: scale(1.16);
-      /* 溶けるように入れ替わるよう、クロスフェードは長めかつ両端をなだらかに */
-      transition: opacity 1.4s cubic-bezier(.4,0,.3,1);
     }
-    .hero__img-wrap img.is-active { opacity: 1; }
+    /* 2枚を同時に半透明にすると、合計の不透明度が中間で0.75まで落ち、
+       下地の生成り色が25%透けてフレーム全体が一瞬白く飛ぶ（これが「パッ」の正体）。
+       退場する画像は不透明のまま下の層で待たせ、新しい画像が上から覆いかぶさる形にする。
+       こうすると不透明度が1を下回る瞬間がなくなり、明るさが揺れずに溶けて入れ替わる */
+    .hero__img-wrap img.is-leaving { opacity: 1; z-index: 1; }
+    .hero__img-wrap img.is-active {
+      opacity: 1; z-index: 2;
+      /* 中間で一気に進む曲線だと時間が長くても「切り替わった」と感じるため、
+         ほぼ等速（中間の傾き1.25倍）で両端だけ和らげた曲線にする */
+      transition: opacity 2.2s cubic-bezier(.4,.25,.6,.75);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero__img-wrap img.is-active { transition: none; }
+    }
     .hero__float-card {
       position: absolute;
       bottom: 16px;
@@ -952,8 +964,8 @@
   document.documentElement.classList.add('js-ready');
 
   // スライドショー共通処理
-  // CSSのクロスフェード時間と一致させる（.hero__img-wrap img の transition）
-  var SLIDE_FADE = 1400;
+  // CSSのクロスフェード時間と一致させる（.hero__img-wrap img.is-active の transition）
+  var SLIDE_FADE = 2200;
 
   function panImage(img, duration) {
     var from = img.getAttribute('data-pan-from'), to = img.getAttribute('data-pan-to');
@@ -976,13 +988,19 @@
     var cur = 0;
     panImage(imgs[cur], life);
     setInterval(function() {
-      imgs[cur].classList.remove('is-active');
+      var prev = imgs[cur];
       cur = (cur + 1) % imgs.length;
-      imgs[cur].classList.add('is-active');
-      panImage(imgs[cur], life);
+      var next = imgs[cur];
+      // 前の画像は消さずに下の層で不透明のまま待たせる。
+      // 上に重なった新しい画像が完全に覆ってから、見えない状態で降ろす
+      prev.classList.add('is-leaving');
+      prev.classList.remove('is-active');
+      next.classList.add('is-active');
+      panImage(next, life);
+      setTimeout(function() { prev.classList.remove('is-leaving'); }, SLIDE_FADE + 120);
     }, interval);
   }
-  startSlideshow('hero-slides', 5600);
+  startSlideshow('hero-slides', 6400);
 
   var burger = document.getElementById('burger');
   var mobileNav = document.getElementById('mobile-nav');
