@@ -194,8 +194,23 @@
       color: var(--ink);
       margin-bottom: 16px;
     }
-    .hero__title .ht-yellow { color: var(--yellow); }
-    .hero__title .ht-teal { color: var(--teal-dark); }
+    /* 文字そのものを黄色にすると生成り地で1.7:1しか出ず、かすれて野暮ったく見える。
+       文字はインク(13:1)のまま、色はサイト共通のマーカーとして下に敷く */
+    .hero__title .ht-yellow,
+    .hero__title .ht-teal {
+      color: var(--ink);
+      background-repeat: no-repeat;
+      background-position: 0 100%;
+      -webkit-box-decoration-break: clone; box-decoration-break: clone;
+      padding: 0 .06em;
+    }
+    .hero__title .ht-yellow { background-image: linear-gradient(rgba(245,210,74,.62), rgba(245,210,74,.62)); }
+    .hero__title .ht-teal   { background-image: linear-gradient(rgba(95,193,199,.62), rgba(95,193,199,.62)); }
+    /* 「から」「へ。」は繋ぎ語。小さく淡くして、2つの語だけを立たせる */
+    .hero__title .ht-join {
+      font-size: .62em; font-weight: 700; color: #9c8d80;
+      letter-spacing: .06em; margin: 0 .1em;
+    }
     /* 段落に役割を与えて、同じ文章量でも「読む量」を減らして見せる。
        1文目＝問いかけ（大きく濃く）／中の2段落＝背景（小さく淡く）／最後＝結論（濃く） */
     .hero__sub {
@@ -777,11 +792,14 @@
     /* 見出しが着地したあと、色のついた2語だけ遅れてピントが合う。
        「主体性療育から → IT療育へ」という文の骨格を、動きでも読ませる。
        opacity は親（.hero__title）が持っているので、ここでは触らない */
+    /* 見出しが着地したあと、2つの語にマーカーが引かれる。
+       下層ページで使っている強調表現と同じ言語にして、サイト全体で揃える。
+       曲線はペンで引くような等速寄り（--ease-out だと序盤で一気に伸びて速く見える） */
     .js-ready .hero__title .ht-yellow,
-    .js-ready .hero__title .ht-teal { filter: blur(7px); }
-    .bm-ready .hero__title .ht-yellow { animation: wordFocus .75s var(--ease-out) .95s forwards; }
-    .bm-ready .hero__title .ht-teal   { animation: wordFocus .75s var(--ease-out) 1.20s forwards; }
-    @keyframes wordFocus { to { filter: blur(0); } }
+    .js-ready .hero__title .ht-teal { background-size: 0 32%; }
+    .bm-ready .hero__title .ht-yellow { animation: heroMark 1.05s cubic-bezier(.45,.25,.4,1) 1.15s forwards; }
+    .bm-ready .hero__title .ht-teal   { animation: heroMark 1.05s cubic-bezier(.45,.25,.4,1) 1.45s forwards; }
+    @keyframes heroMark { to { background-size: 100% 32%; } }
 
     /* ---- ② 見出しの共通シグネチャ：ラベルの両脇に線が伸び、続いて表題が上がる ---- */
     .js-ready .section-tag { opacity: 0; }
@@ -871,7 +889,7 @@
         opacity: 1 !important; transform: none !important; filter: none !important;
       }
       .js-ready .hero__img-wrap { clip-path: none !important; }
-      .js-ready .hero__title .ht-yellow, .js-ready .hero__title .ht-teal { filter: none !important; }
+      .js-ready .hero__title .ht-yellow, .js-ready .hero__title .ht-teal { background-size: 100% 32% !important; }
       .js-ready .svc__img img { transform: none !important; }
       .js-ready .section-tag::before, .js-ready .section-tag::after { transform: none !important; }
       .bm-ready .hero__img-wrap, .bm-ready .hero__title, .bm-ready .hero__sub, .bm-ready .hero__btns,
@@ -1050,8 +1068,8 @@
 <!-- ===== Hero ===== -->
 <section class="hero">
   <div class="hero__text">
-    <h1 class="hero__title"><span class="ht-yellow">主体性療育</span>から<br><span class="ht-teal">IT療育</span>へ。</h1>
-    <p class="hero__sub hero__sub--lead">「このこは将来、自分の力で生きていけるのか」</p>
+    <h1 class="hero__title"><span class="ht-yellow">主体性療育</span><span class="ht-join">から</span><br><span class="ht-teal">IT療育</span><span class="ht-join">へ。</span></h1>
+    <p class="hero__sub hero__sub--lead">「このこは将来、<br>自分の力で生きていけるのか」</p>
     <p class="hero__sub">特性を持つおこさんの保護者に共通する、<br>切実な不安です。<br>事実、強い特性を持つ成人は<br>収入に約50%もの差が生じるという<br>データもあります。</p>
     <p class="hero__sub">主体性療育で「見えない力」を育み、<br>IT療育で社会を生き抜く「見える力」へ。<br>苦手の克服だけでなく、強みを武器に変える。</p>
     <p class="hero__sub hero__sub--close">私たちが描く、経済的自立から逆算した<br>10年間のロードマップです。</p>
