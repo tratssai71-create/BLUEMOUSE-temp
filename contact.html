@@ -100,10 +100,12 @@
     .ct-tabs-lv3-wrap .ct-tabs { padding:0; background:transparent; gap:18px; }
     .ct-tabs-lv3-wrap .ct-tab { flex:none; font-size:12px; padding:4px 2px 6px; border-radius:0; border-bottom:2px solid transparent; color:#a89583; }
     .ct-tabs-lv3-wrap .ct-tab.is-active { background:transparent; color:var(--ink); border-bottom-color:var(--ink); font-weight:700; }
-    /* 期間限定の窓口。イエロー＝情報ラベル（コーラルは送信ボタン＝行動色なので使わない） */
     .ct-tabs-lv3-wrap .ct-tabs { flex-wrap:wrap; row-gap:6px; }
-    .ct-tab-badge { font-size:9.5px; font-weight:700; letter-spacing:.02em; line-height:1.4;
-      color:#6b4f08; background:var(--yellow); padding:2px 6px; border-radius:100px; white-space:nowrap; }
+    /* 選択後の確認表示に付ける期間ラベル。
+       イエロー＝情報ラベル（コーラルは送信ボタン＝行動色なので使わない） */
+    .ct-summary-badge { display:inline-block; margin-left:8px; vertical-align:2px;
+      font-size:10px; font-weight:700; letter-spacing:.02em; line-height:1.5;
+      color:#6b4f08; background:var(--yellow); padding:2px 8px; border-radius:100px; white-space:nowrap; }
 
     /* Form */
     .ct-form { background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:20px; padding:36px 32px; transition:background .3s ease; }
@@ -374,7 +376,7 @@
       <div class="ct-tabs" id="ct-tabs-lv3">
         <button type="button" class="ct-tab" data-choice="trial">体験</button>
         <button type="button" class="ct-tab" data-choice="general">お問い合わせ</button>
-        <button type="button" class="ct-tab" data-choice="soudan">子育て相談<span class="ct-tab-badge">9月末まで</span></button>
+        <button type="button" class="ct-tab" data-choice="soudan">子育て相談</button>
       </div>
     </div>
   </div>
@@ -720,8 +722,15 @@
   // 児発の専用フォームは体験と子育て相談で共用する。件名の出し分けに使う
   var childFormMode = 'trial';
 
-  function updateSummary(text, isChild, isRecruit) {
-    summaryEls.forEach(function (el) { el.textContent = text || ''; });
+  function updateSummary(text, isChild, isRecruit, badge) {
+    summaryEls.forEach(function (el) {
+      el.textContent = text || '';
+      if (!badge) return;
+      var b = document.createElement('span');
+      b.className = 'ct-summary-badge';
+      b.textContent = badge;
+      el.appendChild(b);
+    });
     summaryTagEls.forEach(function (el) {
       el.classList.toggle('is-child', !!isChild);
       el.classList.toggle('is-recruit', !!isRecruit);
@@ -836,7 +845,8 @@
       if (!revealed) { showForm(null); showAccess(null); updateSummary('', false); return; }
       if (state.role === 'recruit') { showForm('recruit'); showAccess(null); updateSummary('採用について', false, true); return; }
       showAccess(state.facility);
-      updateSummary(FACILITY_NAME[state.facility] + '・' + CHOICE_NAME[state.choice], state.facility === 'child');
+      updateSummary(FACILITY_NAME[state.facility] + '・' + CHOICE_NAME[state.choice], state.facility === 'child',
+        false, state.choice === 'soudan' ? '9月末まで' : null);
       // 子育て相談は児発だけの窓口。設問は体験と同じなので専用フォームを使い回す
       if (state.facility === 'child' && (state.choice === 'trial' || state.choice === 'soudan')) {
         childFormMode = state.choice;
