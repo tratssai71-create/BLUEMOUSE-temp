@@ -275,9 +275,17 @@
     .pg-future-item__body p { font-size:14.5px; color:#6b5a4c; line-height:2; }
 
     /* Quote */
-    .pg-quote { background:var(--bg); border-radius:20px; padding:var(--card-pad); margin-bottom:var(--section-gap); text-align:center; border-left:4px solid var(--yellow); }
-    .pg-quote__text { font-size:clamp(1.1rem,2vw,1.4rem); font-weight:700; color:var(--ink); line-height:1.55; }
-    .pg-quote__text em { font-style:normal; color:var(--ink); background:linear-gradient(transparent 84%, rgba(95,193,199,.85) 84%); }
+    /* ページの締めの一行。箱に入れるとスタンスカードと同じ扱いになり、
+       左ボーダーと中央揃えも矛盾するため、囲いを全て外して余白と文字の大きさだけで見せる。
+       ページ本文で最大の文字にすることが、そのまま強調になる */
+    .pg-quote { text-align:center; padding:var(--sp-8) 0; margin-bottom:var(--section-gap); }
+    .pg-quote__mark { display:block; width:10px; height:10px; margin:0 auto var(--sp-6);
+      background:var(--yellow); border-radius:2px; transform:rotate(45deg); }
+    .pg-quote__text { font-size:clamp(1.6rem,3.6vw,2.15rem); font-weight:700; color:var(--ink);
+      line-height:1.65; letter-spacing:.02em; word-break:keep-all; overflow-wrap:anywhere; }
+    /* 「この子が、」は前置き。小さく落として、後半の一言を立たせる */
+    .pg-quote__lead { display:block; font-size:15px; font-weight:600; color:#6b5a4c;
+      letter-spacing:.08em; margin-bottom:var(--sp-3); }
 
     /* Info table */
     .pg-info { margin-bottom:var(--section-gap); }
@@ -410,9 +418,13 @@
     .js-ready .pg-future-item + .pg-future-item { border-top-color:transparent; transition:border-top-color 1s ease .1s; }
     .js-ready .pg-future-item.is-visible { border-top-color:rgba(51,37,26,.10); }
 
-    /* ---- ⑥ 引用：ローディングと同じ“ピントが合う”言語で揃える ---- */
-    .js-ready .pg-quote__text { opacity:0; filter:blur(5px); transform:translateY(8px); }
-    .is-visible .pg-quote__text { animation:focusIn .95s var(--ease-out) .1s forwards; }
+    /* ---- ⑥ 締めの一行：ローディングと同じ“ピントが合う”言語で締める ---- */
+    .js-ready .pg-quote__mark { opacity:0; transform:rotate(45deg) scale(.35); }
+    .is-visible .pg-quote__mark { animation:diamondIn .6s cubic-bezier(.34,1.56,.64,1) .05s forwards; }
+    .js-ready .pg-quote__lead { opacity:0; transform:translateY(10px); }
+    .is-visible .pg-quote__lead { animation:softRise .7s var(--ease-out) .2s forwards; }
+    .js-ready .pg-quote__text { opacity:0; filter:blur(6px); transform:translateY(10px); }
+    .is-visible .pg-quote__text { animation:focusIn 1.1s var(--ease-out) .38s forwards; }
     @keyframes focusIn { to { opacity:1; filter:blur(0); transform:none; } }
 
     /* ---- ⑦ 概要テーブル：行が順に現れる ---- */
@@ -436,13 +448,13 @@
        行をまたぐ場合も各行が同じ長さ比で引かれるよう box-decoration-break:clone を指定 */
     .pg-intro__lead em, .pg-worry__body em, .pg-worry__body strong,
     .pg-stance__body em, .pg-stance__body strong,
-    .pg-future__intro em, .pg-quote__text em {
+    .pg-future__intro em {
       background-repeat:no-repeat;
       -webkit-box-decoration-break:clone; box-decoration-break:clone;
     }
     .js-ready .pg-intro__lead em, .js-ready .pg-worry__body em, .js-ready .pg-worry__body strong,
     .js-ready .pg-stance__body em, .js-ready .pg-stance__body strong,
-    .js-ready .pg-future__intro em, .js-ready .pg-quote__text em {
+    .js-ready .pg-future__intro em {
       background-size:0 100%;
       /* --ease-out は序盤で一気に伸びる曲線（20%の時間で67%描画）で「速い」と感じるため、
          ペンで引くような等速寄りの曲線に変更。遅延はショートハンドに含める
@@ -455,7 +467,7 @@
     .js-ready .pg-worry__body.is-visible strong,
     .is-visible .pg-intro__lead em,
     .is-visible .pg-stance__body em, .is-visible .pg-stance__body strong,
-    .is-visible .pg-future__intro em, .is-visible .pg-quote__text em {
+    .is-visible .pg-future__intro em {
       background-size:100% 100%;
     }
     /* 同じ段落内で em → strong の順に引かれるよう、strong だけ少し後ろにずらす */
@@ -463,7 +475,7 @@
     @media (prefers-reduced-motion:reduce) {
       .js-ready .pg-intro__lead em, .js-ready .pg-worry__body em, .js-ready .pg-worry__body strong,
       .js-ready .pg-stance__body em, .js-ready .pg-stance__body strong,
-      .js-ready .pg-future__intro em, .js-ready .pg-quote__text em {
+      .js-ready .pg-future__intro em {
         background-size:100% 100% !important; transition:none !important;
       }
     }
@@ -474,7 +486,7 @@
       .js-ready .pg-kodawari-num, .js-ready .pg-kodawari-item__head h3, .js-ready .pg-kodawari-body,
       .js-ready .pg-schedule-card, .js-ready .pg-schedule-list li,
       .js-ready .pg-future-item__body h3, .js-ready .pg-future-item__body p, .js-ready .pg-future-item::before,
-      .js-ready .pg-quote__text, .js-ready .pg-table tr, .js-ready .pg-cta.fade-in, .js-ready .pg-info__title {
+      .js-ready .pg-quote__text, .js-ready .pg-quote__lead, .js-ready .pg-quote__mark, .js-ready .pg-table tr, .js-ready .pg-cta.fade-in, .js-ready .pg-info__title {
         opacity:1 !important; transform:none !important; filter:none !important;
       }
       .js-ready .pg-hero__img-wrap { clip-path:none !important; }
@@ -486,8 +498,8 @@
       .is-visible .pg-info__title, .is-visible .pg-kodawari-num, .is-visible .pg-schedule-card,
       .is-visible .pg-schedule-list li, .pg-future-item.is-visible .pg-future-item__body h3,
       .pg-future-item.is-visible .pg-future-item__body p, .pg-future-item.is-visible::before,
-      .is-visible .pg-quote__text,
-      .is-visible .pg-table tr { animation:none !important; }
+      .is-visible .pg-quote__text, .is-visible .pg-quote__lead,
+      .is-visible .pg-quote__mark, .is-visible .pg-table tr { animation:none !important; }
     }
 
     @media (max-width:780px) {
@@ -774,7 +786,8 @@
   </div>
 
   <div class="pg-quote fade-in">
-    <p class="pg-quote__text">この子が、<em>自ら育む。</em></p>
+    <span class="pg-quote__mark"></span>
+    <p class="pg-quote__text"><span class="pg-quote__lead">この子が、</span>自分で自分を育てる。</p>
   </div>
 
   <div class="pg-info fade-in" id="overview">
