@@ -421,6 +421,7 @@
             <option value="5歳">5歳</option>
             <option value="5歳半">5歳半</option>
           </select>
+          <span class="ct-note" id="age-note" style="display:none;"></span>
           <span class="ct-error" id="err-age">年齢を選択してください。</span>
         </div>
         <div class="ct-field" id="field-grade" style="display:none;">
@@ -530,6 +531,7 @@
             <option value="5歳">5歳</option>
             <option value="5歳半">5歳半</option>
           </select>
+          <span class="ct-note">※ 新規のご利用開始は5歳半頃までを目安としています。</span>
           <span class="ct-error" id="cerr-age">年齢を選択してください。</span>
         </div>
         <div class="ct-field">
@@ -739,6 +741,13 @@
       o.textContent = label;
       sel.appendChild(o);
     });
+    // 6歳・6年生が一覧に無い理由が分からないと、該当する方が入力できずに詰まる
+    var note = document.getElementById('age-note');
+    if (note) {
+      var isChild = (facility === 'child');
+      note.textContent = isChild ? '※ 新規のご利用開始は5歳半頃までを目安としています。' : '';
+      note.style.display = isChild ? '' : 'none';
+    }
     sel.value = keep;   // 事業を選び直しても、同じ選択肢が残っていれば維持する
     // 新しい一覧に無い値だった場合 selectedIndex が -1 になり欄が空白になるので、
     // 「選択してください」に戻す
@@ -751,20 +760,34 @@
     if (!f) return;
     var show = (facility === 'afterschool');
     f.style.display = show ? '' : 'none';
-    // 隠したまま値が残ると、児発の問い合わせに学年が付いて届いてしまう
-    if (!show) {
-      var sel = document.getElementById('f-grade');
-      if (sel) sel.value = '';
-    }
+    if (!show) clearHiddenFields(['field-grade']);
   }
 
+  // 隠した項目の入力値とエラー表示を消す。
+  // 残したままだと、放デイで入力した診断名や受給者証が
+  // 児発の問い合わせに付いて届いてしまう
+  function clearHiddenFields(ids) {
+    ids.forEach(function (id) {
+      var box = document.getElementById(id);
+      if (!box) return;
+      box.querySelectorAll('input, select, textarea').forEach(function (el) {
+        el.value = '';
+        el.classList.remove('is-error');
+      });
+      box.querySelectorAll('.ct-error').forEach(function (e) { e.classList.remove('is-show'); });
+    });
+  }
+
+  var AFTERSCHOOL_ONLY_FIELDS = ['field-child-name', 'field-gender', 'field-diagnosis', 'field-certificate', 'field-timing', 'field-school', 'field-class', 'field-concurrent'];
+
   function setAfterschoolExtraFields(show) {
-    ['section-guardian', 'section-child', 'section-institutional', 'field-child-name', 'field-gender', 'field-diagnosis', 'field-certificate', 'field-timing', 'field-school', 'field-class', 'field-concurrent'].forEach(function (id) {
+    ['section-guardian', 'section-child', 'section-institutional'].concat(AFTERSCHOOL_ONLY_FIELDS).forEach(function (id) {
       document.getElementById(id).style.display = show ? '' : 'none';
     });
+    if (!show) clearHiddenFields(AFTERSCHOOL_ONLY_FIELDS);
     if (show) {
       document.getElementById('school-label').textContent = '現在通っている学校名';
-      document.getElementById('f-school').placeholder = '○○小学校・○○中学校';
+      document.getElementById('f-school').placeholder = '○○小学校';
       document.getElementById('privacy-note').textContent = '診断名など配慮が必要な情報も含め、いただいた内容は責任を持って大切に管理いたします。';
     } else {
       document.getElementById('privacy-note').textContent = '送信いただいた情報は、お問い合わせ対応のために適切に管理し、使用します。';
