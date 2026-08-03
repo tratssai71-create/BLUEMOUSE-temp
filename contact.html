@@ -421,6 +421,18 @@
           </select>
           <span class="ct-error" id="err-age">年齢を選択してください。</span>
         </div>
+        <div class="ct-field" id="field-grade" style="display:none;">
+          <label class="ct-label" for="f-grade">おこさまの学年<span class="ct-req">*</span></label>
+          <select class="ct-select" id="f-grade" name="grade">
+            <option value="">選択してください</option>
+            <option value="1年生">1年生</option>
+            <option value="2年生">2年生</option>
+            <option value="3年生">3年生</option>
+            <option value="4年生">4年生</option>
+            <option value="5年生">5年生</option>
+          </select>
+          <span class="ct-error" id="err-grade">学年を選択してください。</span>
+        </div>
         <div class="ct-field" id="field-gender" style="display:none;">
           <label class="ct-label" for="f-gender">性別<span class="ct-req">*</span></label>
           <select class="ct-select" id="f-gender" name="gender">
@@ -730,6 +742,19 @@
     if (sel.selectedIndex < 0) sel.selectedIndex = 0;
   }
 
+  // 学年は放課後等デイサービスだけの設問。体験・お問い合わせのどちらでも表示する
+  function setGradeField(facility) {
+    var f = document.getElementById('field-grade');
+    if (!f) return;
+    var show = (facility === 'afterschool');
+    f.style.display = show ? '' : 'none';
+    // 隠したまま値が残ると、児発の問い合わせに学年が付いて届いてしまう
+    if (!show) {
+      var sel = document.getElementById('f-grade');
+      if (sel) sel.value = '';
+    }
+  }
+
   function setAfterschoolExtraFields(show) {
     ['section-guardian', 'section-child', 'section-institutional', 'field-child-name', 'field-gender', 'field-diagnosis', 'field-certificate', 'field-timing', 'field-school', 'field-class', 'field-concurrent'].forEach(function (id) {
       document.getElementById(id).style.display = show ? '' : 'none';
@@ -747,6 +772,7 @@
     document.getElementById('facility-select').value = FACILITY_LABEL.afterschool;
     document.getElementById('field-facility').style.display = 'none';
     setAgeOptions('afterschool');
+    setGradeField('afterschool');
     setAfterschoolExtraFields(true);
     showForm('general');
     showAccess('afterschool');
@@ -785,6 +811,7 @@
       document.getElementById('field-facility').style.display = 'none';
       document.getElementById('age-label').textContent = state.facility === 'child' ? 'おこさまのねんれい' : 'おこさまの年齢';
       setAgeOptions(state.facility);
+      setGradeField(state.facility);
 
       setAfterschoolExtraFields(state.facility === 'afterschool' && state.choice === 'trial');
     };
@@ -861,7 +888,7 @@
   function showError(el, errId) { el.classList.add('is-error'); var e = document.getElementById(errId); if (e) e.classList.add('is-show'); }
   function clearError(el, errId) { el.classList.remove('is-error'); var e = document.getElementById(errId); if (e) e.classList.remove('is-show'); }
 
-  [['f-name','err-name'],['f-age','err-age'],['f-email','err-email'],['f-tel','err-tel'],['facility-select','err-facility'],['f-child-name','err-child-name'],['f-gender','err-gender'],['f-diagnosis','err-diagnosis'],['f-concurrent','err-concurrent']].forEach(function (pair) {
+  [['f-name','err-name'],['f-age','err-age'],['f-grade','err-grade'],['f-email','err-email'],['f-tel','err-tel'],['facility-select','err-facility'],['f-child-name','err-child-name'],['f-gender','err-gender'],['f-diagnosis','err-diagnosis'],['f-concurrent','err-concurrent']].forEach(function (pair) {
     var el = document.getElementById(pair[0]);
     if (!el) return;
     ['input','change'].forEach(function (ev) { el.addEventListener(ev, function () { clearError(el, pair[1]); }); });
@@ -880,6 +907,8 @@
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value)) { showError(emailEl, 'err-email'); valid = false; } else clearError(emailEl, 'err-email');
     var telEl = document.getElementById('f-tel');
     if (!telEl.value.trim()) { showError(telEl, 'err-tel'); valid = false; } else clearError(telEl, 'err-tel');
+    var gradeEl = document.getElementById('f-grade');
+    if (document.getElementById('field-grade').style.display !== 'none' && !gradeEl.value) { showError(gradeEl, 'err-grade'); valid = false; } else clearError(gradeEl, 'err-grade');
     var childNameEl = document.getElementById('f-child-name');
     if (document.getElementById('field-child-name').style.display !== 'none' && !childNameEl.value.trim()) { showError(childNameEl, 'err-child-name'); valid = false; } else clearError(childNameEl, 'err-child-name');
     var genderEl = document.getElementById('f-gender');
@@ -919,6 +948,7 @@
         email: emailEl.value,
         child_name: childNameEl.value,
         child_age: ageEl.value,
+        grade: gradeEl.value,
         gender: genderEl.value,
         diagnosis: diagnosisEl.value,
         phone: document.getElementById('f-tel').value,
