@@ -703,6 +703,32 @@
     });
   }
 
+  // 年齢の選択肢は事業ごとに違う。同じ <select> を使い回しているので中身ごと入れ替える
+  var AGE_OPTIONS = {
+    afterschool: ['5歳', '6歳', '7歳', '8歳', '9歳', '10歳', '11歳'],
+    child: ['2〜5歳（未就学）', '6〜9歳（小学1〜3年）', '10〜12歳（小学4〜6年）', '13〜15歳（中学生）', '16〜18歳（高校生）']
+  };
+  function setAgeOptions(facility) {
+    var sel = document.getElementById('f-age');
+    if (!sel) return;
+    var keep = sel.value;
+    sel.innerHTML = '';
+    var ph = document.createElement('option');
+    ph.value = '';
+    ph.textContent = '選択してください';
+    sel.appendChild(ph);
+    (AGE_OPTIONS[facility] || AGE_OPTIONS.child).forEach(function (label) {
+      var o = document.createElement('option');
+      o.value = label;
+      o.textContent = label;
+      sel.appendChild(o);
+    });
+    sel.value = keep;   // 事業を選び直しても、同じ選択肢が残っていれば維持する
+    // 新しい一覧に無い値だった場合 selectedIndex が -1 になり欄が空白になるので、
+    // 「選択してください」に戻す
+    if (sel.selectedIndex < 0) sel.selectedIndex = 0;
+  }
+
   function setAfterschoolExtraFields(show) {
     ['section-guardian', 'section-child', 'section-institutional', 'field-child-name', 'field-gender', 'field-diagnosis', 'field-certificate', 'field-timing', 'field-school', 'field-class', 'field-concurrent'].forEach(function (id) {
       document.getElementById(id).style.display = show ? '' : 'none';
@@ -719,6 +745,7 @@
   if (urlType === 'afterschool') {
     document.getElementById('facility-select').value = FACILITY_LABEL.afterschool;
     document.getElementById('field-facility').style.display = 'none';
+    setAgeOptions('afterschool');
     setAfterschoolExtraFields(true);
     showForm('general');
     showAccess('afterschool');
@@ -756,6 +783,7 @@
       document.getElementById('facility-select').value = FACILITY_LABEL[state.facility];
       document.getElementById('field-facility').style.display = 'none';
       document.getElementById('age-label').textContent = state.facility === 'child' ? 'おこさまのねんれい' : 'おこさまの年齢';
+      setAgeOptions(state.facility);
 
       setAfterschoolExtraFields(state.facility === 'afterschool' && state.choice === 'trial');
     };
