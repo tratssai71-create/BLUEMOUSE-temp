@@ -456,18 +456,18 @@
        2枚とも半透明にすると合成後の不透明度が1を下回り、背後の地色が透けてしまう */
     .svc__img--cross img { position: absolute; inset: 0; }
     .svc__img-alt { opacity: 0; }
-    /* 1.75秒見せて0.75秒かけて入れ替える（周期5秒）。跳ぶ瞬間が繰り返し目に入る速さ。
+    /* 1.1秒見せて0.65秒かけて入れ替える（周期3.5秒）。跳ぶ瞬間が繰り返し目に入る速さ。
        カードが画面に入ると .svc.is-visible .svc__img img の imgSettle（詳細度0,3,1）が
        animation ショートハンドごと上書きしてしまうため、こちらを0,4,0にしたうえで
        登場のなじみ（transform）と入れ替え（opacity）を1つの指定に併記する */
-    .js-ready .svc__img-alt { animation: svcCross 5s ease-in-out infinite; }
+    .js-ready .svc__img-alt { animation: svcCross 3.5s ease-in-out infinite; }
     .js-ready .svc.is-visible .svc__img-alt {
       animation: imgSettle 1.5s var(--ease-out) .1s backwards,
-                 svcCross 5s ease-in-out infinite;
+                 svcCross 3.5s ease-in-out infinite;
     }
     @keyframes svcCross {
-      0%, 35%  { opacity: 0; }
-      50%, 85% { opacity: 1; }
+      0%, 31%  { opacity: 0; }
+      50%, 81% { opacity: 1; }
       100%     { opacity: 0; }
     }
     .svc__img-tag {
@@ -1141,8 +1141,8 @@
     </a>
     <a href="https://jp.indeed.com/cmp/C-Eighty-Percent-LLC/jobs" target="_blank" rel="noopener" class="svc svc--ink fade-in">
       <div class="svc__img svc__img--cross">
-        <img src="./photos/recruit_team_stand_opt.jpg" alt="畑の前に並ぶBLUE MOUSEのスタッフ" style="object-position:center 100%;" />
-        <img src="./photos/recruit_team_jump_opt.jpg" alt="" aria-hidden="true" class="svc__img-alt" style="object-position:center 100%;" />
+        <img src="./photos/recruit_team_stand_opt.jpg" alt="畑の前に並ぶBLUE MOUSEのスタッフ" style="object-position:center 72%;" />
+        <img src="./photos/recruit_team_jump_opt.jpg" alt="" aria-hidden="true" class="svc__img-alt" style="object-position:center 72%;" />
         <span class="svc__img-tag">Recruit</span>
       </div>
       <div class="svc__body">
