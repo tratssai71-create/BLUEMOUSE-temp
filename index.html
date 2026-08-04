@@ -456,18 +456,18 @@
        2枚とも半透明にすると合成後の不透明度が1を下回り、背後の地色が透けてしまう */
     .svc__img--cross img { position: absolute; inset: 0; }
     .svc__img-alt { opacity: 0; }
-    /* 5.2秒見せて1.3秒かけて入れ替える。動きを主張させず、視界の端で気づく速さにする。
+    /* 1.75秒見せて0.75秒かけて入れ替える（周期5秒）。跳ぶ瞬間が繰り返し目に入る速さ。
        カードが画面に入ると .svc.is-visible .svc__img img の imgSettle（詳細度0,3,1）が
        animation ショートハンドごと上書きしてしまうため、こちらを0,4,0にしたうえで
        登場のなじみ（transform）と入れ替え（opacity）を1つの指定に併記する */
-    .js-ready .svc__img-alt { animation: svcCross 13s ease-in-out infinite; }
+    .js-ready .svc__img-alt { animation: svcCross 5s ease-in-out infinite; }
     .js-ready .svc.is-visible .svc__img-alt {
       animation: imgSettle 1.5s var(--ease-out) .1s backwards,
-                 svcCross 13s ease-in-out infinite;
+                 svcCross 5s ease-in-out infinite;
     }
     @keyframes svcCross {
-      0%, 40%  { opacity: 0; }
-      50%, 90% { opacity: 1; }
+      0%, 35%  { opacity: 0; }
+      50%, 85% { opacity: 1; }
       100%     { opacity: 0; }
     }
     .svc__img-tag {
