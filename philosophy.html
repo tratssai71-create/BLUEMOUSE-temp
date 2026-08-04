@@ -5,18 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#FFFEFB" />
   <title>BLUE MOUSEの想い｜岡山市の児童発達支援・放課後等デイサービス</title>
-  <meta name="description" content="BLUE MOUSEが大切にしている考え方。主体性療育で「見えない力」を育み、IT療育で社会を生き抜く「見える力」へ。経済的自立から逆算した10年間のロードマップです。" />
+  <meta name="description" content="10年後、「自分らしく働く」ための土台と武器。就職がゴールではなく、無理なく長く働き続けられること。主体性療育で安心の土台を、IT療育で見える力を。経済的自立から逆算した10年間のロードマップです。" />
   <link rel="canonical" href="https://bluemouse.blue/philosophy.html" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://bluemouse.blue/philosophy.html" />
   <meta property="og:title" content="BLUE MOUSEの想い｜BLUE MOUSE" />
-  <meta property="og:description" content="BLUE MOUSEが大切にしている考え方。主体性療育で「見えない力」を育み、IT療育で社会を生き抜く「見える力」へ。経済的自立から逆算した10年間のロードマップです。" />
+  <meta property="og:description" content="10年後、「自分らしく働く」ための土台と武器。主体性療育で安心の土台を、IT療育で見える力を。経済的自立から逆算した10年間のロードマップです。" />
   <meta property="og:image" content="https://bluemouse.blue/photos/IMG_8852.jpg" />
   <meta property="og:site_name" content="BLUE MOUSE" />
   <meta property="og:locale" content="ja_JP" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="BLUE MOUSEの想い｜BLUE MOUSE" />
-  <meta name="twitter:description" content="BLUE MOUSEが大切にしている考え方。主体性療育で「見えない力」を育み、IT療育で社会を生き抜く「見える力」へ。経済的自立から逆算した10年間のロードマップです。" />
+  <meta name="twitter:description" content="10年後、「自分らしく働く」ための土台と武器。主体性療育で安心の土台を、IT療育で見える力を。経済的自立から逆算した10年間のロードマップです。" />
   <meta name="twitter:image" content="https://bluemouse.blue/photos/IMG_8852.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -27,7 +27,18 @@
     body { font-family: "Zen Maru Gothic", sans-serif; background: #FFFEFB; color: #33251a; line-height: 1.75; -webkit-font-smoothing: antialiased; }
     a { text-decoration: none; color: inherit; }
     img { display: block; max-width: 100%; }
-    :root { --coral:#f2906c; --coral-light:#fdf0eb; --teal:#5fc1c7; --teal-dark:#3a9095; --teal-light:#e8f6f7; --yellow:#f5d24a; --yellow-light:#fef9e7; --ink:#33251a; --green:#3a6b5e; --bg:#faf8f5; }
+    /* 想いページは会社全体のページなので、児発のイエローと放デイの濃いティールの両方を
+       「段階の色」として使い分ける（イエロー=土台/児発、濃いティール=武器/放デイ）。
+       #5fc1c7(ロゴティール)は白地2.1:1のため文字色には使わない */
+    :root { --coral:#f2906c; --coral-light:#fdf0eb; --teal:#5fc1c7; --teal-dark:#3a9095; --teal-deep:#2c6e72; --teal-light:#e8f6f7;
+      --yellow:#f5d24a; --yellow-dark:#d9a520; --yellow-light:#fef9e7; --yellow-ink:#6b4f08;
+      --ink:#33251a; --green:#3a6b5e; --bg:#faf8f5;
+      /* 余白スケール（4px基準）。セクション間とカード内側はこの2つが唯一の基準値 */
+      --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:24px; --sp-6:32px; --sp-7:48px; --sp-8:64px;
+      --gutter:32px;
+      /* イージングはこの2種類だけを使い回す */
+      --ease-out:cubic-bezier(.22,1,.36,1); --ease-io:cubic-bezier(.65,0,.35,1);
+      --section-gap:var(--sp-8); --card-pad:var(--sp-6); }
 
     /* Header */
     .header { position: fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 32px; height:60px; background: transparent; backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid rgba(0,0,0,.05); }
@@ -73,42 +84,124 @@
     .mn-insta { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1.5px solid rgba(0,0,0,.15); border-radius: 12px; color: var(--ink); margin-top: 8px; }
     .mn-insta:hover { border-color: var(--teal); color: var(--teal); }
 
-    /* Page header */
-    .pg-page-header { padding:100px 32px 40px; text-align:center; background:var(--bg); border-bottom:1px solid rgba(0,0,0,.04); }
-    .pg-page-tag { font-family:"Inter",sans-serif; font-size:11px; font-weight:600; letter-spacing:.3em; text-transform:uppercase; color:var(--teal); margin-bottom:10px; }
-    .pg-page-title { font-family:"Zen Maru Gothic",sans-serif; font-size:clamp(1.5rem,3vw,2.2rem); font-weight:700; color:var(--ink); line-height:1.4; margin-bottom:10px; }
-    .pg-page-sub { font-size:14px; color:#8a7a6e; }
+    /* Page hero（児発・放デイページと同じ、写真と文字の2分割ヒーロー） */
+    .pg-hero { padding:100px 32px var(--section-gap); max-width:1240px; margin:0 auto; display:grid; grid-template-columns:0.9fr 1.2fr; gap:var(--sp-7); align-items:center; }
+    .pg-hero__text { order:1; }
+    .pg-hero__tag { display:inline-flex; align-items:center; gap:6px; font-family:"Inter",sans-serif; font-size:11px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--teal-dark); margin-bottom:10px; }
+    .pg-hero__tag::before { content:''; width:20px; height:1px; background:var(--teal-dark); opacity:.5; }
+    .pg-hero__title { font-family:"Zen Maru Gothic",sans-serif; font-size:clamp(1.55rem,3.2vw,2.4rem); font-weight:700; line-height:1.5; color:var(--ink); margin-bottom:14px; word-break:keep-all; overflow-wrap:anywhere; }
+    /* 「土台」=主体性療育のイエロー、「武器」=IT療育のティール。
+       トップのヒーローと同じマーカー帯で、サイト全体の対応関係をここでも揃える */
+    .pg-hero__title .hl-y, .pg-hero__title .hl-t { background-repeat:no-repeat; background-position:0 100%;
+      -webkit-box-decoration-break:clone; box-decoration-break:clone; padding:0 .05em; }
+    .pg-hero__title .hl-y { background-image:linear-gradient(rgba(245,210,74,.62), rgba(245,210,74,.62)); }
+    .pg-hero__title .hl-t { background-image:linear-gradient(rgba(95,193,199,.62), rgba(95,193,199,.62)); }
+    .pg-hero__sub { font-size:15px; color:#8a7a6e; line-height:1.9; }
+    .pg-hero__visual { order:2; position:relative; }
+    .pg-hero__img-wrap { position:relative; border-radius:24px; overflow:hidden; aspect-ratio:16/11; box-shadow:0 12px 40px rgba(0,0,0,.08); }
+    .pg-hero__img-wrap img { width:100%; height:100%; object-fit:cover; }
 
     /* Content */
-    .pg-content { max-width:820px; margin:0 auto; padding:48px 32px 80px; }
+    .pg-content { max-width:820px; margin:0 auto; padding:0 var(--gutter) 80px; }
 
-    /* Intro */
-    .pg-intro { margin-bottom:48px; }
-    .pg-intro__lead { font-size:clamp(1.2rem,2.2vw,1.6rem); font-weight:700; color:var(--ink); line-height:1.5; margin-bottom:16px; }
-    .pg-intro__lead em { font-style:normal; color:var(--coral); }
-    .pg-intro__body { font-size:15px; color:#6b5a4c; line-height:2; }
+    /* Section title（このページだけ、縦バーをイエロー→ティールのグラデーションにする。
+       「主体性療育からIT療育へ」という10年の流れを、見出しの記号にも持たせる） */
+    .pg-info__title { font-size:21px; font-weight:700; color:var(--ink); margin-bottom:var(--sp-4); display:flex; align-items:center; gap:var(--sp-3); letter-spacing:.02em; }
+    .pg-info__title::before { content:''; width:4px; height:24px; background:linear-gradient(180deg, var(--yellow) 0%, var(--teal) 100%); border-radius:2px; flex-shrink:0; }
 
-    /* Feature blocks */
-    .pg-features { display:flex; flex-direction:column; gap:40px; margin-bottom:56px; }
-    .pg-feat { display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:center; }
-    .pg-feat:nth-child(even) .pg-feat__img { order:2; }
-    .pg-feat:nth-child(even) .pg-feat__text { order:1; }
-    .pg-feat__img { border-radius:16px; overflow:hidden; aspect-ratio:16/10; }
-    .pg-feat__img img { width:100%; height:100%; object-fit:cover; object-position:center 30%; }
-    .pg-feat__tag { font-family:"Inter",sans-serif; font-size:10px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--teal); margin-bottom:6px; }
-    .pg-feat__title { font-size:18px; font-weight:700; color:var(--ink); margin-bottom:10px; line-height:1.45; }
-    .pg-feat__desc { font-size:14px; color:#6b5a4c; line-height:1.9; }
+    /* Section 1: ゴールの再定義 */
+    .pg-goal { margin-bottom:var(--section-gap); }
+    .pg-intro__lead { font-size:clamp(1.2rem,2.2vw,1.5rem); font-weight:700; color:var(--ink); line-height:1.7; margin:var(--sp-4) 0; word-break:keep-all; overflow-wrap:anywhere; }
+    .pg-body { font-size:15px; color:#6b5a4c; line-height:2; }
+    .pg-body + .pg-body { margin-top:var(--sp-4); }
+    .pg-body em { font-style:normal; font-weight:700; color:var(--ink); background:linear-gradient(transparent 86%, rgba(95,193,199,.85) 86%); }
+    .pg-body strong { font-weight:700; color:var(--ink); background:linear-gradient(transparent 62%, rgba(245,210,74,.5) 62%); }
 
-    /* Quote */
-    .pg-quote { background:var(--bg); border-radius:20px; padding:36px 32px; margin-bottom:56px; text-align:center; border-left:4px solid var(--teal); }
-    .pg-quote__text { font-size:clamp(1.1rem,2vw,1.4rem); font-weight:700; color:var(--ink); line-height:1.55; }
-    .pg-quote__text em { font-style:normal; color:var(--coral); }
+    /* Section 2: 現実の数字と2つの落とし穴 */
+    .pg-reality { margin-bottom:var(--section-gap); }
+    /* 厳しいデータの提示なので、ブランド色を着けず墨一色の数字で見せる */
+    .pg-stats { display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-5); margin:var(--sp-5) 0 var(--sp-6); }
+    .pg-stat { border-top:2px solid var(--ink); padding-top:var(--sp-4); }
+    .pg-stat__num { display:block; font-family:"Inter","Zen Maru Gothic",sans-serif; font-size:clamp(1.8rem,4.5vw,2.4rem); font-weight:700; color:var(--ink); line-height:1.2; letter-spacing:.01em; font-variant-numeric:tabular-nums; }
+    .pg-stat__num small { font-size:.52em; font-weight:700; }
+    .pg-stat__label { display:block; margin-top:var(--sp-2); font-size:12.5px; color:#7d6d60; line-height:1.75; }
+
+    /* 落とし穴：ネガティブな内容なのでイエローは使わず、悩みバブルと同じ中立の暖色グレー */
+    .pg-pit-list { display:flex; flex-direction:column; gap:var(--sp-6); margin:var(--sp-5) 0 var(--sp-6); }
+    .pg-pit-item__head { display:flex; align-items:center; gap:var(--sp-4); margin-bottom:var(--sp-4); }
+    .pg-pit-item__head h3 { font-size:17px; font-weight:700; color:var(--ink); line-height:1.55; margin:0; word-break:keep-all; overflow-wrap:anywhere; }
+    .pg-pit-num { width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:"Inter",sans-serif; font-size:16px; font-weight:700; flex-shrink:0; background:#f1ece5; color:#6b5a4c; }
+    .pg-pit-body { padding-left:60px; }
+    .pg-pit-body p { font-size:14px; color:#6b5a4c; line-height:1.9; }
+
+    /* だからこそ（問題から解決へ折り返す段落）：児発ページのスタンスと同じ、罫2本の区切り */
+    .pg-stance { border-top:1px solid rgba(51,37,26,.14); border-bottom:1px solid rgba(51,37,26,.14);
+      padding:var(--sp-6) 0; }
+
+    /* Section 3: ロードマップ（LPのフローチャートと同じ、上から下へ流れる図） */
+    .pg-roadmap { margin-bottom:var(--section-gap); }
+    .pg-flow-list { display:flex; flex-direction:column; margin-top:var(--sp-6); }
+    /* カード自身に overflow:hidden を付けると、カードの外（top:-56px）に置く
+       接続線と矢じり（::before/::after）が切り取られる。丸めは写真側で行う */
+    .pg-flow-item { position:relative; background:#fff; border-radius:18px;
+      border:1px solid rgba(217,165,32,.25);
+      box-shadow:0 2px 4px rgba(51,37,26,.04), 0 12px 28px rgba(51,37,26,.07); }
+    .pg-flow-item__photo { aspect-ratio:16/8; overflow:hidden; border-radius:17px 17px 0 0; }
+    .pg-flow-item__photo img { width:100%; height:100%; object-fit:cover; }
+    .pg-flow-item__inner { padding:var(--sp-5); }
+    .pg-flow-item__head { display:flex; align-items:center; gap:var(--sp-3); margin-bottom:var(--sp-2); flex-wrap:wrap; }
+    .pg-flow-item__num { flex-shrink:0; font-size:12px; font-weight:700; letter-spacing:.05em; padding:5px 13px; border-radius:100px; }
+    .pg-flow-item__head h3 { font-size:19px; font-weight:700; color:var(--ink); line-height:1.5; margin:0; }
+    .pg-flow-item__sub { font-size:13.5px; font-weight:600; color:#7d6d60; letter-spacing:.04em; margin-bottom:var(--sp-3); }
+    .pg-flow-item__body { font-size:14.5px; color:#6b5a4c; line-height:2; }
+
+    /* 段階ごとの色。児発=イエロー、放デイ=濃いティール、将来=2色が合流するグラデーション */
+    .pg-flow-item--yellow .pg-flow-item__num { background:var(--yellow); color:var(--yellow-ink); }
+    .pg-flow-item--teal { border-color:rgba(58,144,149,.30); }
+    .pg-flow-item--teal .pg-flow-item__num { background:var(--teal-deep); color:#fff; }
+    .pg-flow-item--arrive { border-color:rgba(95,193,199,.45);
+      background:linear-gradient(140deg, var(--yellow-light) 0%, #fff 46%, var(--teal-light) 100%); }
+    .pg-flow-item--arrive .pg-flow-item__num { background:linear-gradient(120deg, var(--yellow) 0%, var(--teal) 100%); color:var(--ink); }
+
+    /* 次の段階へ下りる導線。カード間に56pxの間を作り、そこへ線と矢じりを置く。
+       線の色も「イエローからティールへ」段階に合わせて変えていく */
+    .pg-flow-item + .pg-flow-item { margin-top:56px; }
+    .pg-flow-item + .pg-flow-item::before { content:''; position:absolute; left:50%; top:-56px; width:2px; height:38px;
+      border-radius:2px; transform:translateX(-50%) scaleY(1); transform-origin:top center; }
+    .pg-flow-item + .pg-flow-item::after { content:''; position:absolute; left:50%; top:-22px; width:11px; height:11px;
+      border-right:2.5px solid; border-bottom:2.5px solid; border-radius:1px;
+      transform:translateX(-50%) rotate(45deg); }
+    /* ::after の色は「.pg-flow-item + .pg-flow-item::after」のショートハンド（currentColor）に
+       負けないよう、同じ隣接セレクタ込みの詳細度で指定する */
+    .pg-flow-item + .pg-flow-item--teal::before { background:linear-gradient(180deg, var(--yellow) 0%, var(--teal-dark) 100%); }
+    .pg-flow-item + .pg-flow-item--teal::after { border-color:var(--teal-dark); }
+    .pg-flow-item + .pg-flow-item--arrive::before { background:linear-gradient(180deg, var(--teal-dark) 0%, var(--teal) 100%); }
+    .pg-flow-item + .pg-flow-item--arrive::after { border-color:var(--teal); }
+
+    .pg-roadmap__outro { margin-top:var(--sp-6); }
+
+    /* Quote（締めの一行）：装飾を足さず、余白と文字の大きさと「現れ方」だけで特別にする */
+    .pg-quote { position:relative; text-align:center; padding:0; margin:calc(var(--section-gap) * 2) 0; }
+    .pg-quote::before { content:''; position:absolute; left:50%; top:50%;
+      width:min(760px,100%); height:300px; transform:translate(-50%,-50%); border-radius:50%;
+      background:radial-gradient(ellipse at center, rgba(245,210,74,.15) 0%, rgba(95,193,199,.08) 46%, rgba(255,255,255,0) 73%);
+      filter:blur(10px); pointer-events:none; animation:quoteAura 16s linear infinite; }
+    .pg-quote__text { position:relative; font-size:clamp(1.7rem,3.9vw,2.35rem); font-weight:700; color:var(--ink);
+      line-height:1.7; letter-spacing:.03em; word-break:keep-all; overflow-wrap:anywhere; }
+    .pg-quote__lead { display:block; font-size:15px; font-weight:600; color:#6b5a4c; letter-spacing:.1em; margin-bottom:var(--sp-4); }
+    .pg-quote__char { display:inline-block; white-space:pre; }
+    @keyframes quoteAura {
+      0%   { transform:translate(-50%,-50%) scale(1);    opacity:.85; }
+      33%  { transform:translate(-51%,-52%) scale(1.06); opacity:1; }
+      66%  { transform:translate(-49%,-49%) scale(.97);  opacity:.9; }
+      100% { transform:translate(-50%,-50%) scale(1);    opacity:.85; }
+    }
 
     /* CTA */
-    .pg-cta { text-align:center; padding:48px 32px; background:linear-gradient(135deg, var(--teal-light) 0%, var(--coral-light) 100%); border-radius:24px; margin-bottom:56px; }
+    .pg-cta { text-align:center; padding:var(--sp-7) var(--sp-6); background:linear-gradient(135deg, var(--yellow-light) 0%, var(--teal-light) 100%); border-radius:24px; margin-bottom:var(--section-gap); }
     .pg-cta__title { font-size:clamp(1.2rem,2.2vw,1.5rem); font-weight:700; color:var(--ink); margin-bottom:8px; }
-    .pg-cta__sub { font-size:14px; color:#8a7a6e; margin-bottom:20px; }
-    .pg-cta__phone { margin-top:20px; font-size:13px; color:#8a7a6e; }
+    .pg-cta__sub { font-size:14px; color:#8a7a6e; margin-bottom:var(--sp-5); }
+    .pg-cta__phone { margin-top:var(--sp-5); font-size:13px; color:#8a7a6e; }
     .pg-cta__phone strong { font-size:22px; font-weight:700; color:var(--ink); letter-spacing:.02em; }
 
     /* Footer */
@@ -127,20 +220,164 @@
     .footer__fac + .footer__fac { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.06); }
     .footer__bottom { max-width: 1000px; margin: 0 auto; text-align: center; padding-top: 16px; font-family: "Inter", sans-serif; font-size: 11px; color: #5a6a6c; }
 
-    /* Fade */
-    .js-ready .fade-in { opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s cubic-bezier(.22,1,.36,1); }
+    /* =========================================================
+       Motion
+       設計方針（児発ページと共通）：
+       - イージングは2種類（--ease-out=減速 / --ease-io=溜めて放つ）
+       - 並んだ要素は必ず stagger で順に読ませる
+       - 「大胆に」動かすのは ヒーロー / 数字のカウントアップ / フロー図 / 締めの一行 のみ
+       ========================================================= */
+
+    /* ---- 基本のスクロール登場 ---- */
+    .js-ready .fade-in { opacity:0; transform:translateY(28px); transition:opacity .85s ease, transform .85s var(--ease-out); }
     .fade-in.is-visible { opacity:1; transform:none; }
+    /* 個別アニメを持つ要素では、fade-in は「発火のきっかけ」専用にして動きを二重化させない */
+    .js-ready .pg-pit-item.fade-in,
+    .js-ready .pg-flow-item.fade-in { transition:none; }
+
+    /* ---- ① ヒーロー（大胆）：画像を下から拭い上げ、文字が順に立ち上がる ---- */
+    .js-ready .pg-hero__img-wrap { clip-path:inset(0 0 100% 0); }
+    .js-ready .pg-hero__img-wrap img { transform:scale(1.14); }
+    .bm-ready .pg-hero__img-wrap { animation:heroWipe 1.15s var(--ease-io) .1s forwards; }
+    .bm-ready .pg-hero__img-wrap img { animation:heroSettle 1.6s var(--ease-out) .1s forwards; }
+    @keyframes heroWipe   { to { clip-path:inset(0 0 0 0); } }
+    @keyframes heroSettle { to { transform:scale(1); } }
+
+    .js-ready .pg-hero__tag,
+    .js-ready .pg-hero__title,
+    .js-ready .pg-hero__sub { opacity:0; transform:translateY(20px); }
+    .bm-ready .pg-hero__tag   { animation:heroRise .85s var(--ease-out) .34s forwards; }
+    .bm-ready .pg-hero__title { animation:heroRise .85s var(--ease-out) .44s forwards; }
+    .bm-ready .pg-hero__sub   { animation:heroRise .85s var(--ease-out) .56s forwards; }
+    @keyframes heroRise { to { opacity:1; transform:none; } }
+    .js-ready .pg-hero__tag::before { transform:scaleX(0); transform-origin:left center; }
+    .bm-ready .pg-hero__tag::before { animation:tagLine .7s var(--ease-io) .5s forwards; }
+    @keyframes tagLine { to { transform:scaleX(1); } }
+
+    /* 見出しのマーカーは、文字が着地してから土台→武器の順に引く */
+    .js-ready .pg-hero__title .hl-y, .js-ready .pg-hero__title .hl-t { background-size:0 32%; }
+    .bm-ready .pg-hero__title .hl-y { animation:heroMark 1.0s cubic-bezier(.45,.25,.4,1) 1.2s forwards; }
+    .bm-ready .pg-hero__title .hl-t { animation:heroMark 1.0s cubic-bezier(.45,.25,.4,1) 1.5s forwards; }
+    @keyframes heroMark { to { background-size:100% 32%; } }
+
+    /* ---- ② 見出しの共通シグネチャ：縦バーが引かれてから文字が寄る ---- */
+    .js-ready .pg-info__title::before { transform:scaleY(0); transform-origin:top center; }
+    .js-ready .pg-info__title { opacity:0; transform:translateX(-8px); }
+    .is-visible .pg-info__title { animation:titleIn .6s var(--ease-out) .1s forwards; }
+    .is-visible .pg-info__title::before { animation:barDraw .5s var(--ease-io) forwards; }
+    @keyframes titleIn { to { opacity:1; transform:none; } }
+    @keyframes barDraw { to { transform:scaleY(1); } }
+
+    /* ---- ③ 数字（大胆）：罫が引かれ、数字がカウントアップする ---- */
+    .js-ready .pg-stat { border-top-color:transparent; }
+    .js-ready .pg-stat__num, .js-ready .pg-stat__label { opacity:0; transform:translateY(10px); }
+    .is-visible .pg-stat { border-top-color:var(--ink); transition:border-top-color .6s ease; }
+    .is-visible .pg-stat__num   { animation:softRise .6s var(--ease-out) .15s forwards; }
+    .is-visible .pg-stat__label { animation:softRise .6s var(--ease-out) .3s forwards; }
+    .is-visible .pg-stat:nth-child(2) .pg-stat__num   { animation-delay:.3s; }
+    .is-visible .pg-stat:nth-child(2) .pg-stat__label { animation-delay:.45s; }
+
+    /* ---- ④ 落とし穴01/02：番号が弾んで出て、本文が続く ---- */
+    .js-ready .pg-pit-num { opacity:0; transform:scale(.4) rotate(-12deg); }
+    .js-ready .pg-pit-item__head h3,
+    .js-ready .pg-pit-body { opacity:0; transform:translateY(14px); }
+    .pg-pit-item.is-visible .pg-pit-num { animation:numPop .7s cubic-bezier(.34,1.56,.64,1) .1s forwards; }
+    .pg-pit-item.is-visible .pg-pit-item__head h3 { animation:softRise .65s var(--ease-out) .2s forwards; }
+    .pg-pit-item.is-visible .pg-pit-body { animation:softRise .65s var(--ease-out) .28s forwards; }
+    @keyframes numPop   { to { opacity:1; transform:scale(1) rotate(0); } }
+    @keyframes softRise { to { opacity:1; transform:none; } }
+
+    /* ---- スタンス：区切りの罫線が静かに濃くなる ---- */
+    .js-ready .pg-stance { border-top-color:transparent; border-bottom-color:transparent;
+      transition:border-top-color 1s ease .15s, border-bottom-color 1s ease .15s; }
+    .js-ready .pg-stance.is-visible { border-top-color:rgba(51,37,26,.14); border-bottom-color:rgba(51,37,26,.14); }
+
+    /* ---- ⑤ フロー図（大胆）：ラベルが弾み、線が上から下へ引かれて次の段階へ渡す ---- */
+    .js-ready .pg-flow-item { opacity:0; transform:translateY(20px); }
+    .js-ready .pg-flow-item__num { opacity:0; transform:scale(.4) rotate(-10deg); }
+    .js-ready .pg-flow-item__head h3, .js-ready .pg-flow-item__sub, .js-ready .pg-flow-item__body { opacity:0; transform:translateY(14px); }
+    .pg-flow-item.is-visible { animation:softRise .75s var(--ease-out) forwards; }
+    .pg-flow-item.is-visible .pg-flow-item__num { animation:numPop .7s cubic-bezier(.34,1.56,.64,1) .12s forwards; }
+    .pg-flow-item.is-visible .pg-flow-item__head h3 { animation:softRise .65s var(--ease-out) .22s forwards; }
+    .pg-flow-item.is-visible .pg-flow-item__sub  { animation:softRise .65s var(--ease-out) .28s forwards; }
+    .pg-flow-item.is-visible .pg-flow-item__body { animation:softRise .65s var(--ease-out) .34s forwards; }
+    /* 写真はカードの登場に合わせて、拡大からそっと落ち着く */
+    .js-ready .pg-flow-item__photo img { transform:scale(1.08); }
+    .pg-flow-item.is-visible .pg-flow-item__photo img { animation:photoSettle 1.5s var(--ease-out) .1s forwards; }
+    @keyframes photoSettle { to { transform:scale(1); } }
+    /* 導線は「そのカードが現れる」のに合わせて引く */
+    .js-ready .pg-flow-item + .pg-flow-item::before { transform:translateX(-50%) scaleY(0); }
+    .js-ready .pg-flow-item + .pg-flow-item::after  { opacity:0; }
+    .pg-flow-item + .pg-flow-item.is-visible::before { animation:lineDraw .55s var(--ease-io) forwards; }
+    .pg-flow-item + .pg-flow-item.is-visible::after  { animation:arrowIn .4s var(--ease-out) .5s forwards; }
+    @keyframes lineDraw { to { transform:translateX(-50%) scaleY(1); } }
+    @keyframes arrowIn  { to { opacity:1; } }
+
+    /* ---- ⑥ 締めの一行：1文字ずつピントが合うように現れる ---- */
+    .js-ready .pg-quote__lead { opacity:0; transform:translateY(10px); }
+    .is-visible .pg-quote__lead { animation:softRise .9s var(--ease-out) .2s forwards; }
+    .js-ready .pg-quote__char { opacity:0; filter:blur(8px); transform:translateY(14px); }
+    .is-visible .pg-quote__char { animation:focusIn 1.2s var(--ease-out) forwards; }
+    @keyframes focusIn { to { opacity:1; filter:blur(0); transform:none; } }
+
+    /* ---- ⑦ CTA（大胆）：わずかに迫り出して"目的地"を主張する ---- */
+    .js-ready .pg-cta.fade-in { transform:translateY(28px) scale(.96); }
+    .pg-cta.fade-in.is-visible { transition:opacity .8s ease, transform .9s var(--ease-out); transform:none; }
+
+    /* ---- ⑧ マーカー：文字が着地してから、少し遅れて線を引く ---- */
+    .pg-body em, .pg-body strong {
+      background-repeat:no-repeat;
+      -webkit-box-decoration-break:clone; box-decoration-break:clone;
+    }
+    .js-ready .pg-body em, .js-ready .pg-body strong {
+      background-size:0 100%;
+      transition:background-size 1.5s cubic-bezier(.45,.25,.4,1) 1.15s;
+    }
+    .is-visible .pg-body em, .is-visible .pg-body strong,
+    .js-ready .pg-body.is-visible em, .js-ready .pg-body.is-visible strong {
+      background-size:100% 100%;
+    }
+    /* 同じ段落内で em → strong の順に引かれるよう、strong だけ少し後ろにずらす */
+    .js-ready .pg-body strong { transition-delay:1.7s; }
+
+    /* ---- 動きを減らす設定では、すべて静止した完成形で見せる ---- */
+    @media (prefers-reduced-motion:reduce) {
+      .js-ready .fade-in, .js-ready .pg-hero__tag, .js-ready .pg-hero__title, .js-ready .pg-hero__sub,
+      .js-ready .pg-stat__num, .js-ready .pg-stat__label,
+      .js-ready .pg-pit-num, .js-ready .pg-pit-item__head h3, .js-ready .pg-pit-body,
+      .js-ready .pg-flow-item, .js-ready .pg-flow-item__num, .js-ready .pg-flow-item__head h3,
+      .js-ready .pg-flow-item__sub, .js-ready .pg-flow-item__body,
+      .js-ready .pg-quote__lead, .js-ready .pg-quote__char, .js-ready .pg-cta.fade-in, .js-ready .pg-info__title {
+        opacity:1 !important; transform:none !important; filter:none !important; animation:none !important; transition:none !important;
+      }
+      .js-ready .pg-hero__img-wrap { clip-path:none !important; animation:none !important; }
+      .js-ready .pg-hero__img-wrap img, .js-ready .pg-flow-item__photo img { transform:none !important; animation:none !important; }
+      .js-ready .pg-info__title::before, .js-ready .pg-hero__tag::before,
+      .js-ready .pg-flow-item + .pg-flow-item::before { transform:translateX(-50%) scaleY(1) !important; animation:none !important; }
+      .js-ready .pg-info__title::before, .js-ready .pg-hero__tag::before { transform:none !important; }
+      .js-ready .pg-flow-item + .pg-flow-item::after { opacity:1 !important; animation:none !important; }
+      .js-ready .pg-stat { border-top-color:var(--ink) !important; }
+      .js-ready .pg-stance { border-top-color:rgba(51,37,26,.14) !important; border-bottom-color:rgba(51,37,26,.14) !important; }
+      .js-ready .pg-hero__title .hl-y, .js-ready .pg-hero__title .hl-t { background-size:100% 32% !important; animation:none !important; }
+      .js-ready .pg-body em, .js-ready .pg-body strong { background-size:100% 100% !important; transition:none !important; }
+      .pg-quote::before { animation:none !important; }
+    }
 
     @media (max-width:780px) {
       .header { padding:0 16px; height:56px; }
       .header__nav { display:none; }
       .header__burger { display:flex; }
       .mobile-nav { top:56px; }
-      .pg-page-header { padding:80px 20px 32px; }
-      .pg-content { padding:32px 20px 60px; }
-      .pg-feat { grid-template-columns:1fr; }
-      .pg-feat:nth-child(even) .pg-feat__img { order:1; }
-      .pg-feat:nth-child(even) .pg-feat__text { order:2; }
+      :root { --section-gap:var(--sp-7); --card-pad:var(--sp-5); --gutter:20px; }
+      .pg-hero { grid-template-columns:1fr; padding:84px 20px var(--section-gap); gap:var(--sp-5); }
+      .pg-hero__text { order:2; text-align:center; }
+      .pg-hero__tag { justify-content:center; }
+      .pg-hero__visual { order:1; }
+      .pg-hero__title { font-size:clamp(1.35rem,5.8vw,1.9rem); }
+      .pg-content { padding:0 var(--gutter) 60px; }
+      .pg-stats { gap:var(--sp-4); }
+      .pg-pit-body { padding-left:0; }
+      .pg-flow-item__head h3 { font-size:18px; }
       .footer { padding: 32px 16px 16px; }
       .footer__inner { grid-template-columns: 1fr; gap: 20px; }
     }
@@ -208,6 +445,7 @@
 
   if (reduce || isInternalNav) {
     if (el.parentNode) el.parentNode.removeChild(el);
+    root.classList.add('bm-ready');
     return;
   }
   root.classList.add('bm-loading');
@@ -218,6 +456,7 @@
     removed = true;
     el.classList.add('is-done');
     root.classList.remove('bm-loading');
+    root.classList.add('bm-ready');
     setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 900);
   }
   var start = Date.now(), MIN = 1500;
@@ -258,46 +497,145 @@
   </a>
 </nav>
 
-<!-- Page Header -->
-<div class="pg-page-header">
-  <p class="pg-page-tag">Philosophy</p>
-  <h1 class="pg-page-title">BLUE MOUSEの想い</h1>
-  <p class="pg-page-sub">主体性療育から、IT療育へ。</p>
-</div>
+<!-- Page Hero -->
+<section class="pg-hero">
+  <div class="pg-hero__text">
+    <p class="pg-hero__tag">Philosophy</p>
+    <h1 class="pg-hero__title">10年後、「自分らしく働く」ための<span class="hl-y">土台</span>と<span class="hl-t">武器</span>。</h1>
+    <p class="pg-hero__sub">私たちが描く、経済的自立から逆算した10年間のロードマップです。</p>
+  </div>
+  <div class="pg-hero__visual">
+    <div class="pg-hero__img-wrap">
+      <img src="./photos/philosophy_hero_opt.jpg" alt="ぶどうを抱えて笑うこども" style="object-position:center 74%;" />
+    </div>
+  </div>
+</section>
 
 <!-- Content -->
 <div class="pg-content">
 
-  <div class="pg-intro fade-in">
-    <p class="pg-intro__lead">「このこは将来、<br><em>自分の力で生きていけるのか</em>」</p>
-    <p class="pg-intro__body">特性を持つおこさんの保護者に共通する、切実な不安です。事実、強い特性を持つ成人は収入に約50%もの差が生じるというデータもあります。</p>
+  <div class="pg-goal fade-in" id="goal">
+    <h2 class="pg-info__title">「就職すること」がゴールではありません</h2>
+    <p class="pg-intro__lead">「将来は就職して、自分の力で生きていってほしい。」</p>
+    <p class="pg-body fade-in">
+      それは、おこさんを大切に想うからこその切実な願いです。<br>
+      しかし、社会に出てから本当に大切なのは、会社に「入ること」ではなく、<strong>「無理なく長く働き続けられること」</strong>です。
+    </p>
+    <p class="pg-body fade-in">
+      特性を持つおこさんは、集団生活の中で「周りと同じようにやらなきゃ」と、自分の気持ちを押し殺して無理をしてしまいがちです。その<em>「見えない我慢」</em>を大人になるまで続けてしまうと、社会に出た時に息苦しさを感じたりエネルギーを使い果たしたりして、働き続けることが難しくなってしまうケースが少なくありません。
+    </p>
   </div>
 
-  <div class="pg-features">
-    <div class="pg-feat fade-in">
-      <div class="pg-feat__img">
-        <img src="./photos/jidou_opt.jpg" alt="主体性療育" />
+  <div class="pg-reality" id="reality">
+    <div class="fade-in">
+      <h2 class="pg-info__title">働き方と収入の選択肢を狭めないために</h2>
+      <p class="pg-body">
+        現在、発達障害の特性のある人の平均年収は約200万円前後にとどまり、約6割が「昇給や賞与の対象になりにくい非正規雇用」で働いているという厳しい現実があります。
+      </p>
+    </div>
+
+    <div class="pg-stats fade-in">
+      <div class="pg-stat">
+        <span class="pg-stat__num"><small>約</small><span data-count="200">200</span><small>万円</small></span>
+        <span class="pg-stat__label">発達障害の特性のある人の平均年収</span>
       </div>
-      <div class="pg-feat__text">
-        <p class="pg-feat__tag">Early Intervention</p>
-        <h3 class="pg-feat__title">主体性療育で、<br>「見えない力」を育む。</h3>
-        <p class="pg-feat__desc">自分ならできるという「自己効力感」や失敗から立ち上がる「折れない心」といった、すべての土台となる「見えない力」を育みます。</p>
+      <div class="pg-stat">
+        <span class="pg-stat__num"><small>約</small><span data-count="6">6</span><small>割</small></span>
+        <span class="pg-stat__label">昇給・賞与の対象になりにくい非正規雇用で働く割合</span>
       </div>
     </div>
-    <div class="pg-feat fade-in">
-      <div class="pg-feat__img">
-        <img src="./photos/hokago_opt.jpg" alt="IT療育" />
+
+    <p class="pg-body fade-in">
+      これは、決して「能力が低い」からではありません。今の社会の仕組みの中で、特性を持った人がどうしても「つまずきやすい2つの落とし穴」があるからです。
+    </p>
+
+    <div class="pg-pit-list">
+      <div class="pg-pit-item fade-in">
+        <div class="pg-pit-item__head">
+          <div class="pg-pit-num">01</div>
+          <h3>「我慢」が当たり前になり、限界までSOSが出せない</h3>
+        </div>
+        <div class="pg-pit-body">
+          <p>特性に合わない環境で「周りと同じように」を強いられ続けると、こどもは「大人や社会は自分の味方ではない」「自分のSOSは受け入れてもらえない」と学習してしまいます。その結果、社会に出ても「ここが苦手なので配慮してほしい」と自分を守るための交渉ができず、周囲に過剰に適応しようと無理を重ねた結果、働き続けるエネルギーが枯渇してしまうのです。</p>
+        </div>
       </div>
-      <div class="pg-feat__text">
-        <p class="pg-feat__tag">IT療育</p>
-        <h3 class="pg-feat__title">その力を、<br>社会を生き抜く「見える力」へ。</h3>
-        <p class="pg-feat__desc">強み（特性）を生かして「見える力」を武器へ。「IT療育」で、未来の選択肢を広げ、収入格差に立ち向かいます。苦手の克服だけでなく、強みを武器に変える。</p>
+      <div class="pg-pit-item fade-in">
+        <div class="pg-pit-item__head">
+          <div class="pg-pit-num">02</div>
+          <h3>「失敗への恐れ」から、自ら可能性を狭めてしまう</h3>
+        </div>
+        <div class="pg-pit-body">
+          <p>「ダメ出し」や「正解の押し付け」が多い環境では、失敗が恐怖になり、試行錯誤ができなくなります。すると「自分なら何とかできる」という自己効力感（自分への自信）が育たず、社会の壁にぶつかった時に、傷つかないために自分の行動や判断・仕事などさまざまなことへの選択肢を自ら限定してしまいます。</p>
+        </div>
       </div>
+    </div>
+
+    <p class="pg-body fade-in" style="margin-bottom:var(--sp-6);">
+      つまり、<em>「周囲を信頼して自分の状態を伝える力」</em>と、<em>「失敗を恐れず試行錯誤する折れない心」</em>を持たないまま大人になってしまうことが、収入や選択肢の壁を生んでいる本質的な理由です。
+    </p>
+
+    <div class="pg-stance fade-in">
+      <p class="pg-body">
+        だからこそ、私たちが目指すのは目先の「苦手の克服」や「スキル習得」だけではありません。<br><br>
+        まずは「ここは安全だ。大人や周囲の人は自分の味方だ。」という基本的な信頼感<strong>【安心の土台】</strong>を作り、自分で選んで挑戦する<strong>【主体性療育】</strong>を通して、「自分でなんとかできる」「困ったら人に頼れる」という自分基準の自信を育てます。<br><br>
+        その揺るぎない土台の上に乗る<em>「ITという確かな武器」</em>と、ITを通じて身につける<em>「実用的なコミュニケーションスキル」</em>こそが、おこさんが将来自分を守り、社会で豊かに生き抜くための最強の力になると私たちは信じています。
+      </p>
     </div>
   </div>
 
-  <div class="pg-quote fade-in">
-    <p class="pg-quote__text">私たちが描く、<em>経済的自立</em>から逆算した10年間のロードマップです。</p>
+  <div class="pg-roadmap" id="roadmap">
+    <div class="fade-in">
+      <h2 class="pg-info__title">BLUE MOUSEが描く「一貫したロードマップ」</h2>
+      <p class="pg-body">
+        私たちが考える「経済的自立」への道筋は、児童発達支援から放課後等デイサービスまでの一貫した支援で形作られます。<strong>「見えない力（土台）」</strong>と<em>「見える力（武器）」</em>を両輪として、たくましく自立するまでの10年間をサポートします。
+      </p>
+    </div>
+
+    <div class="pg-flow-list">
+      <div class="pg-flow-item pg-flow-item--yellow fade-in">
+        <!-- 児発ページのヒーローと同じ写真。ロードマップの段階と各事業ページを視覚的に紐づける -->
+        <div class="pg-flow-item__photo"><img src="./photos/hero_staff_child.jpg" alt="スタッフに見守られながら積み木で遊ぶこども" style="object-position:center 42%;" /></div>
+        <div class="pg-flow-item__inner">
+          <div class="pg-flow-item__head">
+            <span class="pg-flow-item__num">児童発達支援</span>
+            <h3>主体性療育</h3>
+          </div>
+          <p class="pg-flow-item__sub">〜見えない力（心の根っこ）〜</p>
+          <p class="pg-flow-item__body">まずは、生涯を支える「見えない力」を育てる時期です。安心できる環境の中で、「自分で決めて動く」「失敗しても試行錯誤する」経験を積み重ねます。この過程で自分の気持ちを言葉にする力を手にすることが、将来、周りに過剰に適応して心をすり減らすことなく、「助けて」とSOSを出せるための絶対的な土台になります。</p>
+        </div>
+      </div>
+
+      <div class="pg-flow-item pg-flow-item--teal fade-in">
+        <div class="pg-flow-item__photo"><img src="./photos/hero_afterschool.jpg" alt="パソコンとテキストで学ぶこども" style="object-position:center 32%;" /></div>
+        <div class="pg-flow-item__inner">
+          <div class="pg-flow-item__head">
+            <span class="pg-flow-item__num">放課後等デイサービス</span>
+            <h3>IT療育</h3>
+          </div>
+          <p class="pg-flow-item__sub">〜見える力（強み）と交渉力〜</p>
+          <p class="pg-flow-item__body">心の土台ができたら、本格的なPC課題を通じて「将来の選択肢を広げるITスキル」を身につけます。周りのこが指1本で打つ中で、自分はタッチタイピングでスラスラ打てる。そんな目に見える成功体験が、大きな自信と「パソコンが得意！」という誇りを育みます。<br>同時に、エラーにつまずいた時に「ここが分からない」と人に頼る練習や、気が乗らない時に「これくらいなら頑張れる」と折り合いをつける経験を積みます。単なるスキル習得にとどまらず、社会で自分を守るための「言葉で交渉する力」を養う実践期です。</p>
+        </div>
+      </div>
+
+      <div class="pg-flow-item pg-flow-item--arrive fade-in">
+        <div class="pg-flow-item__inner">
+          <div class="pg-flow-item__head">
+            <span class="pg-flow-item__num">将来</span>
+            <h3>経済的自立</h3>
+          </div>
+          <p class="pg-flow-item__sub">〜自分らしく歩む未来〜</p>
+          <p class="pg-flow-item__body">これが、私たちの目指す最大の着地点です。「見えない力」と「見える力」を両輪にして進むおこさんは、周囲に流されたり諦めたりするのではなく、自分に合った働き方や環境を、自ら主体的に選んでいくことができます。<br>自分の特性（トリセツ）を正しく理解し、必要なサポートを周囲へ上手に伝えながら、ITという強みを発揮して社会で活躍していく。自分の価値に自信を持って経済的な自立を果たし、生き生きとたくましく歩んでいく姿へと繋げていきます。</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="pg-body pg-roadmap__outro fade-in">
+      私たちBLUE MOUSEは、この<strong>「土台」</strong>と<em>「武器」</em>を10年かけて丁寧に育み、おこさんが経済的なゆとりを持ちながら、笑顔で自分らしく生きていける未来を一緒に創っていきます。
+    </p>
+  </div>
+
+  <div class="pg-quote fade-in" data-reveal="late">
+    <p class="pg-quote__text"><span class="pg-quote__lead">この手で、</span><span class="pg-quote__main">自分の未来を選ぶ。</span></p>
   </div>
 
   <div class="pg-cta fade-in">
@@ -353,22 +691,71 @@
   document.querySelectorAll('.mn-accordion__toggle').forEach(function (btn) { btn.addEventListener('click', function () { btn.closest('.mn-accordion').classList.toggle('is-open'); }); });
   document.documentElement.classList.add('js-ready');
 
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // 締めの一行を1文字ずつに分解する（失敗しても元の文字列がそのまま残る）
+  (function () {
+    var main = document.querySelector('.pg-quote__main');
+    if (!main || !main.textContent) return;
+    var chars = Array.prototype.slice.call(main.textContent);
+    var frag = document.createDocumentFragment();
+    chars.forEach(function (ch, i) {
+      var sp = document.createElement('span');
+      sp.className = 'pg-quote__char';
+      sp.textContent = ch;
+      // 前置き「この手で、」が出たあとから、1文字ずつ間を置いて焦点を結ばせる
+      sp.style.animationDelay = (0.6 + i * 0.11).toFixed(3) + 's';
+      frag.appendChild(sp);
+    });
+    main.textContent = '';
+    main.appendChild(frag);
+  })();
+
+  // 数字のカウントアップ：統計が目に入った瞬間に0から実数まで駆け上がる。
+  // 動きを減らす設定では最初から実数のまま
+  function countUp(el) {
+    if (reduce || !window.requestAnimationFrame) return;
+    var to = parseInt(el.getAttribute('data-count'), 10);
+    if (!to) return;
+    var dur = to > 100 ? 1400 : 900;
+    var start = null;
+    function frame(t) {
+      if (start === null) start = t;
+      var p = Math.min(1, (t - start) / dur);
+      var e = 1 - Math.pow(1 - p, 3); /* easeOutCubic */
+      el.textContent = Math.round(to * e);
+      if (p < 1) requestAnimationFrame(frame);
+    }
+    el.textContent = '0';
+    requestAnimationFrame(frame);
+  }
+
   var els = Array.prototype.slice.call(document.querySelectorAll('.fade-in'));
-  function reveal(el) { el.classList.add('is-visible'); }
+  function reveal(el) {
+    if (el.classList.contains('is-visible')) return;
+    el.classList.add('is-visible');
+    Array.prototype.forEach.call(el.querySelectorAll('[data-count]'), countUp);
+  }
 
   // 発火線＝画面下端から22%上。要素が「読む位置」に入ってから動き出すので、
-  // スクロールしてきた人の視界の中でアニメーションが起きる
-  var LINE = 0.78;
+  // スクロールしてきた人の視界の中でアニメーションが起きる。
+  // data-reveal="late" の要素は画面中央まで来てから発火させる（見落とさせたくない一行用）
+  var LINE = 0.78, LINE_LATE = 0.55;
+  function lineOf(el) { return el.getAttribute('data-reveal') === 'late' ? LINE_LATE : LINE; }
 
   if (!('IntersectionObserver' in window)) {
     els.forEach(reveal);
   } else {
-    var obs = new IntersectionObserver(function (entries) {
+    function onIntersect(entries, observer) {
       entries.forEach(function (e) {
-        if (e.isIntersecting) { reveal(e.target); obs.unobserve(e.target); }
+        if (e.isIntersecting) { reveal(e.target); observer.unobserve(e.target); }
       });
-    }, { threshold: 0, rootMargin: '0px 0px -22% 0px' });
-    els.forEach(function (el) { obs.observe(el); });
+    }
+    var obs = new IntersectionObserver(onIntersect, { threshold: 0, rootMargin: '0px 0px -22% 0px' });
+    var obsLate = new IntersectionObserver(onIntersect, { threshold: 0, rootMargin: '0px 0px -45% 0px' });
+    els.forEach(function (el) {
+      (el.getAttribute('data-reveal') === 'late' ? obsLate : obs).observe(el);
+    });
 
     // 保険：IOが発火しない状況（裏タブでの読み込み等）でも本文が消えたままにならないよう、
     // スクロール/リサイズで同じ判定を回す。全部出たら自分でリスナーを外す
@@ -378,7 +765,7 @@
       for (var i = 0; i < els.length; i++) {
         var el = els[i];
         if (el.classList.contains('is-visible')) continue;
-        if (el.getBoundingClientRect().top < window.innerHeight * LINE) reveal(el);
+        if (el.getBoundingClientRect().top < window.innerHeight * lineOf(el)) reveal(el);
         else pending++;
       }
       if (!pending) {
@@ -527,13 +914,23 @@
         docked = true;
         move(true);
       } else if (!entry.isIntersecting && docked) {
-        docked = false;
-        move(false);
+        if (entry.boundingClientRect.top >= 0) {
+          docked = false;
+          move(false);
+        }
       }
     });
   }, { threshold: 0.5 });
 
   io.observe(dock);
+
+  window.addEventListener('load', function () {
+    if (dock.getBoundingClientRect().bottom < 0) {
+      docked = true;
+      dock.appendChild(btn);
+      btn.classList.add('is-docked');
+    }
+  });
 })();
 </script>
 </body>
