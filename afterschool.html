@@ -122,7 +122,10 @@
     .pg-kodawari-list { display:flex; flex-direction:column; gap:var(--sp-6); margin-top:var(--sp-4); }
     .pg-kodawari-item { display:block; }
     .pg-kodawari-item__head { display:flex; align-items:center; gap:var(--sp-4); margin-bottom:var(--sp-4); }
-    .pg-kodawari-item__head h3 { font-size:17px; font-weight:700; color:var(--ink); line-height:1.5; margin:0; }
+    /* keep-all＋<wbr>で折返し位置を語の切れ目に固定する（03の長い見出しが
+       「交渉スキ／ル」のように語の途中で割れていた）。入り切らない場合は anywhere が逃げ道 */
+    .pg-kodawari-item__head h3 { font-size:17px; font-weight:700; color:var(--ink); line-height:1.5; margin:0;
+      word-break:keep-all; overflow-wrap:anywhere; }
     .pg-kodawari-num { width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:"Inter",sans-serif; font-size:16px; font-weight:700; flex-shrink:0; }
     /* 地は淡いティール、数字は濃いティール（4.6:1）。
        地をロゴティールのまま濃くすると数字を #1d4a4e まで落とさねばならず重くなるため、
@@ -137,7 +140,8 @@
        ただし塗りつぶすとCTAボタンと同じ強さになるため、白地＋細い枠の控えめな形にする */
     .pg-more { margin-top:var(--sp-4); }
     .pg-more__btn { display:inline-flex; align-items:center; gap:8px; cursor:pointer; list-style:none;
-      padding:9px 16px; border-radius:100px; border:1.5px solid rgba(242,144,108,.5);
+      /* 9pxだと高さ43.8pxでAppleの推奨44pxにわずかに届かない。10pxで45.8pxにする */
+      padding:10px 16px; border-radius:100px; border:1.5px solid rgba(242,144,108,.5);
       background:#fff; color:var(--coral-deep); font-size:13px; font-weight:700; letter-spacing:.02em;
       transition:background .2s, border-color .2s; }
     .pg-more__btn::-webkit-details-marker { display:none; }
@@ -227,7 +231,7 @@
     .pg-future-item { display:grid; grid-template-columns:auto 1fr; gap:26px; align-items:start;
       padding:var(--sp-6) 0; text-align:left; }
     .pg-future-item + .pg-future-item { border-top:1px solid rgba(51,37,26,.10); }
-    /* 目印はイエローの小さな菱形ひとつだけ */
+    /* 目印は濃いティールの小さな菱形ひとつだけ（児発のイエローに対応する放デイ色） */
     .pg-future-item::before { content:''; width:10px; height:10px; margin-top:17px;
       background:var(--theme); border-radius:2px; transform:rotate(45deg); }
     .pg-future-item__body h3 { font-size:23px; font-weight:700; color:var(--ink);
@@ -275,6 +279,8 @@
     /* 制度上の対象と、新規受付の目安は別物なので行内で書き分ける。
        #8a7a6e は白地4.0:1で基準に届かないため、補助文でも #7d6d60（4.9:1）を使う */
     .pg-table__note { display:block; margin-top:6px; font-size:12.5px; color:#7d6d60; line-height:1.75; }
+    /* 電話番号のタップ領域を44pxへ。負のマージンで引き戻すため行の高さは変わらない */
+    .pg-table a[href^="tel:"] { display:inline-block; padding:12px 8px; margin:-12px -8px; }
 
     /* CTA */
     .pg-cta { text-align:center; padding:var(--sp-7) var(--sp-6); background:linear-gradient(135deg, var(--theme-light) 0%, var(--coral-light) 100%); border-radius:24px; margin-bottom:var(--section-gap); }
@@ -375,6 +381,11 @@
     .is-visible .pg-kodawari-item:nth-child(1) .pg-kodawari-body { animation-delay:.34s; }
     .is-visible .pg-kodawari-item:nth-child(2) .pg-kodawari-body { animation-delay:.49s; }
     .is-visible .pg-kodawari-item:nth-child(3) .pg-kodawari-body { animation-delay:.64s; }
+    /* このページは児発と違い4項目ある。児発から持ち込んだ定義は3つ目までで、
+       4つ目だけ遅延なし＝一番先に弾けてリズムが崩れていた */
+    .is-visible .pg-kodawari-item:nth-child(4) .pg-kodawari-num { animation-delay:.60s; }
+    .is-visible .pg-kodawari-item:nth-child(4) .pg-kodawari-item__head h3 { animation-delay:.71s; }
+    .is-visible .pg-kodawari-item:nth-child(4) .pg-kodawari-body { animation-delay:.79s; }
     @keyframes numPop   { to { opacity:1; transform:scale(1) rotate(0); } }
     @keyframes softRise { to { opacity:1; transform:none; } }
 
@@ -439,11 +450,13 @@
 
     /* ---- ⑨ マーカー：文字が着地してから、少し遅れて線を引く ----
        行をまたぐ場合も各行が同じ長さ比で引かれるよう box-decoration-break:clone を指定 */
+    .pg-intro__lead em,
     .pg-stance__body em, .pg-stance__body strong,
     .pg-future__intro em {
       background-repeat:no-repeat;
       -webkit-box-decoration-break:clone; box-decoration-break:clone;
     }
+    .js-ready .pg-intro__lead em,
     .js-ready .pg-stance__body em, .js-ready .pg-stance__body strong,
     .js-ready .pg-future__intro em {
       background-size:0 100%;
@@ -703,7 +716,7 @@
       <div class="pg-kodawari-item fade-in">
         <div class="pg-kodawari-item__head">
           <div class="pg-kodawari-num pg-kodawari-num--theme">03</div>
-          <h3>「我慢」一択にしない。<br>自分の思いと環境をすり合わせる「交渉スキル」</h3>
+          <h3>「我慢」一択にしない。<br>自分の思いと環境を<wbr>すり合わせる<wbr>「交渉スキル」</h3>
         </div>
         <div class="pg-kodawari-body">
           <p class="pg-kodawari-lead">自分の思いも相手の都合も大切にする。リアルな他者との関わり方を学びます。</p>
@@ -800,7 +813,7 @@
       <tr><th>定員</th><td>10名 / 日</td></tr>
       <tr><th>営業時間</th><td>月〜土 放課後〜18:00<br>長期休暇中 10:00〜18:00</td></tr>
       <tr><th>所在地</th><td>岡山市中区徳吉町2丁目11-25</td></tr>
-      <tr><th>電話</th><td>086-273-3880</td></tr>
+      <tr><th>電話</th><td><a href="tel:0862733880">086-273-3880</a></td></tr>
     </table>
   </div>
 
