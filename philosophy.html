@@ -95,7 +95,10 @@
     .pg-hero__title .hl-y, .pg-hero__title .hl-t { background-repeat:no-repeat; background-position:0 100%;
       -webkit-box-decoration-break:clone; box-decoration-break:clone; padding:0 .05em; }
     .pg-hero__title .hl-y { background-image:linear-gradient(rgba(245,210,74,.62), rgba(245,210,74,.62)); }
-    .pg-hero__title .hl-t { background-image:linear-gradient(rgba(95,193,199,.62), rgba(95,193,199,.62)); }
+    /* 「武器」=IT療育=放デイなので、色は濃いティール #3a9095（ロードマップのピル・接続線と同じ）。
+       ただし .62 のままだと帯の重さが紙比2.14となり、イエローの1.27に対して1.7倍で釣り合わない。
+       .384 まで下げると重さ1.57＝イエローと並べても浮かない範囲に収まる */
+    .pg-hero__title .hl-t { background-image:linear-gradient(rgba(58,144,149,.384), rgba(58,144,149,.384)); }
     .pg-hero__sub { font-size:15px; color:#8a7a6e; line-height:1.9; }
     .pg-hero__visual { order:2; position:relative; }
     .pg-hero__img-wrap { position:relative; border-radius:24px; overflow:hidden; aspect-ratio:16/11; box-shadow:0 12px 40px rgba(0,0,0,.08); }
