@@ -150,10 +150,14 @@
     .pg-more__label--close { display:none; }
     .pg-more[open] .pg-more__label--open { display:none; }
     .pg-more[open] .pg-more__label--close { display:inline; }
-    /* 開いた中身はボタンの続きなので、面もコーラル側に寄せる。
-       ページ内で最も面積の大きい色地がティールだと青が勝ちすぎるため、ここを暖色に振る */
+    /* 開いた中身はただの読み物なので、行動の色であるコーラルは敷かない。
+       本文が790〜1039px（画面約1個分）あり、ここを --coral-light で塗ると
+       ページ内で最大の色面がコーラルになって「押せる場所」の意味が薄れる。
+       青に寄せない目的は中立の暖色グレー --bg で足りるため、面は色を持たせず
+       細い罫だけで「開いた領域」を示す */
     .pg-more__body { margin-top:var(--sp-4); padding:var(--sp-5); border-radius:14px;
-      background:var(--coral-light); animation:moreOpen .45s var(--ease-out); }
+      background:var(--bg); border:1px solid rgba(51,37,26,.07);
+      animation:moreOpen .45s var(--ease-out); }
     /* 本文の文字色はサイト共通の暖色グレー。ここだけ寒色グレーだった */
     .pg-more__body p { font-size:14px; color:#6b5a4c; line-height:2; }
     .pg-more__body p + p { margin-top:var(--sp-4); }
@@ -162,6 +166,22 @@
     .pg-more__body em { font-style:normal; font-weight:700; color:var(--ink); }
     .pg-more__body strong { font-weight:700; color:var(--ink); }
     @keyframes moreOpen { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:none; } }
+    /* 読み終わった位置に置く閉じるボタン。上の開閉ボタンは開いた状態だと
+       850〜1099px上にあり、閉じるためだけに画面1個分以上スクロールで戻る必要があった。
+       これは操作なのでコーラル（上のボタンと同じ形）。矢印は上向きにして
+       「たたむ」方向を示す */
+    .pg-more__close { display:inline-flex; align-items:center; gap:8px; cursor:pointer;
+      margin-top:var(--sp-5); padding:9px 16px; border-radius:100px;
+      border:1.5px solid rgba(242,144,108,.5); background:#fff; color:var(--coral-deep);
+      font-family:inherit; font-size:13px; font-weight:700; letter-spacing:.02em;
+      /* button は行高が継承されず既定値になるため、指定しないと上のボタン(43.8px)より
+         4.3px低くなって並びが揃わない。body と同じ 1.75 を明示する */
+      line-height:1.75;
+      transition:background .2s, border-color .2s; }
+    .pg-more__close::before { content:''; width:9px; height:9px; flex-shrink:0;
+      border-right:2px solid currentColor; border-bottom:2px solid currentColor;
+      transform:rotate(-135deg) translate(-2px,-2px); }
+    .pg-more__close:hover { background:var(--coral-tint); border-color:var(--coral); }
     .pg-kodawari-body { padding-left:60px; }
     .pg-kodawari-body p { font-size:14px; color:#6b5a4c; line-height:1.9; }
     .pg-kodawari-body p + p { margin-top:var(--sp-3); }
@@ -646,6 +666,7 @@
           <p><em>「指を置く」ことから始める、挫折させないタイピング習得</em><br>ノートPCを使ったタイピングは、まず両手の人差し指を「F」と「J」に置く（ホームポジション）ことからスタートします。そこから「打って、戻る」という基本動作を少しずつ体に覚えさせます。</p>
           <p>スタッフは、こどもたち一人ひとりのタイピングの癖やつまずきやすさを丁寧に見極め、その状況に最も適した学習ソフトや課題を選択します。こどもたちはゲーム感覚で無理なく練習に取り組めるため、<strong>「少しずつできることが増え、気づいた時にはタッチタイピングができていた」</strong>というBLUE MOUSE独自のアプローチで、着実なスキルの定着を促します。</p>
           <p><em>基礎のプログラミングから、実践的な本格ツールへ</em><br>プログラミング（Scratch）は、論理的思考やPC操作の基礎を養うための重要な課題として、教科書に沿って全員がゲーム制作に取り組みます。さらに、本人の「やってみたい！」という意欲や、学年・理解度に合わせて、ExcelやWord、Illustratorといったより実践的で本格的なツール学習へと個別にステップアップし、将来の選択肢と可能性を広げていきます。</p>
+              <button type="button" class="pg-more__close">閉じる</button>
             </div>
           </details>
         </div>
@@ -667,6 +688,7 @@
           <p><em>「教えてもらう姿勢」と、自分で答えに辿り着く力</em><br>説明を受けるときは、PCから手を止め相手を見る。自分が教えてもらう時に真摯に聞くことができると、教えてくれる側も嬉しくなります。私たちはこうした「人として大切にしたい姿勢」を育てます。また、スタッフはすぐ正解を教えるのではなく、ヒントを伝えながら自分で答えに辿り着けるようサポートします。拗ねたり投げ出したりせず、「もう一回教えて」と聞き直しながら最後までやり切る力を育みます。</p>
           <p><em>「ありがとう」で関係性を築く</em><br>教えてもらった後には、しっかりお礼を伝える。この当たり前の積み重ねが、将来周囲に「助けてあげたい」と思わせる愛される力へ繋がります。</p>
           <p>ここで培う<strong>「周囲の支援を適切に受ける力（＝HELPが出せる力）」</strong>は、将来社会に出たとき、自分自身を守り生き抜くための最大の武器になります。</p>
+              <button type="button" class="pg-more__close">閉じる</button>
             </div>
           </details>
         </div>
@@ -685,6 +707,7 @@
           <p><em>「したい！」を叶えるための、順序立てたお願い</em><br>例えば「あの子と同じデスク（PC）で遊びたい！」と思った時、ただ主張するだけでは叶いません。①一緒にしたい友達に一緒に遊んでくれるか聞く ➔ ②交代してほしい子に相談に行く ➔ ③スタッフに報告し、ホワイトボードを書き換える。この「踏むべき順序」を実践します。</p>
           <p><em>相手の「断る権利」と、断られる経験</em><br>お願いされた側には当然「断る権利」があります。スタッフが無理にイヤイヤ譲らせるような介入はしません。だからこそ、断られて思い通りにならないこともあります。その時のモヤモヤした気持ちや悔しさも、非常に大切な経験です。自分の思いと相手の都合のバランスを学ぶことが、本当の対人スキルになります。</p>
           <p><em>課題を投げ出さないための「強度の調整」</em><br>学校帰りで疲れていて「課題をやりたくない」日もあります。そんな時、不機嫌になって投げ出すのではなく、周囲に働きかけて「これくらいなら頑張れる」というラインに調整する交渉を促します。「全くやらなくていいよ」というわけではありません。自分の状態とすべきこと（課題）をすり合わせ、言葉で折り合いをつける立派な交渉スキルの一つです。</p>
+              <button type="button" class="pg-more__close">閉じる</button>
             </div>
           </details>
         </div>
@@ -704,6 +727,7 @@
           <p><em>「伝える力・相手を思いやる力」を高めるプログラム</em><br>言葉だけで自分のイメージを伝える活動などを通して、「自分の言葉が足りなかった」と自ら気づく経験を積みます。思い通りに伝わらないイライラを態度に出すのではなく、相手の様子を読み取って伝える言葉や行動を柔軟に変えていく姿勢を育てます。</p>
           <p><em>「聞く力・ターンテイキング」を身につけるプログラム</em><br>一方的に話してしまう子には、「交互に話す」ルールを設けたプログラムを実施します。話したい衝動をグッと堪え、「あ、今は相手が話す番だ」と自分自身で気づく（ハッとする）経験を繰り返すことで、相手の話を最後まで落ち着いて聞く姿勢を育みます。</p>
           <p><em>「感情のコントロール・切り替え」を学ぶ勝敗のあるプログラム</em><br>勝ち負けのある遊びを通して、「負けても終わりではないこと」を体感します。負けて怒ったり投げ出したりするのではなく、「まぁいいか」と気持ちを切り替えたり、一旦その場を離れてクールダウンしたりする「適切な悔しがり方」を身につけていきます。</p>
+              <button type="button" class="pg-more__close">閉じる</button>
             </div>
           </details>
         </div>
@@ -825,6 +849,24 @@
   document.querySelectorAll('.mn-link').forEach(function (a) { a.addEventListener('click', function () { burger.classList.remove('is-open'); mobileNav.classList.remove('is-open'); }); });
   document.querySelectorAll('.mn-accordion__toggle').forEach(function (btn) { btn.addEventListener('click', function () { btn.closest('.mn-accordion').classList.toggle('is-open'); }); });
   document.documentElement.classList.add('js-ready');
+
+  // 本文末尾の「閉じる」。閉じると本文ぶん（約1画面）が消えて、その下にあった内容が
+  // せり上がってくるため、開閉ボタンは画面外の上に取り残される。
+  // どこへ飛んだか分からなくならないよう、画面内に無いときだけ連れ戻す
+  document.querySelectorAll('.pg-more__close').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var det = btn.closest('.pg-more');
+      if (!det) return;
+      var sum = det.querySelector('.pg-more__btn');
+      det.open = false;
+      if (!sum) return;
+      var r = sum.getBoundingClientRect();
+      if (r.top < 0 || r.bottom > window.innerHeight) {
+        var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        sum.scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' });
+      }
+    });
+  });
 
   // 締めの一行を1文字ずつに分解する（失敗しても元の文字列がそのまま残る）
   (function () {
