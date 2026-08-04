@@ -655,7 +655,12 @@
       font-size: 13px;
       color: #8a7a6e;
     }
+    /* 発信リンクはインラインのままだとタップ領域が高さ18.5pxしかなく、
+       WCAG 2.2 AAの最小24pxもAppleの推奨44pxも下回る。
+       inline-block にして上下パディングで44pxを確保する（見た目の文字は変わらない） */
     .cta__phone-item a {
+      display: inline-block;
+      padding: 7px 10px;
       color: var(--ink);
       text-decoration: none;
     }

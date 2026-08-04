@@ -255,6 +255,10 @@
     .pg-cta__sub { font-size:14px; color:#8a7a6e; margin-bottom:var(--sp-5); }
     .pg-cta__phone { margin-top:var(--sp-5); font-size:13px; color:#8a7a6e; }
     .pg-cta__phone strong { font-size:22px; font-weight:700; color:var(--ink); letter-spacing:.02em; }
+    /* 発信リンクはインラインのままだとタップ領域が高さ18.5pxしかなく、
+       WCAG 2.2 AAの最小24pxもAppleの推奨44pxも下回る。
+       inline-block にして上下パディングで44pxを確保する（見た目の文字は変わらない） */
+    .pg-cta__phone a { display:inline-block; padding:6px 10px; }
     .pg-cta__btn { display:inline-flex; align-items:center; gap:6px; padding:12px 32px; background:var(--coral); color:#fff; font-size:14px; font-weight:600; border-radius:100px; transition:transform .2s, box-shadow .2s; }
     .pg-cta__btn:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(242,144,108,.3); }
     .pg-cta__btns { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; }
@@ -769,7 +773,7 @@
     <h2 class="pg-cta__title">体験・お問い合わせ</h2>
     <p class="pg-cta__sub">お気軽にご相談ください。</p>
     <div class="cta-dock" id="ctaDock"></div>
-    <p class="pg-cta__phone">お電話はこちら<br><strong>086-273-3880</strong></p>
+    <p class="pg-cta__phone">お電話はこちら<br><a href="tel:0862733880"><strong>086-273-3880</strong></a></p>
   </div>
 
 </div>

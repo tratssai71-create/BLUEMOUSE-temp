@@ -280,6 +280,10 @@
     .pg-cta__sub { font-size:14px; color:#6b5a4c; line-height:1.95; margin-bottom:var(--sp-5); }
     .pg-cta__phone { margin-top:var(--sp-5); font-size:13px; color:#8a7a6e; }
     .pg-cta__phone strong { font-size:22px; font-weight:700; color:var(--ink); letter-spacing:.02em; }
+    /* 発信リンクはインラインのままだとタップ領域が高さ18.5pxしかなく、
+       WCAG 2.2 AAの最小24pxもAppleの推奨44pxも下回る。
+       inline-block にして上下パディングで44pxを確保する（見た目の文字は変わらない） */
+    .pg-cta__phone a { display:inline-block; padding:6px 10px; }
 
     /* ===== Form ===== */
     .pg-form { background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:20px;

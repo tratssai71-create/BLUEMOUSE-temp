@@ -103,6 +103,10 @@
     .pg-cta__sub { font-size:14px; color:#8a7a6e; margin-bottom:20px; }
     .pg-cta__phone { margin-top:20px; font-size:13px; color:#8a7a6e; }
     .pg-cta__phone strong { font-size:22px; font-weight:700; color:var(--ink); letter-spacing:.02em; }
+    /* 発信リンクはインラインのままだとタップ領域が高さ18.5pxしかなく、
+       WCAG 2.2 AAの最小24pxもAppleの推奨44pxも下回る。
+       inline-block にして上下パディングで44pxを確保する（見た目の文字は変わらない） */
+    .pg-cta__phone a { display:inline-block; padding:6px 10px; }
 
     /* Footer */
     .footer { background: #1e2a2c; color: #aaa; padding: 44px 32px 20px; }
@@ -281,7 +285,7 @@
     <h2 class="pg-cta__title">採用に関するお問い合わせ</h2>
     <p class="pg-cta__sub">お気軽にご相談ください。</p>
     <div class="cta-dock" id="ctaDock"></div>
-    <p class="pg-cta__phone">お電話はこちら<br><strong>086-273-3880</strong></p>
+    <p class="pg-cta__phone">お電話はこちら<br><a href="tel:0862733880"><strong>086-273-3880</strong></a></p>
   </div>
 
 </div>

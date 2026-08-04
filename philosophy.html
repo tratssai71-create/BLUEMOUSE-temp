@@ -204,8 +204,18 @@
     .pg-cta { text-align:center; padding:var(--sp-7) var(--sp-6); background:linear-gradient(135deg, var(--yellow-light) 0%, var(--teal-light) 100%); border-radius:24px; margin-bottom:var(--section-gap); }
     .pg-cta__title { font-size:clamp(1.2rem,2.2vw,1.5rem); font-weight:700; color:var(--ink); margin-bottom:8px; }
     .pg-cta__sub { font-size:14px; color:#8a7a6e; margin-bottom:var(--sp-5); }
-    .pg-cta__phone { margin-top:var(--sp-5); font-size:13px; color:#8a7a6e; }
-    .pg-cta__phone strong { font-size:22px; font-weight:700; color:var(--ink); letter-spacing:.02em; }
+    /* 想いページは児発から放デイまでの10年間を語る会社全体のページなので、
+       トップと同じく2施設ぶんを並べる。未就学児の保護者が読者に含まれるため、
+       放デイの番号だけだと対象外の施設へ電話させてしまう。
+       どちらへ掛けるべきか迷わせないよう、番号には必ず施設名を添える */
+    .pg-cta__phones { margin-top:var(--sp-5); display:flex; flex-direction:column; gap:var(--sp-3); align-items:center; }
+    .pg-cta__phone-item { font-size:13px; color:#7d6d60; line-height:1.8; }
+    .pg-cta__phone-item a { color:var(--ink); text-decoration:none; }
+    .pg-cta__phone-item strong { font-size:20px; font-weight:700; color:var(--ink); letter-spacing:.02em; }
+    /* 発信リンクはインラインのままだとタップ領域が高さ18.5pxしかなく、
+       WCAG 2.2 AAの最小24pxもAppleの推奨44pxも下回る。
+       inline-block にして上下パディングで44pxを確保する（見た目の文字は変わらない） */
+    .pg-cta__phone-item a { display:inline-block; padding:7px 10px; }
 
     /* Footer */
     .footer { background: #1e2a2c; color: #aaa; padding: 44px 32px 20px; }
@@ -326,6 +336,10 @@
     /* ---- ⑦ CTA（大胆）：わずかに迫り出して"目的地"を主張する ---- */
     .js-ready .pg-cta.fade-in { transform:translateY(28px) scale(.96); }
     .pg-cta.fade-in.is-visible { transition:opacity .8s ease, transform .9s var(--ease-out); transform:none; }
+    /* 2施設の番号は、カードが着地したあと上から順に現れる */
+    .js-ready .pg-cta__phone-item { opacity:0; transform:translateY(10px); }
+    .pg-cta.is-visible .pg-cta__phone-item:nth-of-type(1) { animation:softRise .7s var(--ease-out) .45s forwards; }
+    .pg-cta.is-visible .pg-cta__phone-item:nth-of-type(2) { animation:softRise .7s var(--ease-out) .55s forwards; }
 
     /* ---- ⑧ マーカー：文字が着地してから、少し遅れて線を引く ---- */
     .pg-body em, .pg-body strong {
@@ -350,7 +364,8 @@
       .js-ready .pg-pit-num, .js-ready .pg-pit-item__head h3, .js-ready .pg-pit-body,
       .js-ready .pg-flow-item, .js-ready .pg-flow-item__num, .js-ready .pg-flow-item__head h3,
       .js-ready .pg-flow-item__sub, .js-ready .pg-flow-item__body,
-      .js-ready .pg-quote__lead, .js-ready .pg-quote__char, .js-ready .pg-cta.fade-in, .js-ready .pg-info__title {
+      .js-ready .pg-quote__lead, .js-ready .pg-quote__char, .js-ready .pg-cta.fade-in,
+      .js-ready .pg-cta__phone-item, .js-ready .pg-info__title {
         opacity:1 !important; transform:none !important; filter:none !important; animation:none !important; transition:none !important;
       }
       .js-ready .pg-hero__img-wrap { clip-path:none !important; animation:none !important; }
@@ -645,7 +660,10 @@
     <h2 class="pg-cta__title">体験・お問い合わせ</h2>
     <p class="pg-cta__sub">お気軽にご相談ください。</p>
     <div class="cta-dock" id="ctaDock"></div>
-    <p class="pg-cta__phone">お電話はこちら<br><strong>086-273-3880</strong></p>
+    <div class="pg-cta__phones">
+      <p class="pg-cta__phone-item">LITTLE BLUE MOUSE（児童発達支援）<br><a href="tel:0862459880"><strong>086-245-9880</strong></a></p>
+      <p class="pg-cta__phone-item">BLUE MOUSE（放課後等デイサービス）<br><a href="tel:0862733880"><strong>086-273-3880</strong></a></p>
+    </div>
   </div>
 
 </div>
