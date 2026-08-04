@@ -143,7 +143,10 @@
     .pg-more__btn::-webkit-details-marker { display:none; }
     .pg-more__btn::before { content:''; width:9px; height:9px; flex-shrink:0;
       border-right:2px solid currentColor; border-bottom:2px solid currentColor;
-      transform:rotate(45deg) translate(-2px,-2px); transition:transform .3s var(--ease-out); }
+      /* 矢印の反転は開閉の高さアニメーションと同じ尺・同じ曲線で回す。
+         ここだけ速いと、本文がまだ動いている最中に矢印が着いてしまう */
+      transform:rotate(45deg) translate(-2px,-2px);
+      transition:transform .7s cubic-bezier(.5,.02,.3,1); }
     .pg-more[open] .pg-more__btn::before { transform:rotate(-135deg) translate(-2px,-2px); }
     /* ホバーの塗りは --coral-light まで濃くすると文字が4.4:1に落ちるので、一段淡い --coral-tint にする */
     .pg-more__btn:hover { background:var(--coral-tint); border-color:var(--coral); }
@@ -156,8 +159,11 @@
        青に寄せない目的は中立の暖色グレー --bg で足りるため、面は色を持たせず
        細い罫だけで「開いた領域」を示す */
     .pg-more__body { margin-top:var(--sp-4); padding:var(--sp-5); border-radius:14px;
-      background:var(--bg); border:1px solid rgba(51,37,26,.07);
-      animation:moreOpen .45s var(--ease-out); }
+      background:var(--bg); border:1px solid rgba(51,37,26,.07); }
+    /* 高さの開閉はJSで動かす（details は本来アニメーションしないため）。
+       中身の淡い出現はそこに重ねるだけにして、動きを二重化させない。
+       少し遅れて始めることで「枠が開いてから中身が満ちる」順序になる */
+    .pg-more.is-opening .pg-more__body { animation:moreOpen .5s var(--ease-out) .14s backwards; }
     /* 本文の文字色はサイト共通の暖色グレー。ここだけ寒色グレーだった */
     .pg-more__body p { font-size:14px; color:#6b5a4c; line-height:2; }
     .pg-more__body p + p { margin-top:var(--sp-4); }
@@ -165,7 +171,8 @@
        どちらも濃いインクの太字にして、色ではなく置かれ方で役割を分ける */
     .pg-more__body em { font-style:normal; font-weight:700; color:var(--ink); }
     .pg-more__body strong { font-weight:700; color:var(--ink); }
-    @keyframes moreOpen { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:none; } }
+    /* 高さの伸長そのものが移動になるので、ここで translateY は足さない（動きが二重になる） */
+    @keyframes moreOpen { from { opacity:0; } to { opacity:1; } }
     /* 読み終わった位置に置く閉じる操作。上の開閉ボタンは開いた状態だと
        850〜1099px上にあり、閉じるためだけに画面1個分以上スクロールで戻る必要があった。
        ラベル付きのボタンは上に既にあるので、ここは中央の上矢印だけにする。
@@ -850,23 +857,98 @@
   document.querySelectorAll('.mn-accordion__toggle').forEach(function (btn) { btn.addEventListener('click', function () { btn.closest('.mn-accordion').classList.toggle('is-open'); }); });
   document.documentElement.classList.add('js-ready');
 
-  // 本文末尾の「閉じる」。閉じると本文ぶん（約1画面）が消えて、その下にあった内容が
-  // せり上がってくるため、開閉ボタンは画面外の上に取り残される。
-  // どこへ飛んだか分からなくならないよう、画面内に無いときだけ連れ戻す
-  document.querySelectorAll('.pg-more__close').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var det = btn.closest('.pg-more');
-      if (!det) return;
-      var sum = det.querySelector('.pg-more__btn');
-      det.open = false;
-      if (!sum) return;
-      var r = sum.getBoundingClientRect();
-      if (r.top < 0 || r.bottom > window.innerHeight) {
-        var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        sum.scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' });
+  // ---- 「具体的な取り組みを見る」の開閉 ----
+  // details は open を切り替えても高さが補間されないので、開くときは一瞬で現れ、
+  // 閉じるときは一瞬で消える。本文は790〜1039pxあり、その量が瞬間的に増減すると
+  // 目が追えないため、高さを自前でアニメーションさせる。
+  // details/summary のままにしてあるので、JSが動かない環境でも開閉自体は成立する。
+  (function () {
+    var OPEN_MS = 700, CLOSE_MS = 620;
+    /* --ease-out(.22,1,.36,1) は時間の30%で距離の83%が終わる曲線で、
+       総時間を延ばしても序盤で開き切ってしまい「速い」と感じる。
+       体感速度は総時間より序盤の速さで決まるため、動きを中盤へ寄せた曲線にする
+       （時間10/30/50%で距離2/22/67%。ゆっくり出て、なめらかに着地する） */
+    var EASE = 'cubic-bezier(.5,.02,.3,1)';
+
+    document.querySelectorAll('.pg-more').forEach(function (det) {
+      var summary = det.querySelector('.pg-more__btn');
+      var body = det.querySelector('.pg-more__body');
+      var closeBtn = det.querySelector('.pg-more__close');
+      if (!summary || !body) return;
+
+      var anim = null;
+      var state = '';   // '' | 'opening' | 'closing'
+
+      function reduced() {
+        return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      }
+      function openHeight() {
+        var mt = parseFloat(getComputedStyle(body).marginTop) || 0;
+        return summary.offsetHeight + mt + body.offsetHeight;
+      }
+      function run(from, to, ms, after) {
+        if (anim) { anim.cancel(); anim = null; }
+        det.style.overflow = 'hidden';
+        var a = det.animate({ height: [from + 'px', to + 'px'] }, { duration: ms, easing: EASE });
+        anim = a;
+        // onfinish はタブが背面のとき配送されないことがあり、そうなると高さを固定した
+        // インラインスタイルが残って開いたまま畳まれて見える。finished(Promise)は
+        // 背面でも解決するので、後始末はこちらで受ける
+        a.finished.then(function () {
+          if (anim !== a) return;   // 途中で逆向きの操作が入っていたら何もしない
+          anim = null; state = '';
+          det.style.height = ''; det.style.overflow = '';
+          det.classList.remove('is-opening');
+          if (after) after();
+        }).catch(function () { /* cancel による中断。次の操作が後始末を持つ */ });
+      }
+
+      function open() {
+        state = 'opening';
+        // 高さを先に固定してから open にすることで、全開の状態が1フレームも見えない
+        var closedH = det.offsetHeight;
+        det.style.overflow = 'hidden';
+        det.style.height = closedH + 'px';
+        det.classList.add('is-opening');
+        det.open = true;
+        run(closedH, openHeight(), OPEN_MS);
+      }
+
+      function close() {
+        state = 'closing';
+        var fromH = det.offsetHeight;
+        det.classList.remove('is-opening');
+        run(fromH, summary.offsetHeight, CLOSE_MS, function () { det.open = false; });
+      }
+
+      function toggle() {
+        if (reduced()) { det.open = !det.open; return; }
+        if (state === 'opening') { close(); return; }
+        if (state === 'closing') { open(); return; }
+        if (det.open) { close(); } else { open(); }
+      }
+
+      summary.addEventListener('click', function (e) {
+        e.preventDefault();   // 既定の即時開閉を止めて、上のアニメーションに任せる
+        toggle();
+      });
+
+      // 本文末尾の閉じる。閉じると本文ぶんが畳まれて下の内容がせり上がるため、
+      // 開閉ボタンは画面外の上に取り残される。どこへ飛んだか分からなくならないよう、
+      // 画面内に無いときだけ連れ戻す。
+      // 開閉ボタンは畳まれる領域より上にあり文書上の位置が変わらないので、
+      // このスクロールは高さのアニメーションと同時に走らせても競合しない
+      if (closeBtn) {
+        closeBtn.addEventListener('click', function () {
+          if (reduced()) { det.open = false; } else if (state !== 'closing') { close(); }
+          var r = summary.getBoundingClientRect();
+          if (r.top < 0 || r.bottom > window.innerHeight) {
+            summary.scrollIntoView({ block: 'center', behavior: reduced() ? 'auto' : 'smooth' });
+          }
+        });
       }
     });
-  });
+  })();
 
   // 締めの一行を1文字ずつに分解する（失敗しても元の文字列がそのまま残る）
   (function () {
