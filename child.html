@@ -84,7 +84,9 @@
     /* Page hero (split text + image, matches homepage hero format) */
     .pg-hero { padding:100px 32px var(--section-gap); max-width:1240px; margin:0 auto; display:grid; grid-template-columns:0.9fr 1.2fr; gap:var(--sp-7); align-items:center; }
     .pg-hero__text { order:1; }
-    .pg-hero__tag { display:inline-flex; align-items:center; gap:6px; font-family:"Inter",sans-serif; font-size:11px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--yellow-dark); margin-bottom:10px; }
+    /* 文字は #d9a520 だと地の生成りに2.23:1で読めないため、焦がした金 #8a6408（5.3:1）。
+       下の飾り線は装飾なので --yellow-dark のままでよい */
+    .pg-hero__tag { display:inline-flex; align-items:center; gap:6px; font-family:"Inter",sans-serif; font-size:11px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:#8a6408; margin-bottom:10px; }
     .pg-hero__tag::before { content:''; width:20px; height:1px; background:var(--yellow-dark); opacity:.5; }
     .pg-hero__title { font-family:"Zen Maru Gothic",sans-serif; font-size:clamp(1.8rem,3.5vw,2.6rem); font-weight:700; line-height:1.35; color:var(--ink); margin-bottom:12px; }
     .pg-hero__sub { font-size:15px; color:#8a7a6e; line-height:1.9; }
@@ -245,7 +247,9 @@
     .pg-kodawari-item__head { display:flex; align-items:center; gap:var(--sp-4); margin-bottom:var(--sp-4); }
     .pg-kodawari-item__head h3 { font-size:17px; font-weight:700; color:var(--ink); line-height:1.5; margin:0; }
     .pg-kodawari-num { width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:"Inter",sans-serif; font-size:16px; font-weight:700; flex-shrink:0; }
-    .pg-kodawari-num--yellow { background:var(--yellow-light); color:var(--yellow-dark); }
+    /* 数字は #d9a520 だと淡黄の地に2.13:1で読めない（16px太字はAA=4.5:1が必要）。
+       同系の焦がした金 #8a6408（5.1:1）まで落とす。放デイの番号(4.6:1)と同じ考え方 */
+    .pg-kodawari-num--yellow { background:var(--yellow-light); color:#8a6408; }
     .pg-kodawari-body { padding-left:60px; }
     .pg-kodawari-body p { font-size:14px; color:#6b5a4c; line-height:1.9; }
     .pg-kodawari-body p + p { margin-top:var(--sp-3); }
@@ -330,6 +334,8 @@
     /* 制度上の対象と、新規受付の目安は別物なので行内で書き分ける。
        #8a7a6e は白地4.0:1で基準に届かないため、補助文でも #7d6d60（4.9:1）を使う */
     .pg-table__note { display:block; margin-top:6px; font-size:12.5px; color:#7d6d60; line-height:1.75; }
+    /* 電話番号のタップ領域を44pxへ。負のマージンで引き戻すため行の高さは変わらない */
+    .pg-table a[href^="tel:"] { display:inline-block; padding:12px 8px; margin:-12px -8px; }
 
     /* CTA */
     .pg-cta { text-align:center; padding:var(--sp-7) var(--sp-6); background:linear-gradient(135deg, var(--yellow-light) 0%, var(--coral-light) 100%); border-radius:24px; margin-bottom:var(--section-gap); }
@@ -850,6 +856,7 @@
       <tr><th>休業日</th><td>日曜・年末年始・お盆など</td></tr>
       <tr><th>送迎</th><td>保護者による送迎</td></tr>
       <tr><th>所在地</th><td>岡山市北区辰巳26-102 2F</td></tr>
+      <tr><th>電話</th><td><a href="tel:0862459880">086-245-9880</a></td></tr>
     </table>
   </div>
 
