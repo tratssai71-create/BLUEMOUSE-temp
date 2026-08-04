@@ -312,8 +312,17 @@
     .pg-thanks__body { font-size:14px; color:#6b5a4c; line-height:1.9; }
 
     .pg-bottom { text-align:center; }
-    .pg-bottom a { font-size:13px; color:#8a7a6e; border-bottom:1px solid rgba(0,0,0,.15); padding-bottom:2px; transition:color .2s, border-color .2s; }
-    .pg-bottom a:hover { color:var(--yellow-dark); border-color:var(--yellow-dark); }
+    /* サイト全体への導線。申し込みから離れる二次リンクなので、行動色のコーラルは使わず
+       イエロー（＝このLPの情報色）のゴーストボタンにする。旧13pxテキストリンクは
+       タップ領域21.5px・コントラスト4.09:1で、いずれも最低基準に届いていなかった */
+    .pg-bottom a { display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      min-height:52px; padding:14px 26px; font-size:14.5px; font-weight:600;
+      color:var(--yellow-ink); background:var(--yellow-light);
+      border:1.5px solid var(--yellow-dark); border-radius:100px;
+      transition:background .2s, border-color .2s; }
+    .pg-bottom a:hover { background:#f9e9b8; }
+    .pg-bottom__arrow { font-style:normal; transition:transform .2s var(--ease-out); }
+    .pg-bottom a:hover .pg-bottom__arrow { transform:translateX(3px); }
 
     /* Footer */
     .footer { background:#1e2a2c; color:#aaa; padding:44px 32px 20px; }
@@ -810,7 +819,7 @@
   </div>
 
   <div class="pg-bottom fade-in">
-    <a href="../index.html">サービス全体についてはこちら ›</a>
+    <a href="../index.html">サービス全体についてはこちら<i class="pg-bottom__arrow">›</i></a>
   </div>
 
 </div>
