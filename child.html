@@ -362,6 +362,10 @@
     .footer__nav a:hover { color: var(--teal); }
     .footer__fac-name { font-size: 13px; font-weight: 500; color: #ccc; margin-bottom: 2px; }
     .footer__fac-info { font-size: 12px; color: #6a7a7c; line-height: 1.8; }
+    /* 番号をタップ領域44pxぶんのinline-blockにしつつ、同量の負のマージンで引き戻す。
+       こうすると当たり判定だけが広がり、フッターの行間・高さは1pxも動かない。
+       周囲に他のリンクがないので、はみ出した判定が競合することもない */
+    .footer__fac-info a { display:inline-block; padding:12px 8px; margin:-12px -8px; }
     .footer__fac + .footer__fac { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.06); }
     .footer__bottom { max-width: 1000px; margin: 0 auto; text-align: center; padding-top: 16px; font-family: "Inter", sans-serif; font-size: 11px; color: #5a6a6c; }
 
@@ -882,11 +886,11 @@
       <p class="footer__col-title">Access</p>
       <div class="footer__fac">
         <p class="footer__fac-name">LITTLE BLUE MOUSE（児童発達支援）</p>
-        <p class="footer__fac-info">岡山市北区辰巳26-102 2F<br>TEL 086-245-9880</p>
+        <p class="footer__fac-info">岡山市北区辰巳26-102 2F<br>TEL <a href="tel:0862459880">086-245-9880</a></p>
       </div>
       <div class="footer__fac">
         <p class="footer__fac-name">BLUE MOUSE（放課後等デイサービス）</p>
-        <p class="footer__fac-info">岡山市中区徳吉町2丁目11-25<br>TEL 086-273-3880</p>
+        <p class="footer__fac-info">岡山市中区徳吉町2丁目11-25<br>TEL <a href="tel:0862733880">086-273-3880</a></p>
       </div>
     </div>
   </div>
