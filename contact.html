@@ -728,6 +728,27 @@
     afterschool: 'BLUE MOUSE（放課後等デイサービス）'
   };
 
+  // ---- 送信先の振り分け ----
+  // Web3Forms の宛先はアクセスキーに紐づいており、フォーム側から "to" を指定することはできない
+  // （任意の宛先に送れると、誰でもこのキーで迷惑メールを送れる踏み台になるため）。
+  // 施設ごとに別の宛先へ届けるには、施設ごとにキーを発行して使い分ける必要がある。
+  var ACCESS_KEY = {
+    // 既定＝43@bluemouse.blue
+    default: '4fa56afb-03c9-4795-8e00-0d2c8e7b00b6',
+    // 放デイ＝tokuyoshi@bluemouse.blue 宛のキーをここに入れる。
+    // null の間は既定（43@）に届く。差し替えるのはこの1行だけでよい
+    afterschool: null
+  };
+  function accessKeyFor(facility) {
+    return ACCESS_KEY[facility] || ACCESS_KEY.default;
+  }
+  // 事業所セレクトの値（ラベル文字列）から facility キーへ戻す
+  function facilityKeyFromLabel(label) {
+    if (label === FACILITY_LABEL.afterschool) return 'afterschool';
+    if (label === FACILITY_LABEL.child) return 'child';
+    return null;   // 「どちらでも」「未選択」は既定の宛先へ
+  }
+
   var FACILITY_NAME = { child: '児童発達支援', afterschool: '放課後等デイサービス' };
   var CHOICE_NAME = { trial: '体験', general: 'お問い合わせ', soudan: '子育て相談' };
   // 児発の専用フォームは体験と子育て相談で共用する。件名の出し分けに使う
@@ -1008,8 +1029,11 @@
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({
-        access_key: '4fa56afb-03c9-4795-8e00-0d2c8e7b00b6',
-        subject: '【BLUE MOUSE】お問い合わせが届きました',
+        // 放デイが選ばれていれば放デイ宛のキー、それ以外は既定の宛先へ
+        access_key: accessKeyFor(facilityKeyFromLabel(facilityEl.value)),
+        subject: facilityKeyFromLabel(facilityEl.value) === 'afterschool'
+          ? '【BLUE MOUSE】放課後等デイサービスへのお問い合わせが届きました'
+          : '【BLUE MOUSE】お問い合わせが届きました',
         from_name: 'BLUE MOUSE お問い合わせフォーム',
         name: nameEl.value,
         email: emailEl.value,
