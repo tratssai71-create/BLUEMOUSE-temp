@@ -726,12 +726,15 @@
   // （任意の宛先に送れると、誰でもこのキーで迷惑メールを送れる踏み台になるため）。
   // 施設ごとに別の宛先へ届けるには、施設ごとにキーを発行して使い分ける必要がある。
   var ACCESS_KEY = {
-    // 既定＝43@bluemouse.blue。採用の問い合わせと、施設が特定できない異常時に使う
+    // 既定＝43@bluemouse.blue。施設が特定できない異常時のみに使う
     default: '4fa56afb-03c9-4795-8e00-0d2c8e7b00b6',
     // 放デイ＝tokuyoshi@bluemouse.blue 宛
     afterschool: '5f73d378-ccf3-4ce3-8211-3a2cd86688ab',
     // 児発＝tatsumi@bluemouse.blue 宛
-    child: '51515b4a-af3b-463c-b2c8-33936ef47bfd'
+    child: '51515b4a-af3b-463c-b2c8-33936ef47bfd',
+    // 採用＝recruit@bluemouse.blue 宛のキーをここに入れる。
+    // null の間は既定（43@）に届くので、取りこぼしは起きない
+    recruit: null
   };
   function accessKeyFor(facility) {
     return ACCESS_KEY[facility] || ACCESS_KEY.default;
@@ -1154,7 +1157,8 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({
-          access_key: '4fa56afb-03c9-4795-8e00-0d2c8e7b00b6',
+          // このフォームは採用専用窓口なので、宛先は常に採用
+          access_key: accessKeyFor('recruit'),
           subject: '【BLUE MOUSE】採用についてのお問い合わせが届きました',
           from_name: 'BLUE MOUSE お問い合わせフォーム',
           name: nameEl.value,
