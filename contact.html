@@ -413,16 +413,9 @@
           <input class="ct-input" id="f-tel" name="phone" type="tel" placeholder="000-0000-0000" autocomplete="tel" />
           <span class="ct-error" id="err-tel">電話番号を入力してください。</span>
         </div>
-        <div class="ct-field ct-field--full" id="field-facility">
-          <label class="ct-label" for="facility-select">ご希望の事業所<span class="ct-req">*</span></label>
-          <select class="ct-select" id="facility-select" name="facility">
-            <option value="">選択してください</option>
-            <option value="LITTLE BLUE MOUSE（児童発達支援事業）">LITTLE BLUE MOUSE（児童発達支援事業）</option>
-            <option value="BLUE MOUSE（放課後等デイサービス）">BLUE MOUSE（放課後等デイサービス）</option>
-            <option value="どちらでも">どちらでも</option>
-          </select>
-          <span class="ct-error" id="err-facility">事業所を選択してください。</span>
-        </div>
+        <!-- 事業所はフォームに入る前の段階選択で確定しているため、ここでは訊かない。
+             メール本文に施設名を載せるのと、通知先の振り分けに使うので値だけ持たせる -->
+        <input type="hidden" id="facility-select" name="facility" value="" />
         <div class="ct-section-label is-divider" id="section-child" style="display:none;">おこさまについて</div>
         <div class="ct-field" id="field-child-name" style="display:none;">
           <label class="ct-label" for="f-child-name">おこさまのお名前<span class="ct-req">*</span></label>
@@ -843,7 +836,6 @@
 
   if (urlType === 'afterschool') {
     document.getElementById('facility-select').value = FACILITY_LABEL.afterschool;
-    document.getElementById('field-facility').style.display = 'none';
     setAgeOptions('afterschool');
     setGradeField('afterschool');
     setAfterschoolExtraFields(true);
@@ -887,7 +879,6 @@
 
       showForm('general');
       document.getElementById('facility-select').value = FACILITY_LABEL[state.facility];
-      document.getElementById('field-facility').style.display = 'none';
       document.getElementById('age-label').textContent = state.facility === 'child' ? 'おこさまのねんれい' : 'おこさまの年齢';
       setAgeOptions(state.facility);
       setGradeField(state.facility);
@@ -975,7 +966,7 @@
   function showError(el, errId) { el.classList.add('is-error'); var e = document.getElementById(errId); if (e) e.classList.add('is-show'); }
   function clearError(el, errId) { el.classList.remove('is-error'); var e = document.getElementById(errId); if (e) e.classList.remove('is-show'); }
 
-  [['f-name','err-name'],['f-age','err-age'],['f-grade','err-grade'],['f-email','err-email'],['f-tel','err-tel'],['facility-select','err-facility'],['f-child-name','err-child-name'],['f-gender','err-gender'],['f-diagnosis','err-diagnosis'],['f-concurrent','err-concurrent']].forEach(function (pair) {
+  [['f-name','err-name'],['f-age','err-age'],['f-grade','err-grade'],['f-email','err-email'],['f-tel','err-tel'],['f-child-name','err-child-name'],['f-gender','err-gender'],['f-diagnosis','err-diagnosis'],['f-concurrent','err-concurrent']].forEach(function (pair) {
     var el = document.getElementById(pair[0]);
     if (!el) return;
     ['input','change'].forEach(function (ev) { el.addEventListener(ev, function () { clearError(el, pair[1]); }); });
@@ -1012,7 +1003,6 @@
     if (document.getElementById('field-class').style.display !== 'none' && !classEl.value) { showError(classEl, 'err-class'); valid = false; } else clearError(classEl, 'err-class');
     var concurrentEl = document.getElementById('f-concurrent');
     if (document.getElementById('field-concurrent').style.display !== 'none' && !concurrentEl.value) { showError(concurrentEl, 'err-concurrent'); valid = false; } else clearError(concurrentEl, 'err-concurrent');
-    if (!facilityEl.value) { showError(facilityEl, 'err-facility'); valid = false; } else clearError(facilityEl, 'err-facility');
 
     if (!valid) {
       var first = document.querySelector('.ct-input.is-error, .ct-select.is-error, .ct-textarea.is-error');
