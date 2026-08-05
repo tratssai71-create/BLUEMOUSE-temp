@@ -1146,12 +1146,17 @@
     btn.disabled = true;
     btn.textContent = '送信中…';
 
-    // サイト内の他フォーム（contact.html）と同じ Web3Forms へ送る
+    // このLPは辰巳教室（児発）の窓口なので、宛先は児発のキー。
+    // Web3Forms の宛先はキーに紐づいており、フォーム側から "to" は指定できない。
+    // null の間は既定（43@bluemouse.blue）に届くので、取りこぼしは起きない
+    var ACCESS_KEY_DEFAULT = '4fa56afb-03c9-4795-8e00-0d2c8e7b00b6';   // 43@bluemouse.blue
+    var ACCESS_KEY_CHILD   = null;                                      // tatsumi@bluemouse.blue 宛のキーをここに
+
     fetch('https://api.web3forms.com/submit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({
-        access_key: '4fa56afb-03c9-4795-8e00-0d2c8e7b00b6',
+        access_key: ACCESS_KEY_CHILD || ACCESS_KEY_DEFAULT,
         subject: '【LITTLE BLUE MOUSE】辰巳教室・子育て相談のお申し込み',
         from_name: 'BLUE MOUSE お問い合わせフォーム',
         child_name: childNameEl.value,
