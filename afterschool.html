@@ -524,6 +524,10 @@
 
     /* ===== PC専用の調整。781px以上でのみ適用され、スマホ表示には一切影響しない ===== */
     @media (min-width: 781px) {
+      /* 広い画面ではセクション間の「間」を1.5倍に。締めの一行（pg-quote）の前後は
+         この2倍が効くので、ページ内で一番深い呼吸になる */
+      :root { --section-gap: 96px; }
+      .pg-hero { padding-top: 120px; }
       /* 「未来」の3項目：最初の2つを左右対称に並べ、3つ目は全幅でその下へ。
          横並びの2つの間は縦罫1本、3つ目との間は元の横罫のまま */
       .pg-future-list { display: grid; grid-template-columns: 1fr 1fr; }

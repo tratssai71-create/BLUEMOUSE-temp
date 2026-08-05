@@ -4,7 +4,7 @@
     {
       "name": "temp-site",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8090", "--directory", "/var/folders/57/j5nbmpjd20vbcm982x780l4m0000gn/T/tmp.6AlLv9mc7s"],
+      "runtimeArgs": ["-m", "http.server", "8090", "--directory", "/tmp/bluemouse-temp-work-fresh3"],
       "port": 8090
     }
   ]

@@ -961,6 +961,13 @@
 
     /* ===== PC専用の調整。781px以上でのみ適用され、スマホ表示には一切影響しない ===== */
     @media (min-width: 781px) {
+      /* 広い画面ではセクション間の「間」を1.5倍に。スマホの詰まったリズムのままだと
+         PCでは各セクションが息継ぎなしに続いて見える */
+      :root { --section-gap: 96px; }
+      .hero { padding-top: 120px; }
+      /* 大きなカード同士が24pxだと近すぎる。カードの角丸(20px前後)より広い間隔を取る */
+      .service-cards { gap: 32px; }
+      .fac-grid { gap: 36px; }
       /* 結びのCTA：2施設の電話番号を縦積みから左右対称へ。間は細い罫1本で仕切る */
       .cta__card { max-width: 780px; }
       .cta__phones { flex-direction: row; justify-content: center; align-items: stretch; gap: 0; }
