@@ -33,7 +33,7 @@
     .header { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 32px; height:60px; background: transparent; backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid rgba(0,0,0,.05); }
     .header__logo img { height:32px; width:auto; }
     .header__nav { display:flex; align-items:center; gap:28px; }
-    .header__link { font-size:13px; font-weight:500; letter-spacing:.06em; color:#8a7a6e; transition:color .2s; }
+    .header__link { font-size:13px; font-weight:500; letter-spacing:.06em; color:#7d6d60; transition:color .2s; }
     .header__link:hover { color:var(--teal); }
     .header__cta { display:inline-flex; align-items:center; padding:8px 20px; background:var(--coral); color:#fff; font-size:13px; font-weight:600; border-radius:100px; transition:background .2s; cursor:pointer; }
     .header__cta:hover { background:#e87e59; }
@@ -203,8 +203,11 @@
     .ct-acc { background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:14px; overflow:hidden; }
     .ct-acc__body { padding:18px 20px 22px; }
     .ct-acc__name { font-size:15px; font-weight:700; color:var(--ink); margin-bottom:8px; }
-    .ct-acc__row { display:flex; gap:8px; font-size:13px; color:#8a7a6e; line-height:1.7; margin-bottom:3px; }
-    .ct-acc__row-label { color:#bbb; flex-shrink:0; width:2.5em; font-weight:500; }
+    /* 値は #8a7a6e(4.09:1)で基準未達だったため、本文と同じ #6b5a4c(6.58:1)に。
+       ラベルの #bbb(1.9:1)は #7d6d60(4.97:1)にしたが、そのままだと値より濃くなり主従が逆転するため
+       値側も一段濃くして「ラベルは淡く・値は濃く」の関係を保つ */
+    .ct-acc__row { display:flex; gap:8px; font-size:13px; color:#6b5a4c; line-height:1.7; margin-bottom:3px; }
+    .ct-acc__row-label { color:#7d6d60; flex-shrink:0; width:2.5em; font-weight:500; }
     /* 電話番号のタップ領域を44pxへ。負のマージンで引き戻すため行間は変わらない */
     .ct-acc__row a { display:inline-block; padding:11px 8px; margin:-11px -8px; }
     .ct-acc__map { margin:12px -20px 0 -20px; width:calc(100% + 40px); border-radius:10px; overflow:hidden; height:220px; }

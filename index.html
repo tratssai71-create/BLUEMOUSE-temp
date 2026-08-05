@@ -79,7 +79,7 @@
       font-size: 13px;
       font-weight: 500;
       letter-spacing: .06em;
-      color: #8a7a6e;
+      color: #7d6d60;
       transition: color .2s;
     }
     .header__link:hover { color: var(--teal); }
@@ -586,16 +586,19 @@
       color: var(--ink);
       margin-bottom: 12px;
     }
+    /* 値は #8a7a6e(4.09:1)で基準未達だったため、本文と同じ #6b5a4c(6.58:1)に。
+       ラベルの #bbb(1.9:1)は #7d6d60(4.97:1)にしたが、そのままだと値より濃くなり主従が逆転するため
+       値側も一段濃くして「ラベルは淡く・値は濃く」の関係を保つ */
     .fac__row {
       display: flex;
       gap: 8px;
       font-size: 13px;
-      color: #8a7a6e;
+      color: #6b5a4c;
       line-height: 1.7;
       margin-bottom: 3px;
     }
     .fac__row-label {
-      color: #bbb;
+      color: #7d6d60;
       flex-shrink: 0;
       width: 2.5em;
       font-weight: 500;
