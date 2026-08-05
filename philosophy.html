@@ -403,6 +403,28 @@
       .footer { padding: 32px 16px 16px; }
       .footer__inner { grid-template-columns: 1fr; gap: 20px; }
     }
+
+    /* ===== PC専用の調整。781px以上でのみ適用され、スマホ表示には一切影響しない ===== */
+    @media (min-width: 781px) {
+      /* ロードマップ：写真付きの2枚は「写真＋テキストの横並び」に。
+         1枚目は写真が左、2枚目は右と交互に置き、下りていく視線をジグザグに運ぶ */
+      .pg-flow-item--yellow, .pg-flow-item--teal {
+        display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: stretch; }
+      .pg-flow-item--yellow .pg-flow-item__photo, .pg-flow-item--teal .pg-flow-item__photo {
+        aspect-ratio: auto; height: 100%; min-height: 320px; border-radius: 17px 0 0 17px; }
+      .pg-flow-item--teal { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+      .pg-flow-item--teal .pg-flow-item__photo { order: 2; border-radius: 0 17px 17px 0; }
+      .pg-flow-item--yellow .pg-flow-item__inner, .pg-flow-item--teal .pg-flow-item__inner {
+        align-self: center; padding: var(--sp-6); }
+      /* 結びのCTA：2施設の電話番号を縦積みから左右対称へ。間は細い罫1本で仕切る */
+      .pg-cta__phones { flex-direction: row; justify-content: center; align-items: stretch; gap: 0; }
+      .pg-cta__phone-item { padding: 0 40px; }
+      .pg-cta__phone-item + .pg-cta__phone-item { border-left: 1px solid rgba(51,37,26,.14); }
+    }
+    @media (min-width: 1080px) {
+      /* 横並びになったカードに呼吸をもたせるため、本文列より左右72pxずつだけ広げる */
+      .pg-flow-list { width: 900px; margin-left: -72px; }
+    }
   </style>
 </head>
 <body>

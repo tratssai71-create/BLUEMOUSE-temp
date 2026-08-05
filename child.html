@@ -580,6 +580,15 @@
       .footer { padding: 32px 16px 16px; }
       .footer__inner { grid-template-columns: 1fr; gap: 20px; }
     }
+
+    /* ===== PC専用の調整。781px以上でのみ適用され、スマホ表示には一切影響しない ===== */
+    @media (min-width: 781px) {
+      /* 「未来」の2項目：縦積みから左右対称の2カラムへ。
+         仕切りも横罫から中央の縦罫1本に置き換える */
+      .pg-future-list { display: grid; grid-template-columns: 1fr 1fr; }
+      .pg-future-item:first-child { padding-right: 44px; }
+      .pg-future-item + .pg-future-item { border-top: none; border-left: 1px solid rgba(51,37,26,.10); padding-left: 44px; }
+    }
   </style>
 </head>
 <body>
