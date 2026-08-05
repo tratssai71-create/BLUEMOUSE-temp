@@ -734,11 +734,11 @@
   function accessKeyFor(facility) {
     return ACCESS_KEY[facility] || ACCESS_KEY.default;
   }
-  // 事業所セレクトの値（ラベル文字列）から facility キーへ戻す
+  // 隠しフィールドに入っている施設名から facility キーへ戻す
   function facilityKeyFromLabel(label) {
     if (label === FACILITY_LABEL.afterschool) return 'afterschool';
     if (label === FACILITY_LABEL.child) return 'child';
-    return null;   // 「どちらでも」「未選択」は既定の宛先へ
+    return null;   // 段階選択を経ていない異常時のみ。既定の宛先へ送る
   }
 
   var FACILITY_NAME = { child: '児童発達支援', afterschool: '放課後等デイサービス' };
