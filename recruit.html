@@ -9,6 +9,15 @@
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
+    // スタッフ端末の除外：一度 ?noga=1 付きでアクセスすると、その端末は以後カウントしない。
+    // 事業所のIPフィルタだけでは、スタッフがスマホ回線で見た分が数字に混ざるため併用する。
+    // 解除は ?noga=0。localStorageが使えない環境では素通りする（計測は通常どおり）
+    try {
+      var q = location.search;
+      if (q.indexOf('noga=1') !== -1) localStorage.setItem('bm_noga', '1');
+      if (q.indexOf('noga=0') !== -1) localStorage.removeItem('bm_noga');
+      if (localStorage.getItem('bm_noga') === '1') window['ga-disable-G-3GLCNC8RL4'] = true;
+    } catch (e) {}
     gtag('js', new Date());
     gtag('config', 'G-3GLCNC8RL4');
   </script>
