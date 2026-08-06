@@ -519,6 +519,17 @@
       .footer { padding:32px 16px 16px; }
       .footer__inner { grid-template-columns:1fr; gap:20px; }
     }
+
+    /* ===== PC専用の調整。781px以上でのみ適用され、スマホ表示には一切影響しない ===== */
+    @media (min-width: 781px) {
+      /* ヘッダーのナビは何文字でも折り返させない */
+      .header__link, .header__cta { white-space: nowrap; }
+    }
+    @media (min-width: 781px) and (max-width: 1024px) {
+      /* 狭いPC・タブレット横ではヘッダーの間隔を詰めて1行を保証する */
+      .header { padding: 0 20px; }
+      .header__nav { gap: 18px; }
+    }
   </style>
 </head>
 <body>
@@ -610,7 +621,7 @@
   <a href="../index.html" class="header__logo"><img src="../logo.png" alt="BLUE MOUSE" /></a>
   <nav class="header__nav">
     <a href="../child.html" class="header__link">児童発達支援</a>
-    <a href="../afterschool.html" class="header__link">放課後等デイ</a>
+    <a href="../afterschool.html" class="header__link">放課後等デイサービス</a>
     <a href="https://jp.indeed.com/cmp/C-Eighty-Percent-LLC/jobs" target="_blank" rel="noopener" class="header__link">採用情報</a>
     <div class="header__cta-wrap">
       <span class="header__cta">お問い合わせ ›</span>

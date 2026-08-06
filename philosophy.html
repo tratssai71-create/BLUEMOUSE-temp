@@ -406,6 +406,8 @@
 
     /* ===== PC専用の調整。781px以上でのみ適用され、スマホ表示には一切影響しない ===== */
     @media (min-width: 781px) {
+      /* ヘッダーのナビは何文字でも折り返させない */
+      .header__link, .header__cta { white-space: nowrap; }
       /* 広い画面ではセクション間の「間」を1.5倍に。締めの一行（pg-quote）の前後は
          この2倍が効くので、ページ内で一番深い呼吸になる */
       :root { --section-gap: 96px; }
@@ -428,6 +430,11 @@
     @media (min-width: 1080px) {
       /* 横並びになったカードに呼吸をもたせるため、本文列より左右72pxずつだけ広げる */
       .pg-flow-list { width: 900px; margin-left: -72px; }
+    }
+    @media (min-width: 781px) and (max-width: 1024px) {
+      /* 狭いPC・タブレット横ではヘッダーの間隔を詰めて1行を保証する */
+      .header { padding: 0 20px; }
+      .header__nav { gap: 18px; }
     }
   </style>
 </head>
@@ -519,7 +526,7 @@
   <a href="./index.html" class="header__logo"><img src="./logo.png" alt="BLUE MOUSE" /></a>
   <nav class="header__nav">
     <a href="./child.html" class="header__link">児童発達支援</a>
-    <a href="./afterschool.html" class="header__link">放課後等デイ</a>
+    <a href="./afterschool.html" class="header__link">放課後等デイサービス</a>
     <a href="https://jp.indeed.com/cmp/C-Eighty-Percent-LLC/jobs" target="_blank" rel="noopener" class="header__link">採用情報</a>
         <div class="header__cta-wrap">
       <span class="header__cta">お問い合わせ ›</span>
