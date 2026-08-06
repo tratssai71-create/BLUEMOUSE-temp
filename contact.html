@@ -3,6 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Google tag (gtag.js) — GA4 プロパティ bluemouse.blue / 所有:584@bluemouse.blue -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3GLCNC8RL4"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3GLCNC8RL4');
+  </script>
   <meta name="description" content="BLUE MOUSEへのお問い合わせ・体験のご予約はこちら。児童発達支援事業（岡山市北区）・放課後等デイサービス（岡山市中区）の2事業所。受給者証の取得からサポートします。" />
   <meta name="theme-color" content="#FFFEFB" />
   <title>体験・お問い合わせ｜BLUE MOUSE</title>
@@ -735,6 +744,15 @@
     afterschool: 'BLUE MOUSE（放課後等デイサービス）'
   };
 
+  // ---- 申し込み完了をGA4へ送る ----
+  // 送信後すぐにthanks.htmlへ遷移するが、gtagは内部でsendBeaconを使うため
+  // 遷移で中断されない。gtagが読めていない場合（広告ブロッカー等）も
+  // 素通りするだけでフォーム送信そのものには影響しない。
+  function sendLead(formType, facility) {
+    if (typeof gtag !== 'function') return;
+    gtag('event', 'generate_lead', { form_type: formType, facility: facility });
+  }
+
   // ---- 送信先の振り分け ----
   // Web3Forms の宛先はアクセスキーに紐づいており、フォーム側から "to" を指定することはできない
   // （任意の宛先に送れると、誰でもこのキーで迷惑メールを送れる踏み台になるため）。
@@ -1059,6 +1077,7 @@
     .then(function (j) {
       if (j.success) {
         var isAfterschoolTrial = document.getElementById('field-certificate').style.display !== 'none';
+        sendLead('contact', facilityEl.value);
         window.location.href = isAfterschoolTrial ? './thanks.html?type=screening' : './thanks.html';
       }
       else { throw new Error(j.message || 'error'); }
@@ -1125,7 +1144,10 @@
       })
       .then(function(r) { return r.json(); })
       .then(function(j) {
-        if (j.success) { window.location.href = './thanks.html'; }
+        if (j.success) {
+          sendLead(childFormMode === 'soudan' ? 'soudan' : 'taiken', 'LITTLE BLUE MOUSE（児童発達支援事業）');
+          window.location.href = './thanks.html';
+        }
         else { throw new Error(j.message || 'error'); }
       })
       .catch(function() {
@@ -1183,7 +1205,10 @@
       })
       .then(function(r) { return r.json(); })
       .then(function(j) {
-        if (j.success) { window.location.href = './thanks.html'; }
+        if (j.success) {
+          sendLead('recruit', '採用について');
+          window.location.href = './thanks.html';
+        }
         else { throw new Error(j.message || 'error'); }
       })
       .catch(function() {

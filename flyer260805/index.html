@@ -3,6 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Google tag (gtag.js) — GA4 プロパティ bluemouse.blue / 所有:584@bluemouse.blue -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3GLCNC8RL4"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3GLCNC8RL4');
+  </script>
   <meta name="theme-color" content="#FFFEFB" />
   <title>こどもの「トリセツ」を一緒に｜LITTLE BLUE MOUSE 辰巳教室（岡山市北区）</title>
   <meta name="description" content="「どうしてこれを嫌がるの？」その行動には、こどもなりの切実な理由があります。岡山市北区辰巳のLITTLE BLUE MOUSE（児童発達支援）が、観察・仮説と検証を重ねて『そのこだけのトリセツ』を一緒に探します。9月末まで無料の子育て相談会を受付中。" />
@@ -1186,6 +1195,11 @@
     .then(function (r) { return r.json(); })
     .then(function (j) {
       if (j && j.success) {
+        // 申し込み完了をGA4へ。QRのUTMはGA側が自動で流入元として紐づける。
+        // gtagが読めていない場合は素通りするだけで送信処理には影響しない
+        if (typeof gtag === 'function') {
+          gtag('event', 'generate_lead', { form_type: 'soudan_lp', facility: 'LITTLE BLUE MOUSE（児童発達支援事業）' });
+        }
         form.style.display = 'none';
         document.getElementById('t-thanks').classList.add('is-show');
       } else {

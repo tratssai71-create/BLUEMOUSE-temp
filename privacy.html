@@ -3,6 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Google tag (gtag.js) — GA4 プロパティ bluemouse.blue / 所有:584@bluemouse.blue -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3GLCNC8RL4"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3GLCNC8RL4');
+  </script>
   <meta name="description" content="BLUE MOUSE（C EIGHTY PERCENT LLC）のプライバシーポリシー。個人情報の取得・利用目的・管理について。" />
   <meta name="theme-color" content="#FFFEFB" />
   <title>プライバシーポリシー｜BLUE MOUSE</title>
@@ -84,6 +93,12 @@
     .pp-section__num { width:32px; height:32px; border-radius:8px; background:var(--teal-light); color:var(--teal); font-family:"Inter",sans-serif; font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
     .pp-section__title { font-size:15px; font-weight:700; color:var(--ink); }
     .pp-section__body { font-size:14px; color:#6b5a4c; line-height:1.9; }
+    /* 2段落目以降は段落間を空ける（1段落だけの項目には影響しない） */
+    .pp-section__body--next { margin-top:12px; }
+    /* 本文中の外部リンク。コーラルはCTA専用なので、本文リンクはティールに下線。
+       --teal-dark(#3a9095)は白地で3.75:1しかなくAA(4.5:1)に届かないため、
+       本文サイズのリンク専用にもう一段濃いティールを使う（白地で5.25:1） */
+    .pp-section__body a { color:#317679; text-decoration:underline; text-underline-offset:2px; }
 
     .pp-footer-info { text-align:center; padding:24px 0; border-top:1px solid rgba(0,0,0,.06); }
     .pp-footer-info p { font-size:13px; color:#8a7a6e; margin-bottom:2px; }
@@ -292,6 +307,14 @@
         <h2 class="pp-section__title">他のサイトとのリンク</h2>
       </div>
       <p class="pp-section__body">当サイト内に、他のウェブサイトへのリンクが貼られている場合があります。それらの独立した第三者のサイトおよびサービスについて、当社はいかなる義務や責任も負いかねます。ご自身の責任で、各サイトの定める個人情報保護方針等を事前にご確認されることをおすすめします。</p>
+    </div>
+    <div class="pp-section">
+      <div class="pp-section__head">
+        <span class="pp-section__num">07</span>
+        <h2 class="pp-section__title">アクセス解析ツールについて</h2>
+      </div>
+      <p class="pp-section__body">当サイトでは、サイトの利用状況を把握し、より見やすく使いやすいサイトへ改善していくために、Google社が提供するアクセス解析ツール「Googleアナリティクス」を利用しています。Googleアナリティクスは、Cookieを利用して匿名のアクセス情報（閲覧されたページ、滞在時間、参照元など）を収集します。収集される情報に、氏名・ご住所・電話番号・メールアドレスなど個人を特定できるものは一切含まれません。</p>
+      <p class="pp-section__body pp-section__body--next">収集された情報は、Google社の定めるプライバシーポリシーに基づいて管理されます。詳しくは<a href="https://policies.google.com/privacy?hl=ja" target="_blank" rel="noopener">Googleのプライバシーポリシー</a>をご確認ください。この情報収集を希望されない場合は、お使いのブラウザでCookieを無効にしていただくか、<a href="https://tools.google.com/dlpage/gaoptout?hl=ja" target="_blank" rel="noopener">Googleアナリティクス オプトアウト アドオン</a>をご利用いただくことで停止できます。</p>
     </div>
   </div>
 
