@@ -20,6 +20,20 @@
     } catch (e) {}
     gtag('js', new Date());
     gtag('config', 'G-3GLCNC8RL4');
+
+    // 電話クリックの計測。tel:リンクはサイト全体で31箇所あるため、個別のonclickではなく
+    // documentへの委譲1つで受ける（リンクを追加しても改修が要らない）
+    document.addEventListener('click', function (e) {
+      var t = e.target;
+      if (!t || typeof t.closest !== 'function') return;
+      var a = t.closest('a[href^="tel:"]');
+      if (!a || typeof gtag !== 'function') return;
+      gtag('event', 'tel_click', {
+        phone_number: a.getAttribute('href').replace('tel:', ''),
+        page_location: location.href,
+        page_title: document.title
+      });
+    });
   </script>
   <meta name="theme-color" content="#FFFEFB" />
   <title>こどもの「トリセツ」を一緒に｜LITTLE BLUE MOUSE 辰巳教室（岡山市北区）</title>
@@ -235,6 +249,19 @@
     /* Future */
     .pg-future { margin-bottom:var(--section-gap); }
     .pg-future__body { font-size:15px; color:#6b5a4c; line-height:2; }
+    /* 想いページへの導線。ボタンにすると相談会CTAと競合するので、罫1本の控えめなリンクにする。
+       タップ領域は44px確保する（見た目の文字位置は変えず、上下のpaddingで稼ぐ） */
+    .pg-more-link { margin-top:var(--sp-5); padding-top:var(--sp-5); border-top:1px solid rgba(51,37,26,.10); }
+    /* inline-flex にすると矢印が別のフレックス項目になり、折り返したとき文末から離れて
+       右端に取り残される。矢印を文中に流したいので display:inline のままにし、
+       タップ領域は行の高さ（14px × 1.9 × 2行 ≒ 53px）で確保する */
+    .pg-more-link a { font-size:14px; line-height:1.9; color:var(--muted);
+      text-decoration:underline; text-underline-offset:3px; transition:color .2s; }
+    .pg-more-link a:hover { color:var(--ink); }
+    /* transform はインライン要素に効かないので、矢印だけ inline-block にする */
+    .pg-more-link__arrow { display:inline-block; font-style:normal; font-size:15px;
+      margin-left:5px; transition:transform .2s; }
+    .pg-more-link a:hover .pg-more-link__arrow { transform:translateX(3px); }
     .pg-future__body em { font-style:normal; font-weight:700; color:var(--ink); background:linear-gradient(transparent 86%, rgba(95,193,199,.85) 86%); }
     .pg-future__body strong { font-weight:700; color:var(--ink); background:linear-gradient(transparent 62%, rgba(245,210,74,.5) 62%); }
     /* 紙の取扱説明書を配るわけではないので、書類の体裁（囲み枠＋縦罫）にはしない。
@@ -636,7 +663,7 @@
 </script>
 
 <header class="header">
-  <a href="../index.html" class="header__logo"><img src="../logo.png" alt="BLUE MOUSE" /></a>
+  <a href="/" class="header__logo"><img src="../logo.png" alt="BLUE MOUSE" /></a>
   <nav class="header__nav">
     <a href="../child.html" class="header__link">児童発達支援</a>
     <a href="../afterschool.html" class="header__link">放課後等デイサービス</a>
@@ -653,7 +680,7 @@
   <button class="header__burger" id="burger" aria-label="メニュー"><span></span><span></span><span></span></button>
 </header>
 <nav class="mobile-nav" id="mobile-nav">
-  <a href="../index.html" class="mn-link">Front</a>
+  <a href="/" class="mn-link">Front</a>
   <a href="../philosophy.html" class="mn-link">BLUE MOUSEの想い</a>
   <a href="../child.html" class="mn-link">児童発達支援</a>
   <a href="../flyer260805/" class="mn-link mn-link--campaign"><span class="mn-badge">9月末まで</span>子育て相談会</a>
@@ -766,6 +793,11 @@
       このトリセツは、小学校へ進学した際にも、<em>新しい環境の先生たちへ的確に伝えるための大きな手助け</em>になります。<br><br>
       私たちは、そんな<strong>『そのこだけのトリセツ』</strong>を一緒に探していく伴走者でありたいと願っています。
     </p>
+    <!-- このLPはトリセツの説明で完結しており、主体性療育にも10年ロードマップにも触れていない。
+         もう少し知りたい人だけが進めるよう、派手なCTAではなく淡々としたテキストリンクで置く -->
+    <p class="pg-more-link fade-in">
+      <a href="/philosophy.html">私たちの考え方は「BLUE MOUSEの想い」に記載しています<i class="pg-more-link__arrow">›</i></a>
+    </p>
   </div>
 
   <div class="pg-quote fade-in" data-reveal="late">
@@ -858,7 +890,7 @@
   </div>
 
   <div class="pg-bottom fade-in">
-    <a href="../index.html">サービス全体についてはこちら<i class="pg-bottom__arrow">›</i></a>
+    <a href="/">サービス全体についてはこちら<i class="pg-bottom__arrow">›</i></a>
   </div>
 
 </div>
@@ -866,7 +898,7 @@
 <footer class="footer">
   <div class="footer__inner">
     <div>
-      <a href="../index.html" class="footer__logo"><img src="../logo.png" alt="BLUE MOUSE" /></a>
+      <a href="/" class="footer__logo"><img src="../logo.png" alt="BLUE MOUSE" /></a>
       <p class="footer__tagline">主体性療育からIT療育へ。<br>こどもの10年間を見据えた支援。</p>
       <a class="footer__insta" href="https://www.instagram.com/blue_mouse_okayama/" target="_blank" rel="noopener">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>

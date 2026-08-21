@@ -22,6 +22,20 @@
     } catch (e) {}
     gtag('js', new Date());
     gtag('config', 'G-3GLCNC8RL4');
+
+    // 電話クリックの計測。tel:リンクはサイト全体で31箇所あるため、個別のonclickではなく
+    // documentへの委譲1つで受ける（リンクを追加しても改修が要らない）
+    document.addEventListener('click', function (e) {
+      var t = e.target;
+      if (!t || typeof t.closest !== 'function') return;
+      var a = t.closest('a[href^="tel:"]');
+      if (!a || typeof gtag !== 'function') return;
+      gtag('event', 'tel_click', {
+        phone_number: a.getAttribute('href').replace('tel:', ''),
+        page_location: location.href,
+        page_title: document.title
+      });
+    });
   </script>
   <meta name="theme-color" content="#FFFEFB" />
   <title>送信完了 | BLUE MOUSE</title>
@@ -136,14 +150,14 @@
 </script>
 
 <header class="header">
-  <a href="./index.html" class="header__logo"><img src="./logo.png" alt="BLUE MOUSE" /></a>
+  <a href="/" class="header__logo"><img src="./logo.png" alt="BLUE MOUSE" /></a>
 </header>
 
 <div class="thanks">
   <div class="thanks__card">
     <h1 class="thanks__title">お問い合わせ<br>ありがとうございます。</h1>
     <p class="thanks__body" id="thanks-body">内容を確認のうえ、通常2〜3営業日以内に<br>担当者よりご連絡いたします。</p>
-    <a href="./index.html" class="thanks__btn">トップに戻る ›</a>
+    <a href="/" class="thanks__btn">トップに戻る ›</a>
   </div>
 </div>
 

@@ -21,6 +21,20 @@
     } catch (e) {}
     gtag('js', new Date());
     gtag('config', 'G-3GLCNC8RL4');
+
+    // 電話クリックの計測。tel:リンクはサイト全体で31箇所あるため、個別のonclickではなく
+    // documentへの委譲1つで受ける（リンクを追加しても改修が要らない）
+    document.addEventListener('click', function (e) {
+      var t = e.target;
+      if (!t || typeof t.closest !== 'function') return;
+      var a = t.closest('a[href^="tel:"]');
+      if (!a || typeof gtag !== 'function') return;
+      gtag('event', 'tel_click', {
+        phone_number: a.getAttribute('href').replace('tel:', ''),
+        page_location: location.href,
+        page_title: document.title
+      });
+    });
   </script>
   <meta name="theme-color" content="#FFFEFB" />
   <meta name="description" content="岡山市のBLUE MOUSEは、IT療育・主体性療育を通じてこどもの経済的自立を見据えた支援を行う児童発達支援・放課後等デイサービス事業所です。" />
@@ -1090,7 +1104,7 @@
 
 <!-- ===== Header ===== -->
 <header class="header" id="header">
-  <a href="./index.html" class="header__logo">
+  <a href="/" class="header__logo">
     <img src="./logo.png" alt="BLUE MOUSE" />
   </a>
   <nav class="header__nav">
@@ -1113,7 +1127,7 @@
 </header>
 
 <nav class="mobile-nav" id="mobile-nav">
-  <a href="./index.html" class="mn-link">Front</a>
+  <a href="/" class="mn-link">Front</a>
   <a href="./philosophy.html" class="mn-link">BLUE MOUSEの想い</a>
   <a href="./child.html" class="mn-link">児童発達支援</a>
   <a href="./flyer260805/" class="mn-link mn-link--campaign"><span class="mn-badge">9月末まで</span>子育て相談会</a>
@@ -1264,7 +1278,7 @@
 <footer class="footer">
   <div class="footer__inner fade-in">
     <div>
-      <a href="./index.html" class="footer__logo"><img src="./logo.png" alt="BLUE MOUSE" /></a>
+      <a href="/" class="footer__logo"><img src="./logo.png" alt="BLUE MOUSE" /></a>
       <p class="footer__tagline">主体性療育からIT療育へ。<br>こどもの10年間を見据えた支援。</p>
       <a class="footer__insta" href="https://www.instagram.com/blue_mouse_okayama/" target="_blank" rel="noopener">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>
