@@ -639,6 +639,14 @@
       .header { padding: 0 20px; }
       .header__nav { gap: 18px; }
     }
+    .pg-faq { max-width: 860px; margin: 0 auto; padding: 64px 32px; }
+    .pg-faq__list { display: flex; flex-direction: column; gap: 12px; margin-top: 32px; }
+    .pg-faq__item { border: 1.5px solid rgba(245,210,74,.5); border-radius: 14px; overflow: hidden; background: var(--yellow-light, #fef9e7); }
+    .pg-faq__q { display: block; padding: 18px 20px; font-size: 15px; font-weight: 700; cursor: pointer; list-style: none; color: var(--ink); }
+    .pg-faq__q::marker, .pg-faq__q::-webkit-details-marker { display: none; }
+    .pg-faq__q::before { content: 'Q. '; color: var(--yellow, #f5d24a); font-weight: 900; }
+    .pg-faq__a { padding: 0 20px 18px; font-size: 14px; line-height: 1.85; color: #6b5a4c; }
+    @media (max-width: 780px) { .pg-faq { padding: 48px 16px; } }
   </style>
 <script type="application/ld+json">
 [
@@ -675,6 +683,39 @@
     ]
   }
 ]
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "受給者証がないと利用できませんか？",
+      "acceptedAnswer": { "@type": "Answer", "text": "受給者証がなくても見学・体験は可能です。受給者証の申請手続きについても丁寧にご説明しますので、まずはお気軽にご相談ください。" }
+    },
+    {
+      "@type": "Question",
+      "name": "何歳から利用できますか？",
+      "acceptedAnswer": { "@type": "Answer", "text": "新規のご利用は3歳半〜5歳半が対象です。就学前のお子様の「見えない力」の土台づくりを支援します。" }
+    },
+    {
+      "@type": "Question",
+      "name": "見学・体験はできますか？",
+      "acceptedAnswer": { "@type": "Answer", "text": "はい、随時受け付けています。まずは見学だけでも構いません。お子様の様子を見ながら、スタッフが丁寧にご説明します。" }
+    },
+    {
+      "@type": "Question",
+      "name": "週に何回通えますか？",
+      "acceptedAnswer": { "@type": "Answer", "text": "受給者証に記載された支給量の範囲内でご利用いただけます。週1〜5日など、ご家庭の状況に合わせて調整できます。" }
+    },
+    {
+      "@type": "Question",
+      "name": "利用料金はどのくらいかかりますか？",
+      "acceptedAnswer": { "@type": "Answer", "text": "利用者負担は原則1割です。世帯収入によって月額上限が設定されており、非課税世帯は無償になる場合もあります。詳しくはお問い合わせください。" }
+    }
+  ]
+}
 </script>
 </head>
 <body>
@@ -958,6 +999,32 @@
       <tr><th>電話</th><td><a href="tel:0862459880">086-245-9880</a></td></tr>
     </table>
   </div>
+
+  <section class="pg-faq" aria-labelledby="faq-title">
+    <h2 id="faq-title" style="font-size:clamp(1.2rem,2.2vw,1.5rem);font-weight:700;text-align:center;">よくあるご質問</h2>
+    <div class="pg-faq__list">
+      <details class="pg-faq__item">
+        <summary class="pg-faq__q">受給者証がないと利用できませんか？</summary>
+        <p class="pg-faq__a">受給者証がなくても見学・体験は可能です。受給者証の申請手続きについても丁寧にご説明しますので、まずはお気軽にご相談ください。</p>
+      </details>
+      <details class="pg-faq__item">
+        <summary class="pg-faq__q">何歳から利用できますか？</summary>
+        <p class="pg-faq__a">新規のご利用は3歳半〜5歳半が対象です。就学前のお子様の「見えない力」の土台づくりを支援します。</p>
+      </details>
+      <details class="pg-faq__item">
+        <summary class="pg-faq__q">見学・体験はできますか？</summary>
+        <p class="pg-faq__a">はい、随時受け付けています。まずは見学だけでも構いません。お子様の様子を見ながら、スタッフが丁寧にご説明します。</p>
+      </details>
+      <details class="pg-faq__item">
+        <summary class="pg-faq__q">週に何回通えますか？</summary>
+        <p class="pg-faq__a">受給者証に記載された支給量の範囲内でご利用いただけます。週1〜5日など、ご家庭の状況に合わせて調整できます。</p>
+      </details>
+      <details class="pg-faq__item">
+        <summary class="pg-faq__q">利用料金はどのくらいかかりますか？</summary>
+        <p class="pg-faq__a">利用者負担は原則1割です。世帯収入によって月額上限が設定されており、非課税世帯は無償になる場合もあります。詳しくはお問い合わせください。</p>
+      </details>
+    </div>
+  </section>
 
   <div class="pg-cta fade-in">
     <h2 class="pg-cta__title">体験・お問い合わせ</h2>
