@@ -9,6 +9,12 @@
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
+    // 本番ドメイン以外（localhost・GitHub Pages既定ドメイン・検証環境）からは計測しない。
+    // 動作確認のたびにテスト送信が本番データへ混ざるのを防ぐ。
+    // サブドメインも許可しているので、将来 www を使い始めても計測は止まらない
+    if (!/(^|\.)bluemouse\.blue$/.test(location.hostname)) {
+      window['ga-disable-G-3GLCNC8RL4'] = true;
+    }
     // スタッフ端末の除外：一度 ?noga=1 付きでアクセスすると、その端末は以後カウントしない。
     // 事業所のIPフィルタだけでは、スタッフがスマホ回線で見た分が数字に混ざるため併用する。
     // 解除は ?noga=0。localStorageが使えない環境では素通りする（計測は通常どおり）
