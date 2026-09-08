@@ -314,6 +314,8 @@
     /* 制度上の対象と、新規受付の目安は別物なので行内で書き分ける。
        #8a7a6e は白地4.0:1で基準に届かないため、補助文でも #7d6d60（4.9:1）を使う */
     .pg-table__note { display:block; margin-top:6px; font-size:12.5px; color:#7d6d60; line-height:1.75; }
+    /* フォームの入力欄に添える注記。色とサイズは上の表内注記に合わせる */
+    .pg-field__note { display:block; margin-top:6px; font-size:12.5px; color:#7d6d60; line-height:1.75; }
     /* 電話番号のタップ領域を44pxへ。負のマージンで引き戻すため行の高さは変わらない */
     .pg-table a[href^="tel:"] { display:inline-block; padding:12px 8px; margin:-12px -8px; }
 
@@ -844,6 +846,7 @@
             <option value="5歳半">5歳半</option>
             <option value="6歳">6歳</option>
           </select>
+          <span class="pg-field__note">※ 新規のご利用開始は年長の9月末までとしています。</span>
           <span class="pg-error" id="terr-age">年齢を選択してください。</span>
         </div>
         <div class="pg-field">
