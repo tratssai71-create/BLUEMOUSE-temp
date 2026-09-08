@@ -943,7 +943,7 @@
       if (state.role === 'recruit') { showForm('recruit'); showAccess(null); updateSummary('採用について', false, true); return; }
       showAccess(state.facility);
       updateSummary(FACILITY_NAME[state.facility] + '・' + CHOICE_NAME[state.choice], state.facility === 'child',
-        false, state.choice === 'soudan' ? '9月末まで' : null);
+        false, state.choice === 'soudan' ? '相談会 9月末まで' : null);
       // 子育て相談は児発だけの窓口。設問は体験と同じなので専用フォームを使い回す
       if (state.facility === 'child' && (state.choice === 'trial' || state.choice === 'soudan')) {
         childFormMode = state.choice;
