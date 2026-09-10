@@ -1020,6 +1020,44 @@
       .header { padding: 0 20px; }
       .header__nav { gap: 18px; }
     }
+
+    /* ===== FAQ =====
+       2事業をまたぐ共通の疑問に答える場所。児発イエロー／放デイティールの
+       どちらにも寄せず、カードは支援カードと同じ「白＋極細の中立枠」で統一する。
+       Q.の色だけ濃ティール#2c6e72（白地5.9:1でAA達成。--teal は2.1:1のため文字には使わない） */
+    .faq { padding: var(--section-gap) var(--gutter); max-width: 860px; margin: 0 auto; }
+    .faq__list { display: flex; flex-direction: column; gap: var(--sp-3); }
+    .faq__item {
+      background: #fff;
+      border: 1px solid rgba(51,37,26,.07);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(51,37,26,.03), 0 6px 18px rgba(51,37,26,.04);
+    }
+    .faq__q {
+      display: block;
+      padding: var(--sp-4) var(--sp-5);
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.7;
+      color: var(--ink);
+      cursor: pointer;
+      list-style: none;
+    }
+    .faq__q::marker, .faq__q::-webkit-details-marker { display: none; }
+    .faq__q::before { content: 'Q. '; color: #2c6e72; font-weight: 900; }
+    .faq__a {
+      padding: 0 var(--sp-5) var(--sp-4);
+      font-size: 14px;
+      line-height: 1.9;
+      color: #6b5a4c;
+    }
+    .faq__a a { color: #2c6e72; text-decoration: underline; text-underline-offset: 2px; }
+    @media (max-width: 780px) {
+      .faq { padding: var(--section-gap) var(--gutter); }
+      .faq__q { padding: var(--sp-4); font-size: 14.5px; }
+      .faq__a { padding: 0 var(--sp-4) var(--sp-4); font-size: 13.5px; }
+    }
   </style>
 </head>
 <body>
@@ -1267,6 +1305,64 @@
   </div>
 </section>
 
+<!-- ===== FAQ ===== -->
+<section class="faq" id="faq">
+  <div class="section-header fade-in">
+    <p class="section-tag">FAQ</p>
+    <h2 class="section-title">よくあるご質問</h2>
+  </div>
+  <div class="faq__list">
+    <details class="faq__item fade-in">
+      <summary class="faq__q">児童発達支援と放課後等デイサービスの違いは何ですか？</summary>
+      <div class="faq__a">
+        <p>児童発達支援は<strong>就学前の未就学児</strong>、放課後等デイサービスは<strong>就学後の小学生〜高校生</strong>を対象とした福祉サービスです。BLUE MOUSEでは、未就学児を「LITTLE BLUE MOUSE」（岡山市北区辰巳）、就学児を「BLUE MOUSE」（岡山市中区徳吉町）で受け入れています。未就学期に主体性という土台を育て、就学後にIT療育でスキルという武器を育てる、という10年間の流れで支援を設計しています。</p>
+      </div>
+    </details>
+    <details class="faq__item fade-in">
+      <summary class="faq__q">対象年齢は何歳ですか？</summary>
+      <div class="faq__a">
+        <p>児童発達支援（LITTLE BLUE MOUSE）は未就学児が対象で、新規のご利用開始は3歳半から年長の9月末までとしています。放課後等デイサービス（BLUE MOUSE）は制度上は小学1年生〜高校3年生が対象で、新規のご利用開始は小学5年生までとしています。いずれも、就学までの療育期間を確保し、低学年から通うこどもの育ちを継続して見守るための目安です。</p>
+      </div>
+    </details>
+    <details class="faq__item fade-in">
+      <summary class="faq__q">受給者証がないと利用できませんか？</summary>
+      <div class="faq__a">
+        <p>受給者証がなくても<strong>見学・体験は可能</strong>です。受給者証はお住まいの市区町村の窓口で申請します。手続きの進め方もご説明しますので、まだお持ちでない方もお気軽にご相談ください。</p>
+      </div>
+    </details>
+    <details class="faq__item fade-in">
+      <summary class="faq__q">利用料金はどのくらいかかりますか？</summary>
+      <div class="faq__a">
+        <p>受給者証をお持ちの場合、利用者負担は<strong>原則1割</strong>です。世帯の所得に応じて月額の負担上限額が定められており、生活保護世帯・市町村民税非課税世帯は0円になります。上限額に達したあとは、その月は何回通っても負担が増えません。実際の金額はご家庭の状況によって変わりますので、詳しくはお問い合わせください。</p>
+      </div>
+    </details>
+    <details class="faq__item fade-in">
+      <summary class="faq__q">IT療育とは何ですか？</summary>
+      <div class="faq__a">
+        <p>パソコンやゲームなど、こどもが夢中になれるIT分野を入口にした療育です。BLUE MOUSE（放課後等デイサービス）では、PCスキルとコミュニケーション力を並行して育てます。発達特性のある人が将来直面しやすい収入の格差に対して、10年後に選べる仕事の幅を広げることを目的にしています。</p>
+      </div>
+    </details>
+    <details class="faq__item fade-in">
+      <summary class="faq__q">主体性療育とは何ですか？</summary>
+      <div class="faq__a">
+        <p>「やってみたい」「自分で決めた」という気持ちを起点に支援を組み立てる考え方です。LITTLE BLUE MOUSE（児童発達支援）では原則マンツーマンで関わり、自分ならできるという自己効力感や、失敗から立ち上がる折れない心といった、点数には表れない「見えない力」の土台をつくります。</p>
+      </div>
+    </details>
+    <details class="faq__item fade-in">
+      <summary class="faq__q">見学・体験はできますか？</summary>
+      <div class="faq__a">
+        <p>はい、随時受け付けています。まずは見学だけでも構いません。<a href="./contact.html">お問い合わせフォーム</a>、またはお電話（児童発達支援 086-245-9880 ／ 放課後等デイサービス 086-273-3880）からご連絡ください。</p>
+      </div>
+    </details>
+    <details class="faq__item fade-in">
+      <summary class="faq__q">事業所はどこにありますか？</summary>
+      <div class="faq__a">
+        <p>岡山市内に2か所あります。児童発達支援「LITTLE BLUE MOUSE」は<strong>岡山市北区辰巳26-102 2F</strong>（JR北長瀬駅エリア）、放課後等デイサービス「BLUE MOUSE」は<strong>岡山市中区徳吉町2丁目11-25</strong>（東山電停から徒歩1分）です。それぞれの地図は<a href="#facilities">施設のご案内</a>をご覧ください。</p>
+      </div>
+    </details>
+  </div>
+</section>
+
 <!-- ===== CTA ===== -->
 <section class="cta">
   <div class="cta__card fade-in">
@@ -1477,11 +1573,13 @@
   {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": "https://bluemouse.blue/#organization",
     "name": "BLUE MOUSE",
+    "legalName": "合同会社BLUEMOUSE",
     "alternateName": ["ブルーマウス", "BLUE MOUSE 岡山"],
     "url": "https://bluemouse.blue/",
     "logo": "https://bluemouse.blue/logo.png",
-    "description": "岡山市の児童発達支援・放課後等デイサービス。IT療育でこどもの経済的自立を支援。",
+    "description": "岡山市で児童発達支援「LITTLE BLUE MOUSE」（北区辰巳）と放課後等デイサービス「BLUE MOUSE」（中区徳吉町）を運営。未就学期の主体性療育から就学後のIT療育へつなぎ、10年後の経済的自立を見据えた支援を行っています。",
     "address": [
       {
         "@type": "PostalAddress",
@@ -1500,42 +1598,129 @@
       }
     ],
     "telephone": "086-273-3880",
+    "areaServed": {
+      "@type": "AdministrativeArea",
+      "name": "岡山市"
+    },
+    "knowsAbout": ["児童発達支援", "放課後等デイサービス", "主体性療育", "IT療育", "発達障害", "療育", "ソーシャルスキルトレーニング"],
     "sameAs": ["https://www.instagram.com/blue_mouse_okayama/"]
   },
   {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
+    "@type": "ChildCare",
+    "@id": "https://bluemouse.blue/child.html#business",
     "name": "LITTLE BLUE MOUSE 児童発達支援",
-      "alternateName": ["リトルブルーマウス", "リトルブルーマウス辰巳教室", "ブルーマウス 辰巳"],
+    "alternateName": ["リトルブルーマウス", "リトルブルーマウス辰巳教室", "ブルーマウス 辰巳"],
     "image": "https://bluemouse.blue/5.webp",
     "url": "https://bluemouse.blue/child.html",
+    "telephone": "086-245-9880",
+    "parentOrganization": { "@id": "https://bluemouse.blue/#organization" },
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "辰巳26-102",
+      "streetAddress": "辰巳26-102 2F",
       "addressLocality": "岡山市北区",
       "addressRegion": "岡山県",
       "addressCountry": "JP"
     },
-    "description": "3歳半から年長9月末までの未就学児が対象。主体性療育で「見えない力」を育てます。",
-    "priceRange": "受給者証利用"
+    "areaServed": { "@type": "AdministrativeArea", "name": "岡山市" },
+    "hasMap": "https://maps.google.com/?q=リトルブルーマウス辰巳 岡山市北区辰巳26-102",
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "09:30",
+        "closes": "18:30"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Saturday"],
+        "opens": "09:00",
+        "closes": "18:00"
+      }
+    ],
+    "description": "岡山市北区辰巳の児童発達支援事業所。未就学児が対象で、新規のご利用開始は3歳半から年長の9月末まで。1回95分・1日2コマ、原則マンツーマンの主体性療育で「見えない力」の土台をつくります。定員10名/日。",
+    "priceRange": "受給者証利用（原則1割負担・世帯所得に応じた月額上限あり）",
+    "isAccessibleForFree": false,
+    "audience": {
+      "@type": "PeopleAudience",
+      "suggestedMinAge": 3,
+      "suggestedMaxAge": 6
+    }
   },
   {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
+    "@type": "ChildCare",
+    "@id": "https://bluemouse.blue/afterschool.html#business",
     "name": "BLUE MOUSE 放課後等デイサービス",
-      "alternateName": ["ブルーマウス", "ブルーマウス徳吉町"],
+    "alternateName": ["ブルーマウス", "ブルーマウス徳吉町"],
     "image": "https://bluemouse.blue/1.webp",
     "url": "https://bluemouse.blue/afterschool.html",
     "telephone": "086-273-3880",
+    "parentOrganization": { "@id": "https://bluemouse.blue/#organization" },
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "徳吉町二丁目11番地25",
       "addressLocality": "岡山市中区",
       "addressRegion": "岡山県",
+      "postalCode": "703-8265",
       "addressCountry": "JP"
     },
-    "description": "小学生〜高校生対象のIT療育。プログラミング・PCスキル・SSTで「見える力」を育てます。",
-    "priceRange": "受給者証利用"
+    "areaServed": { "@type": "AdministrativeArea", "name": "岡山市" },
+    "hasMap": "https://maps.google.com/?q=ブルーマウス徳吉町 岡山市中区徳吉町2-11-25",
+    "description": "岡山市中区徳吉町の放課後等デイサービス。制度上は小学1年生〜高校3年生が対象で、新規のご利用開始は小学5年生まで。パソコンやゲームを入口にしたIT療育で、PCスキルとコミュニケーション力を育てます。東山電停から徒歩1分、定員10名/日。",
+    "priceRange": "受給者証利用（原則1割負担・世帯所得に応じた月額上限あり）",
+    "isAccessibleForFree": false,
+    "audience": {
+      "@type": "PeopleAudience",
+      "suggestedMinAge": 6,
+      "suggestedMaxAge": 18
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "児童発達支援と放課後等デイサービスの違いは何ですか？",
+        "acceptedAnswer": { "@type": "Answer", "text": "児童発達支援は就学前の未就学児、放課後等デイサービスは就学後の小学生〜高校生を対象とした福祉サービスです。BLUE MOUSEでは、未就学児を「LITTLE BLUE MOUSE」（岡山市北区辰巳）、就学児を「BLUE MOUSE」（岡山市中区徳吉町）で受け入れています。未就学期に主体性という土台を育て、就学後にIT療育でスキルという武器を育てる、という10年間の流れで支援を設計しています。" }
+      },
+      {
+        "@type": "Question",
+        "name": "対象年齢は何歳ですか？",
+        "acceptedAnswer": { "@type": "Answer", "text": "児童発達支援（LITTLE BLUE MOUSE）は未就学児が対象で、新規のご利用開始は3歳半から年長の9月末までとしています。放課後等デイサービス（BLUE MOUSE）は制度上は小学1年生〜高校3年生が対象で、新規のご利用開始は小学5年生までとしています。いずれも、就学までの療育期間を確保し、低学年から通うこどもの育ちを継続して見守るための目安です。" }
+      },
+      {
+        "@type": "Question",
+        "name": "受給者証がないと利用できませんか？",
+        "acceptedAnswer": { "@type": "Answer", "text": "受給者証がなくても見学・体験は可能です。受給者証はお住まいの市区町村の窓口で申請します。手続きの進め方もご説明しますので、まだお持ちでない方もお気軽にご相談ください。" }
+      },
+      {
+        "@type": "Question",
+        "name": "利用料金はどのくらいかかりますか？",
+        "acceptedAnswer": { "@type": "Answer", "text": "受給者証をお持ちの場合、利用者負担は原則1割です。世帯の所得に応じて月額の負担上限額が定められており、生活保護世帯・市町村民税非課税世帯は0円になります。上限額に達したあとは、その月は何回通っても負担が増えません。実際の金額はご家庭の状況によって変わりますので、詳しくはお問い合わせください。" }
+      },
+      {
+        "@type": "Question",
+        "name": "IT療育とは何ですか？",
+        "acceptedAnswer": { "@type": "Answer", "text": "パソコンやゲームなど、こどもが夢中になれるIT分野を入口にした療育です。BLUE MOUSE（放課後等デイサービス）では、PCスキルとコミュニケーション力を並行して育てます。発達特性のある人が将来直面しやすい収入の格差に対して、10年後に選べる仕事の幅を広げることを目的にしています。" }
+      },
+      {
+        "@type": "Question",
+        "name": "主体性療育とは何ですか？",
+        "acceptedAnswer": { "@type": "Answer", "text": "「やってみたい」「自分で決めた」という気持ちを起点に支援を組み立てる考え方です。LITTLE BLUE MOUSE（児童発達支援）では原則マンツーマンで関わり、自分ならできるという自己効力感や、失敗から立ち上がる折れない心といった、点数には表れない「見えない力」の土台をつくります。" }
+      },
+      {
+        "@type": "Question",
+        "name": "見学・体験はできますか？",
+        "acceptedAnswer": { "@type": "Answer", "text": "はい、随時受け付けています。まずは見学だけでも構いません。お問い合わせフォーム、またはお電話（児童発達支援 086-245-9880 ／ 放課後等デイサービス 086-273-3880）からご連絡ください。" }
+      },
+      {
+        "@type": "Question",
+        "name": "事業所はどこにありますか？",
+        "acceptedAnswer": { "@type": "Answer", "text": "岡山市内に2か所あります。児童発達支援「LITTLE BLUE MOUSE」は岡山市北区辰巳26-102 2F（JR北長瀬駅エリア）、放課後等デイサービス「BLUE MOUSE」は岡山市中区徳吉町2丁目11-25（東山電停から徒歩1分）です。" }
+      }
+    ]
   }
 ]
 </script>

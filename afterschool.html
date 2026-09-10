@@ -586,12 +586,13 @@
 [
   {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
+    "@type": "ChildCare",
+    "@id": "https://bluemouse.blue/afterschool.html#business",
     "name": "BLUE MOUSE 放課後等デイサービス",
-      "alternateName": ["ブルーマウス", "ブルーマウス徳吉町"],
+    "alternateName": ["ブルーマウス", "ブルーマウス徳吉町"],
     "url": "https://bluemouse.blue/afterschool.html",
     "image": "https://bluemouse.blue/1.webp",
-    "description": "小学生〜高校生対象のIT療育。PCやゲームを通して10年後の経済的自立を見据えた支援。岡山市中区徳吉町。",
+    "description": "岡山市中区徳吉町の放課後等デイサービス。制度上は小学1年生〜高校3年生が対象で、新規のご利用開始は小学5年生まで。パソコンやゲームを入口にしたIT療育で、PCスキルとコミュニケーション力を並行して育て、10年後の経済的自立を見据えた支援を行います。東山電停から徒歩1分、定員10名/日。",
     "telephone": "086-273-3880",
     "address": {
       "@type": "PostalAddress",
@@ -601,11 +602,21 @@
       "postalCode": "703-8265",
       "addressCountry": "JP"
     },
-    "priceRange": "受給者証利用",
+    "areaServed": { "@type": "AdministrativeArea", "name": "岡山市" },
+    "hasMap": "https://maps.google.com/?q=ブルーマウス徳吉町 岡山市中区徳吉町2-11-25",
+    "audience": {
+      "@type": "PeopleAudience",
+      "suggestedMinAge": 6,
+      "suggestedMaxAge": 18
+    },
+    "priceRange": "受給者証利用（原則1割負担・世帯所得に応じた月額上限あり）",
+    "isAccessibleForFree": false,
     "parentOrganization": {
       "@type": "Organization",
+      "@id": "https://bluemouse.blue/#organization",
       "name": "BLUE MOUSE",
-    "alternateName": ["ブルーマウス", "BLUE MOUSE 岡山"],
+      "legalName": "合同会社BLUEMOUSE",
+      "alternateName": ["ブルーマウス", "BLUE MOUSE 岡山"],
       "url": "https://bluemouse.blue/"
     }
   },
