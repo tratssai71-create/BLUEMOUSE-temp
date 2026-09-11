@@ -28,6 +28,22 @@
     gtag('js', new Date());
     gtag('config', 'G-3GLCNC8RL4');
 
+    // 広告の流入元を、ページ移動をまたいで保持する。
+    // 広告は child.html に着地し、送信は contact.html で行われるため、
+    // URLのパラメータだけでは送信時に失われてしまう。
+    // 保存するのは広告の識別名のみ。個人情報は含まない。
+    try {
+      var bmq = new URLSearchParams(location.search);
+      if (bmq.get('utm_source')) {
+        sessionStorage.setItem('bm_utm', JSON.stringify({
+          source: bmq.get('utm_source') || '',
+          medium: bmq.get('utm_medium') || '',
+          campaign: bmq.get('utm_campaign') || '',
+          content: bmq.get('utm_content') || ''
+        }));
+      }
+    } catch (e) {}
+
     // 電話クリックの計測。tel:リンクはサイト全体で31箇所あるため、個別のonclickではなく
     // documentへの委譲1つで受ける（リンクを追加しても改修が要らない）
     document.addEventListener('click', function (e) {
@@ -786,6 +802,18 @@
   // 送信後すぐにthanks.htmlへ遷移するが、gtagは内部でsendBeaconを使うため
   // 遷移で中断されない。gtagが読めていない場合（広告ブロッカー等）も
   // 素通りするだけでフォーム送信そのものには影響しない。
+  // 保存しておいた流入元を、メールに載せられる1行にまとめる。
+  // 広告経由なら「instagram / paid / reel_2608 / 03」のように出る
+  function trafficSource() {
+    try {
+      var raw = sessionStorage.getItem('bm_utm');
+      if (!raw) return 'なし（広告以外）';
+      var u = JSON.parse(raw);
+      var parts = [u.source, u.medium, u.campaign, u.content].filter(function (v) { return v; });
+      return parts.length ? parts.join(' / ') : 'なし（広告以外）';
+    } catch (e) { return 'なし（広告以外）'; }
+  }
+
   function sendLead(formType, facility) {
     if (typeof gtag !== 'function') return;
     gtag('event', 'generate_lead', { form_type: formType, facility: facility });
@@ -1113,6 +1141,7 @@
         phone: document.getElementById('f-tel').value,
         facility: facilityEl.value,
         concurrent_use: concurrentEl.value,
+        traffic_source: trafficSource(),
         message: document.getElementById('f-message').value
       })
     })
@@ -1182,7 +1211,8 @@
           phone: telEl.value,
           facility: 'LITTLE BLUE MOUSE（児童発達支援事業）',
           inquiry_type: childFormMode === 'soudan' ? '子育て相談（9月末まで限定）' : '体験のご希望',
-          message: document.getElementById('c-message').value
+          traffic_source: trafficSource(),
+        message: document.getElementById('c-message').value
         })
       })
       .then(function(r) { return r.json(); })
@@ -1243,7 +1273,8 @@
           email: emailEl.value,
           phone: telEl.value,
           inquiry_type: '採用について',
-          message: msgEl.value
+          traffic_source: trafficSource(),
+        message: msgEl.value
         })
       })
       .then(function(r) { return r.json(); })
