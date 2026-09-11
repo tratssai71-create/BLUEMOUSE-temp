@@ -890,9 +890,6 @@
         </div>
       </div>
 
-      <input type="hidden" name="utm_source" id="t-utm-source" value="" />
-      <input type="hidden" name="utm_medium" id="t-utm-medium" value="" />
-      <input type="hidden" name="utm_campaign" id="t-utm-campaign" value="" />
 
       <button class="pg-submit" id="t-submit-btn" type="submit">送信する</button>
       <p class="pg-submit-note">ご質問欄は空欄のままでも構いません。</p>
@@ -1187,12 +1184,18 @@
 
 <script>
 (function () {
-  // UTMパラメータをURLから取得し、フォームのhidden inputに保持する
-  var params = new URLSearchParams(window.location.search);
-  ['utm_source', 'utm_medium', 'utm_campaign'].forEach(function (key) {
-    var el = document.getElementById('t-' + key.replace('utm_', 'utm-'));
-    if (el) el.value = params.get(key) || '';
-  });
+  // 流入元は、着地したページで sessionStorage に保存された値から読む。
+  // このLPは全ページのメニューからも開けるため、自分のURLだけを見ていると
+  // 広告で来た人の流入元を取りこぼす（utm_content も拾えない）
+  function trafficSource() {
+    try {
+      var raw = sessionStorage.getItem('bm_utm');
+      if (!raw) return 'なし（広告以外）';
+      var u = JSON.parse(raw);
+      var parts = [u.source, u.medium, u.campaign, u.content].filter(function (v) { return v; });
+      return parts.length ? parts.join(' / ') : 'なし（広告以外）';
+    } catch (e) { return 'なし（広告以外）'; }
+  }
 
   function showError(el, errId) { if (el) el.classList.add('is-error'); var e = document.getElementById(errId); if (e) e.classList.add('is-show'); }
   function clearError(el, errId) { if (el) el.classList.remove('is-error'); var e = document.getElementById(errId); if (e) e.classList.remove('is-show'); }
@@ -1256,9 +1259,7 @@
         facility: 'LITTLE BLUE MOUSE（児童発達支援事業）',
         inquiry_type: '子育て相談（9月末まで限定）',
         message: document.getElementById('t-message').value,
-        utm_source: document.getElementById('t-utm-source').value,
-        utm_medium: document.getElementById('t-utm-medium').value,
-        utm_campaign: document.getElementById('t-utm-campaign').value
+        traffic_source: trafficSource()
       })
     })
     .then(function (r) { return r.json(); })
