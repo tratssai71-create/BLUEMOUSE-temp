@@ -1105,6 +1105,11 @@
         grade: gradeEl.value,
         gender: genderEl.value,
         diagnosis: diagnosisEl.value,
+        // 入力は必須なのに送信されておらず、折り返しで聞き直しが発生していた
+        certificate: certEl.value,
+        start_timing: timingEl.value,
+        school_name: schoolEl.value,
+        class_type: classEl.value,
         phone: document.getElementById('f-tel').value,
         facility: facilityEl.value,
         concurrent_use: concurrentEl.value,
