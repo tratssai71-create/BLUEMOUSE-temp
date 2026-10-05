@@ -60,18 +60,18 @@
   </script>
   <meta name="theme-color" content="#FFFEFB" />
   <title>岡山市北区の児童発達支援｜LITTLE BLUE MOUSE 辰巳教室</title>
-  <meta name="description" content="岡山市北区辰巳（北長瀬エリア）の児童発達支援。1回95分・1日2コマ、原則マンツーマン。新規のご利用は3歳半〜年長9月末。リトルブルーマウス辰巳教室。" />
+  <meta name="description" content="岡山市北区辰巳（北長瀬エリア）の児童発達支援。1回65分・1日2コマ、原則マンツーマン。新規のご利用は3歳半〜年長9月末。リトルブルーマウス辰巳教室。" />
   <link rel="canonical" href="https://bluemouse.blue/child.html" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://bluemouse.blue/child.html" />
   <meta property="og:title" content="岡山市北区の児童発達支援｜LITTLE BLUE MOUSE 辰巳教室" />
-  <meta property="og:description" content="岡山市北区辰巳（北長瀬エリア）の児童発達支援。1回95分・1日2コマ、原則マンツーマン。新規のご利用は3歳半〜年長9月末。リトルブルーマウス辰巳教室。" />
+  <meta property="og:description" content="岡山市北区辰巳（北長瀬エリア）の児童発達支援。1回65分・1日2コマ、原則マンツーマン。新規のご利用は3歳半〜年長9月末。リトルブルーマウス辰巳教室。" />
   <meta property="og:image" content="https://bluemouse.blue/2.webp" />
   <meta property="og:site_name" content="BLUE MOUSE" />
   <meta property="og:locale" content="ja_JP" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="岡山市北区の児童発達支援｜LITTLE BLUE MOUSE 辰巳教室" />
-  <meta name="twitter:description" content="岡山市北区辰巳（北長瀬エリア）の児童発達支援。1回95分・1日2コマ、原則マンツーマン。新規のご利用は3歳半〜年長9月末。リトルブルーマウス辰巳教室。" />
+  <meta name="twitter:description" content="岡山市北区辰巳（北長瀬エリア）の児童発達支援。1回65分・1日2コマ、原則マンツーマン。新規のご利用は3歳半〜年長9月末。リトルブルーマウス辰巳教室。" />
   <meta name="twitter:image" content="https://bluemouse.blue/2.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -331,6 +331,11 @@
     /* Future benefits */
     .pg-future { margin-bottom:var(--section-gap); }
     .pg-future__intro { font-size:15px; color:#6b5a4c; line-height:2; margin:var(--sp-4) 0 var(--sp-5); }
+    /* 保育所等訪問支援。1日の流れの直後に置く本文だけのセクション。
+       見出しは施設情報と同じ pg-info__title を使い、段落は上の intro と同じ字送りに揃える */
+    .pg-visit { margin-bottom:var(--section-gap); }
+    .pg-visit__body p { font-size:15px; color:#6b5a4c; line-height:2; margin-top:var(--sp-4); }
+    .pg-visit__body p:first-child { margin-top:var(--sp-3); }
     /* 2項目のあとを受ける段落。前を項目群が占めるので上の余白を広く取る */
     .pg-future__outro { margin:var(--sp-6) 0 0; }
     .pg-future__intro em { font-style:normal; font-weight:700; color:var(--ink); background:linear-gradient(transparent 86%, rgba(95,193,199,.85) 86%); }
@@ -667,7 +672,7 @@
     "url": "https://bluemouse.blue/child.html",
     "image": "https://bluemouse.blue/2.webp",
     "telephone": "086-245-9880",
-    "description": "岡山市北区辰巳の児童発達支援・保育所等訪問支援事業所。未就学児が対象で、新規のご利用開始は3歳半から年長の9月末まで。1回95分・1日2コマ、原則マンツーマン（こども1名にスタッフ1名）の主体性療育で「見えない力」の土台をつくります。定員10名/日。園までお迎えにうかがい、お帰りは保護者の送迎。利用料は無償化の対象で、工作代などの実費は別途。",
+    "description": "岡山市北区辰巳の児童発達支援・保育所等訪問支援事業所。未就学児が対象で、新規のご利用開始は3歳半から年長の9月末まで。1回65分・1日2コマ、原則マンツーマン（こども1名にスタッフ1名）の主体性療育で「見えない力」の土台をつくります。定員10名/日。園までお迎えにうかがい、お帰りは保護者の送迎。利用料は無償化の対象で、工作代などの実費は別途。",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "辰巳26-102 2F",
@@ -931,21 +936,34 @@
       <div class="pg-schedule-card fade-in">
         <p class="pg-schedule-card__label">1部</p>
         <ul class="pg-schedule-list">
-          <li><span class="pg-schedule-list__time">14:00</span><span class="pg-schedule-list__desc">来所</span></li>
-          <li><span class="pg-schedule-list__time">14:15〜15:15</span><span class="pg-schedule-list__desc">活動時間（小集団・自由遊び・個別対応・おやつ）</span></li>
-          <li><span class="pg-schedule-list__time">15:15〜15:35</span><span class="pg-schedule-list__desc">片付け・帰る準備</span></li>
-          <li><span class="pg-schedule-list__time">15:35</span><span class="pg-schedule-list__desc">降所</span></li>
+          <li><span class="pg-schedule-list__time">14:00</span><span class="pg-schedule-list__desc">園からスタッフと出発（1箇所目）</span></li>
+          <li><span class="pg-schedule-list__time">14:10</span><span class="pg-schedule-list__desc">園からスタッフと出発（2箇所目）</span></li>
+          <li><span class="pg-schedule-list__time">14:25〜14:35</span><span class="pg-schedule-list__desc">はじまり：こどもが参加を選べる小集団（10分）</span></li>
+          <li><span class="pg-schedule-list__time">14:35〜15:25</span><span class="pg-schedule-list__desc">こどもが自分で選んだ活動（50分）</span></li>
+          <li><span class="pg-schedule-list__time">15:25〜15:30</span><span class="pg-schedule-list__desc">保護者のお迎え：こどもとスタッフからの報告（5分）</span></li>
+          <li><span class="pg-schedule-list__time">15:30</span><span class="pg-schedule-list__desc">おわり</span></li>
         </ul>
       </div>
       <div class="pg-schedule-card fade-in">
         <p class="pg-schedule-card__label">2部</p>
         <ul class="pg-schedule-list">
-          <li><span class="pg-schedule-list__time">15:50</span><span class="pg-schedule-list__desc">来所</span></li>
-          <li><span class="pg-schedule-list__time">16:05〜17:05</span><span class="pg-schedule-list__desc">活動時間（小集団・自由遊び・個別対応・おやつ）</span></li>
-          <li><span class="pg-schedule-list__time">17:05〜17:25</span><span class="pg-schedule-list__desc">片付け・帰る準備</span></li>
-          <li><span class="pg-schedule-list__time">17:25</span><span class="pg-schedule-list__desc">降所</span></li>
+          <li><span class="pg-schedule-list__time">15:55</span><span class="pg-schedule-list__desc">園からスタッフと出発（1箇所目）</span></li>
+          <li><span class="pg-schedule-list__time">16:05</span><span class="pg-schedule-list__desc">園からスタッフと出発（2箇所目）</span></li>
+          <li><span class="pg-schedule-list__time">16:20〜16:30</span><span class="pg-schedule-list__desc">はじまり：こどもが参加を選べる小集団（10分）</span></li>
+          <li><span class="pg-schedule-list__time">16:30〜17:20</span><span class="pg-schedule-list__desc">こどもが自分で選んだ活動（50分）</span></li>
+          <li><span class="pg-schedule-list__time">17:20〜17:25</span><span class="pg-schedule-list__desc">保護者のお迎え：こどもとスタッフからの報告（5分）</span></li>
+          <li><span class="pg-schedule-list__time">17:25</span><span class="pg-schedule-list__desc">おわり</span></li>
         </ul>
       </div>
+    </div>
+  </div>
+
+  <div class="pg-visit fade-in" id="visit">
+    <h2 class="pg-info__title">保育所等訪問支援</h2>
+    <div class="pg-visit__body">
+      <p>何に没頭し、どんなときにつまずくのか。LITTLE BLUE MOUSEで見えてきたそのこの姿をもとに、普段から関わっている担当者が保育園や幼稚園などを訪問します。</p>
+      <p>活動の中で、どんな階段なら今のそのこに届くのかを、先生と一緒に考えます。手が届く階段があれば、こどもは没頭します。つまずいても気持ちを立て直し、ほかのこどもたちと一緒に挑戦を続けやすくなります。</p>
+      <p>訪問は月1〜2回。その内容は保護者の方とも共有し、事業所・園・家庭が同じ見方で支えられるようにします。</p>
     </div>
   </div>
 
@@ -991,9 +1009,10 @@
       <!-- ラベルは「支援時間」ではなく「利用時間」。保護者が知りたいのは
            「うちのこは何時から何時まで」で、営業時間(9:30〜18:30)だけだと
            午前から通えると誤読される。実際の枠は午後の2つだけ。
-           95分・2コマも併記して残す。検索エンジンとAIは引き算をしないので、
-           時刻だけ書いても「95分」としては引用されない -->
-      <tr><th>利用時間</th><td>1部 14:00〜15:35 ／ 2部 15:50〜17:25（1回95分・1日2コマ）</td></tr>
+           65分・2コマも併記して残す。検索エンジンとAIは引き算をしないので、
+           時刻だけ書いても「65分」としては引用されない。
+           65分は教室での活動時間。園へのお迎え（1部14:00発・2部15:55発）は含まない -->
+      <tr><th>利用時間</th><td>1部 14:25〜15:30 ／ 2部 16:20〜17:25（1回65分・1日2コマ）</td></tr>
       <tr><th>支援形態</th><td>原則マンツーマン（こども1名にスタッフ1名）</td></tr>
       <tr><th>営業時間</th><td>平日：9:30〜18:30<br>土・祝：9:00〜18:00</td></tr>
       <tr><th>休業日</th><td>日曜・年末年始・お盆など</td></tr>
