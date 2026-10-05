@@ -324,7 +324,10 @@
     .pg-flow th { padding-bottom:var(--sp-3); }
     .pg-flow__label { display:inline-block; font-family:"Inter",sans-serif; font-size:11.5px; font-weight:700;
       letter-spacing:.08em; color:#6b4f08; background:var(--yellow); padding:2px 9px; border-radius:100px;
-      font-size:clamp(11.5px,3.07vw,12.5px); white-space:nowrap; }
+      font-size:clamp(11.5px,3.07vw,12.5px); white-space:nowrap;
+      /* 等幅数字。プロポーショナルだと「1」が「2」より2.4px細く、
+         左右の余白を同じにしてもピルの幅が揃わない */
+      font-variant-numeric:tabular-nums; }
     /* 375pxでは余裕が7pxしかないが、402px（iPhone 16 Pro）では34px余る。
        固定値だと狭い端末に合わせたまま広い端末で間延びするので、幅に連動させる。
        下限は375pxでの実測値そのまま、上限で止めて大画面での肥大を防ぐ */
@@ -338,7 +341,9 @@
     .pg-flow thead th:first-child,
     .pg-flow tbody td:first-child { padding-right:clamp(8px,calc(8px + (100vw - 375px) * .11),14px); }
     .pg-flow__t { width:clamp(37px,9.7vw,43px); white-space:nowrap; font-family:"Inter",sans-serif;
-      font-size:clamp(13px,3.45vw,14.5px); font-weight:600; color:#8a7a6e; text-align:center; }
+      font-size:clamp(13px,3.45vw,14.5px); font-weight:600; color:#8a7a6e; text-align:center;
+      /* 時刻も等幅に。プロポーショナルだと14:10と15:55で3.3pxずれ、縦の列が揃わない */
+      font-variant-numeric:tabular-nums; }
     /* 字間 -0.03em は試行中（2026-10-05）。表は情報密度が高いので本文よりわずかに詰めている。
        ただしページの他の本文（訪問支援の段落・施設情報の表）は normal のままなので、
        続けて読むと密度が変わる。戻すならこの letter-spacing の1行を消す */
