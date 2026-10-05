@@ -326,7 +326,10 @@
       --flow-gap:clamp(8px,calc(8px + (100vw - 375px) * .11),14px);
       --flow-pad:clamp(9px,2.9vw,16px);
       --flow-sub:clamp(20px,5.6vw,28px); }
-    .pg-flow table { width:100%; border-collapse:collapse; }
+    /* 幅いっぱいに伸ばさず、中身の幅に合わせてカードの中央に置く。
+       伸ばすと、タブレット(667〜780px)やPCで中身が300px台のまま
+       列だけ700px近くになり、表としてスカスカに見える */
+    .pg-flow table { width:auto; max-width:100%; margin-inline:auto; border-collapse:collapse; }
     .pg-flow th { padding-bottom:var(--sp-3); }
     .pg-flow__label { display:inline-block; font-family:"Inter",sans-serif; font-size:11.5px; font-weight:700;
       letter-spacing:.08em; color:#6b4f08; background:var(--yellow); padding:2px 9px; border-radius:100px;
@@ -367,6 +370,18 @@
        最長は13文字（こどもが参加を選べる小集団／こどもとスタッフからの報告）で、
        字送り -0.03em 込みで約12.7em。em指定なので文字サイズが変わっても追従する */
     .pg-flow__sub { display:inline-block; min-width:12.7em; }
+    /* iPhone SEの「表示拡大」は320pxで来る。375px向けの下限のままだと折り返すため、
+       374px以下だけ各値を下げる。375px以上の見え方は変わらない */
+    @media (max-width:374px) {
+      .pg-flow { padding-inline:6px;
+        --flow-t:33px; --flow-gap:5px; --flow-pad:7px; --flow-sub:15px; }
+      .pg-flow__t { font-size:12px; }
+      .pg-flow__d { font-size:13px; }
+      .pg-flow tr.is-sub .pg-flow__d { font-size:12.5px; }
+      .pg-flow__sub { min-width:12.6em; }
+      .pg-flow__min { font-size:11.5px; }
+    }
+
     .pg-flow__min { margin-left:3px; color:#8a7a6e; white-space:nowrap;
       font-size:clamp(12.5px,calc(12.5px + (100vw - 375px) * .06),14.5px); }
 
@@ -687,11 +702,6 @@
 
     /* ===== PC専用の調整。781px以上でのみ適用され、スマホ表示には一切影響しない ===== */
     @media (min-width: 781px) {
-      /* PCでは本文が820px幅になるが、この表は中身が短く、説明列628pxに対して
-         文字は190px程度しか使わず3分の2が空く。表を内容の幅に縮めて
-         カードの中で中央に置く。カードの幅は他のブロックと揃えたまま */
-      .pg-flow table { width:auto; margin-inline:auto; max-width:100%; }
-
       /* ヘッダーのナビは何文字でも折り返させない */
       .header__link, .header__cta { white-space: nowrap; }
       /* 広い画面ではセクション間の「間」を1.5倍に。締めの一行（pg-quote）の前後は
