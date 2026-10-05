@@ -319,7 +319,13 @@
        カードを2枚並べると説明が2回出て、スマホでは縦に積まれて比較もできない。
        時刻を2列にして説明を1列に共有すると、行数が半分になり左右で見比べられる */
     .pg-flow { background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:16px;
-      padding:var(--sp-5) clamp(8px,2.4vw,14px); margin-top:var(--sp-4); }
+      padding:var(--sp-5) clamp(8px,2.4vw,14px); margin-top:var(--sp-4);
+      /* 幅の値は1箇所にまとめる。サブ行の字下げがこれらの合計で決まるため、
+         バラバラに書くとどれかを変えたときに字下げだけ合わなくなる */
+      --flow-t:clamp(37px,9.7vw,43px);
+      --flow-gap:clamp(8px,calc(8px + (100vw - 375px) * .11),14px);
+      --flow-pad:clamp(9px,2.9vw,16px);
+      --flow-sub:clamp(20px,5.6vw,28px); }
     .pg-flow table { width:100%; border-collapse:collapse; }
     .pg-flow th { padding-bottom:var(--sp-3); }
     .pg-flow__label { display:inline-block; font-family:"Inter",sans-serif; font-size:11.5px; font-weight:700;
@@ -339,19 +345,24 @@
        時刻列を文字幅に寄せ、カードの左右余白を詰めて、その分をここに回している。
        375pxでも8pxを確保し、画面が広がるほど空ける */
     .pg-flow thead th:first-child,
-    .pg-flow tbody td:first-child { padding-right:clamp(8px,calc(8px + (100vw - 375px) * .11),14px); }
-    .pg-flow__t { width:clamp(37px,9.7vw,43px); white-space:nowrap; font-family:"Inter",sans-serif;
+    .pg-flow tbody tr:not(.is-sub) td:first-child { padding-right:var(--flow-gap); }
+    .pg-flow__t { width:var(--flow-t); white-space:nowrap; font-family:"Inter",sans-serif;
       font-size:clamp(13px,3.45vw,14.5px); font-weight:600; color:#8a7a6e; text-align:center;
       /* 時刻も等幅に。プロポーショナルだと14:10と15:55で3.3pxずれ、縦の列が揃わない */
       font-variant-numeric:tabular-nums; }
     /* 字間 -0.03em は試行中（2026-10-05）。表は情報密度が高いので本文よりわずかに詰めている。
        ただしページの他の本文（訪問支援の段落・施設情報の表）は normal のままなので、
        続けて読むと密度が変わる。戻すならこの letter-spacing の1行を消す */
-    .pg-flow__d { padding-left:clamp(9px,2.9vw,16px); font-size:clamp(14px,3.75vw,15.5px); color:#6b5a4c; line-height:1.8;
+    .pg-flow__d { padding-left:var(--flow-pad); font-size:clamp(14px,3.75vw,15.5px); color:#6b5a4c; line-height:1.8;
       letter-spacing:-0.03em; }
     /* はじまり・お迎えの中身。時刻列は空にして、字下げで従属関係を示す */
     .pg-flow tr.is-sub td { border-top:none; padding-top:2px; }
-    .pg-flow tr.is-sub .pg-flow__d { padding-left:clamp(20px,5.6vw,28px); font-size:clamp(13.5px,3.6vw,15px); color:#7d6d60; }
+    /* サブ行は colspan で1セルにする。空のセルを置くと読み上げで「空白、空白」と
+       読まれ、しかも上の行との従属関係は伝わらない。
+       左余白＝時刻列×2＋1部2部の間隔＋字下げ で、見た目の位置は変えない */
+    .pg-flow tr.is-sub .pg-flow__d {
+      padding-left:calc(var(--flow-t) * 2 + var(--flow-gap) + var(--flow-sub));
+      font-size:clamp(13.5px,3.6vw,15px); color:#7d6d60; }
     /* サブ行の本文に最小幅を持たせ、後ろの「分」の左端を縦に揃える。
        最長は13文字（こどもが参加を選べる小集団／こどもとスタッフからの報告）で、
        字送り -0.03em 込みで約12.7em。em指定なので文字サイズが変わっても追従する */
@@ -676,6 +687,11 @@
 
     /* ===== PC専用の調整。781px以上でのみ適用され、スマホ表示には一切影響しない ===== */
     @media (min-width: 781px) {
+      /* PCでは本文が820px幅になるが、この表は中身が短く、説明列628pxに対して
+         文字は190px程度しか使わず3分の2が空く。表を内容の幅に縮めて
+         カードの中で中央に置く。カードの幅は他のブロックと揃えたまま */
+      .pg-flow table { width:auto; margin-inline:auto; max-width:100%; }
+
       /* ヘッダーのナビは何文字でも折り返させない */
       .header__link, .header__cta { white-space: nowrap; }
       /* 広い画面ではセクション間の「間」を1.5倍に。締めの一行（pg-quote）の前後は
@@ -978,10 +994,10 @@
           <tr><td class="pg-flow__t">14:00</td><td class="pg-flow__t">15:55</td><td class="pg-flow__d">園からスタッフと出発<span class="pg-flow__min">１か所目</span></td></tr>
           <tr><td class="pg-flow__t">14:10</td><td class="pg-flow__t">16:05</td><td class="pg-flow__d">園からスタッフと出発<span class="pg-flow__min">２か所目</span></td></tr>
           <tr><td class="pg-flow__t">14:25</td><td class="pg-flow__t">16:20</td><td class="pg-flow__d">はじまり</td></tr>
-          <tr class="is-sub"><td></td><td></td><td class="pg-flow__d"><span class="pg-flow__sub">こどもが参加を選べる小集団</span><span class="pg-flow__min">10分</span></td></tr>
-          <tr class="is-sub"><td></td><td></td><td class="pg-flow__d"><span class="pg-flow__sub">こどもが自分で選んだ活動</span><span class="pg-flow__min">50分</span></td></tr>
+          <tr class="is-sub"><td colspan="3" class="pg-flow__d"><span class="pg-flow__sub">こどもが参加を選べる小集団</span><span class="pg-flow__min">10分</span></td></tr>
+          <tr class="is-sub"><td colspan="3" class="pg-flow__d"><span class="pg-flow__sub">こどもが自分で選んだ活動</span><span class="pg-flow__min">50分</span></td></tr>
           <tr><td class="pg-flow__t">15:25</td><td class="pg-flow__t">17:20</td><td class="pg-flow__d">保護者のお迎え</td></tr>
-          <tr class="is-sub"><td></td><td></td><td class="pg-flow__d"><span class="pg-flow__sub">こどもとスタッフからの報告</span><span class="pg-flow__min">5分</span></td></tr>
+          <tr class="is-sub"><td colspan="3" class="pg-flow__d"><span class="pg-flow__sub">こどもとスタッフからの報告</span><span class="pg-flow__min">5分</span></td></tr>
           <tr><td class="pg-flow__t">15:30</td><td class="pg-flow__t">17:25</td><td class="pg-flow__d">おわり</td></tr>
         </tbody>
       </table>
