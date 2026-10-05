@@ -59,18 +59,18 @@
   </script>
   <meta name="theme-color" content="#FFFEFB" />
   <title>「トリセツ」を一緒に｜LITTLE BLUE MOUSE 辰巳教室（岡山市北区）</title>
-  <meta name="description" content="「どうしてこれを嫌がるの？」その行動には理由があります。岡山市北区辰巳の児童発達支援が『そのこだけのトリセツ』を一緒に探します。9月末まで無料の子育て相談会。" />
+  <meta name="description" content="「どうしてこれを嫌がるの？」その行動には理由があります。岡山市北区辰巳の児童発達支援が『そのこだけのトリセツ』を一緒に探します。見学・体験を受付中です。" />
   <link rel="canonical" href="https://bluemouse.blue/flyer260805/" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://bluemouse.blue/flyer260805/" />
   <meta property="og:title" content="こどもの「トリセツ」を一緒に｜LITTLE BLUE MOUSE 辰巳教室" />
-  <meta property="og:description" content="「どうしてこれを嫌がるの？」その行動には理由があります。岡山市北区辰巳の児童発達支援が『そのこだけのトリセツ』を一緒に探します。9月末まで無料の子育て相談会。" />
+  <meta property="og:description" content="「どうしてこれを嫌がるの？」その行動には理由があります。岡山市北区辰巳の児童発達支援が『そのこだけのトリセツ』を一緒に探します。見学・体験を受付中です。" />
   <meta property="og:image" content="https://bluemouse.blue/2.webp" />
   <meta property="og:site_name" content="BLUE MOUSE" />
   <meta property="og:locale" content="ja_JP" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="こどもの「トリセツ」を一緒に｜LITTLE BLUE MOUSE 辰巳教室" />
-  <meta name="twitter:description" content="「どうしてこれを嫌がるの？」その行動には理由があります。岡山市北区辰巳の児童発達支援が『そのこだけのトリセツ』を一緒に探します。9月末まで無料の子育て相談会。" />
+  <meta name="twitter:description" content="「どうしてこれを嫌がるの？」その行動には理由があります。岡山市北区辰巳の児童発達支援が『そのこだけのトリセツ』を一緒に探します。見学・体験を受付中です。" />
   <meta name="twitter:image" content="https://bluemouse.blue/2.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -120,6 +120,13 @@
     .mobile-nav { display:flex; position:fixed; top:60px; left:0; right:0; bottom:0; background:rgba(255,254,251,.98); backdrop-filter:blur(16px); z-index:200; flex-direction:column; align-items:center; justify-content:center; gap:24px; opacity:0; visibility:hidden; transform:translateY(-8px); pointer-events:none; transition:opacity .4s ease, transform .4s ease, visibility 0s linear .4s; }
     .mobile-nav.is-open { opacity:1; visibility:visible; transform:translateY(0); pointer-events:auto; transition:opacity .4s ease, transform .4s ease, visibility 0s linear 0s; }
     .mobile-nav a { font-size:17px; color:#8a7a6e; letter-spacing:.08em; }
+    /* チラシのQRから来た方への冒頭のお知らせ。fade-in を付けないのは、
+       いちばん先に読んでほしい内容で、スクロールを待たせたくないため */
+    .lp-notice { background:#fef9e7; border:1px solid rgba(245,210,74,.55); border-radius:14px;
+      padding:var(--sp-4) var(--sp-5); margin-bottom:var(--sp-6); }
+    .lp-notice__main { font-size:15px; font-weight:700; color:#6b4f08; line-height:1.8; }
+    .lp-notice__sub { font-size:13.5px; color:#7d6d60; line-height:1.9; margin-top:4px; }
+
     /* 期間限定の相談会LP。イエロー＝情報ラベル（コーラルはお問い合わせ＝行動色なので使わない）。
        放デイ・プライバシーのページには --yellow を持たせていないため、ここは直値で指定する */
     .mobile-nav a.mn-link--campaign { position:relative; display:inline-flex; align-items:center; color:#33251a; font-weight:600; }
@@ -717,10 +724,10 @@
 
 <!-- ===== Hero ===== -->
 <section class="lp-hero">
-  <img src="./hero_sunflower.jpg" alt="ひまわり畑を笑顔で走るこども｜LITTLE BLUE MOUSE 辰巳教室の子育て相談" class="lp-hero__img" />
+  <img src="./hero_sunflower.jpg" alt="ひまわり畑を笑顔で走るこども｜岡山市北区辰巳の児童発達支援 LITTLE BLUE MOUSE 辰巳教室" class="lp-hero__img" />
   <div class="lp-hero__badge">
-    <span class="lp-hero__badge-l1">9月末まで限定！</span>
-    <span class="lp-hero__badge-l2">子育て相談</span>
+    <span class="lp-hero__badge-l1">無料</span>
+    <span class="lp-hero__badge-l2">見学・体験</span>
     <span class="lp-hero__badge-l3">受付中</span>
   </div>
   <div class="lp-hero__content">
@@ -732,6 +739,13 @@
 
 <!-- ===== Content ===== -->
 <div class="pg-content">
+
+  <!-- 8/5配布のチラシは「子育て相談会」で集客したため、QRから来た方は相談会を期待して開く。
+       期待とのズレを冒頭で正す。イエロー＝情報ラベル（コーラルは行動色なので使わない） -->
+  <div class="lp-notice">
+    <p class="lp-notice__main">子育て相談会は終了しました。</p>
+    <p class="lp-notice__sub">見学・体験は引き続き受付中です。このままご覧ください。</p>
+  </div>
 
   <div class="pg-intro fade-in">
     <p class="pg-intro__lead">「どうしてこれを嫌がるの？」と、<br><em>毎日疲れ果てていませんか？</em></p>
@@ -828,19 +842,19 @@
   </div>
 
   <div class="pg-cta fade-in" id="soudan">
-    <span class="pg-cta__badge"><i class="pg-cta__dot"></i>9月末まで限定</span>
-    <h2 class="pg-cta__title">教室での無料・子育て相談会<br>受付中</h2>
+    <span class="pg-cta__badge"><i class="pg-cta__dot"></i>無料</span>
+    <h2 class="pg-cta__title">教室の見学・体験<br>受付中</h2>
     <ul class="pg-cta__voice">
       <li>「最近、こういうことで困っていて…」</li>
       <li>「うちのこにはどんな関わり方が合っているの？」</li>
     </ul>
-    <p class="pg-cta__sub">ひとりで悩まず、まずはそんな「お困りごと」をお話ししてみませんか？<br>一緒におこさんの「なぜ？」を紐解く第一歩として、ぜひお気軽にご連絡ください。</p>
+    <p class="pg-cta__sub">見学・体験では、こうしたお困りごとも一緒にうかがいます。<br>おこさんの「なぜ？」を紐解く第一歩として、ぜひお気軽にご連絡ください。</p>
     <div class="cta-dock" id="ctaDock"></div>
     <p class="pg-cta__phone">お電話はこちら<br><strong><a href="tel:0862459880">086-245-9880</a></strong></p>
   </div>
 
   <div class="pg-form fade-in" id="form">
-    <p class="pg-form__title">子育て相談のお申し込み</p>
+    <p class="pg-form__title">見学・体験のお申し込み</p>
     <p class="pg-form__sub">まずはお気軽にご相談ください。</p>
 
     <form id="tatsumi-form" novalidate>
@@ -1099,7 +1113,7 @@
 </style>
 <a href="#form" class="floating-cta">
   <span class="floating-cta__main">無料</span>
-  <span class="floating-cta__sub">子育て相談</span>
+  <span class="floating-cta__sub">見学・体験</span>
   <svg class="floating-cta__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
 </a>
 <script>
@@ -1248,7 +1262,7 @@
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({
         access_key: ACCESS_KEY_CHILD || ACCESS_KEY_DEFAULT,
-        subject: '【LITTLE BLUE MOUSE】辰巳教室・子育て相談のお申し込み',
+        subject: '【LITTLE BLUE MOUSE】辰巳教室・見学体験のお申し込み',
         from_name: 'BLUE MOUSE お問い合わせフォーム',
         child_name: childNameEl.value,
         child_age: ageEl.value,
@@ -1256,7 +1270,7 @@
         email: emailEl.value,
         phone: telEl.value,
         facility: 'LITTLE BLUE MOUSE（児童発達支援事業）',
-        inquiry_type: '子育て相談（9月末まで限定）',
+        inquiry_type: '見学・体験のご希望（チラシLP）',
         message: document.getElementById('t-message').value,
         traffic_source: trafficSource()
       })
@@ -1267,7 +1281,7 @@
         // 申し込み完了をGA4へ。QRのUTMはGA側が自動で流入元として紐づける。
         // gtagが読めていない場合は素通りするだけで送信処理には影響しない
         if (typeof gtag === 'function') {
-          gtag('event', 'generate_lead', { form_type: 'soudan_lp', facility: 'LITTLE BLUE MOUSE（児童発達支援事業）' });
+          gtag('event', 'generate_lead', { form_type: 'flyer_lp', facility: 'LITTLE BLUE MOUSE（児童発達支援事業）' });
         }
         form.style.display = 'none';
         document.getElementById('t-thanks').classList.add('is-show');
