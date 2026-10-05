@@ -459,7 +459,6 @@
   <a href="/" class="mn-link">Front</a>
   <a href="./philosophy.html" class="mn-link">BLUE MOUSEの想い</a>
   <a href="./child.html" class="mn-link">児童発達支援</a>
-  <a href="./flyer260805/" class="mn-link mn-link--campaign"><span class="mn-badge">9月末まで</span>子育て相談会</a>
   <a href="./afterschool.html" class="mn-link">放課後等デイサービス</a>
   <a href="https://jp.indeed.com/cmp/C-Eighty-Percent-LLC/jobs" target="_blank" rel="noopener" class="mn-link">採用情報</a>
   <a href="./contact.html" class="mn-link" style="color:var(--coral); font-weight:600;">お問い合わせ</a>
@@ -498,7 +497,6 @@
       <div class="ct-tabs" id="ct-tabs-lv3">
         <button type="button" class="ct-tab" data-choice="trial">体験</button>
         <button type="button" class="ct-tab" data-choice="general">お問い合わせ</button>
-        <button type="button" class="ct-tab" data-choice="soudan">子育て相談</button>
       </div>
     </div>
   </div>
@@ -880,9 +878,7 @@
   }
 
   var FACILITY_NAME = { child: '児童発達支援', afterschool: '放課後等デイサービス' };
-  var CHOICE_NAME = { trial: '体験', general: 'お問い合わせ', soudan: '子育て相談' };
-  // 児発の専用フォームは体験と子育て相談で共用する。件名の出し分けに使う
-  var childFormMode = 'trial';
+  var CHOICE_NAME = { trial: '体験', general: 'お問い合わせ' };
 
   function updateSummary(text, isChild, isRecruit, badge) {
     summaryEls.forEach(function (el) {
@@ -1007,10 +1003,9 @@
       if (state.role === 'recruit') { showForm('recruit'); showAccess(null); updateSummary('採用について', false, true); return; }
       showAccess(state.facility);
       updateSummary(FACILITY_NAME[state.facility] + '・' + CHOICE_NAME[state.choice], state.facility === 'child',
-        false, state.choice === 'soudan' ? '相談会 9月末まで' : null);
-      // 子育て相談は児発だけの窓口。設問は体験と同じなので専用フォームを使い回す
-      if (state.facility === 'child' && (state.choice === 'trial' || state.choice === 'soudan')) {
-        childFormMode = state.choice;
+        false, null);
+      // 児発の体験は専用フォーム（年齢・性別などを聞く）に分岐する
+      if (state.facility === 'child' && state.choice === 'trial') {
         showForm('child');
         return;
       }
@@ -1028,8 +1023,6 @@
       lv1Buttons.forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-role') === state.role); });
       var showLower = state.role === 'user';
       ctSubsteps.classList.toggle('is-collapsed', !showLower);
-      var soudanTab = lv3Wrap.querySelector('[data-choice="soudan"]');
-      if (soudanTab) soudanTab.style.display = (state.facility === 'child') ? '' : 'none';
       if (showLower) {
         lv2Buttons.forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-facility') === state.facility); });
         lv3Buttons.forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-choice') === state.choice); });
@@ -1044,8 +1037,6 @@
       btn.addEventListener('click', function () {
         revealed = true;
         state.facility = btn.getAttribute('data-facility');
-        // 子育て相談は放デイには無い窓口なので、切り替えたら体験へ戻す
-        if (state.facility !== 'child' && state.choice === 'soudan') state.choice = 'trial';
         render();
       });
     });
@@ -1234,11 +1225,9 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({
-          // このフォームは児発の体験と子育て相談の専用窓口なので、宛先は常に児発
+          // このフォームは児発の体験の専用窓口なので、宛先は常に児発
           access_key: accessKeyFor('child'),
-          subject: childFormMode === 'soudan'
-            ? '【LITTLE BLUE MOUSE】子育て相談のお申し込み'
-            : '【LITTLE BLUE MOUSE】児童発達支援 体験お申し込み',
+          subject: '【LITTLE BLUE MOUSE】児童発達支援 体験お申し込み',
           from_name: 'BLUE MOUSE お問い合わせフォーム',
           child_age: ageEl.value,
           gender: genEl.value,
@@ -1246,7 +1235,7 @@
           email: emailEl.value,
           phone: telEl.value,
           facility: 'LITTLE BLUE MOUSE（児童発達支援事業）',
-          inquiry_type: childFormMode === 'soudan' ? '子育て相談（9月末まで限定）' : '体験のご希望',
+          inquiry_type: '体験のご希望',
           traffic_source: trafficSource(),
         message: document.getElementById('c-message').value
         })
@@ -1254,7 +1243,7 @@
       .then(function(r) { return r.json(); })
       .then(function(j) {
         if (j.success) {
-          sendLead(childFormMode === 'soudan' ? 'soudan' : 'taiken', 'LITTLE BLUE MOUSE（児童発達支援事業）');
+          sendLead('taiken', 'LITTLE BLUE MOUSE（児童発達支援事業）');
           window.location.href = './thanks.html';
         }
         else { throw new Error(j.message || 'error'); }
