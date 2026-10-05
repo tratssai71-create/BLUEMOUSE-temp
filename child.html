@@ -315,18 +315,24 @@
 
     /* Daily schedule */
     .pg-schedule { margin-bottom:var(--section-gap); }
-    .pg-schedule-grid { display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-5); margin-top:var(--sp-4); }
-    .pg-schedule-card { background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:16px; padding:var(--sp-5); }
-    .pg-schedule-card__label { display:inline-block; font-family:"Inter",sans-serif; font-size:12px; font-weight:700; letter-spacing:.1em; color:#6b4f08; background:var(--yellow); padding:var(--sp-1) var(--sp-3); border-radius:100px; margin-bottom:var(--sp-4); }
-    .pg-schedule-list { list-style:none; display:flex; flex-direction:column; }
-    .pg-schedule-list li { display:flex; gap:var(--sp-4); padding:var(--sp-3) 0; border-top:1px solid rgba(0,0,0,.05); font-size:13.5px; }
-    .pg-schedule-list li:first-child { border-top:none; padding-top:0; }
-    .pg-schedule-list__time { flex-shrink:0; width:100px; color:#8a7a6e; font-weight:600; font-family:"Inter",sans-serif; font-size:12.5px; }
-    .pg-schedule-list__desc { color:#6b5a4c; line-height:1.6; }
-
-    @media (max-width:780px) {
-      .pg-schedule-grid { grid-template-columns:1fr; }
-    }
+    /* 1部と2部は中身がまったく同じで、違うのは時刻だけ。
+       カードを2枚並べると説明が2回出て、スマホでは縦に積まれて比較もできない。
+       時刻を2列にして説明を1列に共有すると、行数が半分になり左右で見比べられる */
+    .pg-flow { background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:16px;
+      padding:var(--sp-5) var(--sp-4); margin-top:var(--sp-4); }
+    .pg-flow table { width:100%; border-collapse:collapse; }
+    .pg-flow th { padding-bottom:var(--sp-3); }
+    .pg-flow__label { display:inline-block; font-family:"Inter",sans-serif; font-size:11.5px; font-weight:700;
+      letter-spacing:.08em; color:#6b4f08; background:var(--yellow); padding:2px 10px; border-radius:100px; }
+    .pg-flow td { padding:var(--sp-3) 0; border-top:1px solid rgba(0,0,0,.05); vertical-align:top; }
+    .pg-flow tbody tr:first-child td { border-top:none; padding-top:0; }
+    .pg-flow__t { width:46px; white-space:nowrap; font-family:"Inter",sans-serif; font-size:12.5px;
+      font-weight:600; color:#8a7a6e; text-align:center; }
+    .pg-flow__d { padding-left:var(--sp-3); font-size:13.5px; color:#6b5a4c; line-height:1.7; }
+    /* はじまり・お迎えの中身。時刻列は空にして、字下げで従属関係を示す */
+    .pg-flow tr.is-sub td { border-top:none; padding-top:2px; }
+    .pg-flow tr.is-sub .pg-flow__d { padding-left:var(--sp-5); font-size:13px; color:#7d6d60; }
+    .pg-flow__min { color:#8a7a6e; font-size:12px; white-space:nowrap; }
 
     /* Future benefits */
     .pg-future { margin-bottom:var(--section-gap); }
@@ -446,11 +452,13 @@
        ========================================================= */
 
     /* ---- 基本のスクロール登場 ---- */
+    .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden;
+      clip:rect(0,0,0,0); white-space:nowrap; border:0; }
     .js-ready .fade-in { opacity:0; transform:translateY(28px); transition:opacity .85s ease, transform .85s var(--ease-out); }
     .fade-in.is-visible { opacity:1; transform:none; }
     /* 個別アニメを持つ要素では、fade-in は「発火のきっかけ」専用にして動きを二重化させない */
     .js-ready .pg-kodawari-item.fade-in,
-    .js-ready .pg-schedule-card.fade-in,
+    .js-ready .pg-flow.fade-in,
     .js-ready .pg-future-item.fade-in { transition:none; }
 
     /* ---- ① ヒーロー（大胆）：画像を下から拭い上げ、文字が順に立ち上がる ---- */
@@ -499,19 +507,19 @@
     @keyframes numPop   { to { opacity:1; transform:scale(1) rotate(0); } }
     @keyframes softRise { to { opacity:1; transform:none; } }
 
-    /* ---- ④ 1日の流れ：カードが起き、行が上から順に流れる ---- */
-    .js-ready .pg-schedule-card { opacity:0; transform:translateY(18px); }
-    .pg-schedule-card.is-visible { animation:softRise .7s var(--ease-out) forwards; }
-    .js-ready .pg-schedule-list li { opacity:0; transform:translateX(-10px); }
-    .pg-schedule-card.is-visible .pg-schedule-list li { animation:rowIn .5s var(--ease-out) forwards; }
-    .pg-schedule-card.is-visible .pg-schedule-list li:nth-child(1) { animation-delay:0.12s; }
-    .pg-schedule-card.is-visible .pg-schedule-list li:nth-child(2) { animation-delay:0.18s; }
-    .pg-schedule-card.is-visible .pg-schedule-list li:nth-child(3) { animation-delay:0.24s; }
-    .pg-schedule-card.is-visible .pg-schedule-list li:nth-child(4) { animation-delay:0.30s; }
-    .pg-schedule-card.is-visible .pg-schedule-list li:nth-child(5) { animation-delay:0.36s; }
-    .pg-schedule-card.is-visible .pg-schedule-list li:nth-child(6) { animation-delay:0.42s; }
-    .pg-schedule-card.is-visible .pg-schedule-list li:nth-child(7) { animation-delay:0.48s; }
-    .pg-schedule-card.is-visible .pg-schedule-list li:nth-child(8) { animation-delay:0.54s; }
+    /* ---- ④ 1日の流れ：表が起き、行が上から順に流れる ---- */
+    .js-ready .pg-flow { opacity:0; transform:translateY(18px); }
+    .pg-flow.is-visible { animation:softRise .7s var(--ease-out) forwards; }
+    .js-ready .pg-flow tbody tr { opacity:0; transform:translateX(-10px); }
+    .pg-flow.is-visible tbody tr { animation:rowIn .5s var(--ease-out) forwards; }
+    .pg-flow.is-visible tbody tr:nth-child(1) { animation-delay:0.12s; }
+    .pg-flow.is-visible tbody tr:nth-child(2) { animation-delay:0.18s; }
+    .pg-flow.is-visible tbody tr:nth-child(3) { animation-delay:0.24s; }
+    .pg-flow.is-visible tbody tr:nth-child(4) { animation-delay:0.30s; }
+    .pg-flow.is-visible tbody tr:nth-child(5) { animation-delay:0.36s; }
+    .pg-flow.is-visible tbody tr:nth-child(6) { animation-delay:0.42s; }
+    .pg-flow.is-visible tbody tr:nth-child(7) { animation-delay:0.48s; }
+    .pg-flow.is-visible tbody tr:nth-child(8) { animation-delay:0.54s; }
     @keyframes rowIn { to { opacity:1; transform:none; } }
 
     /* ---- ⑤ 療育の先にある未来（強調）：菱形→見出し→本文の順に静かに現れる ---- */
@@ -598,7 +606,7 @@
     @media (prefers-reduced-motion:reduce) {
       .js-ready .fade-in, .js-ready .pg-hero__tag, .js-ready .pg-hero__title, .js-ready .pg-hero__sub,
       .js-ready .pg-kodawari-num, .js-ready .pg-kodawari-item__head h3, .js-ready .pg-kodawari-body,
-      .js-ready .pg-schedule-card, .js-ready .pg-schedule-list li,
+      .js-ready .pg-flow, .js-ready .pg-flow tbody tr,
       .js-ready .pg-future-item__body h3, .js-ready .pg-future-item__body p, .js-ready .pg-future-item::before,
       .js-ready .pg-quote__lead, .js-ready .pg-quote__char, .js-ready .pg-table tr, .js-ready .pg-cta.fade-in, .js-ready .pg-info__title {
         opacity:1 !important; transform:none !important; filter:none !important;
@@ -609,8 +617,8 @@
 
       .bm-ready .pg-hero__img-wrap, .bm-ready .pg-hero__img-wrap img,
       .bm-ready .pg-hero__tag, .bm-ready .pg-hero__title, .bm-ready .pg-hero__sub,
-      .is-visible .pg-info__title, .is-visible .pg-kodawari-num, .is-visible .pg-schedule-card,
-      .is-visible .pg-schedule-list li, .pg-future-item.is-visible .pg-future-item__body h3,
+      .is-visible .pg-info__title, .is-visible .pg-kodawari-num, .pg-flow.is-visible,
+      .pg-flow.is-visible tbody tr, .pg-future-item.is-visible .pg-future-item__body h3,
       .pg-future-item.is-visible .pg-future-item__body p, .pg-future-item.is-visible::before,
       .is-visible .pg-quote__lead, .is-visible .pg-quote__char,
       .pg-quote::before, .is-visible .pg-table tr { animation:none !important; }
@@ -932,29 +940,26 @@
 
   <div class="pg-schedule fade-in" id="schedule">
     <h2 class="pg-info__title">具体的な活動と1日の流れ</h2>
-    <div class="pg-schedule-grid">
-      <div class="pg-schedule-card fade-in">
-        <p class="pg-schedule-card__label">1部</p>
-        <ul class="pg-schedule-list">
-          <li><span class="pg-schedule-list__time">14:00</span><span class="pg-schedule-list__desc">園からスタッフと出発（1箇所目）</span></li>
-          <li><span class="pg-schedule-list__time">14:10</span><span class="pg-schedule-list__desc">園からスタッフと出発（2箇所目）</span></li>
-          <li><span class="pg-schedule-list__time">14:25〜14:35</span><span class="pg-schedule-list__desc">はじまり：こどもが参加を選べる小集団（10分）</span></li>
-          <li><span class="pg-schedule-list__time">14:35〜15:25</span><span class="pg-schedule-list__desc">こどもが自分で選んだ活動（50分）</span></li>
-          <li><span class="pg-schedule-list__time">15:25〜15:30</span><span class="pg-schedule-list__desc">保護者のお迎え：こどもとスタッフからの報告（5分）</span></li>
-          <li><span class="pg-schedule-list__time">15:30</span><span class="pg-schedule-list__desc">おわり</span></li>
-        </ul>
-      </div>
-      <div class="pg-schedule-card fade-in">
-        <p class="pg-schedule-card__label">2部</p>
-        <ul class="pg-schedule-list">
-          <li><span class="pg-schedule-list__time">15:55</span><span class="pg-schedule-list__desc">園からスタッフと出発（1箇所目）</span></li>
-          <li><span class="pg-schedule-list__time">16:05</span><span class="pg-schedule-list__desc">園からスタッフと出発（2箇所目）</span></li>
-          <li><span class="pg-schedule-list__time">16:20〜16:30</span><span class="pg-schedule-list__desc">はじまり：こどもが参加を選べる小集団（10分）</span></li>
-          <li><span class="pg-schedule-list__time">16:30〜17:20</span><span class="pg-schedule-list__desc">こどもが自分で選んだ活動（50分）</span></li>
-          <li><span class="pg-schedule-list__time">17:20〜17:25</span><span class="pg-schedule-list__desc">保護者のお迎え：こどもとスタッフからの報告（5分）</span></li>
-          <li><span class="pg-schedule-list__time">17:25</span><span class="pg-schedule-list__desc">おわり</span></li>
-        </ul>
-      </div>
+    <div class="pg-flow fade-in">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col"><span class="pg-flow__label">1部</span></th>
+            <th scope="col"><span class="pg-flow__label">2部</span></th>
+            <th scope="col"><span class="sr-only">内容</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="pg-flow__t">14:00</td><td class="pg-flow__t">15:55</td><td class="pg-flow__d">園からスタッフと出発（1箇所目）</td></tr>
+          <tr><td class="pg-flow__t">14:10</td><td class="pg-flow__t">16:05</td><td class="pg-flow__d">園からスタッフと出発（2箇所目）</td></tr>
+          <tr><td class="pg-flow__t">14:25</td><td class="pg-flow__t">16:20</td><td class="pg-flow__d">はじまり</td></tr>
+          <tr class="is-sub"><td></td><td></td><td class="pg-flow__d">こどもが参加を選べる小集団　<span class="pg-flow__min">10分</span></td></tr>
+          <tr class="is-sub"><td></td><td></td><td class="pg-flow__d">こどもが自分で選んだ活動　<span class="pg-flow__min">50分</span></td></tr>
+          <tr><td class="pg-flow__t">15:25</td><td class="pg-flow__t">17:20</td><td class="pg-flow__d">保護者のお迎え</td></tr>
+          <tr class="is-sub"><td></td><td></td><td class="pg-flow__d">こどもとスタッフからの報告　<span class="pg-flow__min">5分</span></td></tr>
+          <tr><td class="pg-flow__t">15:30</td><td class="pg-flow__t">17:25</td><td class="pg-flow__d">おわり</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
