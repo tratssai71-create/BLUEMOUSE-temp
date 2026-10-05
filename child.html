@@ -373,13 +373,13 @@
     /* iPhone SEの「表示拡大」は320pxで来る。375px向けの下限のままだと折り返すため、
        374px以下だけ各値を下げる。375px以上の見え方は変わらない */
     @media (max-width:374px) {
-      .pg-flow { padding-inline:6px;
-        --flow-t:33px; --flow-gap:5px; --flow-pad:7px; --flow-sub:15px; }
-      .pg-flow__t { font-size:12px; }
-      .pg-flow__d { font-size:13px; }
-      .pg-flow tr.is-sub .pg-flow__d { font-size:12.5px; }
+      .pg-flow { padding-inline:5px;
+        --flow-t:31px; --flow-gap:5px; --flow-pad:6px; --flow-sub:12px; }
+      .pg-flow__t { font-size:11.5px; }
+      .pg-flow__d { font-size:12.5px; }
+      .pg-flow tr.is-sub .pg-flow__d { font-size:12px; }
       .pg-flow__sub { min-width:12.6em; }
-      .pg-flow__min { font-size:11.5px; }
+      .pg-flow__min { font-size:11px; margin-left:2px; }
     }
 
     .pg-flow__min { margin-left:3px; color:#8a7a6e; white-space:nowrap;
