@@ -492,6 +492,7 @@
       <div class="ct-tabs" id="ct-tabs-lv2">
         <button type="button" class="ct-tab" data-facility="child">児童発達支援</button>
         <button type="button" class="ct-tab" data-facility="afterschool">放課後等デイサービス</button>
+        <button type="button" class="ct-tab" data-facility="visit">保育所等訪問支援</button>
       </div>
     </div>
 
@@ -689,6 +690,56 @@
     </form>
   </div>
 
+  <!-- 保育所等訪問支援 専用フォーム（facility=visit）
+       保護者だけでなく園の先生・相談支援専門員からの問い合わせも受けるため、
+       診断名・受給者証・在籍学級などは聞かない。園や相談員が答える立場にない項目であり、
+       訪問支援は相談員と園を経由して始まるので、最初の接点で聞く必要もない -->
+  <div class="ct-form fade-in" id="form-visit" style="display:none;">
+    <form id="visit-form" novalidate>
+      <p class="ct-selection-summary"><span class="ct-summary-tag">Selected</span><span class="ct-summary-value"></span></p>
+      <div class="ct-form__grid">
+        <div class="ct-field ct-field--full">
+          <label class="ct-label" for="v-role">お立場<span class="ct-req">*</span></label>
+          <select class="ct-select" id="v-role" name="inquirer_role">
+            <option value="">選択してください</option>
+            <option value="保護者">保護者</option>
+            <option value="園・学校の先生">園・学校の先生</option>
+            <option value="相談支援専門員">相談支援専門員</option>
+            <option value="その他">その他</option>
+          </select>
+          <span class="ct-error" id="verr-role">お立場を選択してください。</span>
+        </div>
+        <div class="ct-field">
+          <label class="ct-label" for="v-name">お名前<span class="ct-req">*</span></label>
+          <input class="ct-input" id="v-name" name="name" type="text" placeholder="山田 太郎" autocomplete="name" />
+          <span class="ct-error" id="verr-name">お名前を入力してください。</span>
+        </div>
+        <div class="ct-field">
+          <label class="ct-label" for="v-org">園・施設名</label>
+          <input class="ct-input" id="v-org" name="organization" type="text" placeholder="○○保育園" />
+        </div>
+        <div class="ct-field">
+          <label class="ct-label" for="v-email">メールアドレス<span class="ct-req">*</span></label>
+          <input class="ct-input" id="v-email" name="email" type="email" placeholder="example@mail.com" autocomplete="email" />
+          <span class="ct-error" id="verr-email">有効なメールアドレスを入力してください。</span>
+        </div>
+        <div class="ct-field">
+          <label class="ct-label" for="v-tel">電話番号</label>
+          <input class="ct-input" id="v-tel" name="phone" type="tel" placeholder="000-0000-0000" autocomplete="tel" />
+        </div>
+        <div class="ct-field ct-field--full">
+          <label class="ct-label" for="v-message">ご相談内容<span class="ct-req">*</span></label>
+          <textarea class="ct-textarea" id="v-message" name="message" placeholder="おこさまの様子や、園で気になっていることをご記入ください"></textarea>
+          <span class="ct-error" id="verr-message">ご相談内容をご記入ください。</span>
+        </div>
+      </div>
+      <div class="ct-submit">
+        <button class="ct-btn" id="visit-submit-btn" type="submit">送信する ›</button>
+        <p class="ct-privacy">送信いただいた情報は、お問い合わせ対応のために適切に管理し、使用します。<br><a href="./privacy.html" target="_blank">プライバシーポリシー</a>をご確認の上、送信してください。</p>
+      </div>
+    </form>
+  </div>
+
   <!-- 採用について専用フォーム（role=recruit） -->
   <div class="ct-form fade-in" id="form-recruit" style="display:none;">
     <form id="recruit-form" novalidate>
@@ -797,7 +848,7 @@
   document.querySelectorAll('.mn-link').forEach(function (a) { a.addEventListener('click', function () { burger.classList.remove('is-open'); mobileNav.classList.remove('is-open'); }); });
   document.querySelectorAll('.mn-accordion__toggle').forEach(function (btn) { btn.addEventListener('click', function () { btn.closest('.mn-accordion').classList.toggle('is-open'); }); });
 
-  // Pre-fill from URL param (?type=afterschool / ?type=child / ?role=recruit)
+  // Pre-fill from URL param (?type=afterschool / ?type=child / ?type=visit / ?role=recruit)
   var urlParams = new URLSearchParams(window.location.search);
   var urlType = urlParams.get('type');
   var urlRole = urlParams.get('role');
@@ -805,6 +856,7 @@
   var formGeneralEl = document.getElementById('form-general');
   var formChildEl = document.getElementById('form-child');
   var formRecruitEl = document.getElementById('form-recruit');
+  var formVisitEl = document.getElementById('form-visit');
   var lv1Wrap = document.getElementById('ct-tabs-lv1-wrap');
   var lv1Tabs = document.getElementById('ct-tabs-lv1');
   var lv2Wrap = document.getElementById('ct-tabs-lv2-wrap');
@@ -819,6 +871,7 @@
     formGeneralEl.style.display = which === 'general' ? '' : 'none';
     formChildEl.style.display = which === 'child' ? '' : 'none';
     formRecruitEl.style.display = which === 'recruit' ? '' : 'none';
+    if (formVisitEl) formVisitEl.style.display = which === 'visit' ? '' : 'none';
   }
 
   function showAccess(facility) {
@@ -879,7 +932,7 @@
     return null;   // 段階選択を経ていない異常時のみ。既定の宛先へ送る
   }
 
-  var FACILITY_NAME = { child: '児童発達支援', afterschool: '放課後等デイサービス' };
+  var FACILITY_NAME = { child: '児童発達支援', afterschool: '放課後等デイサービス', visit: '保育所等訪問支援' };
   var CHOICE_NAME = { trial: '体験', general: 'お問い合わせ' };
 
   function updateSummary(text, isChild, isRecruit, badge) {
@@ -986,6 +1039,14 @@
     updateSummary(FACILITY_NAME.child + '・' + CHOICE_NAME.trial, true);
     lv1Wrap.style.display = 'none';
     ctSubsteps.style.display = 'none';
+  } else if (urlType === 'visit') {
+    // 訪問支援ページのボタンから直接このフォームへ来る経路。
+    // 段階選択を飛ばすので、レベル1〜3は隠す
+    showForm('visit');
+    showAccess('child');
+    updateSummary(FACILITY_NAME.visit, true);
+    lv1Wrap.style.display = 'none';
+    ctSubsteps.style.display = 'none';
   } else if (urlRole === 'recruit') {
     showForm('recruit');
     showAccess(null);
@@ -1003,6 +1064,14 @@
     var applyForm = function () {
       if (!revealed) { showForm(null); showAccess(null); updateSummary('', false); return; }
       if (state.role === 'recruit') { showForm('recruit'); showAccess(null); updateSummary('採用について', false, true); return; }
+      // 訪問支援は園へ出向く事業で「体験」という入口が無いため、レベル3を使わない。
+      // 所在地は児発と同じ辰巳教室なのでアクセス表示は child を流用する
+      if (state.facility === 'visit') {
+        showAccess('child');
+        updateSummary(FACILITY_NAME.visit, true, false, null);
+        showForm('visit');
+        return;
+      }
       showAccess(state.facility);
       updateSummary(FACILITY_NAME[state.facility] + '・' + CHOICE_NAME[state.choice], state.facility === 'child',
         false, null);
@@ -1028,6 +1097,8 @@
       if (showLower) {
         lv2Buttons.forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-facility') === state.facility); });
         lv3Buttons.forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-choice') === state.choice); });
+        // 訪問支援には体験が無いので、レベル3ごと隠す
+        lv3Wrap.style.display = (state.facility === 'visit') ? 'none' : '';
       }
       applyForm();
     };
@@ -1259,6 +1330,74 @@
   }
 
   // 採用について専用フォーム送信
+
+  // ---- 保育所等訪問支援フォーム ----
+  // 宛先は児発と同じ辰巳教室（tatsumi@）。訪問支援は辰巳教室が実施している
+  var visitForm = document.getElementById('visit-form');
+  if (visitForm) {
+    [['v-role','verr-role'],['v-name','verr-name'],['v-email','verr-email'],['v-message','verr-message']].forEach(function (pair) {
+      var el = document.getElementById(pair[0]);
+      if (el) ['input','change'].forEach(function (ev) { el.addEventListener(ev, function () { clearError(el, pair[1]); }); });
+    });
+
+    visitForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var roleEl = document.getElementById('v-role');
+      var nameEl = document.getElementById('v-name');
+      var orgEl  = document.getElementById('v-org');
+      var mailEl = document.getElementById('v-email');
+      var telEl  = document.getElementById('v-tel');
+      var msgEl  = document.getElementById('v-message');
+      var valid  = true;
+
+      if (!roleEl.value)          { showError(roleEl, 'verr-role');    valid = false; } else clearError(roleEl, 'verr-role');
+      if (!nameEl.value.trim())   { showError(nameEl, 'verr-name');    valid = false; } else clearError(nameEl, 'verr-name');
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mailEl.value)) { showError(mailEl, 'verr-email'); valid = false; } else clearError(mailEl, 'verr-email');
+      if (!msgEl.value.trim())    { showError(msgEl, 'verr-message'); valid = false; } else clearError(msgEl, 'verr-message');
+
+      if (!valid) {
+        var first = document.querySelector('#visit-form .ct-input.is-error, #visit-form .ct-select.is-error, #visit-form .ct-textarea.is-error');
+        if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      var btn = document.getElementById('visit-submit-btn');
+      btn.disabled = true;
+      btn.textContent = '送信中…';
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          access_key: accessKeyFor('child'),
+          subject: '【LITTLE BLUE MOUSE】保育所等訪問支援のお問い合わせ',
+          from_name: 'BLUE MOUSE お問い合わせフォーム',
+          inquirer_role: roleEl.value,
+          name: nameEl.value,
+          organization: orgEl.value,
+          email: mailEl.value,
+          phone: telEl.value,
+          facility: 'LITTLE BLUE MOUSE（保育所等訪問支援）',
+          inquiry_type: '保育所等訪問支援について',
+          traffic_source: trafficSource(),
+          message: msgEl.value
+        })
+      }).then(function (r) { return r.json(); })
+        .then(function (d) {
+          if (d.success) {
+            sendLead('visit', 'LITTLE BLUE MOUSE（保育所等訪問支援）');
+            location.href = './thanks.html';
+          } else {
+            btn.disabled = false; btn.textContent = '送信する ›';
+            alert('送信に失敗しました。お手数ですがお電話ください。');
+          }
+        }).catch(function () {
+          btn.disabled = false; btn.textContent = '送信する ›';
+          alert('送信に失敗しました。お手数ですがお電話ください。');
+        });
+    });
+  }
+
   var recruitForm = document.getElementById('recruit-form');
   if (recruitForm) {
     [['r-name','rerr-name'],['r-email','rerr-email'],['r-message','rerr-message']].forEach(function(pair) {
