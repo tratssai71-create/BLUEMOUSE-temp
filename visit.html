@@ -59,19 +59,19 @@
     });
   </script>
   <meta name="theme-color" content="#FFFEFB" />
-  <title>岡山市北区の児童発達支援｜LITTLE BLUE MOUSE 辰巳教室</title>
-  <meta name="description" content="岡山市北区辰巳（北長瀬エリア）の児童発達支援。1回65分・1日2コマ、原則マンツーマン。新規のご利用は3歳半〜年長9月末。リトルブルーマウス辰巳教室。" />
-  <link rel="canonical" href="https://bluemouse.blue/child.html" />
+  <title>岡山市の保育所等訪問支援｜園へ出向く支援 LITTLE BLUE MOUSE</title>
+  <meta name="description" content="岡山市北区辰巳の保育所等訪問支援。教室で普段から関わっている担当者が、保育所・幼稚園・認定こども園を訪問します。月1〜2回、利用料は無償化の対象。ご利用までの流れもご案内します。" />
+  <link rel="canonical" href="https://bluemouse.blue/visit.html" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://bluemouse.blue/child.html" />
-  <meta property="og:title" content="岡山市北区の児童発達支援｜LITTLE BLUE MOUSE 辰巳教室" />
-  <meta property="og:description" content="岡山市北区辰巳（北長瀬エリア）の児童発達支援。1回65分・1日2コマ、原則マンツーマン。新規のご利用は3歳半〜年長9月末。リトルブルーマウス辰巳教室。" />
+  <meta property="og:url" content="https://bluemouse.blue/visit.html" />
+  <meta property="og:title" content="岡山市の保育所等訪問支援｜園へ出向く支援 LITTLE BLUE MOUSE" />
+  <meta property="og:description" content="岡山市北区辰巳の保育所等訪問支援。教室で普段から関わっている担当者が、保育所・幼稚園・認定こども園を訪問します。月1〜2回、利用料は無償化の対象。ご利用までの流れもご案内します。" />
   <meta property="og:image" content="https://bluemouse.blue/2.webp" />
   <meta property="og:site_name" content="BLUE MOUSE" />
   <meta property="og:locale" content="ja_JP" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="岡山市北区の児童発達支援｜LITTLE BLUE MOUSE 辰巳教室" />
-  <meta name="twitter:description" content="岡山市北区辰巳（北長瀬エリア）の児童発達支援。1回65分・1日2コマ、原則マンツーマン。新規のご利用は3歳半〜年長9月末。リトルブルーマウス辰巳教室。" />
+  <meta name="twitter:title" content="岡山市の保育所等訪問支援｜園へ出向く支援 LITTLE BLUE MOUSE" />
+  <meta name="twitter:description" content="岡山市北区辰巳の保育所等訪問支援。教室で普段から関わっている担当者が、保育所・幼稚園・認定こども園を訪問します。月1〜2回、利用料は無償化の対象。ご利用までの流れもご案内します。" />
   <meta name="twitter:image" content="https://bluemouse.blue/2.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -381,6 +381,12 @@
       .pg-flow__sub { min-width:12.6em; }
       .pg-flow__min { font-size:11px; margin-left:2px; }
     }
+
+    /* このページの流れは番号1列。時刻2列用の字下げをそのまま使うと深すぎるので作り直す。
+       番号も1桁なので列幅を詰める */
+    .pg-flow--step { --flow-t:26px; }
+    .pg-flow--step tr.is-sub .pg-flow__d { padding-left:calc(var(--flow-t) + var(--flow-gap) + var(--flow-sub)); }
+    .pg-flow--step .pg-flow__t { font-weight:700; color:#6b4f08; }
 
     .pg-flow__min { margin-left:3px; color:#8a7a6e; white-space:nowrap;
       font-size:clamp(12.5px,calc(12.5px + (100vw - 375px) * .06),14.5px); }
@@ -724,70 +730,68 @@
 [
   {
     "@context": "https://schema.org",
-    "@type": "ChildCare",
-    "@id": "https://bluemouse.blue/child.html#business",
-    "name": "LITTLE BLUE MOUSE 児童発達支援",
-    "alternateName": ["リトルブルーマウス", "リトルブルーマウス辰巳教室", "ブルーマウス 辰巳"],
-    "url": "https://bluemouse.blue/child.html",
-    "image": "https://bluemouse.blue/2.webp",
-    "telephone": "086-245-9880",
-    "description": "岡山市北区辰巳の児童発達支援・保育所等訪問支援事業所。未就学児が対象で、新規のご利用開始は3歳半から年長の9月末まで。1回65分・1日2コマ、原則マンツーマン（こども1名にスタッフ1名）の主体性療育で「見えない力」の土台をつくります。定員10名/日。園までお迎えにうかがい、お帰りは保護者の送迎。利用料は無償化の対象で、工作代などの実費は別途。",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "辰巳26-102 2F",
-      "addressLocality": "岡山市北区",
-      "addressRegion": "岡山県",
-      "postalCode": "700-0954",
-      "addressCountry": "JP"
-    },
-    "areaServed": { "@type": "AdministrativeArea", "name": "岡山市" },
-    "hasMap": "https://maps.google.com/?q=リトルブルーマウス辰巳 岡山市北区辰巳26-102",
-    "openingHoursSpecification": [
-      {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-        "opens": "09:30",
-        "closes": "18:30"
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Saturday"],
-        "opens": "09:00",
-        "closes": "18:00"
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": "https://schema.org/PublicHolidays",
-        "opens": "09:00",
-        "closes": "18:00"
+    "@type": "Service",
+    "@id": "https://bluemouse.blue/visit.html#service",
+    "name": "保育所等訪問支援",
+    "serviceType": "保育所等訪問支援",
+    "url": "https://bluemouse.blue/visit.html",
+    "description": "岡山市北区辰巳の保育所等訪問支援。教室で普段から関わっている担当者が、保育所・幼稚園・認定こども園を訪問し、こども本人・園の職員・家族の3者を支援する。訪問は月1〜2回、1回あたり園での支援およそ1時間と、職員への報告15〜30分。利用料は幼児教育・保育の無償化の対象。",
+    "provider": {
+      "@type": "ChildCare",
+      "@id": "https://bluemouse.blue/child.html#business",
+      "name": "LITTLE BLUE MOUSE 児童発達支援",
+      "telephone": "086-245-9880",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "辰巳26-102 2F",
+        "addressLocality": "岡山市北区",
+        "addressRegion": "岡山県",
+        "postalCode": "700-0954",
+        "addressCountry": "JP"
       }
-    ],
+    },
+    "areaServed": {
+      "@type": "AdministrativeArea",
+      "name": "岡山市"
+    },
     "audience": {
       "@type": "PeopleAudience",
       "suggestedMinAge": 3,
       "suggestedMaxAge": 6
     },
-    "priceRange": "幼児教育・保育の無償化の対象（工作代などの実費は別途）",
-    "isAccessibleForFree": true,
-    "parentOrganization": {
-      "@type": "Organization",
-      "@id": "https://bluemouse.blue/#organization",
-      "name": "BLUE MOUSE",
-      "legalName": "合同会社BLUEMOUSE",
-      "alternateName": ["ブルーマウス", "BLUE MOUSE 岡山"],
-      "url": "https://bluemouse.blue/"
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "JPY",
+      "description": "幼児教育・保育の無償化の対象（利用者負担なし）"
     }
   },
   {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://bluemouse.blue/" },
-      { "@type": "ListItem", "position": 2, "name": "児童発達支援", "item": "https://bluemouse.blue/child.html" }
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "ホーム",
+        "item": "https://bluemouse.blue/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "児童発達支援",
+        "item": "https://bluemouse.blue/child.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "保育所等訪問支援",
+        "item": "https://bluemouse.blue/visit.html"
+      }
     ]
   }
 ]
-</script>
+  </script>
 </head>
 <body>
 
@@ -906,13 +910,13 @@
 <!-- Page Hero -->
 <section class="pg-hero">
   <div class="pg-hero__text">
-    <p class="pg-hero__tag">Early Intervention</p>
-    <h1 class="pg-hero__title">児童発達支援</h1>
-    <p class="pg-hero__sub">主体性という、土台を育てる。</p>
+    <p class="pg-hero__tag">Visiting Support</p>
+    <h1 class="pg-hero__title">保育所等訪問支援</h1>
+    <p class="pg-hero__sub">園での「いま」に、一緒に向き合う。</p>
   </div>
   <div class="pg-hero__visual">
     <div class="pg-hero__img-wrap">
-      <img src="./photos/hero_staff_child.jpg" alt="児童発達支援のスタッフに見守られながら積み木で遊ぶこども｜LITTLE BLUE MOUSE 辰巳教室" style="object-position:center 62%;" />
+      <img src="./photos/child_draw_opt.jpg" alt="机に向かって色鉛筆で絵を描くこども｜岡山市北区辰巳の保育所等訪問支援 LITTLE BLUE MOUSE" style="object-position:center 50%;" />
     </div>
   </div>
 </section>
@@ -921,159 +925,93 @@
 <div class="pg-content">
 
   <div class="pg-intro fade-in">
-    <p class="pg-intro__lead">「どうして？」を<br>「<em>こうすれば！</em>」に変える場所。</p>
-    <p class="pg-intro__body">「なぜうちのこは、みんなと同じようにできないんだろう…」<br>そんな風に悩み、自分を責めてしまうことはありませんか？</p>
+    <p class="pg-intro__lead">教室で見えた姿を、<br><em>園へ持っていく</em>しごとです。</p>
+    <p class="pg-intro__body">何に没頭し、どんなときにつまずくのか。LITTLE BLUE MOUSEで見えてきたそのこの姿をもとに、普段から関わっている担当者が保育園や幼稚園などを訪問します。</p>
   </div>
 
-  <div class="pg-worry fade-in">
-    <div class="pg-worry-cloud">
-      <ul class="pg-worry-list">
-        <li><span class="pg-worry-bubble">座っていられない</span></li>
-        <li><span class="pg-worry-bubble">切り替えができない</span></li>
-        <li><span class="pg-worry-bubble">すぐ諦める</span></li>
-        <li><span class="pg-worry-bubble">話を聞かない</span></li>
-        <li><span class="pg-worry-bubble">活動に参加しない</span></li>
-      </ul>
+  <div class="pg-visit fade-in">
+    <h2 class="pg-info__title">私たちが大切にしていること</h2>
+    <div class="pg-visit__body">
+      <p>活動の中で、どんな階段なら今のそのこに届くのかを、先生と一緒に考えます。手が届く階段があれば、こどもは没頭します。つまずいても気持ちを立て直し、ほかのこどもたちと一緒に挑戦を続けやすくなります。</p>
+      <p>訪問するのは、教室でそのこと普段から関わっている担当者です。はじめて会う専門員が外から助言するのではなく、そのこの「いつも」を知っている人が園へ行きます。これが私たちのいちばんの特徴です。</p>
+      <p>訪問の内容は保護者の方とも共有し、事業所・園・家庭が同じ見方で支えられるようにします。</p>
     </div>
-    <p class="pg-worry__body fade-in">
-      これらは、毎日子育てを頑張っているからこそ生まれる、保護者の方の「あるある」なお悩みです。<br>
-      しかし、これらは決してただの「困った行動」や「ワガママ」ではありません。実は、こうした行動の裏には<em>「こどもなりの切実な理由」</em>が隠れているんです。<br><br>
-      だからこそ、私たちが目指すのは、こどもを叱って無理やりルールに合わせることではありません。<strong>「そのこが一番生きやすい環境とやり方」</strong>を、大人が一緒に見つけ出すことです。
-    </p>
   </div>
 
-  <div class="pg-stance fade-in" id="stance">
-    <h2 class="pg-info__title">私たちのスタンス</h2>
-    <p class="pg-stance__sub">〜「そのこだけのトリセツ」を<br>一緒に作る〜</p>
-    <p class="pg-stance__body">
-      こどもの特性や「こうしたい！」という気持ちは、とても大切です。しかし同時に、小学校という集団社会に向けたルールや、保護者の方の「こうなってほしい」という思いがあるのも現実です。<br><br>
-      私たちが目指すのは、こどもの希望と、社会のルール・大人の思いを<em>「どうすり合わせるか」</em>です。<br>
-      どちらかを我慢させるのではなく、お互いにとって一番「心地よいやり方」を、専門的な視点から探り当てていくこと。<br><br>
-      保護者の方もこども本人も、ホッと息をついて笑顔になれる。私たちは、そんな<strong>「そのこだけの取扱説明書（トリセツ）」</strong>を一緒に作っていく伴走者でありたいと願っています。
-    </p>
-  </div>
-
-  <div class="pg-kodawari fade-in" id="kodawari">
-    <h2 class="pg-info__title">主体性療育の「3つのこだわり」</h2>
+  <div class="pg-kodawari fade-in">
+    <h2 class="pg-info__title">訪問で行う3つの支援</h2>
     <div class="pg-kodawari-list">
       <div class="pg-kodawari-item fade-in">
         <div class="pg-kodawari-item__head">
           <div class="pg-kodawari-num pg-kodawari-num--yellow">01</div>
-          <h3>「叱る」ではなく<br>環境設定で解決する</h3>
+          <h3>こども本人への支援</h3>
         </div>
         <div class="pg-kodawari-body">
-          <p>発達に特性のあるこどもたちは、音の過敏さや見通しが立たない不安など、常に目に見えない「不快感」と戦っています。心がいっぱいになっていると、些細なことでキャパオーバーになり、癇癪や拒否となって表れます。</p>
-          <p>だからこそ、私たちは「無理に枠にはめる」「頭ごなしに否定する」ことはしません。徹底的な「観察」から専門的な視点で仮説を立て、環境を変える。この「仮説と検証」の繰り返しによって不快感を取り除き、大切な療育が届くための「心の余裕」を生み出します。</p>
+          <p>園での過ごし方を見せていただき、集団の中でそのこが力を出しやすくなる関わりを、その場で一緒に探します。</p>
         </div>
       </div>
       <div class="pg-kodawari-item fade-in">
         <div class="pg-kodawari-item__head">
           <div class="pg-kodawari-num pg-kodawari-num--yellow">02</div>
-          <h3>こども「中心」の<br>秩序ある環境</h3>
+          <h3>園の先生への支援</h3>
         </div>
         <div class="pg-kodawari-body">
-          <p>私たちが大切にしているのは「こども中心」の療育ですが、これは決して好き勝手にさせる放任ではありません。こどもたちが安心して自分らしく過ごせる「ルールと秩序のある環境」を、大人が戦略的に整えることを意味します。</p>
-          <p>大人の手を借りずとも、「出す→遊ぶ→片付ける」を自分一人で完結できる「こどもサイズ」の環境設定。この環境の中で自ら選び、試行錯誤し、「自分で決めた」「できた」という小さな成功体験を積み重ねます。</p>
+          <p>そのこの発達の段階や特性の見立てをお伝えし、関わり方や環境について一緒に考えます。<strong>園のやり方を変えていただくための訪問ではありません。</strong>園の考え方と進め方を尊重したうえで、できることを探します。</p>
         </div>
       </div>
       <div class="pg-kodawari-item fade-in">
         <div class="pg-kodawari-item__head">
           <div class="pg-kodawari-num pg-kodawari-num--yellow">03</div>
-          <h3>むやみに「干渉しない」<br>という支援</h3>
+          <h3>ご家族への支援</h3>
         </div>
         <div class="pg-kodawari-body">
-          <p>私たちは「ここは安全で、大人は自分の味方だ」と思える安心の土台を何より大切にしています。この安心感があるからこそ、失敗を怖がらずに自分の意志で試行錯誤する「生きた学び」が生まれます。</p>
-          <p>放置ではなく、こどもの「自分で選ぶ」を温かく見守り、必要な時だけ手を差し伸べる。この信じて待つ姿勢こそが、私たちの高度な専門性です。</p>
+          <p>園での様子と、そこで見えたことを保護者の方へお伝えします。家庭と園で見方が揃うことが、そのこの安心につながります。</p>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="pg-schedule fade-in" id="schedule">
-    <h2 class="pg-info__title">具体的な活動と1日の流れ</h2>
-    <div class="pg-flow fade-in">
+  <div class="pg-visit fade-in">
+    <h2 class="pg-info__title">園・学校の先生へ</h2>
+    <div class="pg-visit__body">
+      <p><strong>お願いすることは、多くありません。</strong>訪問の日程を合わせていただくことと、訪問のあとに15分から30分ほど、様子をお伝えする時間をいただくことの2つです。</p>
+      <p>お伝えする時間がその日に取りにくい場合は、お昼寝の時間帯やオンラインなど、園のご都合のよい方法に合わせます。訪問は<strong>園の活動の流れに沿って</strong>行い、こどもたちの活動を止めることはしません。</p>
+      <p>事前の準備や、特別な場所のご用意も必要ありません。普段どおりの時間を見せていただくことが、いちばん参考になります。</p>
+    </div>
+  </div>
+
+  <div class="pg-info fade-in">
+    <h2 class="pg-info__title">ご利用までの流れ</h2>
+    <div class="pg-flow pg-flow--step fade-in">
       <table>
-        <thead>
-          <tr>
-            <th scope="col"><span class="pg-flow__label">1部</span></th>
-            <th scope="col"><span class="pg-flow__label">2部</span></th>
-            <th scope="col"><span class="sr-only">内容</span></th>
-          </tr>
-        </thead>
+        <caption class="sr-only">ご利用までの流れ</caption>
         <tbody>
-          <tr><td class="pg-flow__t">14:00</td><td class="pg-flow__t">15:55</td><td class="pg-flow__d">園からスタッフと出発<span class="pg-flow__min">１か所目</span></td></tr>
-          <tr><td class="pg-flow__t">14:10</td><td class="pg-flow__t">16:05</td><td class="pg-flow__d">園からスタッフと出発<span class="pg-flow__min">２か所目</span></td></tr>
-          <tr><td class="pg-flow__t">14:25</td><td class="pg-flow__t">16:20</td><td class="pg-flow__d">はじまり</td></tr>
-          <tr class="is-sub"><td colspan="3" class="pg-flow__d"><span class="pg-flow__sub">こどもが参加を選べる小集団</span><span class="pg-flow__min">10分</span></td></tr>
-          <tr class="is-sub"><td colspan="3" class="pg-flow__d"><span class="pg-flow__sub">こどもが自分で選んだ活動</span><span class="pg-flow__min">50分</span></td></tr>
-          <tr><td class="pg-flow__t">15:25</td><td class="pg-flow__t">17:20</td><td class="pg-flow__d">保護者のお迎え</td></tr>
-          <tr class="is-sub"><td colspan="3" class="pg-flow__d"><span class="pg-flow__sub">こどもとスタッフからの報告</span><span class="pg-flow__min">5分</span></td></tr>
-          <tr><td class="pg-flow__t">15:30</td><td class="pg-flow__t">17:25</td><td class="pg-flow__d">おわり</td></tr>
+          <tr><td class="pg-flow__t">1</td><td class="pg-flow__d">ご相談<span class="pg-flow__min">保護者</span></td></tr>
+          <tr class="is-sub"><td colspan="2" class="pg-flow__d">相談支援専門員、または当事業所へご相談ください</td></tr>
+          <tr><td class="pg-flow__t">2</td><td class="pg-flow__d">園への連絡<span class="pg-flow__min">相談員</span></td></tr>
+          <tr class="is-sub"><td colspan="2" class="pg-flow__d">相談支援専門員が園へ連絡し、様子をうかがいます</td></tr>
+          <tr><td class="pg-flow__t">3</td><td class="pg-flow__d">受給者証の申請<span class="pg-flow__min">保護者</span></td></tr>
+          <tr class="is-sub"><td colspan="2" class="pg-flow__d">岡山市の窓口へ申請し、支給が決定されます</td></tr>
+          <tr><td class="pg-flow__t">4</td><td class="pg-flow__d">打ち合わせ<span class="pg-flow__min">全員</span></td></tr>
+          <tr class="is-sub"><td colspan="2" class="pg-flow__d">保護者・園・相談員・当事業所で、進め方を決めます</td></tr>
+          <tr><td class="pg-flow__t">5</td><td class="pg-flow__d">訪問の開始<span class="pg-flow__min">当事業所</span></td></tr>
+          <tr class="is-sub"><td colspan="2" class="pg-flow__d">計画にそって訪問します。進み方は定期的に見直します</td></tr>
         </tbody>
       </table>
     </div>
-  </div>
-
-  <div class="pg-visit fade-in" id="visit">
-    <h2 class="pg-info__title">保育所等訪問支援</h2>
-    <div class="pg-visit__body">
-      <p>何に没頭し、どんなときにつまずくのか。LITTLE BLUE MOUSEで見えてきたそのこの姿をもとに、普段から関わっている担当者が保育園や幼稚園などを訪問します。</p>
-      <p>活動の中で、どんな階段なら今のそのこに届くのかを、先生と一緒に考えます。手が届く階段があれば、こどもは没頭します。つまずいても気持ちを立て直し、ほかのこどもたちと一緒に挑戦を続けやすくなります。</p>
-      <p>訪問は月1〜2回。その内容は保護者の方とも共有し、事業所・園・家庭が同じ見方で支えられるようにします。</p>
-      <p><a href="./visit.html">保育所等訪問支援について詳しく見る →</a></p>
-    </div>
-  </div>
-
-  <div class="pg-future fade-in" id="future">
-    <h2 class="pg-info__title">療育の先にある未来</h2>
-    <p class="pg-stance__sub">〜「見えない力」が、10年後の基盤になる〜</p>
-    <p class="pg-future__intro fade-in">
-      私たちが目指すのは、目先の「文字が書けた」「静かに座れた」といった表面上のスキルだけではありません。
-    </p>
-    <div class="pg-future-list">
-      <div class="pg-future-item fade-in">
-        <div class="pg-future-item__body">
-          <h3>対人トラブルを防ぐ<br>「最大の防御」</h3>
-          <p>自分の気持ちやSOSを正しく言葉で伝えられる力は、小学校やその先の社会で直面する対人トラブルを防ぐ最大の防御になります。</p>
-        </div>
-      </div>
-      <div class="pg-future-item fade-in">
-        <div class="pg-future-item__body">
-          <h3>一生折れない<br>「自分基準の自信」</h3>
-          <p>「失敗しても大丈夫」「自分ならなんとかできる」という体験ベースの自信は、誰かと比べられることで崩れることがありません。これが10年後の社会的な自立を支える確かな土台になります。</p>
-        </div>
-      </div>
-    </div>
-    <p class="pg-future__intro pg-future__outro fade-in">
-      自分を認められた安心感の中で育つ<em>「自分の気持ちを伝える力（言語化）」</em>や<em>「何度でも試せる折れない心」</em>。この目に見えない「心の根っこ」こそが、将来こどもを守る最大の武器になります。
-    </p>
-  </div>
-
-  <div class="pg-quote fade-in" data-reveal="late">
-    <p class="pg-quote__text"><span class="pg-quote__lead">このこが、</span><span class="pg-quote__main">自分で自分を育てる。</span></p>
+    <p class="pg-future__intro">ご相談から訪問の開始までは、<strong>おおむね1〜2か月</strong>かかります。受給者証をすでにお持ちの場合は、より短くなることがあります。<br>手続きの進め方が分からない場合も、まずはお電話ください。どこへ相談すればよいかからご案内します。</p>
   </div>
 
   <div class="pg-info fade-in" id="overview">
-    <h2 class="pg-info__title">施設情報</h2>
+    <h2 class="pg-info__title">サービス情報</h2>
     <table class="pg-table">
-      <tr><th>事業種別</th><td>児童発達支援・保育所等訪問支援</td></tr>
-      <tr><th>対象</th><td>未就学児（3歳半〜6歳）<span class="pg-table__note">※ 新規のご利用開始は年長の9月末までとしています。就学までの療育期間を確保するためです。</span></td></tr>
-      <!-- 料金は検索で最も聞かれている項目（Googleの「関連する質問」の筆頭）。
-           無償化の適用期間（満3歳〜）は、わかりにくく保護者が自分で調べる領域なので載せない（43さん判断・2026-10-04）。
-           実費だけは、契約時の行き違いを防ぐために書く -->
-      <tr><th>利用料</th><td>無償化の対象<span class="pg-table__note">※ 工作代などの実費は別途かかります。</span></td></tr>
-      <tr><th>定員</th><td>10名 / 日</td></tr>
-      <!-- ラベルは「支援時間」ではなく「利用時間」。保護者が知りたいのは
-           「うちのこは何時から何時まで」で、営業時間(9:30〜18:30)だけだと
-           午前から通えると誤読される。実際の枠は午後の2つだけ。
-           65分・2コマも併記して残す。検索エンジンとAIは引き算をしないので、
-           時刻だけ書いても「65分」としては引用されない。
-           65分は教室での活動時間。園へのお迎え（1部14:00発・2部15:55発）は含まない -->
-      <tr><th>利用時間</th><td>1部 14:25〜15:30 ／ 2部 16:20〜17:25（1回65分・1日2コマ）</td></tr>
-      <tr><th>支援形態</th><td>原則マンツーマン（こども1名にスタッフ1名）</td></tr>
-      <tr><th>営業時間</th><td>平日：9:30〜18:30<br>土・祝：9:00〜18:00</td></tr>
-      <tr><th>休業日</th><td>日曜・年末年始・お盆など</td></tr>
-      <tr><th>送迎</th><td>園までお迎えにうかがいます<span class="pg-table__note">※ お帰りは保護者の送迎をお願いしています。</span></td></tr>
+      <tr><th>対象</th><td>保育所・幼稚園・認定こども園などに通う未就学児<span class="pg-table__note">※ 放課後等デイサービスのご利用者さま（就学後）への訪問は、2027年4月を目途に開始する予定です。</span></td></tr>
+      <tr><th>訪問先</th><td>保育所・幼稚園・認定こども園 など</td></tr>
+      <tr><th>訪問の頻度</th><td>月1〜2回<span class="pg-table__note">※ おこさまの状況に応じて調整します。</span></td></tr>
+      <tr><th>1回の時間</th><td>園での支援 約1時間 ＋ 先生へのご報告 15〜30分</td></tr>
+      <tr><th>訪問する人</th><td>教室で普段から関わっている担当者</td></tr>
+      <tr><th>利用料</th><td>無償化の対象</td></tr>
+      <tr><th>実施事業所</th><td>LITTLE BLUE MOUSE 辰巳教室</td></tr>
       <tr><th>所在地</th><td>岡山市北区辰巳26-102 2F</td></tr>
       <tr><th>電話</th><td><a href="tel:0862459880">086-245-9880</a></td></tr>
     </table>
