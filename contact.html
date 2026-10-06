@@ -202,6 +202,16 @@
         radial-gradient(circle at 15% 85%, rgba(236,233,229,.25) 0%, rgba(236,233,229,0) 45%),
         #fff;
     }
+    /* 試用中：保育所等訪問支援だけマーブルを一段濃い金系にする（2026-10-06）。
+       気に入らなければ、このブロックを丸ごと削除すれば bg-child のイエローに戻る */
+    #form-visit.ct-form {
+      background:
+        radial-gradient(circle at 8% 8%, rgba(226,196,110,.34) 0%, rgba(226,196,110,0) 55%),
+        radial-gradient(circle at 92% 22%, rgba(248,238,205,.36) 0%, rgba(248,238,205,0) 50%),
+        radial-gradient(circle at 78% 96%, rgba(226,196,110,.30) 0%, rgba(226,196,110,0) 60%),
+        radial-gradient(circle at 15% 85%, rgba(248,238,205,.34) 0%, rgba(248,238,205,0) 45%),
+        #fff;
+    }
     .ct-selection-summary { margin:0 0 20px; padding-bottom:14px; border-bottom:1px solid #ece7df; }
     .ct-summary-tag { display:block; font-family:"Inter",sans-serif; font-size:10px; font-weight:600; letter-spacing:.25em; text-transform:uppercase; color:var(--teal-dark); margin-bottom:5px; }
     /* #d9a520 は白地に2.3:1で読めないため、焦がした金 #8a6408（5.3:1）にする */
