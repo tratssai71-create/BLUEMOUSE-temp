@@ -98,7 +98,7 @@
     .header__nav { display:flex; align-items:center; gap:28px; }
     .header__link { font-size:13px; font-weight:500; letter-spacing:.06em; color:#7d6d60; transition:color .2s; }
     .header__link:hover { color:var(--yellow); }
-        .header__cta { display:inline-flex; align-items:center; padding:8px 20px; background:var(--coral); color:var(--ink); font-size:13px; font-weight:600; border-radius:100px; transition:background .2s; cursor:pointer; }
+        .header__cta { display:inline-flex; align-items:center; padding:8px 20px; background:var(--coral); color:#fff; font-size:13px; font-weight:600; border-radius:100px; transition:background .2s; cursor:pointer; }
     .header__cta:hover { background:#e87e59; }
     .header__cta-wrap { position:relative; }
     .header__cta-drop { display:none; position:absolute; top:100%; right:0; background:transparent; padding-top:10px; min-width:210px; z-index:200; flex-direction:column; gap:2px; }
@@ -190,7 +190,7 @@
     .pg-promo__cta { position:relative; z-index:1; flex-shrink:0; display:inline-flex; align-items:center; gap:5px; padding:7px 15px; border-radius:100px;
       /* 白い筋を走らせず、コーラルの濃淡がゆっくり流れるだけの上品な艶 */
       background:linear-gradient(112deg, var(--coral) 0%, #f7a482 26%, var(--coral) 50%, #e8825d 74%, var(--coral) 100%);
-      background-size:220% 100%; color: var(--ink);
+      background-size:220% 100%; color:#fff;
       font-size:12px; line-height:1.5; font-weight:700; letter-spacing:.07em; white-space:nowrap;
       animation:promoHalo 2.8s ease-out infinite, promoCtaSheen 7s linear infinite;
       transition:transform .25s cubic-bezier(.22,1,.36,1); }
@@ -472,7 +472,7 @@
        WCAG 2.2 AAの最小24pxもAppleの推奨44pxも下回る。
        inline-block にして上下パディングで44pxを確保する（見た目の文字は変わらない） */
     .pg-cta__phone a { display:inline-block; padding:6px 10px; }
-    .pg-cta__btn { display:inline-flex; align-items:center; gap:6px; padding:12px 32px; background:var(--coral); color:var(--ink); font-size:14px; font-weight:600; border-radius:100px; transition:transform .2s, box-shadow .2s; }
+    .pg-cta__btn { display:inline-flex; align-items:center; gap:6px; padding:12px 32px; background:var(--coral); color:#fff; font-size:14px; font-weight:600; border-radius:100px; transition:transform .2s, box-shadow .2s; }
     .pg-cta__btn:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(242,144,108,.3); }
     .pg-cta__btns { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; }
     .pg-cta__btn--teal { background:var(--teal); }
@@ -1162,7 +1162,7 @@
     height: 92px;
     border-radius: 50%;
     background: linear-gradient(155deg, var(--coral), #e8785a);
-    color: var(--ink);
+    color: #fff;
     font-family: "Zen Maru Gothic", "Zen Kaku Gothic New", sans-serif;
     text-align: center;
     text-decoration: none;
