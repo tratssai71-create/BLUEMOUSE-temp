@@ -57,15 +57,35 @@
         page_title: document.title
       });
     });
+
+    // Instagramへの遷移の計測。職場見学の告知先をInstagramに一本化したため、
+    // このボタンが押されているかどうかが分からないと、導線が効いたか判断できない。
+    // キーイベントにはしない（generate_lead と tel_click の2つに絞る方針）。
+    // link_position でページ内のどのリンクかを分ける（本文のボタン / フッター / メニュー）
+    document.addEventListener('click', function (e) {
+      var t = e.target;
+      if (!t || typeof t.closest !== 'function') return;
+      var a = t.closest('a[href*="instagram.com"]');
+      if (!a || typeof gtag !== 'function') return;
+      var pos = a.classList.contains('rc-insta__btn') ? 'recruit_visit_button'
+              : a.closest('.footer') ? 'footer'
+              : a.closest('.mobile-nav') ? 'mobile_nav'
+              : 'other';
+      gtag('event', 'instagram_click', {
+        link_position: pos,
+        page_location: location.href,
+        page_title: document.title
+      });
+    });
   </script>
   <meta name="theme-color" content="#FFFEFB" />
   <title>採用情報｜岡山市の児童発達支援・放課後等デイ｜BLUE MOUSE</title>
-  <meta name="description" content="想定を超えるお問い合わせをいただき、現在、新たな募集は見合わせています。12月中旬〜下旬に、人数を限って職場見学を行う予定です。実施の有無や日程は決まり次第Instagramでお知らせします。岡山市の児童発達支援・放課後等デイサービス BLUE MOUSE。" />
+  <meta name="description" content="募集していた人数を超えるご応募をいただき、現在は受付を止めています。12月中旬〜下旬に、人数を限って職場見学を行う予定です。実施の有無や日程は決まり次第Instagramでお知らせします。岡山市の児童発達支援・放課後等デイサービス BLUE MOUSE。" />
   <link rel="canonical" href="https://bluemouse.blue/recruit.html" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://bluemouse.blue/recruit.html" />
   <meta property="og:title" content="採用情報｜岡山市の児童発達支援・放課後等デイ｜BLUE MOUSE" />
-  <meta property="og:description" content="想定を超えるお問い合わせをいただき、現在、新たな募集は見合わせています。12月中旬〜下旬に、人数を限って職場見学を行う予定です。実施の有無や日程は決まり次第Instagramでお知らせします。" />
+  <meta property="og:description" content="募集していた人数を超えるご応募をいただき、現在は受付を止めています。12月中旬〜下旬に、人数を限って職場見学を行う予定です。実施の有無や日程は決まり次第Instagramでお知らせします。" />
   <meta property="og:image" content="https://bluemouse.blue/photos/recruit_opt.jpg" />
   <meta property="og:site_name" content="BLUE MOUSE" />
   <meta property="og:locale" content="ja_JP" />
@@ -391,10 +411,11 @@
 <div class="pg-content">
 
   <div class="rc-status fade-in">
-    <p class="rc-status__main">想定を超えるお問い合わせをいただき、現在、新たな募集は見合わせています。</p>
-    <!-- 止めている理由は43さんから伺っていないため書かない。太字で因果は言えており、
-         動機を足すと創作になる。実際の理由が分かったら事実として1文入れる -->
-    <p class="rc-status__sub">お声をかけてくださったみなさま、ありがとうございます。次の募集が決まりましたら、このページとInstagramでお知らせします。</p>
+    <p class="rc-status__main">募集していた人数を超えるご応募をいただき、現在は受付を止めています。</p>
+    <!-- 止めている理由（43さん確認済み）＝募集枠以上の応募が来ており、丁寧に対応しきれないこと。
+         「負担」とは書かない。応募した人が読むと「自分の応募が負担だった」と受け取るため。
+         事実（募集人数を超える応募・順に対応中）だけを書けば、同じことが伝わる -->
+    <p class="rc-status__sub">いただいたご応募に、順にご対応しているところです。お声をかけてくださったみなさま、ありがとうございます。次の募集が決まりましたら、このページとInstagramでお知らせします。</p>
   </div>
 
   <div class="rc-visit fade-in">
@@ -404,6 +425,7 @@
     <ul class="rc-visit__list">
       <li><span class="rc-visit__k">時期</span><span class="rc-visit__v">12月中旬〜下旬を予定</span></li>
       <li><span class="rc-visit__k">定員</span><span class="rc-visit__v">人数限定</span></li>
+      <li><span class="rc-visit__k">場所</span><span class="rc-visit__v">LITTLE BLUE MOUSE（北区辰巳・児童発達支援）<br>BLUE MOUSE（中区徳吉町・放課後等デイサービス）</span></li>
       <li><span class="rc-visit__k">お知らせ</span><span class="rc-visit__v">日程と募集人数が決まり次第、<strong>Instagramでお知らせします</strong></span></li>
     </ul>
     <p class="rc-visit__caution">※ 現時点では予定です。実施の有無や日程は、決まり次第Instagramでお知らせします。</p>
