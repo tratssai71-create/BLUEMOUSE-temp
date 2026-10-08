@@ -80,12 +80,12 @@
   </script>
   <meta name="theme-color" content="#FFFEFB" />
   <title>採用情報｜岡山市の児童発達支援・放課後等デイ｜BLUE MOUSE</title>
-  <meta name="description" content="募集していた人数を超えるご応募をいただき、現在は受付を止めています。2026年12月中旬〜下旬に、人数を限って職場見学を行う予定です。実施の有無や日程は決まり次第Instagramでお知らせします。岡山市の児童発達支援・放課後等デイサービス BLUE MOUSE。" />
+  <meta name="description" content="募集していた人数を超えるご応募をいただき、現在は受付を止めています。2026年12月中旬に、人数を限って職場見学を行う予定です。実施の有無や日程は決まり次第Instagramでお知らせします。岡山市の児童発達支援・放課後等デイサービス BLUE MOUSE。" />
   <link rel="canonical" href="https://bluemouse.blue/recruit.html" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://bluemouse.blue/recruit.html" />
   <meta property="og:title" content="採用情報｜岡山市の児童発達支援・放課後等デイ｜BLUE MOUSE" />
-  <meta property="og:description" content="募集していた人数を超えるご応募をいただき、現在は受付を止めています。2026年12月中旬〜下旬に、人数を限って職場見学を行う予定です。実施の有無や日程は決まり次第Instagramでお知らせします。" />
+  <meta property="og:description" content="募集していた人数を超えるご応募をいただき、現在は受付を止めています。2026年12月中旬に、人数を限って職場見学を行う予定です。実施の有無や日程は決まり次第Instagramでお知らせします。" />
   <meta property="og:image" content="https://bluemouse.blue/photos/recruit_opt.jpg" />
   <meta property="og:site_name" content="BLUE MOUSE" />
   <meta property="og:locale" content="ja_JP" />
@@ -422,10 +422,10 @@
 
   <div class="rc-visit fade-in">
     <p class="rc-visit__tag">Open Office</p>
-    <h2 class="rc-visit__title">2026年12月に、職場見学を行う予定です。</h2>
+    <h2 class="rc-visit__title" id="rcVisitTitle">2026年12月に、職場見学を行う予定です。</h2>
     <p class="rc-visit__body">募集は見合わせていますが、「どんな場所なのか、一度見てみたい」という方のために、人数を限って職場見学の機会をつくれたらと考えています。こどもたちとスタッフが普段どう過ごしているかを、そのままご覧いただく形を予定しています。</p>
     <ul class="rc-visit__list">
-      <li><span class="rc-visit__k">時期</span><span class="rc-visit__v">2026年12月中旬〜下旬を予定</span></li>
+      <li><span class="rc-visit__k">時期</span><span class="rc-visit__v" id="rcVisitWhen">2026年12月中旬を予定</span></li>
       <li><span class="rc-visit__k">定員</span><span class="rc-visit__v">人数限定</span></li>
       <li><span class="rc-visit__k">場所</span><span class="rc-visit__v">LITTLE BLUE MOUSE（北区辰巳・児童発達支援）<br>BLUE MOUSE（中区徳吉町・放課後等デイサービス）</span></li>
       <li><span class="rc-visit__k">お知らせ</span><span class="rc-visit__v">日程と募集人数が決まり次第、<strong>Instagramでお知らせします</strong></span></li>
@@ -448,7 +448,7 @@
       <div class="pg-feat__text">
         <p class="pg-feat__tag">Recruit</p>
         <h3 class="pg-feat__title">岡山で一番働きやすい職場を、<br>目指しています。</h3>
-        <p class="pg-feat__desc">決められた手順をこなす仕事ではなく、目の前のこどもに何が要るかを自分で考えて動く。そういう働き方を大事にしています。募集を再開したときは、この姿勢に合う方をお迎えしたいと考えています。</p>
+        <p class="pg-feat__desc">決められた手順をこなす仕事ではなく、目の前のこどもに何が要るかを自分で考えて動く。その働き方も、職場のしくみも、まだ作っている途中です。募集を再開したときは、整った環境で働きたい方よりも、一緒に作ることを面白がれる方をお迎えしたいと考えています。</p>
       </div>
     </div>
   </div>
@@ -687,6 +687,41 @@
   }, { threshold: 0.5 });
 
   io.observe(dock);
+})();
+
+// 職場見学の予定を、日付で自動的に切り替える。
+// 求人の停止が長期になる見込みで、放置されたページが「終わった予定」を
+// 言い続けるのを防ぐため。43さんが何もしなくても嘘にならない状態にする。
+//
+// 日付を過ぎたら次の回へ、全部過ぎたら「日程未定・Instagramで告知」に落ちる。
+// HTMLの初期値は1件目と同じにしてあるので、JSが動かない環境でも今は正しく出る。
+// 予定を足すときは plan に1行足すだけ。until はその日いっぱい表示する意味
+(function () {
+  var title = document.getElementById('rcVisitTitle');
+  var when = document.getElementById('rcVisitWhen');
+  if (!title || !when) return;
+
+  var plan = [
+    { until: '2026-12-20', title: '2026年12月に、職場見学を行う予定です。', when: '2026年12月中旬を予定' },
+    { until: '2027-01-31', title: '2027年1月に、職場見学を行う予定です。', when: '2027年1月下旬を予定' }
+  ];
+  var fallback = {
+    title: '次回の職場見学は、日程が決まり次第お知らせします。',
+    when: '次回の日程は未定です'
+  };
+
+  var d = new Date();
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  // ISO形式（YYYY-MM-DD）は文字列のまま比較しても日付順になる。
+  // Date同士の比較にすると時差や時刻の扱いで境界がぶれるため、文字列で比べる
+  var today = d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+
+  var current = fallback;
+  for (var i = 0; i < plan.length; i++) {
+    if (today <= plan[i].until) { current = plan[i]; break; }
+  }
+  title.textContent = current.title;
+  when.textContent = current.when;
 })();
 
 // Instagramボタンが画面に出ている間は、浮かぶCTAを引っ込める。
