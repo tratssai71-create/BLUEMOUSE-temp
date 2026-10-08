@@ -235,6 +235,13 @@
       .footer { padding: 32px 16px 16px; }
       .footer__inner { grid-template-columns: 1fr; gap: 20px; }
     }
+    /* 320px ではボタンのラベルが2行に折り返す。横幅いっぱいに広げて文字を一段下げる */
+    @media (max-width:374px) {
+      .rc-insta__btn { display:flex; width:100%; justify-content:center;
+        padding:13px 14px; font-size:13px; gap:7px; }
+      .rc-insta__btn svg { width:17px; height:17px; }
+      .rc-insta__note { font-size:12px; }
+    }
 
     /* ===== PC専用の調整。781px以上でのみ適用され、スマホ表示には一切影響しない ===== */
     @media (min-width: 781px) {
