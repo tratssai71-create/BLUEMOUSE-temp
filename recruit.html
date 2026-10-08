@@ -176,6 +176,9 @@
     .rc-insta__btn:hover { transform:translateY(-2px); box-shadow:0 10px 28px rgba(242,144,108,.4); }
     .rc-insta__btn svg { width:19px; height:19px; flex-shrink:0; }
     .rc-insta__note { margin-top:13px; font-size:12.5px; color:#7d6d60; line-height:1.9; }
+    /* 402pxで浮かぶCTAがInstagramボタンに横19px重なり、右端が隠れていた。
+       このページの主役はInstagramボタンなので、画面に出ている間は浮かぶCTAを引っ込める */
+    .floating-cta.is-muted { opacity:0; pointer-events:none; }
 
     /* Feature blocks */
     .pg-features { display:flex; flex-direction:column; gap:40px; margin-bottom:56px; }
@@ -658,6 +661,19 @@
   }, { threshold: 0.5 });
 
   io.observe(dock);
+})();
+
+// Instagramボタンが画面に出ている間は、浮かぶCTAを引っ込める。
+// 両方が同時に見えると、402pxで横19px重なって主役のボタンの右端が隠れるため。
+// 上のドック処理とは別。ドックに収まっている間は .rc-insta が画面外なので干渉しない
+(function () {
+  var btn = document.querySelector('.floating-cta');
+  var insta = document.querySelector('.rc-insta');
+  if (!btn || !insta || !window.IntersectionObserver) return;
+
+  new IntersectionObserver(function (entries) {
+    btn.classList.toggle('is-muted', entries[0].isIntersecting);
+  }, { rootMargin: '40px 0px 40px 0px', threshold: 0 }).observe(insta);
 })();
 </script>
 </body>
