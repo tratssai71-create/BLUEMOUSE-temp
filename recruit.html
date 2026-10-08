@@ -59,13 +59,13 @@
     });
   </script>
   <meta name="theme-color" content="#FFFEFB" />
-  <title>児童発達支援・放課後等デイの求人｜岡山市｜BLUE MOUSE</title>
-  <meta name="description" content="岡山市のBLUE MOUSEでスタッフを募集しています。児童発達支援（北区辰巳）・放課後等デイサービス（中区徳吉町）。自分らしく働ける職場を目指しています。" />
+  <title>採用情報｜岡山市の児童発達支援・放課後等デイ｜BLUE MOUSE</title>
+  <meta name="description" content="現在、スタッフの募集は行っておりません。12月中旬〜下旬に、人数を限って職場見学を実施予定です。日程が決まり次第Instagramでお知らせします。岡山市の児童発達支援・放課後等デイサービス BLUE MOUSE。" />
   <link rel="canonical" href="https://bluemouse.blue/recruit.html" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://bluemouse.blue/recruit.html" />
-  <meta property="og:title" content="児童発達支援・放課後等デイの求人｜岡山市｜BLUE MOUSE" />
-  <meta property="og:description" content="岡山市のBLUE MOUSEでスタッフを募集しています。児童発達支援（北区辰巳）・放課後等デイサービス（中区徳吉町）。自分らしく働ける職場を目指しています。" />
+  <meta property="og:title" content="採用情報｜岡山市の児童発達支援・放課後等デイ｜BLUE MOUSE" />
+  <meta property="og:description" content="現在、スタッフの募集は行っておりません。12月中旬〜下旬に、人数を限って職場見学を実施予定です。日程が決まり次第Instagramでお知らせします。" />
   <meta property="og:image" content="https://bluemouse.blue/photos/recruit_opt.jpg" />
   <meta property="og:site_name" content="BLUE MOUSE" />
   <meta property="og:locale" content="ja_JP" />
@@ -145,6 +145,36 @@
     .pg-intro__lead em { font-style:normal; color:var(--coral); }
     .pg-intro__body { font-size:15px; color:#6b5a4c; line-height:2; }
 
+    /* 募集状況のお知らせ。イエロー＝情報ラベル（コーラルは行動色なので使わない） */
+    .rc-status { background:#fef9e7; border:1px solid rgba(245,210,74,.55); border-radius:14px;
+      padding:18px 22px; margin-bottom:36px; }
+    .rc-status__main { font-size:15px; font-weight:700; color:#6b4f08; line-height:1.8; }
+    .rc-status__sub { font-size:13.5px; color:#7d6d60; line-height:1.9; margin-top:5px; }
+
+    /* 職場見学の案内＝このページの主役。白いカードで status より前に出す */
+    .rc-visit { background:#fff; border:1px solid rgba(0,0,0,.07); border-radius:20px;
+      padding:32px 28px; margin-bottom:52px; box-shadow:0 6px 24px rgba(0,0,0,.045); }
+    .rc-visit__tag { font-family:"Inter",sans-serif; font-size:10px; font-weight:600;
+      letter-spacing:.2em; text-transform:uppercase; color:#8a6408; margin-bottom:8px; }
+    .rc-visit__title { font-size:clamp(1.15rem,2.2vw,1.45rem); font-weight:700; color:var(--ink);
+      line-height:1.5; margin-bottom:14px; }
+    .rc-visit__body { font-size:14.5px; color:#6b5a4c; line-height:2; margin-bottom:22px; }
+    .rc-visit__list { list-style:none; margin:0 0 26px; padding:0; border-top:1px solid rgba(0,0,0,.06); }
+    .rc-visit__list li { display:flex; gap:14px; padding:12px 2px;
+      border-bottom:1px solid rgba(0,0,0,.06); font-size:14px; line-height:1.75; }
+    .rc-visit__k { flex:0 0 72px; font-size:13px; font-weight:700; color:#8a6408; }
+    .rc-visit__v { flex:1; color:#6b5a4c; }
+    .rc-visit__v strong { color:var(--ink); font-weight:700; }
+
+    /* Instagram への導線。告知先がここしかないことを note で明示する */
+    .rc-insta { text-align:center; }
+    .rc-insta__btn { display:inline-flex; align-items:center; gap:9px; padding:14px 30px;
+      background:var(--coral); color:#fff; font-size:15px; font-weight:700; border-radius:100px;
+      box-shadow:0 6px 20px rgba(242,144,108,.3); transition:transform .2s, box-shadow .2s; }
+    .rc-insta__btn:hover { transform:translateY(-2px); box-shadow:0 10px 28px rgba(242,144,108,.4); }
+    .rc-insta__btn svg { width:19px; height:19px; flex-shrink:0; }
+    .rc-insta__note { margin-top:13px; font-size:12.5px; color:#7d6d60; line-height:1.9; }
+
     /* Feature blocks */
     .pg-features { display:flex; flex-direction:column; gap:40px; margin-bottom:56px; }
     .pg-feat { display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:center; }
@@ -197,6 +227,11 @@
       .pg-page-header { padding:80px 20px 32px; }
       .pg-content { padding:32px 20px 60px; }
       .pg-feat { grid-template-columns:1fr; }
+      .rc-status { padding:16px 17px; }
+      .rc-visit { padding:24px 18px; }
+      .rc-visit__list li { gap:10px; font-size:13.5px; }
+      .rc-visit__k { flex-basis:62px; font-size:12.5px; }
+      .rc-insta__btn { padding:14px 22px; font-size:14.5px; }
       .footer { padding: 32px 16px 16px; }
       .footer__inner { grid-template-columns: 1fr; gap: 20px; }
     }
@@ -307,7 +342,7 @@
     <a href="./child.html" class="header__link">児童発達支援</a>
     <a href="./afterschool.html" class="header__link">放課後等デイサービス</a>
     <a href="./visit.html" class="header__link">保育所等訪問支援</a>
-    <a href="https://jp.indeed.com/cmp/C-Eighty-Percent-LLC/jobs" target="_blank" rel="noopener" class="header__link">採用情報</a>
+    <a href="./recruit.html" class="header__link">採用情報</a>
         <div class="header__cta-wrap">
       <span class="header__cta">お問い合わせ ›</span>
       <div class="header__cta-drop">
@@ -326,7 +361,7 @@
   <a href="./child.html" class="mn-link">児童発達支援</a>
   <a href="./afterschool.html" class="mn-link">放課後等デイサービス</a>
   <a href="./visit.html" class="mn-link">保育所等訪問支援</a>
-  <a href="https://jp.indeed.com/cmp/C-Eighty-Percent-LLC/jobs" target="_blank" rel="noopener" class="mn-link">採用情報</a>
+  <a href="./recruit.html" class="mn-link">採用情報</a>
   <a href="./contact.html" class="mn-link" style="color:var(--coral); font-weight:600;">お問い合わせ</a>
   <a class="mn-insta" href="https://www.instagram.com/blue_mouse_okayama/" target="_blank" rel="noopener" aria-label="Instagram">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>
@@ -343,27 +378,45 @@
 <!-- Content -->
 <div class="pg-content">
 
-  <div class="pg-intro fade-in">
-    <p class="pg-intro__lead">自分らしく、<em>働く。</em></p>
-    <p class="pg-intro__body">岡山で一番働きやすい職場を目指しています。</p>
+  <div class="rc-status fade-in">
+    <p class="rc-status__main">現在、スタッフの募集は行っておりません。</p>
+    <p class="rc-status__sub">ご関心をお寄せいただき、ありがとうございます。募集を再開する際も、このページとInstagramでお知らせします。</p>
+  </div>
+
+  <div class="rc-visit fade-in">
+    <p class="rc-visit__tag">Open Office</p>
+    <h2 class="rc-visit__title">12月に、職場見学を行います。</h2>
+    <p class="rc-visit__body">募集は止めていますが、「どんな場所なのか、一度見てみたい」という方のために、人数を限って職場見学の機会をつくります。こどもたちとスタッフが普段どう過ごしているかを、そのままご覧いただきます。</p>
+    <ul class="rc-visit__list">
+      <li><span class="rc-visit__k">時期</span><span class="rc-visit__v">12月中旬〜下旬を予定</span></li>
+      <li><span class="rc-visit__k">定員</span><span class="rc-visit__v">人数限定</span></li>
+      <li><span class="rc-visit__k">お知らせ</span><span class="rc-visit__v">日程と募集人数が決まり次第、<strong>Instagramでお知らせします</strong></span></li>
+    </ul>
+    <div class="rc-insta">
+      <a href="https://www.instagram.com/blue_mouse_okayama/" target="_blank" rel="noopener" class="rc-insta__btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        Instagramで最新情報を見る
+      </a>
+      <p class="rc-insta__note">見学の告知はInstagramで行います。人数が限られますので、<br>フォローと通知をオンにしてお待ちください。</p>
+    </div>
   </div>
 
   <div class="pg-features">
     <div class="pg-feat fade-in">
       <div class="pg-feat__img">
-        <img src="./photos/recruit_opt.jpg" alt="ビニールハウスで農作業体験に取り組むBLUE MOUSEのスタッフ｜岡山市の福祉求人" />
+        <img src="./photos/recruit_opt.jpg" alt="ビニールハウスで農作業体験に取り組むBLUE MOUSEのスタッフ｜岡山市の児童発達支援・放課後等デイサービス" />
       </div>
       <div class="pg-feat__text">
         <p class="pg-feat__tag">Recruit</p>
-        <h3 class="pg-feat__title">募集職種・詳しい待遇については、<br>お気軽にお問い合わせください。</h3>
-        <p class="pg-feat__desc">現在の募集状況や勤務条件など、詳細はお電話・お問い合わせフォームにてご案内しています。</p>
+        <h3 class="pg-feat__title">岡山で一番働きやすい職場を、<br>目指しています。</h3>
+        <p class="pg-feat__desc">決められた手順をこなす仕事ではなく、目の前のこどもに何が要るかを自分で考えて動く。そういう働き方を大事にしています。募集を再開したときは、この姿勢に合う方をお迎えしたいと考えています。</p>
       </div>
     </div>
   </div>
 
   <div class="pg-cta fade-in">
     <h2 class="pg-cta__title">採用に関するお問い合わせ</h2>
-    <p class="pg-cta__sub">お気軽にご相談ください。</p>
+    <p class="pg-cta__sub">募集の再開についてのご質問も、こちらからどうぞ。</p>
     <div class="cta-dock" id="ctaDock"></div>
     <p class="pg-cta__phone">お電話はこちら<br><a href="tel:0862733880"><strong>086-273-3880</strong></a></p>
   </div>
@@ -385,7 +438,7 @@
       <ul class="footer__nav">
         <li><a href="./child.html">児童発達支援事業</a></li>
         <li><a href="./afterschool.html">放課後等デイサービス</a></li>
-        <li><a href="https://jp.indeed.com/cmp/C-Eighty-Percent-LLC/jobs" target="_blank" rel="noopener">採用情報</a></li>
+        <li><a href="./recruit.html">採用情報</a></li>
         <li><a href="./contact.html">お問い合わせ</a></li>
         <li><a href="./privacy.html">プライバシーポリシー</a></li>
       </ul>
