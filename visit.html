@@ -145,7 +145,7 @@
        下の飾り線は装飾なので --yellow-dark のままでよい */
     .pg-hero__tag { display:inline-flex; align-items:center; gap:6px; font-family:"Inter",sans-serif; font-size:11px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:#8a6408; margin-bottom:10px; }
     .pg-hero__tag::before { content:''; width:20px; height:1px; background:var(--yellow-dark); opacity:.5; }
-    .pg-hero__title { font-family:"Zen Maru Gothic",sans-serif; font-size:clamp(1.8rem,3.5vw,2.6rem); font-weight:700; line-height:1.35; color:var(--ink); margin-bottom:12px; }
+    .pg-hero__title { font-family:"Zen Maru Gothic",sans-serif; font-size:clamp(1.8rem,3.5vw,2.6rem); font-weight:700; line-height:1.35; color:var(--ink); margin-bottom:12px;  text-wrap:balance;}
     .pg-hero__sub { font-size:15px; color:#8a7a6e; line-height:1.9; }
     .pg-hero__visual { order:2; position:relative; }
     .pg-hero__img-wrap { position:relative; border-radius:24px; overflow:hidden; aspect-ratio:16/11; box-shadow:0 12px 40px rgba(0,0,0,.08); }
@@ -465,7 +465,7 @@
     /* CTA */
     .pg-cta { text-align:center; padding:var(--sp-7) var(--sp-6); background:linear-gradient(135deg, var(--yellow-light) 0%, var(--coral-light) 100%); border-radius:24px; margin-bottom:var(--section-gap); }
     .pg-cta__title { font-size:clamp(1.2rem,2.2vw,1.5rem); font-weight:700; color:var(--ink); margin-bottom:8px; }
-    .pg-cta__sub { font-size:14px; color:#7d6d60; margin-bottom:var(--sp-5); }
+    .pg-cta__sub { font-size:14px; color:#7d6d60; margin-bottom:var(--sp-5);  text-wrap:balance;}
     .pg-cta__phone { margin-top:var(--sp-5); font-size:13px; color:#7d6d60; }
     .pg-cta__phone strong { font-size:22px; font-weight:700; color:var(--ink); letter-spacing:.02em; }
     /* 発信リンクはインラインのままだとタップ領域が高さ18.5pxしかなく、
