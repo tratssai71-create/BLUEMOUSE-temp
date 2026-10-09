@@ -195,7 +195,11 @@
       box-shadow:0 6px 20px rgba(242,144,108,.3); transition:transform .2s, box-shadow .2s; }
     .rc-insta__btn:hover { transform:translateY(-2px); box-shadow:0 10px 28px rgba(242,144,108,.4); }
     .rc-insta__btn svg { width:19px; height:19px; flex-shrink:0; }
-    .rc-insta__note { margin-top:13px; font-size:12.5px; color:#7d6d60; line-height:1.9; }
+    /* 改行位置を <br> で固定すると、端末幅によって自然な折り返しと二重になり
+       「で、」だけが1行に残る。幅は端末任せにして、行の長さを揃えるのは
+       text-wrap:balance に任せる（未対応ブラウザでは通常の折り返しになるだけ） */
+    .rc-insta__note { margin-top:13px; font-size:12.5px; color:#7d6d60; line-height:1.9;
+      text-wrap:balance; max-width:30em; margin-inline:auto; }
     /* 402pxで浮かぶCTAがInstagramボタンに横19px重なり、右端が隠れていた。
        このページの主役はInstagramボタンなので、画面に出ている間は浮かぶCTAを引っ込める */
     .floating-cta.is-muted { opacity:0; pointer-events:none; }
@@ -457,7 +461,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
         Instagramで最新情報を見る
       </a>
-      <p class="rc-insta__note">見学の告知はInstagramで行います。人数が限られますので、<br>フォローと通知をオンにしてお待ちください。</p>
+      <p class="rc-insta__note">見学の告知はInstagramで行います。人数が限られますので、フォローと通知をオンにしてお待ちください。</p>
     </div>
   </div>
 
