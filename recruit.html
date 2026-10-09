@@ -86,13 +86,13 @@
   <meta property="og:url" content="https://bluemouse.blue/recruit.html" />
   <meta property="og:title" content="採用情報｜岡山市の児童発達支援・放課後等デイ｜BLUE MOUSE" />
   <meta property="og:description" content="募集していた人数を超えるご応募をいただき、現在は受付を止めています。2026年12月中旬に、人数を限って職場見学を行う予定です。実施の有無や日程は決まり次第Instagramでお知らせします。" />
-  <meta property="og:image" content="https://bluemouse.blue/photos/recruit_opt.jpg" />
+  <meta property="og:image" content="https://bluemouse.blue/photos/recruit_team_stand_opt.jpg" />
   <meta property="og:site_name" content="BLUE MOUSE" />
   <meta property="og:locale" content="ja_JP" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="児童発達支援・放課後等デイの求人｜岡山市｜BLUE MOUSE" />
   <meta name="twitter:description" content="岡山市のBLUE MOUSEでスタッフを募集しています。児童発達支援（北区辰巳）・放課後等デイサービス（中区徳吉町）。自分らしく働ける職場を目指しています。" />
-  <meta name="twitter:image" content="https://bluemouse.blue/photos/recruit_opt.jpg" />
+  <meta name="twitter:image" content="https://bluemouse.blue/photos/recruit_team_stand_opt.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -205,6 +205,23 @@
     .pg-feat { display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:center; }
     .pg-feat__img { border-radius:16px; overflow:hidden; aspect-ratio:16/10; }
     .pg-feat__img img { width:100%; height:100%; object-fit:cover; object-position:center 30%; }
+    /* トップページの採用カードと同じ2枚重ね。同じ場所・同じ構図の「立っている」「跳んでいる」を
+       揃えて重ねるので、全員がふわりと跳ぶように見える。
+       下の1枚は常に不透明のままにして、上の1枚だけを出し入れする。
+       2枚とも半透明にすると合成後の不透明度が1を下回り、背後の地色が透ける */
+    .pg-feat__img--cross { position:relative; }
+    .pg-feat__img--cross img { position:absolute; inset:0; }
+    /* 1.1秒見せて0.65秒かけて入れ替える（周期3.5秒）。トップページと同じ速さに揃える */
+    .pg-feat__img-alt { opacity:0; animation:featCross 3.5s ease-in-out infinite; }
+    @keyframes featCross {
+      0%, 31%  { opacity:0; }
+      50%, 81% { opacity:1; }
+      100%     { opacity:0; }
+    }
+    /* 動きを減らす設定の端末では入れ替えを止め、下の1枚だけを見せる */
+    @media (prefers-reduced-motion: reduce) {
+      .pg-feat__img-alt { animation:none; opacity:0; }
+    }
     .pg-feat__tag { font-family:"Inter",sans-serif; font-size:10px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--teal); margin-bottom:6px; }
     .pg-feat__title { font-size:18px; font-weight:700; color:var(--ink); margin-bottom:10px; line-height:1.45; }
     .pg-feat__desc { font-size:14px; color:#6b5a4c; line-height:1.9; }
@@ -442,8 +459,9 @@
 
   <div class="pg-features">
     <div class="pg-feat fade-in">
-      <div class="pg-feat__img">
-        <img src="./photos/recruit_opt.jpg" alt="ビニールハウスで農作業体験に取り組むBLUE MOUSEのスタッフ｜岡山市の児童発達支援・放課後等デイサービス" />
+      <div class="pg-feat__img pg-feat__img--cross">
+        <img src="./photos/recruit_team_stand_opt.jpg" alt="畑を背にして並ぶBLUE MOUSEのスタッフ｜岡山市の児童発達支援・放課後等デイサービス求人" style="object-position:center 72%;" />
+        <img src="./photos/recruit_team_jump_opt.jpg" alt="青空の下でジャンプして喜ぶBLUE MOUSEのスタッフ8名｜岡山市の児童発達支援・放課後等デイサービス求人" aria-hidden="true" class="pg-feat__img-alt" style="object-position:center 72%;" />
       </div>
       <div class="pg-feat__text">
         <p class="pg-feat__tag">Recruit</p>
