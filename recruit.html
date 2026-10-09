@@ -80,12 +80,12 @@
   </script>
   <meta name="theme-color" content="#FFFEFB" />
   <title>採用情報｜岡山市の児童発達支援・放課後等デイ｜BLUE MOUSE</title>
-  <meta name="description" content="募集していた人数を超えるご応募をいただき、現在は受付を止めています。事業拡大にともない、2027年3月までに再度募集を行う予定です。2026年12月中旬に、人数を限って職場見学を行う予定です。実施の有無や日程は決まり次第Instagramでお知らせします。岡山市の児童発達支援・放課後等デイサービス BLUE MOUSE。" />
+  <meta name="description" content="募集していた人数を超えるご応募をいただき、現在は受付を止めています。事業拡大にともない、2027年春ごろに再度募集を行う予定です。2026年12月中旬に、人数を限って職場見学を行う予定です。実施の有無や日程は決まり次第Instagramでお知らせします。岡山市の児童発達支援・放課後等デイサービス BLUE MOUSE。" />
   <link rel="canonical" href="https://bluemouse.blue/recruit.html" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://bluemouse.blue/recruit.html" />
   <meta property="og:title" content="採用情報｜岡山市の児童発達支援・放課後等デイ｜BLUE MOUSE" />
-  <meta property="og:description" content="募集していた人数を超えるご応募をいただき、現在は受付を止めています。事業拡大にともない、2027年3月までに再度募集を行う予定です。2026年12月中旬に、人数を限って職場見学を行う予定です。実施の有無や日程は決まり次第Instagramでお知らせします。" />
+  <meta property="og:description" content="募集していた人数を超えるご応募をいただき、現在は受付を止めています。事業拡大にともない、2027年春ごろに再度募集を行う予定です。2026年12月中旬に、人数を限って職場見学を行う予定です。実施の有無や日程は決まり次第Instagramでお知らせします。" />
   <meta property="og:image" content="https://bluemouse.blue/photos/recruit_team_stand_opt.jpg" />
   <meta property="og:site_name" content="BLUE MOUSE" />
   <meta property="og:locale" content="ja_JP" />
@@ -433,8 +433,8 @@
          1回目「お一人おひとりと丁寧に向き合いたいと考えてのことです」＝動機の創作。
          2回目「いただいたご応募に、順にご対応しているところです」＝対応状況の推測。
          足すなら43さんが口にした事実をそのまま書く場合のみ。推測で埋めない。
-         下の一文は2027-03-31を過ぎると自動で「次の募集が決まりましたら〜」に戻る（下部のJS） -->
-    <p class="rc-status__sub" id="rcNextHiring">事業拡大にともない、2027年3月までに再度募集を行う予定です。日程が決まりましたら、このページとInstagramでお知らせします。</p>
+         下の一文は2027-05-31を過ぎると自動で「次の募集が決まりましたら〜」に戻る（下部のJS） -->
+    <p class="rc-status__sub" id="rcNextHiring">事業拡大にともない、2027年春ごろに再度募集を行う予定です。日程が決まりましたら、このページとInstagramでお知らせします。</p>
   </div>
 
   <div class="rc-visit fade-in">
@@ -741,10 +741,10 @@
   title.textContent = current.title;
   when.textContent = current.when;
 
-  // 再募集の予定も同じ考え方で期限を切る。2027年3月を過ぎても
-  // 「3月までに募集します」と言い続けると、待っていた人への約束を破った形になる
+  // 再募集の予定も同じ考え方で期限を切る。春（3〜5月）を過ぎても
+  // 「春ごろ募集します」と言い続けると、待っていた人への約束を破った形になる
   var next = document.getElementById('rcNextHiring');
-  if (next && today > '2027-03-31') {
+  if (next && today > '2027-05-31') {
     next.textContent = '次の募集が決まりましたら、このページとInstagramでお知らせします。';
   }
 })();
