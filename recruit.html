@@ -645,8 +645,10 @@
   }
 </style>
 <a href="./contact.html?role=recruit" class="floating-cta">
-  <span class="floating-cta__main">お問い合わせ</span>
-  <span class="floating-cta__sub">採用について</span>
+  <!-- main は2〜3文字の想定（他ページは「体験」「ご相談」）。6文字入れると
+       円78pxに対して文字が74pxになり、左右の余白が消える。sub 側に長い語を置く -->
+  <span class="floating-cta__main">採用</span>
+  <span class="floating-cta__sub">お問い合わせ</span>
   <svg class="floating-cta__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
 </a>
 <script>
